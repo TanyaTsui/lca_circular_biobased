@@ -1,0 +1,476 @@
+material_name,amount,unit,impact_category,impact_category_unit,impact_score,lca_method,lca_database
+Peas,1,kg,accumulated exceedance (AE),,0.00241723330099283,EF v3.1,ecoinvent-3.12
+Peas,1,kg,global warming potential (GWP100),,0.4093060276070756,EF v3.1,ecoinvent-3.12
+Peas,1,kg,global warming potential (GWP100),,0.0002809526499362504,EF v3.1,ecoinvent-3.12
+Peas,1,kg,global warming potential (GWP100),,0.40855475647166517,EF v3.1,ecoinvent-3.12
+Peas,1,kg,global warming potential (GWP100),,0.0004703184854741941,EF v3.1,ecoinvent-3.12
+Peas,1,kg,comparative toxic unit for ecosystems (CTUe),,7.5794659119231085,EF v3.1,ecoinvent-3.12
+Peas,1,kg,comparative toxic unit for ecosystems (CTUe),,3.6535825176402548,EF v3.1,ecoinvent-3.12
+Peas,1,kg,comparative toxic unit for ecosystems (CTUe),,3.925883394282856,EF v3.1,ecoinvent-3.12
+Peas,1,kg,abiotic depletion potential (ADP): fossil fuels,,3.608542731076722,EF v3.1,ecoinvent-3.12
+Peas,1,kg,fraction of nutrients reaching freshwater end compartment (P),,0.0001598538569890039,EF v3.1,ecoinvent-3.12
+Peas,1,kg,fraction of nutrients reaching marine end compartment (N),,0.012591620600043978,EF v3.1,ecoinvent-3.12
+Peas,1,kg,accumulated exceedance (AE),,0.008957232909863201,EF v3.1,ecoinvent-3.12
+Peas,1,kg,comparative toxic unit for human (CTUh),,3.014765061971872e-10,EF v3.1,ecoinvent-3.12
+Peas,1,kg,comparative toxic unit for human (CTUh),,1.6970309708813702e-10,EF v3.1,ecoinvent-3.12
+Peas,1,kg,comparative toxic unit for human (CTUh),,1.3177340910905024e-10,EF v3.1,ecoinvent-3.12
+Peas,1,kg,comparative toxic unit for human (CTUh),,3.257294836363252e-08,EF v3.1,ecoinvent-3.12
+Peas,1,kg,comparative toxic unit for human (CTUh),,3.1595350601368423e-08,EF v3.1,ecoinvent-3.12
+Peas,1,kg,comparative toxic unit for human (CTUh),,9.775977622641046e-10,EF v3.1,ecoinvent-3.12
+Peas,1,kg,human exposure efficiency relative to u235,,0.009601408686845734,EF v3.1,ecoinvent-3.12
+Peas,1,kg,soil quality index,,156.34527869012908,EF v3.1,ecoinvent-3.12
+Peas,1,kg,abiotic depletion potential (ADP): elements (ultimate reserves),,3.264814518563852e-06,EF v3.1,ecoinvent-3.12
+Peas,1,kg,ozone depletion potential (ODP),,1.3079819638521673e-08,EF v3.1,ecoinvent-3.12
+Peas,1,kg,impact on human health,,1.7281997591730597e-08,EF v3.1,ecoinvent-3.12
+Peas,1,kg,tropospheric ozone concentration increase,,0.002626371918262963,EF v3.1,ecoinvent-3.12
+Peas,1,kg,user deprivation potential (deprivation-weighted water consumption),,2.561227474092923,EF v3.1,ecoinvent-3.12
+Cotton fiber,1,kg,accumulated exceedance (AE),,0.02097539764331403,EF v3.1,ecoinvent-3.12
+Cotton fiber,1,kg,global warming potential (GWP100),,0.9834780805573564,EF v3.1,ecoinvent-3.12
+Cotton fiber,1,kg,global warming potential (GWP100),,0.0003756358112430081,EF v3.1,ecoinvent-3.12
+Cotton fiber,1,kg,global warming potential (GWP100),,0.7088829541609639,EF v3.1,ecoinvent-3.12
+Cotton fiber,1,kg,global warming potential (GWP100),,0.27421949058514944,EF v3.1,ecoinvent-3.12
+Cotton fiber,1,kg,comparative toxic unit for ecosystems (CTUe),,149.40879782849836,EF v3.1,ecoinvent-3.12
+Cotton fiber,1,kg,comparative toxic unit for ecosystems (CTUe),,4.25563743390269,EF v3.1,ecoinvent-3.12
+Cotton fiber,1,kg,comparative toxic unit for ecosystems (CTUe),,145.15316039459566,EF v3.1,ecoinvent-3.12
+Cotton fiber,1,kg,abiotic depletion potential (ADP): fossil fuels,,5.437472871700578,EF v3.1,ecoinvent-3.12
+Cotton fiber,1,kg,fraction of nutrients reaching freshwater end compartment (P),,0.0009511534567387994,EF v3.1,ecoinvent-3.12
+Cotton fiber,1,kg,fraction of nutrients reaching marine end compartment (N),,0.021221144399064612,EF v3.1,ecoinvent-3.12
+Cotton fiber,1,kg,accumulated exceedance (AE),,0.08927846104482257,EF v3.1,ecoinvent-3.12
+Cotton fiber,1,kg,comparative toxic unit for human (CTUh),,-1.2242354735467544e-10,EF v3.1,ecoinvent-3.12
+Cotton fiber,1,kg,comparative toxic unit for human (CTUh),,-2.9780231378523607e-10,EF v3.1,ecoinvent-3.12
+Cotton fiber,1,kg,comparative toxic unit for human (CTUh),,1.7537876643056055e-10,EF v3.1,ecoinvent-3.12
+Cotton fiber,1,kg,comparative toxic unit for human (CTUh),,6.378924202374136e-09,EF v3.1,ecoinvent-3.12
+Cotton fiber,1,kg,comparative toxic unit for human (CTUh),,-1.3431666032518738e-08,EF v3.1,ecoinvent-3.12
+Cotton fiber,1,kg,comparative toxic unit for human (CTUh),,1.981059023489289e-08,EF v3.1,ecoinvent-3.12
+Cotton fiber,1,kg,human exposure efficiency relative to u235,,0.016500920019781287,EF v3.1,ecoinvent-3.12
+Cotton fiber,1,kg,soil quality index,,97.38687188469044,EF v3.1,ecoinvent-3.12
+Cotton fiber,1,kg,abiotic depletion potential (ADP): elements (ultimate reserves),,6.159456062935087e-06,EF v3.1,ecoinvent-3.12
+Cotton fiber,1,kg,ozone depletion potential (ODP),,1.492253122041605e-08,EF v3.1,ecoinvent-3.12
+Cotton fiber,1,kg,impact on human health,,1.4757909729510608e-07,EF v3.1,ecoinvent-3.12
+Cotton fiber,1,kg,tropospheric ozone concentration increase,,0.00332640664067222,EF v3.1,ecoinvent-3.12
+Cotton fiber,1,kg,user deprivation potential (deprivation-weighted water consumption),,15.59060632161308,EF v3.1,ecoinvent-3.12
+Hemp fiber,1,kg,accumulated exceedance (AE),,0.028951229926539132,EF v3.1,ecoinvent-3.12
+Hemp fiber,1,kg,global warming potential (GWP100),,0.8149675608632093,EF v3.1,ecoinvent-3.12
+Hemp fiber,1,kg,global warming potential (GWP100),,0.018624277808982702,EF v3.1,ecoinvent-3.12
+Hemp fiber,1,kg,global warming potential (GWP100),,0.7958291836809505,EF v3.1,ecoinvent-3.12
+Hemp fiber,1,kg,global warming potential (GWP100),,0.000514099373276218,EF v3.1,ecoinvent-3.12
+Hemp fiber,1,kg,comparative toxic unit for ecosystems (CTUe),,4.750181989926597,EF v3.1,ecoinvent-3.12
+Hemp fiber,1,kg,comparative toxic unit for ecosystems (CTUe),,4.059946731212111,EF v3.1,ecoinvent-3.12
+Hemp fiber,1,kg,comparative toxic unit for ecosystems (CTUe),,0.6902352587144855,EF v3.1,ecoinvent-3.12
+Hemp fiber,1,kg,abiotic depletion potential (ADP): fossil fuels,,11.628608901311905,EF v3.1,ecoinvent-3.12
+Hemp fiber,1,kg,fraction of nutrients reaching freshwater end compartment (P),,0.0005073798206911393,EF v3.1,ecoinvent-3.12
+Hemp fiber,1,kg,fraction of nutrients reaching marine end compartment (N),,0.017450981056676897,EF v3.1,ecoinvent-3.12
+Hemp fiber,1,kg,accumulated exceedance (AE),,0.1273948296163546,EF v3.1,ecoinvent-3.12
+Hemp fiber,1,kg,comparative toxic unit for human (CTUh),,-6.633109437147039e-11,EF v3.1,ecoinvent-3.12
+Hemp fiber,1,kg,comparative toxic unit for human (CTUh),,-1.447205509794961e-10,EF v3.1,ecoinvent-3.12
+Hemp fiber,1,kg,comparative toxic unit for human (CTUh),,7.83894566080257e-11,EF v3.1,ecoinvent-3.12
+Hemp fiber,1,kg,comparative toxic unit for human (CTUh),,-2.1895798617388622e-08,EF v3.1,ecoinvent-3.12
+Hemp fiber,1,kg,comparative toxic unit for human (CTUh),,-2.2312816658677063e-08,EF v3.1,ecoinvent-3.12
+Hemp fiber,1,kg,comparative toxic unit for human (CTUh),,4.1701804128843847e-10,EF v3.1,ecoinvent-3.12
+Hemp fiber,1,kg,human exposure efficiency relative to u235,,0.2773670510709965,EF v3.1,ecoinvent-3.12
+Hemp fiber,1,kg,soil quality index,,66.9916259058363,EF v3.1,ecoinvent-3.12
+Hemp fiber,1,kg,abiotic depletion potential (ADP): elements (ultimate reserves),,3.910140191011971e-06,EF v3.1,ecoinvent-3.12
+Hemp fiber,1,kg,ozone depletion potential (ODP),,9.266943137473664e-09,EF v3.1,ecoinvent-3.12
+Hemp fiber,1,kg,impact on human health,,1.9432238616435376e-07,EF v3.1,ecoinvent-3.12
+Hemp fiber,1,kg,tropospheric ozone concentration increase,,0.005489579711927892,EF v3.1,ecoinvent-3.12
+Hemp fiber,1,kg,user deprivation potential (deprivation-weighted water consumption),,0.27321918780801463,EF v3.1,ecoinvent-3.12
+Kenaf fiber,1,kg,accumulated exceedance (AE),,0.030761653323981345,EF v3.1,ecoinvent-3.12
+Kenaf fiber,1,kg,global warming potential (GWP100),,1.4039895992077038,EF v3.1,ecoinvent-3.12
+Kenaf fiber,1,kg,global warming potential (GWP100),,0.4079256494223162,EF v3.1,ecoinvent-3.12
+Kenaf fiber,1,kg,global warming potential (GWP100),,0.9803859619420825,EF v3.1,ecoinvent-3.12
+Kenaf fiber,1,kg,global warming potential (GWP100),,0.01567798784330535,EF v3.1,ecoinvent-3.12
+Kenaf fiber,1,kg,comparative toxic unit for ecosystems (CTUe),,6.906601744456179,EF v3.1,ecoinvent-3.12
+Kenaf fiber,1,kg,comparative toxic unit for ecosystems (CTUe),,6.089268997341273,EF v3.1,ecoinvent-3.12
+Kenaf fiber,1,kg,comparative toxic unit for ecosystems (CTUe),,0.8173327471149044,EF v3.1,ecoinvent-3.12
+Kenaf fiber,1,kg,abiotic depletion potential (ADP): fossil fuels,,8.54036684453081,EF v3.1,ecoinvent-3.12
+Kenaf fiber,1,kg,fraction of nutrients reaching freshwater end compartment (P),,0.001188468767494216,EF v3.1,ecoinvent-3.12
+Kenaf fiber,1,kg,fraction of nutrients reaching marine end compartment (N),,0.01822565994786211,EF v3.1,ecoinvent-3.12
+Kenaf fiber,1,kg,accumulated exceedance (AE),,0.13522278819644015,EF v3.1,ecoinvent-3.12
+Kenaf fiber,1,kg,comparative toxic unit for human (CTUh),,-7.894510256212302e-10,EF v3.1,ecoinvent-3.12
+Kenaf fiber,1,kg,comparative toxic unit for human (CTUh),,-1.4714745540707538e-09,EF v3.1,ecoinvent-3.12
+Kenaf fiber,1,kg,comparative toxic unit for human (CTUh),,6.820235284495237e-10,EF v3.1,ecoinvent-3.12
+Kenaf fiber,1,kg,comparative toxic unit for human (CTUh),,-2.1878966218362362e-07,EF v3.1,ecoinvent-3.12
+Kenaf fiber,1,kg,comparative toxic unit for human (CTUh),,-2.2014820320286843e-07,EF v3.1,ecoinvent-3.12
+Kenaf fiber,1,kg,comparative toxic unit for human (CTUh),,1.3585410192447776e-09,EF v3.1,ecoinvent-3.12
+Kenaf fiber,1,kg,human exposure efficiency relative to u235,,0.022684701762956748,EF v3.1,ecoinvent-3.12
+Kenaf fiber,1,kg,soil quality index,,127.2466225374551,EF v3.1,ecoinvent-3.12
+Kenaf fiber,1,kg,abiotic depletion potential (ADP): elements (ultimate reserves),,6.564757968285341e-06,EF v3.1,ecoinvent-3.12
+Kenaf fiber,1,kg,ozone depletion potential (ODP),,2.3537211033660383e-08,EF v3.1,ecoinvent-3.12
+Kenaf fiber,1,kg,impact on human health,,8.18142527458714e-07,EF v3.1,ecoinvent-3.12
+Kenaf fiber,1,kg,tropospheric ozone concentration increase,,0.00882555097821869,EF v3.1,ecoinvent-3.12
+Kenaf fiber,1,kg,user deprivation potential (deprivation-weighted water consumption),,21.903898240120487,EF v3.1,ecoinvent-3.12
+Jute fiber,1,kg,accumulated exceedance (AE),,0.07114171185464309,EF v3.1,ecoinvent-3.12
+Jute fiber,1,kg,global warming potential (GWP100),,1.9455061400369398,EF v3.1,ecoinvent-3.12
+Jute fiber,1,kg,global warming potential (GWP100),,0.11603648990559602,EF v3.1,ecoinvent-3.12
+Jute fiber,1,kg,global warming potential (GWP100),,1.5966312411756185,EF v3.1,ecoinvent-3.12
+Jute fiber,1,kg,global warming potential (GWP100),,0.23283840895572538,EF v3.1,ecoinvent-3.12
+Jute fiber,1,kg,comparative toxic unit for ecosystems (CTUe),,122.17718092324886,EF v3.1,ecoinvent-3.12
+Jute fiber,1,kg,comparative toxic unit for ecosystems (CTUe),,19.996901451435306,EF v3.1,ecoinvent-3.12
+Jute fiber,1,kg,comparative toxic unit for ecosystems (CTUe),,102.18027947181355,EF v3.1,ecoinvent-3.12
+Jute fiber,1,kg,abiotic depletion potential (ADP): fossil fuels,,12.581410252228295,EF v3.1,ecoinvent-3.12
+Jute fiber,1,kg,fraction of nutrients reaching freshwater end compartment (P),,0.01783962859403049,EF v3.1,ecoinvent-3.12
+Jute fiber,1,kg,fraction of nutrients reaching marine end compartment (N),,0.036524583718464336,EF v3.1,ecoinvent-3.12
+Jute fiber,1,kg,accumulated exceedance (AE),,0.3103450071766848,EF v3.1,ecoinvent-3.12
+Jute fiber,1,kg,comparative toxic unit for human (CTUh),,-4.285773293608021e-09,EF v3.1,ecoinvent-3.12
+Jute fiber,1,kg,comparative toxic unit for human (CTUh),,-4.633981964662265e-09,EF v3.1,ecoinvent-3.12
+Jute fiber,1,kg,comparative toxic unit for human (CTUh),,3.4820867105424324e-10,EF v3.1,ecoinvent-3.12
+Jute fiber,1,kg,comparative toxic unit for human (CTUh),,-3.618912891774437e-07,EF v3.1,ecoinvent-3.12
+Jute fiber,1,kg,comparative toxic unit for human (CTUh),,-3.650400863958903e-07,EF v3.1,ecoinvent-3.12
+Jute fiber,1,kg,comparative toxic unit for human (CTUh),,3.1487972184465794e-09,EF v3.1,ecoinvent-3.12
+Jute fiber,1,kg,human exposure efficiency relative to u235,,0.023371129287021328,EF v3.1,ecoinvent-3.12
+Jute fiber,1,kg,soil quality index,,190.7903714735553,EF v3.1,ecoinvent-3.12
+Jute fiber,1,kg,abiotic depletion potential (ADP): elements (ultimate reserves),,1.4067693604294496e-05,EF v3.1,ecoinvent-3.12
+Jute fiber,1,kg,ozone depletion potential (ODP),,1.2160870059055076e-08,EF v3.1,ecoinvent-3.12
+Jute fiber,1,kg,impact on human health,,4.936282532521146e-07,EF v3.1,ecoinvent-3.12
+Jute fiber,1,kg,tropospheric ozone concentration increase,,0.009350630554669283,EF v3.1,ecoinvent-3.12
+Jute fiber,1,kg,user deprivation potential (deprivation-weighted water consumption),,17.317417242558665,EF v3.1,ecoinvent-3.12
+Grass fiber,1,kg,accumulated exceedance (AE),,0.028245069489448237,EF v3.1,ecoinvent-3.12
+Grass fiber,1,kg,global warming potential (GWP100),,0.846665917234679,EF v3.1,ecoinvent-3.12
+Grass fiber,1,kg,global warming potential (GWP100),,0.002792155098001362,EF v3.1,ecoinvent-3.12
+Grass fiber,1,kg,global warming potential (GWP100),,0.8433240677278158,EF v3.1,ecoinvent-3.12
+Grass fiber,1,kg,global warming potential (GWP100),,0.0005496944088619461,EF v3.1,ecoinvent-3.12
+Grass fiber,1,kg,comparative toxic unit for ecosystems (CTUe),,2.1069410911750293,EF v3.1,ecoinvent-3.12
+Grass fiber,1,kg,comparative toxic unit for ecosystems (CTUe),,2.0159606492683406,EF v3.1,ecoinvent-3.12
+Grass fiber,1,kg,comparative toxic unit for ecosystems (CTUe),,0.09098044190668797,EF v3.1,ecoinvent-3.12
+Grass fiber,1,kg,abiotic depletion potential (ADP): fossil fuels,,10.845346891293152,EF v3.1,ecoinvent-3.12
+Grass fiber,1,kg,fraction of nutrients reaching freshwater end compartment (P),,0.00016864558532523645,EF v3.1,ecoinvent-3.12
+Grass fiber,1,kg,fraction of nutrients reaching marine end compartment (N),,0.007418589173228381,EF v3.1,ecoinvent-3.12
+Grass fiber,1,kg,accumulated exceedance (AE),,0.1241224928179924,EF v3.1,ecoinvent-3.12
+Grass fiber,1,kg,comparative toxic unit for human (CTUh),,-3.9686857870091686e-10,EF v3.1,ecoinvent-3.12
+Grass fiber,1,kg,comparative toxic unit for human (CTUh),,-4.984826467802346e-10,EF v3.1,ecoinvent-3.12
+Grass fiber,1,kg,comparative toxic unit for human (CTUh),,1.0161406807931767e-10,EF v3.1,ecoinvent-3.12
+Grass fiber,1,kg,comparative toxic unit for human (CTUh),,-7.628972745453463e-08,EF v3.1,ecoinvent-3.12
+Grass fiber,1,kg,comparative toxic unit for human (CTUh),,-7.676093582183698e-08,EF v3.1,ecoinvent-3.12
+Grass fiber,1,kg,comparative toxic unit for human (CTUh),,4.712083673023577e-10,EF v3.1,ecoinvent-3.12
+Grass fiber,1,kg,human exposure efficiency relative to u235,,0.17463511954838767,EF v3.1,ecoinvent-3.12
+Grass fiber,1,kg,soil quality index,,165.26189741032007,EF v3.1,ecoinvent-3.12
+Grass fiber,1,kg,abiotic depletion potential (ADP): elements (ultimate reserves),,2.825651836764215e-06,EF v3.1,ecoinvent-3.12
+Grass fiber,1,kg,ozone depletion potential (ODP),,1.3439211582553365e-08,EF v3.1,ecoinvent-3.12
+Grass fiber,1,kg,impact on human health,,2.9902076365622094e-07,EF v3.1,ecoinvent-3.12
+Grass fiber,1,kg,tropospheric ozone concentration increase,,0.00408176504959434,EF v3.1,ecoinvent-3.12
+Grass fiber,1,kg,user deprivation potential (deprivation-weighted water consumption),,0.43187813000771136,EF v3.1,ecoinvent-3.12
+Bark chips,1,kg,accumulated exceedance (AE),,0.00019023399953196028,EF v3.1,ecoinvent-3.12
+Bark chips,1,kg,global warming potential (GWP100),,0.03500618881194048,EF v3.1,ecoinvent-3.12
+Bark chips,1,kg,global warming potential (GWP100),,5.2124505709119435e-05,EF v3.1,ecoinvent-3.12
+Bark chips,1,kg,global warming potential (GWP100),,0.03481368983136135,EF v3.1,ecoinvent-3.12
+Bark chips,1,kg,global warming potential (GWP100),,0.0001403744748700173,EF v3.1,ecoinvent-3.12
+Bark chips,1,kg,comparative toxic unit for ecosystems (CTUe),,0.10663924696586566,EF v3.1,ecoinvent-3.12
+Bark chips,1,kg,comparative toxic unit for ecosystems (CTUe),,0.09703139915873576,EF v3.1,ecoinvent-3.12
+Bark chips,1,kg,comparative toxic unit for ecosystems (CTUe),,0.00960784780712988,EF v3.1,ecoinvent-3.12
+Bark chips,1,kg,abiotic depletion potential (ADP): fossil fuels,,0.5321708184224357,EF v3.1,ecoinvent-3.12
+Bark chips,1,kg,fraction of nutrients reaching freshwater end compartment (P),,9.781691771807604e-06,EF v3.1,ecoinvent-3.12
+Bark chips,1,kg,fraction of nutrients reaching marine end compartment (N),,6.45243872817187e-05,EF v3.1,ecoinvent-3.12
+Bark chips,1,kg,accumulated exceedance (AE),,0.0006812739704654074,EF v3.1,ecoinvent-3.12
+Bark chips,1,kg,comparative toxic unit for human (CTUh),,1.464737841204248e-11,EF v3.1,ecoinvent-3.12
+Bark chips,1,kg,comparative toxic unit for human (CTUh),,3.503264764976376e-12,EF v3.1,ecoinvent-3.12
+Bark chips,1,kg,comparative toxic unit for human (CTUh),,1.1144113647066103e-11,EF v3.1,ecoinvent-3.12
+Bark chips,1,kg,comparative toxic unit for human (CTUh),,3.1961438524632e-10,EF v3.1,ecoinvent-3.12
+Bark chips,1,kg,comparative toxic unit for human (CTUh),,2.821654471538643e-10,EF v3.1,ecoinvent-3.12
+Bark chips,1,kg,comparative toxic unit for human (CTUh),,3.74489380924557e-11,EF v3.1,ecoinvent-3.12
+Bark chips,1,kg,human exposure efficiency relative to u235,,0.004297695665677715,EF v3.1,ecoinvent-3.12
+Bark chips,1,kg,soil quality index,,18.185006904781034,EF v3.1,ecoinvent-3.12
+Bark chips,1,kg,abiotic depletion potential (ADP): elements (ultimate reserves),,1.326492088599458e-07,EF v3.1,ecoinvent-3.12
+Bark chips,1,kg,ozone depletion potential (ODP),,7.147574381533895e-10,EF v3.1,ecoinvent-3.12
+Bark chips,1,kg,impact on human health,,3.434147998919271e-09,EF v3.1,ecoinvent-3.12
+Bark chips,1,kg,tropospheric ozone concentration increase,,0.0002486051962367135,EF v3.1,ecoinvent-3.12
+Bark chips,1,kg,user deprivation potential (deprivation-weighted water consumption),,0.008764895575923507,EF v3.1,ecoinvent-3.12
+Sawdust,1,kg,accumulated exceedance (AE),,0.00015266778076480323,EF v3.1,ecoinvent-3.12
+Sawdust,1,kg,global warming potential (GWP100),,0.031136242801409857,EF v3.1,ecoinvent-3.12
+Sawdust,1,kg,global warming potential (GWP100),,3.054908369841797e-05,EF v3.1,ecoinvent-3.12
+Sawdust,1,kg,global warming potential (GWP100),,0.030977004800350087,EF v3.1,ecoinvent-3.12
+Sawdust,1,kg,global warming potential (GWP100),,0.00012868891736134684,EF v3.1,ecoinvent-3.12
+Sawdust,1,kg,comparative toxic unit for ecosystems (CTUe),,0.07472692445829615,EF v3.1,ecoinvent-3.12
+Sawdust,1,kg,comparative toxic unit for ecosystems (CTUe),,0.07021016917589948,EF v3.1,ecoinvent-3.12
+Sawdust,1,kg,comparative toxic unit for ecosystems (CTUe),,0.004516755282396691,EF v3.1,ecoinvent-3.12
+Sawdust,1,kg,abiotic depletion potential (ADP): fossil fuels,,0.5124336690906862,EF v3.1,ecoinvent-3.12
+Sawdust,1,kg,fraction of nutrients reaching freshwater end compartment (P),,1.2807369307581315e-05,EF v3.1,ecoinvent-3.12
+Sawdust,1,kg,fraction of nutrients reaching marine end compartment (N),,4.806733345533984e-05,EF v3.1,ecoinvent-3.12
+Sawdust,1,kg,accumulated exceedance (AE),,0.0004959297110737299,EF v3.1,ecoinvent-3.12
+Sawdust,1,kg,comparative toxic unit for human (CTUh),,8.50442666691806e-12,EF v3.1,ecoinvent-3.12
+Sawdust,1,kg,comparative toxic unit for human (CTUh),,2.5697497718344904e-12,EF v3.1,ecoinvent-3.12
+Sawdust,1,kg,comparative toxic unit for human (CTUh),,5.93467689508357e-12,EF v3.1,ecoinvent-3.12
+Sawdust,1,kg,comparative toxic unit for human (CTUh),,2.5769954930762373e-10,EF v3.1,ecoinvent-3.12
+Sawdust,1,kg,comparative toxic unit for human (CTUh),,2.3110227797681567e-10,EF v3.1,ecoinvent-3.12
+Sawdust,1,kg,comparative toxic unit for human (CTUh),,2.6597271330808053e-11,EF v3.1,ecoinvent-3.12
+Sawdust,1,kg,human exposure efficiency relative to u235,,0.0066041205888807235,EF v3.1,ecoinvent-3.12
+Sawdust,1,kg,soil quality index,,16.072551698206432,EF v3.1,ecoinvent-3.12
+Sawdust,1,kg,abiotic depletion potential (ADP): elements (ultimate reserves),,8.465917945969539e-08,EF v3.1,ecoinvent-3.12
+Sawdust,1,kg,ozone depletion potential (ODP),,5.615281976940771e-10,EF v3.1,ecoinvent-3.12
+Sawdust,1,kg,impact on human health,,2.0806573047833656e-09,EF v3.1,ecoinvent-3.12
+Sawdust,1,kg,tropospheric ozone concentration increase,,0.0001852558610054792,EF v3.1,ecoinvent-3.12
+Sawdust,1,kg,user deprivation potential (deprivation-weighted water consumption),,0.008084699196169578,EF v3.1,ecoinvent-3.12
+"Wood (hard wood, raw)",1,kg,accumulated exceedance (AE),,0.0004933633822931321,EF v3.1,ecoinvent-3.12
+"Wood (hard wood, raw)",1,kg,global warming potential (GWP100),,0.08764411230061878,EF v3.1,ecoinvent-3.12
+"Wood (hard wood, raw)",1,kg,global warming potential (GWP100),,5.571059027103421e-05,EF v3.1,ecoinvent-3.12
+"Wood (hard wood, raw)",1,kg,global warming potential (GWP100),,0.08656974471614184,EF v3.1,ecoinvent-3.12
+"Wood (hard wood, raw)",1,kg,global warming potential (GWP100),,0.0010186569942059014,EF v3.1,ecoinvent-3.12
+"Wood (hard wood, raw)",1,kg,comparative toxic unit for ecosystems (CTUe),,0.27202435994341506,EF v3.1,ecoinvent-3.12
+"Wood (hard wood, raw)",1,kg,comparative toxic unit for ecosystems (CTUe),,0.23411022034130402,EF v3.1,ecoinvent-3.12
+"Wood (hard wood, raw)",1,kg,comparative toxic unit for ecosystems (CTUe),,0.037914139602111076,EF v3.1,ecoinvent-3.12
+"Wood (hard wood, raw)",1,kg,abiotic depletion potential (ADP): fossil fuels,,1.1720547459005304,EF v3.1,ecoinvent-3.12
+"Wood (hard wood, raw)",1,kg,fraction of nutrients reaching freshwater end compartment (P),,1.56100621899545e-05,EF v3.1,ecoinvent-3.12
+"Wood (hard wood, raw)",1,kg,fraction of nutrients reaching marine end compartment (N),,0.00018438489589915424,EF v3.1,ecoinvent-3.12
+"Wood (hard wood, raw)",1,kg,accumulated exceedance (AE),,0.0019470592719649145,EF v3.1,ecoinvent-3.12
+"Wood (hard wood, raw)",1,kg,comparative toxic unit for human (CTUh),,4.178110468606438e-11,EF v3.1,ecoinvent-3.12
+"Wood (hard wood, raw)",1,kg,comparative toxic unit for human (CTUh),,6.483802208872098e-12,EF v3.1,ecoinvent-3.12
+"Wood (hard wood, raw)",1,kg,comparative toxic unit for human (CTUh),,3.5297302477192285e-11,EF v3.1,ecoinvent-3.12
+"Wood (hard wood, raw)",1,kg,comparative toxic unit for human (CTUh),,6.703564597842747e-10,EF v3.1,ecoinvent-3.12
+"Wood (hard wood, raw)",1,kg,comparative toxic unit for human (CTUh),,5.926423853125944e-10,EF v3.1,ecoinvent-3.12
+"Wood (hard wood, raw)",1,kg,comparative toxic unit for human (CTUh),,7.771407447168034e-11,EF v3.1,ecoinvent-3.12
+"Wood (hard wood, raw)",1,kg,human exposure efficiency relative to u235,,0.0030108606088341504,EF v3.1,ecoinvent-3.12
+"Wood (hard wood, raw)",1,kg,soil quality index,,88.95206563192708,EF v3.1,ecoinvent-3.12
+"Wood (hard wood, raw)",1,kg,abiotic depletion potential (ADP): elements (ultimate reserves),,2.3792359274407745e-07,EF v3.1,ecoinvent-3.12
+"Wood (hard wood, raw)",1,kg,ozone depletion potential (ODP),,1.2203295462444165e-09,EF v3.1,ecoinvent-3.12
+"Wood (hard wood, raw)",1,kg,impact on human health,,7.787355729842142e-09,EF v3.1,ecoinvent-3.12
+"Wood (hard wood, raw)",1,kg,tropospheric ozone concentration increase,,0.0008523548571147875,EF v3.1,ecoinvent-3.12
+"Wood (hard wood, raw)",1,kg,user deprivation potential (deprivation-weighted water consumption),,0.013081140616263738,EF v3.1,ecoinvent-3.12
+"Wood (soft wood, raw)",1,kg,accumulated exceedance (AE),,0.00034570698591405085,EF v3.1,ecoinvent-3.12
+"Wood (soft wood, raw)",1,kg,global warming potential (GWP100),,0.06139837629658148,EF v3.1,ecoinvent-3.12
+"Wood (soft wood, raw)",1,kg,global warming potential (GWP100),,5.371673726297866e-05,EF v3.1,ecoinvent-3.12
+"Wood (soft wood, raw)",1,kg,global warming potential (GWP100),,0.06069278865087393,EF v3.1,ecoinvent-3.12
+"Wood (soft wood, raw)",1,kg,global warming potential (GWP100),,0.0006518709084445701,EF v3.1,ecoinvent-3.12
+"Wood (soft wood, raw)",1,kg,comparative toxic unit for ecosystems (CTUe),,0.16370549856931632,EF v3.1,ecoinvent-3.12
+"Wood (soft wood, raw)",1,kg,comparative toxic unit for ecosystems (CTUe),,0.14414607823149223,EF v3.1,ecoinvent-3.12
+"Wood (soft wood, raw)",1,kg,comparative toxic unit for ecosystems (CTUe),,0.019559420337824113,EF v3.1,ecoinvent-3.12
+"Wood (soft wood, raw)",1,kg,abiotic depletion potential (ADP): fossil fuels,,0.8233397713129132,EF v3.1,ecoinvent-3.12
+"Wood (soft wood, raw)",1,kg,fraction of nutrients reaching freshwater end compartment (P),,1.3660242850958472e-05,EF v3.1,ecoinvent-3.12
+"Wood (soft wood, raw)",1,kg,fraction of nutrients reaching marine end compartment (N),,0.0001272006980426808,EF v3.1,ecoinvent-3.12
+"Wood (soft wood, raw)",1,kg,accumulated exceedance (AE),,0.0013483737545652449,EF v3.1,ecoinvent-3.12
+"Wood (soft wood, raw)",1,kg,comparative toxic unit for human (CTUh),,2.40401629270488e-11,EF v3.1,ecoinvent-3.12
+"Wood (soft wood, raw)",1,kg,comparative toxic unit for human (CTUh),,4.685571996824201e-12,EF v3.1,ecoinvent-3.12
+"Wood (soft wood, raw)",1,kg,comparative toxic unit for human (CTUh),,1.93545909302246e-11,EF v3.1,ecoinvent-3.12
+"Wood (soft wood, raw)",1,kg,comparative toxic unit for human (CTUh),,4.14925536114611e-10,EF v3.1,ecoinvent-3.12
+"Wood (soft wood, raw)",1,kg,comparative toxic unit for human (CTUh),,3.8393072662497027e-10,EF v3.1,ecoinvent-3.12
+"Wood (soft wood, raw)",1,kg,comparative toxic unit for human (CTUh),,3.0994809489640586e-11,EF v3.1,ecoinvent-3.12
+"Wood (soft wood, raw)",1,kg,human exposure efficiency relative to u235,,0.003886913802450196,EF v3.1,ecoinvent-3.12
+"Wood (soft wood, raw)",1,kg,soil quality index,,145.95188441724477,EF v3.1,ecoinvent-3.12
+"Wood (soft wood, raw)",1,kg,abiotic depletion potential (ADP): elements (ultimate reserves),,1.4425079754310224e-07,EF v3.1,ecoinvent-3.12
+"Wood (soft wood, raw)",1,kg,ozone depletion potential (ODP),,8.327192010135297e-10,EF v3.1,ecoinvent-3.12
+"Wood (soft wood, raw)",1,kg,impact on human health,,5.479295152403174e-09,EF v3.1,ecoinvent-3.12
+"Wood (soft wood, raw)",1,kg,tropospheric ozone concentration increase,,0.0005462045881588735,EF v3.1,ecoinvent-3.12
+"Wood (soft wood, raw)",1,kg,user deprivation potential (deprivation-weighted water consumption),,0.011458777541305068,EF v3.1,ecoinvent-3.12
+"Mechanical fastener (screws, nails, brackets)",1,kg,accumulated exceedance (AE),,0.009231819469282383,EF v3.1,ecoinvent-3.12
+"Mechanical fastener (screws, nails, brackets)",1,kg,global warming potential (GWP100),,2.28216699813283,EF v3.1,ecoinvent-3.12
+"Mechanical fastener (screws, nails, brackets)",1,kg,global warming potential (GWP100),,0.0017555707448617176,EF v3.1,ecoinvent-3.12
+"Mechanical fastener (screws, nails, brackets)",1,kg,global warming potential (GWP100),,2.2788954371364283,EF v3.1,ecoinvent-3.12
+"Mechanical fastener (screws, nails, brackets)",1,kg,global warming potential (GWP100),,0.0015159902515396136,EF v3.1,ecoinvent-3.12
+"Mechanical fastener (screws, nails, brackets)",1,kg,comparative toxic unit for ecosystems (CTUe),,15.627894703099898,EF v3.1,ecoinvent-3.12
+"Mechanical fastener (screws, nails, brackets)",1,kg,comparative toxic unit for ecosystems (CTUe),,15.233320498866545,EF v3.1,ecoinvent-3.12
+"Mechanical fastener (screws, nails, brackets)",1,kg,comparative toxic unit for ecosystems (CTUe),,0.3945742042333536,EF v3.1,ecoinvent-3.12
+"Mechanical fastener (screws, nails, brackets)",1,kg,abiotic depletion potential (ADP): fossil fuels,,24.7978869429469,EF v3.1,ecoinvent-3.12
+"Mechanical fastener (screws, nails, brackets)",1,kg,fraction of nutrients reaching freshwater end compartment (P),,0.0012850172172724883,EF v3.1,ecoinvent-3.12
+"Mechanical fastener (screws, nails, brackets)",1,kg,fraction of nutrients reaching marine end compartment (N),,0.0022069879813416877,EF v3.1,ecoinvent-3.12
+"Mechanical fastener (screws, nails, brackets)",1,kg,accumulated exceedance (AE),,0.02261596878078591,EF v3.1,ecoinvent-3.12
+"Mechanical fastener (screws, nails, brackets)",1,kg,comparative toxic unit for human (CTUh),,2.3673135137140388e-09,EF v3.1,ecoinvent-3.12
+"Mechanical fastener (screws, nails, brackets)",1,kg,comparative toxic unit for human (CTUh),,5.423191028928462e-10,EF v3.1,ecoinvent-3.12
+"Mechanical fastener (screws, nails, brackets)",1,kg,comparative toxic unit for human (CTUh),,1.8249944108211926e-09,EF v3.1,ecoinvent-3.12
+"Mechanical fastener (screws, nails, brackets)",1,kg,comparative toxic unit for human (CTUh),,4.099173396079951e-08,EF v3.1,ecoinvent-3.12
+"Mechanical fastener (screws, nails, brackets)",1,kg,comparative toxic unit for human (CTUh),,3.990700741650457e-08,EF v3.1,ecoinvent-3.12
+"Mechanical fastener (screws, nails, brackets)",1,kg,comparative toxic unit for human (CTUh),,1.084726544294939e-09,EF v3.1,ecoinvent-3.12
+"Mechanical fastener (screws, nails, brackets)",1,kg,human exposure efficiency relative to u235,,0.07925677224669783,EF v3.1,ecoinvent-3.12
+"Mechanical fastener (screws, nails, brackets)",1,kg,soil quality index,,7.7438485242102395,EF v3.1,ecoinvent-3.12
+"Mechanical fastener (screws, nails, brackets)",1,kg,abiotic depletion potential (ADP): elements (ultimate reserves),,1.5973729068751915e-05,EF v3.1,ecoinvent-3.12
+"Mechanical fastener (screws, nails, brackets)",1,kg,ozone depletion potential (ODP),,1.3916872296343854e-08,EF v3.1,ecoinvent-3.12
+"Mechanical fastener (screws, nails, brackets)",1,kg,impact on human health,,2.2026704476896123e-07,EF v3.1,ecoinvent-3.12
+"Mechanical fastener (screws, nails, brackets)",1,kg,tropospheric ozone concentration increase,,0.007905956429499936,EF v3.1,ecoinvent-3.12
+"Mechanical fastener (screws, nails, brackets)",1,kg,user deprivation potential (deprivation-weighted water consumption),,1.0873202904226102,EF v3.1,ecoinvent-3.12
+Wood glue,1,kg,accumulated exceedance (AE),,0.01500817889441768,EF v3.1,ecoinvent-3.12
+Wood glue,1,kg,global warming potential (GWP100),,2.9089635974009553,EF v3.1,ecoinvent-3.12
+Wood glue,1,kg,global warming potential (GWP100),,0.0012977953387427685,EF v3.1,ecoinvent-3.12
+Wood glue,1,kg,global warming potential (GWP100),,2.9064809678036756,EF v3.1,ecoinvent-3.12
+Wood glue,1,kg,global warming potential (GWP100),,0.0011848342585373765,EF v3.1,ecoinvent-3.12
+Wood glue,1,kg,comparative toxic unit for ecosystems (CTUe),,19.552739485650655,EF v3.1,ecoinvent-3.12
+Wood glue,1,kg,comparative toxic unit for ecosystems (CTUe),,18.761227883097195,EF v3.1,ecoinvent-3.12
+Wood glue,1,kg,comparative toxic unit for ecosystems (CTUe),,0.7915116025534585,EF v3.1,ecoinvent-3.12
+Wood glue,1,kg,abiotic depletion potential (ADP): fossil fuels,,47.4477738603954,EF v3.1,ecoinvent-3.12
+Wood glue,1,kg,fraction of nutrients reaching freshwater end compartment (P),,0.0007353957777229793,EF v3.1,ecoinvent-3.12
+Wood glue,1,kg,fraction of nutrients reaching marine end compartment (N),,0.0025607673072506366,EF v3.1,ecoinvent-3.12
+Wood glue,1,kg,accumulated exceedance (AE),,0.03420057221462588,EF v3.1,ecoinvent-3.12
+Wood glue,1,kg,comparative toxic unit for human (CTUh),,1.4503097392585368e-09,EF v3.1,ecoinvent-3.12
+Wood glue,1,kg,comparative toxic unit for human (CTUh),,2.722345714343389e-10,EF v3.1,ecoinvent-3.12
+Wood glue,1,kg,comparative toxic unit for human (CTUh),,1.178075167824198e-09,EF v3.1,ecoinvent-3.12
+Wood glue,1,kg,comparative toxic unit for human (CTUh),,2.512806961068127e-08,EF v3.1,ecoinvent-3.12
+Wood glue,1,kg,comparative toxic unit for human (CTUh),,2.3531488787141988e-08,EF v3.1,ecoinvent-3.12
+Wood glue,1,kg,comparative toxic unit for human (CTUh),,1.5965808235392833e-09,EF v3.1,ecoinvent-3.12
+Wood glue,1,kg,human exposure efficiency relative to u235,,0.05351262890506191,EF v3.1,ecoinvent-3.12
+Wood glue,1,kg,soil quality index,,8.729202093018612,EF v3.1,ecoinvent-3.12
+Wood glue,1,kg,abiotic depletion potential (ADP): elements (ultimate reserves),,2.6694487532937512e-05,EF v3.1,ecoinvent-3.12
+Wood glue,1,kg,ozone depletion potential (ODP),,4.508997751472817e-08,EF v3.1,ecoinvent-3.12
+Wood glue,1,kg,impact on human health,,2.396847424839766e-07,EF v3.1,ecoinvent-3.12
+Wood glue,1,kg,tropospheric ozone concentration increase,,0.009223950168343646,EF v3.1,ecoinvent-3.12
+Wood glue,1,kg,user deprivation potential (deprivation-weighted water consumption),,4.1740175285119046,EF v3.1,ecoinvent-3.12
+Fiber glue (epoxy resin),1,kg,accumulated exceedance (AE),,0.019476130744173682,EF v3.1,ecoinvent-3.12
+Fiber glue (epoxy resin),1,kg,global warming potential (GWP100),,5.309455410703216,EF v3.1,ecoinvent-3.12
+Fiber glue (epoxy resin),1,kg,global warming potential (GWP100),,0.006881621510283683,EF v3.1,ecoinvent-3.12
+Fiber glue (epoxy resin),1,kg,global warming potential (GWP100),,5.298833160161183,EF v3.1,ecoinvent-3.12
+Fiber glue (epoxy resin),1,kg,global warming potential (GWP100),,0.0037406290317494053,EF v3.1,ecoinvent-3.12
+Fiber glue (epoxy resin),1,kg,comparative toxic unit for ecosystems (CTUe),,109.89978089421696,EF v3.1,ecoinvent-3.12
+Fiber glue (epoxy resin),1,kg,comparative toxic unit for ecosystems (CTUe),,92.15474647181173,EF v3.1,ecoinvent-3.12
+Fiber glue (epoxy resin),1,kg,comparative toxic unit for ecosystems (CTUe),,17.74503442240523,EF v3.1,ecoinvent-3.12
+Fiber glue (epoxy resin),1,kg,abiotic depletion potential (ADP): fossil fuels,,103.44855563071124,EF v3.1,ecoinvent-3.12
+Fiber glue (epoxy resin),1,kg,fraction of nutrients reaching freshwater end compartment (P),,0.0015084621924488755,EF v3.1,ecoinvent-3.12
+Fiber glue (epoxy resin),1,kg,fraction of nutrients reaching marine end compartment (N),,0.003910721674480226,EF v3.1,ecoinvent-3.12
+Fiber glue (epoxy resin),1,kg,accumulated exceedance (AE),,0.03968767413649628,EF v3.1,ecoinvent-3.12
+Fiber glue (epoxy resin),1,kg,comparative toxic unit for human (CTUh),,7.131280464172404e-09,EF v3.1,ecoinvent-3.12
+Fiber glue (epoxy resin),1,kg,comparative toxic unit for human (CTUh),,5.642161558424955e-10,EF v3.1,ecoinvent-3.12
+Fiber glue (epoxy resin),1,kg,comparative toxic unit for human (CTUh),,6.567064308329907e-09,EF v3.1,ecoinvent-3.12
+Fiber glue (epoxy resin),1,kg,comparative toxic unit for human (CTUh),,4.91513226011367e-08,EF v3.1,ecoinvent-3.12
+Fiber glue (epoxy resin),1,kg,comparative toxic unit for human (CTUh),,4.568849190065863e-08,EF v3.1,ecoinvent-3.12
+Fiber glue (epoxy resin),1,kg,comparative toxic unit for human (CTUh),,3.4628307004780694e-09,EF v3.1,ecoinvent-3.12
+Fiber glue (epoxy resin),1,kg,human exposure efficiency relative to u235,,0.3838892738893118,EF v3.1,ecoinvent-3.12
+Fiber glue (epoxy resin),1,kg,soil quality index,,15.103905250081324,EF v3.1,ecoinvent-3.12
+Fiber glue (epoxy resin),1,kg,abiotic depletion potential (ADP): elements (ultimate reserves),,6.323478281425644e-05,EF v3.1,ecoinvent-3.12
+Fiber glue (epoxy resin),1,kg,ozone depletion potential (ODP),,2.2879491067255114e-07,EF v3.1,ecoinvent-3.12
+Fiber glue (epoxy resin),1,kg,impact on human health,,1.88309036304517e-07,EF v3.1,ecoinvent-3.12
+Fiber glue (epoxy resin),1,kg,tropospheric ozone concentration increase,,0.019653687074414644,EF v3.1,ecoinvent-3.12
+Fiber glue (epoxy resin),1,kg,user deprivation potential (deprivation-weighted water consumption),,1.2900213921820354,EF v3.1,ecoinvent-3.12
+Cement,1,kg,accumulated exceedance (AE),,0.0018862487393881923,EF v3.1,ecoinvent-3.12
+Cement,1,kg,global warming potential (GWP100),,0.8835760004953044,EF v3.1,ecoinvent-3.12
+Cement,1,kg,global warming potential (GWP100),,0.00013823925513154866,EF v3.1,ecoinvent-3.12
+Cement,1,kg,global warming potential (GWP100),,0.8832846348572355,EF v3.1,ecoinvent-3.12
+Cement,1,kg,global warming potential (GWP100),,0.00015312638293733848,EF v3.1,ecoinvent-3.12
+Cement,1,kg,comparative toxic unit for ecosystems (CTUe),,0.49864143504157077,EF v3.1,ecoinvent-3.12
+Cement,1,kg,comparative toxic unit for ecosystems (CTUe),,0.4829540956432129,EF v3.1,ecoinvent-3.12
+Cement,1,kg,comparative toxic unit for ecosystems (CTUe),,0.01568733939835793,EF v3.1,ecoinvent-3.12
+Cement,1,kg,abiotic depletion potential (ADP): fossil fuels,,3.6370703698150617,EF v3.1,ecoinvent-3.12
+Cement,1,kg,fraction of nutrients reaching freshwater end compartment (P),,9.623240484992035e-05,EF v3.1,ecoinvent-3.12
+Cement,1,kg,fraction of nutrients reaching marine end compartment (N),,0.0005692502257991989,EF v3.1,ecoinvent-3.12
+Cement,1,kg,accumulated exceedance (AE),,0.006416610786511559,EF v3.1,ecoinvent-3.12
+Cement,1,kg,comparative toxic unit for human (CTUh),,1.0038741711894142e-10,EF v3.1,ecoinvent-3.12
+Cement,1,kg,comparative toxic unit for human (CTUh),,4.885159187924604e-11,EF v3.1,ecoinvent-3.12
+Cement,1,kg,comparative toxic unit for human (CTUh),,5.1535825239695374e-11,EF v3.1,ecoinvent-3.12
+Cement,1,kg,comparative toxic unit for human (CTUh),,5.355272334204802e-09,EF v3.1,ecoinvent-3.12
+Cement,1,kg,comparative toxic unit for human (CTUh),,5.237864295187818e-09,EF v3.1,ecoinvent-3.12
+Cement,1,kg,comparative toxic unit for human (CTUh),,1.1740803901698468e-10,EF v3.1,ecoinvent-3.12
+Cement,1,kg,human exposure efficiency relative to u235,,0.02451473781248991,EF v3.1,ecoinvent-3.12
+Cement,1,kg,soil quality index,,0.8623301916576719,EF v3.1,ecoinvent-3.12
+Cement,1,kg,abiotic depletion potential (ADP): elements (ultimate reserves),,2.584388368137485e-06,EF v3.1,ecoinvent-3.12
+Cement,1,kg,ozone depletion potential (ODP),,3.731502049495822e-09,EF v3.1,ecoinvent-3.12
+Cement,1,kg,impact on human health,,1.2312856115956143e-08,EF v3.1,ecoinvent-3.12
+Cement,1,kg,tropospheric ozone concentration increase,,0.0018194870108051875,EF v3.1,ecoinvent-3.12
+Cement,1,kg,user deprivation potential (deprivation-weighted water consumption),,0.07487435073102974,EF v3.1,ecoinvent-3.12
+Lime,1,kg,accumulated exceedance (AE),,0.002957458645289006,EF v3.1,ecoinvent-3.12
+Lime,1,kg,global warming potential (GWP100),,0.9963608347753655,EF v3.1,ecoinvent-3.12
+Lime,1,kg,global warming potential (GWP100),,7.63746606558119e-05,EF v3.1,ecoinvent-3.12
+Lime,1,kg,global warming potential (GWP100),,0.9961987967183779,EF v3.1,ecoinvent-3.12
+Lime,1,kg,global warming potential (GWP100),,8.566339633188744e-05,EF v3.1,ecoinvent-3.12
+Lime,1,kg,comparative toxic unit for ecosystems (CTUe),,0.5938398447754476,EF v3.1,ecoinvent-3.12
+Lime,1,kg,comparative toxic unit for ecosystems (CTUe),,0.5755112197359074,EF v3.1,ecoinvent-3.12
+Lime,1,kg,comparative toxic unit for ecosystems (CTUe),,0.018328625039540206,EF v3.1,ecoinvent-3.12
+Lime,1,kg,abiotic depletion potential (ADP): fossil fuels,,5.2807558370243335,EF v3.1,ecoinvent-3.12
+Lime,1,kg,fraction of nutrients reaching freshwater end compartment (P),,0.0002365462252127202,EF v3.1,ecoinvent-3.12
+Lime,1,kg,fraction of nutrients reaching marine end compartment (N),,0.0007349854816765059,EF v3.1,ecoinvent-3.12
+Lime,1,kg,accumulated exceedance (AE),,0.008004666356456466,EF v3.1,ecoinvent-3.12
+Lime,1,kg,comparative toxic unit for human (CTUh),,9.108647344435324e-11,EF v3.1,ecoinvent-3.12
+Lime,1,kg,comparative toxic unit for human (CTUh),,5.065966928271312e-11,EF v3.1,ecoinvent-3.12
+Lime,1,kg,comparative toxic unit for human (CTUh),,4.0426804161640106e-11,EF v3.1,ecoinvent-3.12
+Lime,1,kg,comparative toxic unit for human (CTUh),,5.503252335160472e-09,EF v3.1,ecoinvent-3.12
+Lime,1,kg,comparative toxic unit for human (CTUh),,5.403590764177927e-09,EF v3.1,ecoinvent-3.12
+Lime,1,kg,comparative toxic unit for human (CTUh),,9.966157098254586e-11,EF v3.1,ecoinvent-3.12
+Lime,1,kg,human exposure efficiency relative to u235,,0.02368923355458942,EF v3.1,ecoinvent-3.12
+Lime,1,kg,soil quality index,,0.746654441165698,EF v3.1,ecoinvent-3.12
+Lime,1,kg,abiotic depletion potential (ADP): elements (ultimate reserves),,3.831113168216226e-07,EF v3.1,ecoinvent-3.12
+Lime,1,kg,ozone depletion potential (ODP),,3.56565910765432e-09,EF v3.1,ecoinvent-3.12
+Lime,1,kg,impact on human health,,1.8453009747180752e-08,EF v3.1,ecoinvent-3.12
+Lime,1,kg,tropospheric ozone concentration increase,,0.0023150487759475407,EF v3.1,ecoinvent-3.12
+Lime,1,kg,user deprivation potential (deprivation-weighted water consumption),,0.11458144331605623,EF v3.1,ecoinvent-3.12
+Concrete,1,kg,accumulated exceedance (AE),,0.0004597375136465329,EF v3.1,ecoinvent-3.12
+Concrete,1,kg,global warming potential (GWP100),,0.12757090128567952,EF v3.1,ecoinvent-3.12
+Concrete,1,kg,global warming potential (GWP100),,0.00012123280927043611,EF v3.1,ecoinvent-3.12
+Concrete,1,kg,global warming potential (GWP100),,0.12735765601172935,EF v3.1,ecoinvent-3.12
+Concrete,1,kg,global warming potential (GWP100),,9.201246467975958e-05,EF v3.1,ecoinvent-3.12
+Concrete,1,kg,comparative toxic unit for ecosystems (CTUe),,0.279069260139179,EF v3.1,ecoinvent-3.12
+Concrete,1,kg,comparative toxic unit for ecosystems (CTUe),,0.26677875379274285,EF v3.1,ecoinvent-3.12
+Concrete,1,kg,comparative toxic unit for ecosystems (CTUe),,0.012290506346436088,EF v3.1,ecoinvent-3.12
+Concrete,1,kg,abiotic depletion potential (ADP): fossil fuels,,0.8979205547105246,EF v3.1,ecoinvent-3.12
+Concrete,1,kg,fraction of nutrients reaching freshwater end compartment (P),,1.5915001515987215e-05,EF v3.1,ecoinvent-3.12
+Concrete,1,kg,fraction of nutrients reaching marine end compartment (N),,0.0001435744915084143,EF v3.1,ecoinvent-3.12
+Concrete,1,kg,accumulated exceedance (AE),,0.0015941949396960896,EF v3.1,ecoinvent-3.12
+Concrete,1,kg,comparative toxic unit for human (CTUh),,2.960609868183016e-11,EF v3.1,ecoinvent-3.12
+Concrete,1,kg,comparative toxic unit for human (CTUh),,9.844222765205478e-12,EF v3.1,ecoinvent-3.12
+Concrete,1,kg,comparative toxic unit for human (CTUh),,1.9761875916624675e-11,EF v3.1,ecoinvent-3.12
+Concrete,1,kg,comparative toxic unit for human (CTUh),,9.261545561104313e-10,EF v3.1,ecoinvent-3.12
+Concrete,1,kg,comparative toxic unit for human (CTUh),,8.783738696545919e-10,EF v3.1,ecoinvent-3.12
+Concrete,1,kg,comparative toxic unit for human (CTUh),,4.778068645583932e-11,EF v3.1,ecoinvent-3.12
+Concrete,1,kg,human exposure efficiency relative to u235,,0.0017452244842709242,EF v3.1,ecoinvent-3.12
+Concrete,1,kg,soil quality index,,0.7901764967780025,EF v3.1,ecoinvent-3.12
+Concrete,1,kg,abiotic depletion potential (ADP): elements (ultimate reserves),,6.570041223921513e-07,EF v3.1,ecoinvent-3.12
+Concrete,1,kg,ozone depletion potential (ODP),,1.3041367215250999e-09,EF v3.1,ecoinvent-3.12
+Concrete,1,kg,impact on human health,,5.832770668602327e-09,EF v3.1,ecoinvent-3.12
+Concrete,1,kg,tropospheric ozone concentration increase,,0.0004730956937888692,EF v3.1,ecoinvent-3.12
+Concrete,1,kg,user deprivation potential (deprivation-weighted water consumption),,0.04738341898153344,EF v3.1,ecoinvent-3.12
+Steel,1,kg,accumulated exceedance (AE),,0.009231819469282383,EF v3.1,ecoinvent-3.12
+Steel,1,kg,global warming potential (GWP100),,2.28216699813283,EF v3.1,ecoinvent-3.12
+Steel,1,kg,global warming potential (GWP100),,0.0017555707448617176,EF v3.1,ecoinvent-3.12
+Steel,1,kg,global warming potential (GWP100),,2.2788954371364283,EF v3.1,ecoinvent-3.12
+Steel,1,kg,global warming potential (GWP100),,0.0015159902515396136,EF v3.1,ecoinvent-3.12
+Steel,1,kg,comparative toxic unit for ecosystems (CTUe),,15.627894703099898,EF v3.1,ecoinvent-3.12
+Steel,1,kg,comparative toxic unit for ecosystems (CTUe),,15.233320498866545,EF v3.1,ecoinvent-3.12
+Steel,1,kg,comparative toxic unit for ecosystems (CTUe),,0.3945742042333536,EF v3.1,ecoinvent-3.12
+Steel,1,kg,abiotic depletion potential (ADP): fossil fuels,,24.7978869429469,EF v3.1,ecoinvent-3.12
+Steel,1,kg,fraction of nutrients reaching freshwater end compartment (P),,0.0012850172172724883,EF v3.1,ecoinvent-3.12
+Steel,1,kg,fraction of nutrients reaching marine end compartment (N),,0.0022069879813416877,EF v3.1,ecoinvent-3.12
+Steel,1,kg,accumulated exceedance (AE),,0.02261596878078591,EF v3.1,ecoinvent-3.12
+Steel,1,kg,comparative toxic unit for human (CTUh),,2.3673135137140388e-09,EF v3.1,ecoinvent-3.12
+Steel,1,kg,comparative toxic unit for human (CTUh),,5.423191028928462e-10,EF v3.1,ecoinvent-3.12
+Steel,1,kg,comparative toxic unit for human (CTUh),,1.8249944108211926e-09,EF v3.1,ecoinvent-3.12
+Steel,1,kg,comparative toxic unit for human (CTUh),,4.099173396079951e-08,EF v3.1,ecoinvent-3.12
+Steel,1,kg,comparative toxic unit for human (CTUh),,3.990700741650457e-08,EF v3.1,ecoinvent-3.12
+Steel,1,kg,comparative toxic unit for human (CTUh),,1.084726544294939e-09,EF v3.1,ecoinvent-3.12
+Steel,1,kg,human exposure efficiency relative to u235,,0.07925677224669783,EF v3.1,ecoinvent-3.12
+Steel,1,kg,soil quality index,,7.7438485242102395,EF v3.1,ecoinvent-3.12
+Steel,1,kg,abiotic depletion potential (ADP): elements (ultimate reserves),,1.5973729068751915e-05,EF v3.1,ecoinvent-3.12
+Steel,1,kg,ozone depletion potential (ODP),,1.3916872296343854e-08,EF v3.1,ecoinvent-3.12
+Steel,1,kg,impact on human health,,2.2026704476896123e-07,EF v3.1,ecoinvent-3.12
+Steel,1,kg,tropospheric ozone concentration increase,,0.007905956429499936,EF v3.1,ecoinvent-3.12
+Steel,1,kg,user deprivation potential (deprivation-weighted water consumption),,1.0873202904226102,EF v3.1,ecoinvent-3.12
+Road transport,1,kg,accumulated exceedance (AE),,3.405886308846967e-05,,
+Road transport,1,kg,global warming potential (GWP100),,0.007534898518229975,,
+Road transport,1,kg,global warming potential (GWP100),,1.4869819104042178e-06,,
+Road transport,1,kg,global warming potential (GWP100),,0.0075308651159769245,,
+Road transport,1,kg,global warming potential (GWP100),,2.546420342645193e-06,,
+Road transport,1,kg,comparative toxic unit for ecosystems (CTUe),,0.015955482351637858,,
+Road transport,1,kg,comparative toxic unit for ecosystems (CTUe),,0.015190173949061412,,
+Road transport,1,kg,comparative toxic unit for ecosystems (CTUe),,0.0007653084025764464,,
+Road transport,1,kg,abiotic depletion potential (ADP): fossil fuels,,0.10809795802008373,,
+Road transport,1,kg,fraction of nutrients reaching freshwater end compartment (P),,5.411031468657311e-07,,
+Road transport,1,kg,fraction of nutrients reaching marine end compartment (N),,1.3669421998644126e-05,,
+Road transport,1,kg,accumulated exceedance (AE),,0.00014888603187342058,,
+Road transport,1,kg,comparative toxic unit for human (CTUh),,1.8753231090918336e-12,,
+Road transport,1,kg,comparative toxic unit for human (CTUh),,5.016284457392046e-13,,
+Road transport,1,kg,comparative toxic unit for human (CTUh),,1.3736946633526292e-12,,
+Road transport,1,kg,comparative toxic unit for human (CTUh),,7.343348175726295e-11,,
+Road transport,1,kg,comparative toxic unit for human (CTUh),,6.133841014235474e-11,,
+Road transport,1,kg,comparative toxic unit for human (CTUh),,1.2095071614908219e-11,,
+Road transport,1,kg,human exposure efficiency relative to u235,,0.00012783818666809197,,
+Road transport,1,kg,soil quality index,,0.08105756444658979,,
+Road transport,1,kg,abiotic depletion potential (ADP): elements (ultimate reserves),,2.5460545846147767e-08,,
+Road transport,1,kg,ozone depletion potential (ODP),,1.715835368870309e-10,,
+Road transport,1,kg,impact on human health,,7.422334103508645e-10,,
+Road transport,1,kg,tropospheric ozone concentration increase,,5.272712185871124e-05,,
+Road transport,1,kg,user deprivation potential (deprivation-weighted water consumption),,0.0005930620664831742,,
+Pea protein binder,1,kg,acidification,mol H+-eq,0.0031978544699663145,,
+Pea protein binder,1,kg,climate change,kg CO2-eq,0.5523898715378961,,
+Pea protein binder,1,kg,climate change: biogenic,kg CO2-eq,0.0010963847837474592,,
+Pea protein binder,1,kg,climate change: fossil,kg CO2-eq,0.54839201561261,,
+Pea protein binder,1,kg,climate change: land use and land use change,kg CO2-eq,0.002901471141538541,,
+Pea protein binder,1,kg,ecotoxicity: freshwater,CTUe,8.672435006929398,,
+Pea protein binder,1,kg,"ecotoxicity: freshwater, inorganics",CTUe,4.929363448976135,,
+Pea protein binder,1,kg,"ecotoxicity: freshwater, organics",CTUe,3.743071557953263,,
+Pea protein binder,1,kg,energy resources: non-renewable,MJ,6.124657420127054,,
+Pea protein binder,1,kg,eutrophication: freshwater,kg P-eq,0.00041605714381766904,,
+Pea protein binder,1,kg,eutrophication: marine,kg N-eq,0.008546803485359696,,
+Pea protein binder,1,kg,eutrophication: terrestrial,mol N-eq,0.011367518318850939,,
+Pea protein binder,1,kg,human toxicity: carcinogenic,CTUh,4.36258709735616e-10,,
+Pea protein binder,1,kg,"human toxicity: carcinogenic, inorganics",CTUh,1.5718708970159127e-10,,
+Pea protein binder,1,kg,"human toxicity: carcinogenic, organics",CTUh,2.790716200340248e-10,,
+Pea protein binder,1,kg,human toxicity: non-carcinogenic,CTUh,2.5276105860517028e-08,,
+Pea protein binder,1,kg,"human toxicity: non-carcinogenic, inorganics",CTUh,2.4336676778351374e-08,,
+Pea protein binder,1,kg,"human toxicity: non-carcinogenic, organics",CTUh,9.394290821656556e-10,,
+Pea protein binder,1,kg,ionising radiation: human health,kBq U235-eq,0.03515111446230275,,
+Pea protein binder,1,kg,land use,dimensionless (soil quality index),97.32611224566588,,
+Pea protein binder,1,kg,material resources: metals/minerals,kg Sb-eq,3.649568337804213e-06,,
+Pea protein binder,1,kg,ozone depletion,kg CFC-11-eq,1.497629578142198e-08,,
+Pea protein binder,1,kg,particulate matter formation,disease incidence,2.2903539095303475e-08,,
+Pea protein binder,1,kg,photochemical oxidant formation: human health,dimensionless (tropospheric ozone concentration increase),0.002248467175632867,,
+Pea protein binder,1,kg,water use,m3 world-eq deprived,1.6362973056239876,,

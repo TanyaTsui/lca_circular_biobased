@@ -1,0 +1,13 @@
+material_name,carbon_content_kgC_per_kg,rotation_period_yr
+Peas,0.40769711698071515,1.0
+Cotton fiber,0.43842499999999984,1.0
+Hemp fiber,0.445704,1.0
+Kenaf fiber,0.41894353369763215,1.0
+Jute fiber,0.40439560439560446,1.0
+Grass fiber,0.4503399999999999,1.0
+Bark chips,0.2058333333333334,80.0
+Sawdust,0.2905882352941176,80.0
+"Wood (hard wood, raw)",0.29058823529411776,100.0
+"Wood (soft wood, raw)",0.2905882352941178,65.0
+Cellulose reject fibers,0.4040000000000005,
+Seagrass,0.336,

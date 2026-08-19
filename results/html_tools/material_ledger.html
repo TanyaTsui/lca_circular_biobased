@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Material Ledger — RAW Project Impact Explorer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #EBE4D3;
+    --paper-2: #E0D7C0;
+    --card: #F6F2E7;
+    --ink: #262117;
+    --ink-soft: #59503E;
+    --ink-faint: #8A8069;
+    --line: #C9BC9C;
+    --line-soft: #DAD0B7;
+    --burden: #A5432A;
+    --burden-soft: #E8CBBD;
+    --benefit: #3E6B4C;
+    --benefit-soft: #CFDFCB;
+    --accent: #C0902F;
+    --accent-soft: #EFDFB4;
+    --stamp: #7A3324;
+    --radius: 3px;
+    --shadow: 0 1px 2px rgba(38,33,23,0.08), 0 6px 18px -10px rgba(38,33,23,0.25);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(1200px 600px at 10% -10%, rgba(255,255,255,0.35), transparent 60%),
+      var(--paper);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    font-size:15px;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1180px;margin:0 auto;padding:36px 28px 90px;}
+
+  /* ---------- header ---------- */
+  header.top{
+    display:flex; flex-wrap:wrap; gap:24px; justify-content:space-between; align-items:flex-end;
+    border-bottom:2px solid var(--ink);
+    padding-bottom:18px; margin-bottom:8px;
+  }
+  .title-block h1{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:clamp(30px, 4vw, 44px);
+    letter-spacing:-0.01em;
+    margin:0 0 4px;
+    line-height:1.02;
+  }
+  .title-block .kicker{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+    margin-bottom:10px;
+  }
+  .title-block p.sub{
+    max-width:56ch; color:var(--ink-soft); margin:0; font-size:14.5px;
+  }
+  .ledger-meta{
+    font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--ink-faint);
+    text-align:right; line-height:1.8; white-space:nowrap;
+  }
+  .ledger-meta b{color:var(--ink-soft); font-weight:600;}
+
+  /* ---------- layout ---------- */
+  .grid{
+    display:grid;
+    grid-template-columns: 340px 1fr;
+    gap:26px;
+    margin-top:28px;
+    align-items:start;
+  }
+  @media (max-width: 860px){ .grid{grid-template-columns:1fr;} }
+
+  section.panel{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+  }
+  .panel-head{
+    padding:14px 18px 12px;
+    border-bottom:1px solid var(--line-soft);
+    display:flex; align-items:baseline; justify-content:space-between; gap:10px;
+  }
+  .panel-head h2{
+    font-family:'Fraunces', serif; font-weight:600; font-size:18px; margin:0;
+  }
+  .panel-head .count{
+    font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--ink-faint);
+  }
+
+  /* ---------- material library ---------- */
+  #library{position:sticky; top:20px;}
+  .lib-search{
+    padding:12px 16px 4px;
+  }
+  .lib-search input{
+    width:100%; padding:8px 10px; border:1px solid var(--line); background:var(--paper);
+    border-radius:2px; font-family:'Inter',sans-serif; font-size:13.5px; color:var(--ink);
+  }
+  .lib-search input:focus{outline:2px solid var(--accent); outline-offset:1px;}
+  .lib-groups{max-height:640px; overflow-y:auto; padding:6px 10px 14px;}
+  .lib-group-label{
+    font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:0.1em; text-transform:uppercase;
+    color:var(--ink-faint); padding:12px 8px 6px;
+  }
+  .lib-item{
+    display:flex; align-items:center; gap:10px;
+    width:100%; text-align:left;
+    padding:8px 8px; margin:1px 0; border:1px solid transparent; border-radius:2px;
+    background:transparent; cursor:pointer; font-family:'Inter',sans-serif; font-size:13.5px; color:var(--ink);
+  }
+  .lib-item:hover{background:var(--paper-2); border-color:var(--line);}
+  .lib-item.added{opacity:0.4; cursor:default;}
+  .lib-item .swatch{width:9px; height:9px; border-radius:50%; flex:0 0 auto;}
+  .lib-item .name{flex:1;}
+  .lib-item .plus{
+    font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--ink-faint);
+  }
+
+  /* ---------- recipe ledger ---------- */
+  #recipe-body{padding:6px 18px 18px;}
+  .empty-state{
+    padding:50px 20px; text-align:center; color:var(--ink-faint);
+  }
+  .empty-state .glyph{font-family:'Fraunces',serif; font-size:34px; color:var(--line); margin-bottom:8px;}
+  .empty-state p{max-width:38ch; margin:0 auto; font-size:13.5px;}
+
+  .row{
+    display:grid;
+    grid-template-columns: 1fr auto auto auto;
+    align-items:center;
+    gap:16px;
+    padding:14px 4px;
+    border-bottom:1px solid var(--line-soft);
+  }
+  .row:last-child{border-bottom:none;}
+  .row .who{min-width:0;}
+  .row .who .nm{font-weight:600; font-size:14.5px;}
+  .row .who .grp{
+    font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:var(--ink-faint);
+    text-transform:uppercase; letter-spacing:0.06em;
+  }
+  .qty-field{display:flex; align-items:center; gap:6px;}
+  .qty-field input{
+    width:72px; padding:6px 8px; border:1px solid var(--line); border-radius:2px;
+    font-family:'IBM Plex Mono',monospace; font-size:13px; text-align:right; background:var(--paper);
+    color:var(--ink);
+  }
+  .qty-field input:focus{outline:2px solid var(--accent); outline-offset:1px;}
+  .qty-field .unit{font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--ink-faint);}
+
+  .stamps{display:flex; gap:5px; flex-wrap:wrap;}
+  .stamp-btn{
+    font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.06em;
+    padding:5px 8px; border:1.5px solid var(--line); border-radius:3px; background:transparent;
+    color:var(--ink-faint); cursor:pointer; text-transform:uppercase;
+    transform:rotate(-1deg);
+  }
+  .stamp-btn:hover:not(:disabled){border-color:var(--ink-soft); color:var(--ink-soft);}
+  .stamp-btn.active{
+    color:var(--stamp); border-color:var(--stamp); background:rgba(122,51,36,0.07);
+    font-weight:600;
+  }
+  .stamp-btn:disabled{opacity:0.25; cursor:not-allowed;}
+  .no-alloc{font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--ink-faint); font-style:italic;}
+
+  .remove-btn{
+    background:none; border:none; color:var(--ink-faint); cursor:pointer; font-size:16px;
+    padding:4px 6px; line-height:1;
+  }
+  .remove-btn:hover{color:var(--burden);}
+
+  /* ---------- lifetime control ---------- */
+  #lifetime-panel{padding:16px 18px 18px;}
+  .lifetime-row{display:flex; align-items:center; gap:16px; flex-wrap:wrap;}
+  .lifetime-row label{font-size:13.5px; color:var(--ink-soft); flex:0 0 auto;}
+  .lifetime-row input[type=range]{flex:1; min-width:180px; accent-color:var(--accent);}
+  .lifetime-value{
+    font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:15px;
+    color:var(--accent); min-width:64px; text-align:right;
+  }
+  .lifetime-note{font-size:12px; color:var(--ink-faint); margin-top:8px; max-width:70ch;}
+
+  /* ---------- results ---------- */
+  #results{margin-top:24px;}
+  .ledger-summary{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:0;
+    border:1px solid var(--line); border-radius:var(--radius); overflow:hidden;
+    background:var(--card);
+  }
+  .ledger-cell{padding:20px 22px; border-right:1px solid var(--line-soft);}
+  .ledger-cell:last-child{border-right:none;}
+  .ledger-cell .lbl{
+    font-family:'IBM Plex Mono',monospace; font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.1em; color:var(--ink-faint); margin-bottom:8px;
+  }
+  .ledger-cell .val{
+    font-family:'Fraunces',serif; font-size:28px; font-weight:600; line-height:1;
+  }
+  .ledger-cell .val .u{font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:400; color:var(--ink-faint); margin-left:4px;}
+  .ledger-cell.debit .val{color:var(--burden);}
+  .ledger-cell.credit .val{color:var(--benefit);}
+  .ledger-cell.balance .val.pos{color:var(--burden);}
+  .ledger-cell.balance .val.neg{color:var(--benefit);}
+  @media (max-width:700px){ .ledger-summary{grid-template-columns:1fr;} .ledger-cell{border-right:none; border-bottom:1px solid var(--line-soft);} }
+
+  /* ---------- chart ---------- */
+  #chart-panel{margin-top:20px;}
+  #chart-wrap{padding:14px 18px 20px;}
+  .chart-legend{display:flex; gap:18px; font-size:12px; color:var(--ink-soft); margin-bottom:6px; padding:0 18px;}
+  .chart-legend span{display:inline-flex; align-items:center; gap:6px;}
+  .chart-legend i{width:10px; height:10px; display:inline-block; border-radius:2px;}
+  svg text{font-family:'IBM Plex Mono',monospace;}
+
+  /* ---------- category table ---------- */
+  #categories-panel{margin-top:20px;}
+  table.cat-table{width:100%; border-collapse:collapse; font-size:13px;}
+  table.cat-table th, table.cat-table td{
+    text-align:left; padding:8px 18px; border-bottom:1px solid var(--line-soft);
+  }
+  table.cat-table th{
+    font-family:'IBM Plex Mono',monospace; font-size:10.5px; text-transform:uppercase; letter-spacing:0.08em;
+    color:var(--ink-faint); font-weight:500; cursor:pointer; user-select:none;
+    position:sticky; top:0; background:var(--card);
+  }
+  table.cat-table th:hover{color:var(--ink);}
+  table.cat-table td.num{font-family:'IBM Plex Mono',monospace; text-align:right;}
+  table.cat-table tbody tr:hover{background:var(--paper-2);}
+  tr.highlight td{background:var(--accent-soft);}
+  #categories-scroll{max-height:420px; overflow-y:auto;}
+
+  footer.notes{
+    margin-top:30px; padding-top:16px; border-top:1px solid var(--line);
+    font-size:12px; color:var(--ink-faint); line-height:1.7;
+  }
+  footer.notes b{color:var(--ink-soft);}
+
+  ::-webkit-scrollbar{width:9px; height:9px;}
+  ::-webkit-scrollbar-thumb{background:var(--line); border-radius:5px;}
+  ::-webkit-scrollbar-track{background:transparent;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div class="title-block">
+      <div class="kicker">RAW Project · WP4 Environmental Assessment</div>
+      <h1>Material Ledger</h1>
+      <p class="sub">Assemble a recipe of biobased and conventional construction materials, choose how each was sourced, and read the environmental debit and credit for your product's lifetime.</p>
+    </div>
+    <div class="ledger-meta">
+      EF v3.1 · 25 impact categories<br>
+      <b>ecoinvent 3.12</b> cut-off, 1 kg basis<br>
+      GWP<sub>bio</sub> — Guest et al. 2012<br>
+      DCF — Levasseur et al. 2010
+    </div>
+  </header>
+
+  <div class="grid">
+    <section class="panel" id="library">
+      <div class="panel-head">
+        <h2>Materials</h2>
+        <span class="count" id="lib-count"></span>
+      </div>
+      <div class="lib-search">
+        <input type="text" id="lib-search" placeholder="Search materials…">
+      </div>
+      <div class="lib-groups" id="lib-groups"></div>
+    </section>
+
+    <div>
+      <section class="panel">
+        <div class="panel-head">
+          <h2>Your recipe</h2>
+          <span class="count" id="recipe-count">0 materials</span>
+        </div>
+        <div id="recipe-body"></div>
+      </section>
+
+      <section class="panel" id="lifetime-panel-wrap" style="margin-top:20px;">
+        <div class="panel-head"><h2>Product lifetime</h2></div>
+        <div id="lifetime-panel">
+          <div class="lifetime-row">
+            <label for="lifetime-slider">Years in service before end of life</label>
+            <input type="range" id="lifetime-slider" min="1" max="100" value="25" step="1">
+            <div class="lifetime-value"><span id="lifetime-value">25</span> yr</div>
+          </div>
+          <p class="lifetime-note">This is the storage period used in both credit mechanisms: it sets where the recipe lands in the GWP<sub>bio</sub> sequestration lookup for product-allocated materials, and it sets the delay in the dynamic characterization factor for waste / wild-harvested materials.</p>
+        </div>
+      </section>
+
+      <div id="results" style="display:none;">
+        <section class="panel">
+          <div class="panel-head"><h2>Climate ledger — totals</h2></div>
+          <div class="ledger-summary">
+            <div class="ledger-cell debit">
+              <div class="lbl">Debit — burden</div>
+              <div class="val" id="sum-burden">–</div>
+            </div>
+            <div class="ledger-cell credit">
+              <div class="lbl">Credit — benefit</div>
+              <div class="val" id="sum-benefit">–</div>
+            </div>
+            <div class="ledger-cell balance">
+              <div class="lbl">Balance — net climate change</div>
+              <div class="val" id="sum-net">–</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel" id="chart-panel">
+          <div class="panel-head">
+            <h2>Unit climate performance</h2>
+            <span class="count">kg CO₂-eq per kg material</span>
+          </div>
+          <div class="chart-legend">
+            <span><i style="background:var(--burden)"></i>Burden</span>
+            <span><i style="background:var(--benefit)"></i>Benefit</span>
+            <span><i style="background:#B8AE94"></i>Baseline (Concrete / Steel)</span>
+          </div>
+          <div id="chart-wrap"></div>
+        </section>
+
+        <section class="panel" id="categories-panel">
+          <div class="panel-head">
+            <h2>All 25 impact categories</h2>
+            <span class="count">recipe totals, scaled by quantity</span>
+          </div>
+          <div id="categories-scroll">
+            <table class="cat-table">
+              <thead>
+                <tr>
+                  <th data-sort="category">Category</th>
+                  <th data-sort="score" style="text-align:right;">Total burden</th>
+                  <th data-sort="unit">Unit</th>
+                </tr>
+              </thead>
+              <tbody id="cat-table-body"></tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+
+      <footer class="notes">
+        <p><b>Reading the ledger.</b> Burden is the cradle-to-gate impact of producing 1&nbsp;kg of a material. Benefit only exists for the climate change category, and only for biobased materials: product-allocated materials earn a sequestration credit (GWP<sub>bio</sub>, Guest et&nbsp;al. 2012), while waste and wild-harvested materials earn a delayed-emissions credit (dynamic characterization factor, Levasseur et&nbsp;al. 2010). A negative balance means the recipe is a net climate sink over the chosen lifetime; a positive balance means it's a net source.</p>
+        <p><b>Baselines.</b> Concrete and Steel are shown in the unit chart for reference regardless of what's in your recipe — they carry no benefit mechanism.</p>
+      </footer>
+    </div>
+  </div>
+</div>
+
+<script id="data-bundle" type="application/json">{"burdens": {"Bark chips": {"acidification": 0.0001902339995319, "climate change": 0.0350061888119404, "climate change: biogenic": 5.212450570911944e-05, "climate change: fossil": 0.0348136898313613, "climate change: land use and land use change": 0.00014037447487, "ecotoxicity: freshwater": 0.1066392469658656, "ecotoxicity: freshwater, inorganics": 0.0970313991587357, "ecotoxicity: freshwater, organics": 0.0096078478071298, "energy resources: non-renewable": 0.5321708184224357, "eutrophication: freshwater": 9.781691771807604e-06, "eutrophication: marine": 6.45243872817187e-05, "eutrophication: terrestrial": 0.0006812739704654, "human toxicity: carcinogenic": 1.4647378412042478e-11, "human toxicity: carcinogenic, inorganics": 3.503264764976376e-12, "human toxicity: carcinogenic, organics": 1.1144113647066105e-11, "human toxicity: non-carcinogenic": 3.1961438524632e-10, "human toxicity: non-carcinogenic, inorganics": 2.8216544715386426e-10, "human toxicity: non-carcinogenic, organics": 3.7448938092455694e-11, "ionising radiation: human health": 0.0042976956656777, "land use": 18.185006904781037, "material resources: metals/minerals": 1.326492088599458e-07, "ozone depletion": 7.147574381533895e-10, "particulate matter formation": 3.434147998919271e-09, "photochemical oxidant formation: human health": 0.0002486051962367, "water use": 0.0087648955759235}, "Cement": {"acidification": 0.0018862487393881, "climate change": 0.8835760004953044, "climate change: biogenic": 0.0001382392551315, "climate change: fossil": 0.8832846348572355, "climate change: land use and land use change": 0.0001531263829373, "ecotoxicity: freshwater": 0.4986414350415707, "ecotoxicity: freshwater, inorganics": 0.4829540956432129, "ecotoxicity: freshwater, organics": 0.0156873393983579, "energy resources: non-renewable": 3.6370703698150617, "eutrophication: freshwater": 9.623240484992036e-05, "eutrophication: marine": 0.0005692502257991, "eutrophication: terrestrial": 0.0064166107865115, "human toxicity: carcinogenic": 1.0038741711894142e-10, "human toxicity: carcinogenic, inorganics": 4.8851591879246035e-11, "human toxicity: carcinogenic, organics": 5.1535825239695374e-11, "human toxicity: non-carcinogenic": 5.355272334204802e-09, "human toxicity: non-carcinogenic, inorganics": 5.237864295187818e-09, "human toxicity: non-carcinogenic, organics": 1.1740803901698468e-10, "ionising radiation: human health": 0.0245147378124899, "land use": 0.8623301916576719, "material resources: metals/minerals": 2.584388368137485e-06, "ozone depletion": 3.731502049495822e-09, "particulate matter formation": 1.2312856115956145e-08, "photochemical oxidant formation: human health": 0.0018194870108051, "water use": 0.0748743507310297}, "Concrete": {"acidification": 0.0004597375136465, "climate change": 0.1275709012856795, "climate change: biogenic": 0.0001212328092704, "climate change: fossil": 0.1273576560117293, "climate change: land use and land use change": 9.201246467975958e-05, "ecotoxicity: freshwater": 0.279069260139179, "ecotoxicity: freshwater, inorganics": 0.2667787537927428, "ecotoxicity: freshwater, organics": 0.012290506346436, "energy resources: non-renewable": 0.8979205547105246, "eutrophication: freshwater": 1.5915001515987215e-05, "eutrophication: marine": 0.0001435744915084, "eutrophication: terrestrial": 0.001594194939696, "human toxicity: carcinogenic": 2.960609868183016e-11, "human toxicity: carcinogenic, inorganics": 9.844222765205478e-12, "human toxicity: carcinogenic, organics": 1.9761875916624675e-11, "human toxicity: non-carcinogenic": 9.261545561104311e-10, "human toxicity: non-carcinogenic, inorganics": 8.783738696545918e-10, "human toxicity: non-carcinogenic, organics": 4.7780686455839316e-11, "ionising radiation: human health": 0.0017452244842709, "land use": 0.7901764967780025, "material resources: metals/minerals": 6.570041223921513e-07, "ozone depletion": 1.3041367215250999e-09, "particulate matter formation": 5.832770668602327e-09, "photochemical oxidant formation: human health": 0.0004730956937888, "water use": 0.0473834189815334}, "Cotton fiber": {"acidification": 0.020975397643314, "climate change": 0.9834780805573564, "climate change: biogenic": 0.000375635811243, "climate change: fossil": 0.7088829541609639, "climate change: land use and land use change": 0.2742194905851494, "ecotoxicity: freshwater": 149.40879782849836, "ecotoxicity: freshwater, inorganics": 4.25563743390269, "ecotoxicity: freshwater, organics": 145.15316039459566, "energy resources: non-renewable": 5.437472871700578, "eutrophication: freshwater": 0.0009511534567387, "eutrophication: marine": 0.0212211443990646, "eutrophication: terrestrial": 0.0892784610448225, "human toxicity: carcinogenic": -1.2242354735467544e-10, "human toxicity: carcinogenic, inorganics": -2.9780231378523607e-10, "human toxicity: carcinogenic, organics": 1.7537876643056055e-10, "human toxicity: non-carcinogenic": 6.378924202374136e-09, "human toxicity: non-carcinogenic, inorganics": -1.3431666032518738e-08, "human toxicity: non-carcinogenic, organics": 1.9810590234892893e-08, "ionising radiation: human health": 0.0165009200197812, "land use": 97.38687188469044, "material resources: metals/minerals": 6.159456062935087e-06, "ozone depletion": 1.4922531220416052e-08, "particulate matter formation": 1.475790972951061e-07, "photochemical oxidant formation: human health": 0.0033264066406722, "water use": 15.59060632161308}, "Fiber glue (epoxy resin)": {"acidification": 0.0194761307441736, "climate change": 5.309455410703216, "climate change: biogenic": 0.0068816215102836, "climate change: fossil": 5.298833160161183, "climate change: land use and land use change": 0.0037406290317494, "ecotoxicity: freshwater": 109.89978089421696, "ecotoxicity: freshwater, inorganics": 92.15474647181172, "ecotoxicity: freshwater, organics": 17.74503442240523, "energy resources: non-renewable": 103.44855563071124, "eutrophication: freshwater": 0.0015084621924488, "eutrophication: marine": 0.0039107216744802, "eutrophication: terrestrial": 0.0396876741364962, "human toxicity: carcinogenic": 7.131280464172404e-09, "human toxicity: carcinogenic, inorganics": 5.642161558424954e-10, "human toxicity: carcinogenic, organics": 6.567064308329907e-09, "human toxicity: non-carcinogenic": 4.91513226011367e-08, "human toxicity: non-carcinogenic, inorganics": 4.5688491900658636e-08, "human toxicity: non-carcinogenic, organics": 3.462830700478069e-09, "ionising radiation: human health": 0.3838892738893118, "land use": 15.103905250081324, "material resources: metals/minerals": 6.323478281425644e-05, "ozone depletion": 2.2879491067255117e-07, "particulate matter formation": 1.88309036304517e-07, "photochemical oxidant formation: human health": 0.0196536870744146, "water use": 1.2900213921820354}, "Grass fiber": {"acidification": 0.0282450694894482, "climate change": 0.846665917234679, "climate change: biogenic": 0.0027921550980013, "climate change: fossil": 0.8433240677278158, "climate change: land use and land use change": 0.0005496944088619, "ecotoxicity: freshwater": 2.1069410911750293, "ecotoxicity: freshwater, inorganics": 2.0159606492683406, "ecotoxicity: freshwater, organics": 0.0909804419066879, "energy resources: non-renewable": 10.845346891293152, "eutrophication: freshwater": 0.0001686455853252, "eutrophication: marine": 0.0074185891732283, "eutrophication: terrestrial": 0.1241224928179924, "human toxicity: carcinogenic": -3.9686857870091686e-10, "human toxicity: carcinogenic, inorganics": -4.984826467802346e-10, "human toxicity: carcinogenic, organics": 1.0161406807931767e-10, "human toxicity: non-carcinogenic": -7.628972745453464e-08, "human toxicity: non-carcinogenic, inorganics": -7.676093582183698e-08, "human toxicity: non-carcinogenic, organics": 4.712083673023577e-10, "ionising radiation: human health": 0.1746351195483876, "land use": 165.26189741032007, "material resources: metals/minerals": 2.825651836764215e-06, "ozone depletion": 1.3439211582553365e-08, "particulate matter formation": 2.9902076365622094e-07, "photochemical oxidant formation: human health": 0.0040817650495943, "water use": 0.4318781300077113}, "Hemp fiber": {"acidification": 0.0289512299265391, "climate change": 0.8149675608632093, "climate change: biogenic": 0.0186242778089827, "climate change: fossil": 0.7958291836809505, "climate change: land use and land use change": 0.0005140993732762, "ecotoxicity: freshwater": 4.750181989926597, "ecotoxicity: freshwater, inorganics": 4.059946731212111, "ecotoxicity: freshwater, organics": 0.6902352587144855, "energy resources: non-renewable": 11.628608901311903, "eutrophication: freshwater": 0.0005073798206911, "eutrophication: marine": 0.0174509810566768, "eutrophication: terrestrial": 0.1273948296163546, "human toxicity: carcinogenic": -6.633109437147039e-11, "human toxicity: carcinogenic, inorganics": -1.4472055097949609e-10, "human toxicity: carcinogenic, organics": 7.83894566080257e-11, "human toxicity: non-carcinogenic": -2.1895798617388625e-08, "human toxicity: non-carcinogenic, inorganics": -2.2312816658677063e-08, "human toxicity: non-carcinogenic, organics": 4.1701804128843847e-10, "ionising radiation: human health": 0.2773670510709965, "land use": 66.9916259058363, "material resources: metals/minerals": 3.910140191011971e-06, "ozone depletion": 9.266943137473664e-09, "particulate matter formation": 1.9432238616435378e-07, "photochemical oxidant formation: human health": 0.0054895797119278, "water use": 0.2732191878080146}, "Jute fiber": {"acidification": 0.071141711854643, "climate change": 1.94550614003694, "climate change: biogenic": 0.116036489905596, "climate change: fossil": 1.5966312411756185, "climate change: land use and land use change": 0.2328384089557253, "ecotoxicity: freshwater": 122.17718092324886, "ecotoxicity: freshwater, inorganics": 19.996901451435303, "ecotoxicity: freshwater, organics": 102.18027947181356, "energy resources: non-renewable": 12.581410252228295, "eutrophication: freshwater": 0.0178396285940304, "eutrophication: marine": 0.0365245837184643, "eutrophication: terrestrial": 0.3103450071766848, "human toxicity: carcinogenic": -4.285773293608021e-09, "human toxicity: carcinogenic, inorganics": -4.633981964662265e-09, "human toxicity: carcinogenic, organics": 3.4820867105424324e-10, "human toxicity: non-carcinogenic": -3.618912891774437e-07, "human toxicity: non-carcinogenic, inorganics": -3.650400863958903e-07, "human toxicity: non-carcinogenic, organics": 3.1487972184465794e-09, "ionising radiation: human health": 0.0233711292870213, "land use": 190.7903714735553, "material resources: metals/minerals": 1.4067693604294496e-05, "ozone depletion": 1.2160870059055076e-08, "particulate matter formation": 4.936282532521146e-07, "photochemical oxidant formation: human health": 0.0093506305546692, "water use": 17.317417242558665}, "Kenaf fiber": {"acidification": 0.0307616533239813, "climate change": 1.4039895992077038, "climate change: biogenic": 0.4079256494223162, "climate change: fossil": 0.9803859619420824, "climate change: land use and land use change": 0.0156779878433053, "ecotoxicity: freshwater": 6.906601744456179, "ecotoxicity: freshwater, inorganics": 6.089268997341273, "ecotoxicity: freshwater, organics": 0.8173327471149044, "energy resources: non-renewable": 8.54036684453081, "eutrophication: freshwater": 0.0011884687674942, "eutrophication: marine": 0.0182256599478621, "eutrophication: terrestrial": 0.1352227881964401, "human toxicity: carcinogenic": -7.894510256212301e-10, "human toxicity: carcinogenic, inorganics": -1.4714745540707536e-09, "human toxicity: carcinogenic, organics": 6.820235284495237e-10, "human toxicity: non-carcinogenic": -2.1878966218362362e-07, "human toxicity: non-carcinogenic, inorganics": -2.2014820320286846e-07, "human toxicity: non-carcinogenic, organics": 1.3585410192447774e-09, "ionising radiation: human health": 0.0226847017629567, "land use": 127.2466225374551, "material resources: metals/minerals": 6.564757968285341e-06, "ozone depletion": 2.3537211033660383e-08, "particulate matter formation": 8.18142527458714e-07, "photochemical oxidant formation: human health": 0.0088255509782186, "water use": 21.903898240120487}, "Lime": {"acidification": 0.002957458645289, "climate change": 0.9963608347753656, "climate change: biogenic": 7.63746606558119e-05, "climate change: fossil": 0.996198796718378, "climate change: land use and land use change": 8.566339633188744e-05, "ecotoxicity: freshwater": 0.5938398447754476, "ecotoxicity: freshwater, inorganics": 0.5755112197359074, "ecotoxicity: freshwater, organics": 0.0183286250395402, "energy resources: non-renewable": 5.2807558370243335, "eutrophication: freshwater": 0.0002365462252127, "eutrophication: marine": 0.0007349854816765, "eutrophication: terrestrial": 0.0080046663564564, "human toxicity: carcinogenic": 9.108647344435324e-11, "human toxicity: carcinogenic, inorganics": 5.0659669282713117e-11, "human toxicity: carcinogenic, organics": 4.0426804161640106e-11, "human toxicity: non-carcinogenic": 5.503252335160472e-09, "human toxicity: non-carcinogenic, inorganics": 5.403590764177927e-09, "human toxicity: non-carcinogenic, organics": 9.966157098254586e-11, "ionising radiation: human health": 0.0236892335545894, "land use": 0.746654441165698, "material resources: metals/minerals": 3.831113168216226e-07, "ozone depletion": 3.5656591076543203e-09, "particulate matter formation": 1.8453009747180752e-08, "photochemical oxidant formation: human health": 0.0023150487759475, "water use": 0.1145814433160562}, "Mechanical fastener (screws, nails, brackets)": {"acidification": 0.0092318194692823, "climate change": 2.28216699813283, "climate change: biogenic": 0.0017555707448617, "climate change: fossil": 2.2788954371364283, "climate change: land use and land use change": 0.0015159902515396, "ecotoxicity: freshwater": 15.627894703099898, "ecotoxicity: freshwater, inorganics": 15.233320498866544, "ecotoxicity: freshwater, organics": 0.3945742042333536, "energy resources: non-renewable": 24.7978869429469, "eutrophication: freshwater": 0.0012850172172724, "eutrophication: marine": 0.0022069879813416, "eutrophication: terrestrial": 0.0226159687807859, "human toxicity: carcinogenic": 2.3673135137140388e-09, "human toxicity: carcinogenic, inorganics": 5.423191028928462e-10, "human toxicity: carcinogenic, organics": 1.8249944108211926e-09, "human toxicity: non-carcinogenic": 4.0991733960799516e-08, "human toxicity: non-carcinogenic, inorganics": 3.9907007416504576e-08, "human toxicity: non-carcinogenic, organics": 1.084726544294939e-09, "ionising radiation: human health": 0.0792567722466978, "land use": 7.743848524210239, "material resources: metals/minerals": 1.5973729068751915e-05, "ozone depletion": 1.3916872296343854e-08, "particulate matter formation": 2.2026704476896126e-07, "photochemical oxidant formation: human health": 0.0079059564294999, "water use": 1.0873202904226102}, "Pea protein binder": {"acidification": 0.0031978544699663, "climate change": 0.5523898715378961, "climate change: biogenic": 0.0010963847837474, "climate change: fossil": 0.54839201561261, "climate change: land use and land use change": 0.0029014711415385, "ecotoxicity: freshwater": 8.672435006929398, "ecotoxicity: freshwater, inorganics": 4.929363448976135, "ecotoxicity: freshwater, organics": 3.743071557953263, "energy resources: non-renewable": 6.124657420127054, "eutrophication: freshwater": 0.0004160571438176, "eutrophication: marine": 0.0085468034853596, "eutrophication: terrestrial": 0.0113675183188509, "human toxicity: carcinogenic": 4.36258709735616e-10, "human toxicity: carcinogenic, inorganics": 1.5718708970159127e-10, "human toxicity: carcinogenic, organics": 2.7907162003402476e-10, "human toxicity: non-carcinogenic": 2.5276105860517028e-08, "human toxicity: non-carcinogenic, inorganics": 2.433667677835137e-08, "human toxicity: non-carcinogenic, organics": 9.394290821656556e-10, "ionising radiation: human health": 0.0351511144623027, "land use": 97.32611224566588, "material resources: metals/minerals": 3.649568337804213e-06, "ozone depletion": 1.497629578142198e-08, "particulate matter formation": 2.2903539095303475e-08, "photochemical oxidant formation: human health": 0.0022484671756328, "water use": 1.6362973056239876}, "Peas": {"acidification": 0.0024172333009928, "climate change": 0.4093060276070756, "climate change: biogenic": 0.0002809526499362, "climate change: fossil": 0.4085547564716651, "climate change: land use and land use change": 0.0004703184854741, "ecotoxicity: freshwater": 7.579465911923108, "ecotoxicity: freshwater, inorganics": 3.653582517640255, "ecotoxicity: freshwater, organics": 3.925883394282856, "energy resources: non-renewable": 3.608542731076722, "eutrophication: freshwater": 0.000159853856989, "eutrophication: marine": 0.0125916206000439, "eutrophication: terrestrial": 0.0089572329098632, "human toxicity: carcinogenic": 3.0147650619718715e-10, "human toxicity: carcinogenic, inorganics": 1.6970309708813702e-10, "human toxicity: carcinogenic, organics": 1.3177340910905024e-10, "human toxicity: non-carcinogenic": 3.257294836363252e-08, "human toxicity: non-carcinogenic, inorganics": 3.1595350601368423e-08, "human toxicity: non-carcinogenic, organics": 9.775977622641046e-10, "ionising radiation: human health": 0.0096014086868457, "land use": 156.34527869012908, "material resources: metals/minerals": 3.264814518563852e-06, "ozone depletion": 1.3079819638521673e-08, "particulate matter formation": 1.7281997591730597e-08, "photochemical oxidant formation: human health": 0.0026263719182629, "water use": 2.561227474092923}, "Road transport": {"acidification": 3.405886308846967e-05, "climate change": 0.0075348985182299, "climate change: biogenic": 1.4869819104042178e-06, "climate change: fossil": 0.0075308651159769, "climate change: land use and land use change": 2.546420342645193e-06, "ecotoxicity: freshwater": 0.0159554823516378, "ecotoxicity: freshwater, inorganics": 0.0151901739490614, "ecotoxicity: freshwater, organics": 0.0007653084025764, "energy resources: non-renewable": 0.1080979580200837, "eutrophication: freshwater": 5.411031468657311e-07, "eutrophication: marine": 1.3669421998644126e-05, "eutrophication: terrestrial": 0.0001488860318734, "human toxicity: carcinogenic": 1.8753231090918336e-12, "human toxicity: carcinogenic, inorganics": 5.016284457392046e-13, "human toxicity: carcinogenic, organics": 1.3736946633526292e-12, "human toxicity: non-carcinogenic": 7.343348175726295e-11, "human toxicity: non-carcinogenic, inorganics": 6.133841014235474e-11, "human toxicity: non-carcinogenic, organics": 1.209507161490822e-11, "ionising radiation: human health": 0.000127838186668, "land use": 0.0810575644465897, "material resources: metals/minerals": 2.5460545846147767e-08, "ozone depletion": 1.715835368870309e-10, "particulate matter formation": 7.422334103508644e-10, "photochemical oxidant formation: human health": 5.272712185871124e-05, "water use": 0.0005930620664831}, "Sawdust": {"acidification": 0.0001526677807648, "climate change": 0.0311362428014098, "climate change: biogenic": 3.054908369841797e-05, "climate change: fossil": 0.03097700480035, "climate change: land use and land use change": 0.0001286889173613, "ecotoxicity: freshwater": 0.0747269244582961, "ecotoxicity: freshwater, inorganics": 0.0702101691758994, "ecotoxicity: freshwater, organics": 0.0045167552823966, "energy resources: non-renewable": 0.5124336690906862, "eutrophication: freshwater": 1.2807369307581316e-05, "eutrophication: marine": 4.806733345533984e-05, "eutrophication: terrestrial": 0.0004959297110737, "human toxicity: carcinogenic": 8.50442666691806e-12, "human toxicity: carcinogenic, inorganics": 2.5697497718344904e-12, "human toxicity: carcinogenic, organics": 5.93467689508357e-12, "human toxicity: non-carcinogenic": 2.5769954930762373e-10, "human toxicity: non-carcinogenic, inorganics": 2.3110227797681567e-10, "human toxicity: non-carcinogenic, organics": 2.659727133080805e-11, "ionising radiation: human health": 0.0066041205888807, "land use": 16.072551698206432, "material resources: metals/minerals": 8.46591794596954e-08, "ozone depletion": 5.615281976940771e-10, "particulate matter formation": 2.0806573047833656e-09, "photochemical oxidant formation: human health": 0.0001852558610054, "water use": 0.0080846991961695}, "Steel": {"acidification": 0.0092318194692823, "climate change": 2.28216699813283, "climate change: biogenic": 0.0017555707448617, "climate change: fossil": 2.2788954371364283, "climate change: land use and land use change": 0.0015159902515396, "ecotoxicity: freshwater": 15.627894703099898, "ecotoxicity: freshwater, inorganics": 15.233320498866544, "ecotoxicity: freshwater, organics": 0.3945742042333536, "energy resources: non-renewable": 24.7978869429469, "eutrophication: freshwater": 0.0012850172172724, "eutrophication: marine": 0.0022069879813416, "eutrophication: terrestrial": 0.0226159687807859, "human toxicity: carcinogenic": 2.3673135137140388e-09, "human toxicity: carcinogenic, inorganics": 5.423191028928462e-10, "human toxicity: carcinogenic, organics": 1.8249944108211926e-09, "human toxicity: non-carcinogenic": 4.0991733960799516e-08, "human toxicity: non-carcinogenic, inorganics": 3.9907007416504576e-08, "human toxicity: non-carcinogenic, organics": 1.084726544294939e-09, "ionising radiation: human health": 0.0792567722466978, "land use": 7.743848524210239, "material resources: metals/minerals": 1.5973729068751915e-05, "ozone depletion": 1.3916872296343854e-08, "particulate matter formation": 2.2026704476896126e-07, "photochemical oxidant formation: human health": 0.0079059564294999, "water use": 1.0873202904226102}, "Wood (hard wood, raw)": {"acidification": 0.0004933633822931, "climate change": 0.0876441123006187, "climate change: biogenic": 5.571059027103421e-05, "climate change: fossil": 0.0865697447161418, "climate change: land use and land use change": 0.0010186569942059, "ecotoxicity: freshwater": 0.272024359943415, "ecotoxicity: freshwater, inorganics": 0.234110220341304, "ecotoxicity: freshwater, organics": 0.037914139602111, "energy resources: non-renewable": 1.1720547459005304, "eutrophication: freshwater": 1.56100621899545e-05, "eutrophication: marine": 0.0001843848958991, "eutrophication: terrestrial": 0.0019470592719649, "human toxicity: carcinogenic": 4.1781104686064376e-11, "human toxicity: carcinogenic, inorganics": 6.483802208872098e-12, "human toxicity: carcinogenic, organics": 3.5297302477192285e-11, "human toxicity: non-carcinogenic": 6.703564597842746e-10, "human toxicity: non-carcinogenic, inorganics": 5.926423853125944e-10, "human toxicity: non-carcinogenic, organics": 7.771407447168034e-11, "ionising radiation: human health": 0.0030108606088341, "land use": 88.95206563192708, "material resources: metals/minerals": 2.3792359274407745e-07, "ozone depletion": 1.2203295462444163e-09, "particulate matter formation": 7.787355729842142e-09, "photochemical oxidant formation: human health": 0.0008523548571147, "water use": 0.0130811406162637}, "Wood (soft wood, raw)": {"acidification": 0.000345706985914, "climate change": 0.0613983762965814, "climate change: biogenic": 5.371673726297866e-05, "climate change: fossil": 0.0606927886508739, "climate change: land use and land use change": 0.0006518709084445, "ecotoxicity: freshwater": 0.1637054985693163, "ecotoxicity: freshwater, inorganics": 0.1441460782314922, "ecotoxicity: freshwater, organics": 0.0195594203378241, "energy resources: non-renewable": 0.8233397713129132, "eutrophication: freshwater": 1.3660242850958472e-05, "eutrophication: marine": 0.0001272006980426, "eutrophication: terrestrial": 0.0013483737545652, "human toxicity: carcinogenic": 2.40401629270488e-11, "human toxicity: carcinogenic, inorganics": 4.685571996824201e-12, "human toxicity: carcinogenic, organics": 1.9354590930224598e-11, "human toxicity: non-carcinogenic": 4.14925536114611e-10, "human toxicity: non-carcinogenic, inorganics": 3.839307266249703e-10, "human toxicity: non-carcinogenic, organics": 3.0994809489640586e-11, "ionising radiation: human health": 0.0038869138024501, "land use": 145.95188441724477, "material resources: metals/minerals": 1.4425079754310224e-07, "ozone depletion": 8.327192010135297e-10, "particulate matter formation": 5.479295152403174e-09, "photochemical oxidant formation: human health": 0.0005462045881588, "water use": 0.011458777541305}, "Wood glue": {"acidification": 0.0150081788944176, "climate change": 2.908963597400956, "climate change: biogenic": 0.0012977953387427, "climate change: fossil": 2.906480967803676, "climate change: land use and land use change": 0.0011848342585373, "ecotoxicity: freshwater": 19.55273948565065, "ecotoxicity: freshwater, inorganics": 18.761227883097195, "ecotoxicity: freshwater, organics": 0.7915116025534585, "energy resources: non-renewable": 47.4477738603954, "eutrophication: freshwater": 0.0007353957777229, "eutrophication: marine": 0.0025607673072506, "eutrophication: terrestrial": 0.0342005722146258, "human toxicity: carcinogenic": 1.4503097392585366e-09, "human toxicity: carcinogenic, inorganics": 2.7223457143433887e-10, "human toxicity: carcinogenic, organics": 1.178075167824198e-09, "human toxicity: non-carcinogenic": 2.512806961068127e-08, "human toxicity: non-carcinogenic, inorganics": 2.3531488787141988e-08, "human toxicity: non-carcinogenic, organics": 1.5965808235392831e-09, "ionising radiation: human health": 0.0535126289050619, "land use": 8.729202093018612, "material resources: metals/minerals": 2.6694487532937512e-05, "ozone depletion": 4.5089977514728176e-08, "particulate matter formation": 2.396847424839766e-07, "photochemical oxidant formation: human health": 0.0092239501683436, "water use": 4.1740175285119046}}, "units": {"acidification": "mol H+-eq", "climate change": "kg CO2-eq", "climate change: biogenic": "kg CO2-eq", "climate change: fossil": "kg CO2-eq", "climate change: land use and land use change": "kg CO2-eq", "ecotoxicity: freshwater": "CTUe", "ecotoxicity: freshwater, inorganics": "CTUe", "ecotoxicity: freshwater, organics": "CTUe", "energy resources: non-renewable": "MJ", "eutrophication: freshwater": "kg P-eq", "eutrophication: marine": "kg N-eq", "eutrophication: terrestrial": "mol N-eq", "human toxicity: carcinogenic": "CTUh", "human toxicity: carcinogenic, inorganics": "CTUh", "human toxicity: carcinogenic, organics": "CTUh", "human toxicity: non-carcinogenic": "CTUh", "human toxicity: non-carcinogenic, inorganics": "CTUh", "human toxicity: non-carcinogenic, organics": "CTUh", "ionising radiation: human health": "kBq U235-eq", "land use": "dimensionless (soil quality index)", "material resources: metals/minerals": "kg Sb-eq", "ozone depletion": "kg CFC-11-eq", "particulate matter formation": "disease incidence", "photochemical oxidant formation: human health": "dimensionless (tropospheric ozone concentration increase)", "water use": "m3 world-eq deprived"}, "material_group": {"Pea protein binder": "Chemical binder", "Wood (hard wood, raw)": "Forestry product", "Mechanical fastener (screws, nails, brackets)": "Mechanical binder", "Road transport": "Transport process", "Sawdust": "Forestry by-product", "Concrete": "Baseline material", "Kenaf fiber": "Fiber", "Wood (soft wood, raw)": "Forestry product", "Seagrass": "Marine biomass", "Wood glue": "Chemical binder", "Hemp fiber": "Fiber", "Fiber glue (epoxy resin)": "Chemical binder", "Lime": "Mineral binder", "Jute fiber": "Fiber", "Grass fiber": "Fiber", "Bark chips": "Forestry by-product", "Cellulose reject fibers": "Industrial biobased", "Cotton fiber": "Fiber", "Peas": "Food product", "Cement": "Mineral binder", "Steel": "Baseline material"}, "source_table": {"Peas": "biobased", "Cotton fiber": "biobased", "Hemp fiber": "biobased", "Kenaf fiber": "biobased", "Jute fiber": "biobased", "Grass fiber": "biobased", "Bark chips": "biobased", "Sawdust": "biobased", "Wood (hard wood, raw)": "biobased", "Wood (soft wood, raw)": "biobased", "Mechanical fastener (screws, nails, brackets)": "binding", "Wood glue": "binding", "Fiber glue (epoxy resin)": "binding", "Cement": "binding", "Lime": "binding", "Concrete": "baseline", "Steel": "baseline", "Road transport": "collection", "Pea protein binder": "binding"}, "benefit_params": {"Peas": {"carbon_content_kgC_per_kg": 0.4076971169807151, "rotation_period_yr": 1.0}, "Cotton fiber": {"carbon_content_kgC_per_kg": 0.4384249999999998, "rotation_period_yr": 1.0}, "Hemp fiber": {"carbon_content_kgC_per_kg": 0.445704, "rotation_period_yr": 1.0}, "Kenaf fiber": {"carbon_content_kgC_per_kg": 0.4189435336976321, "rotation_period_yr": 1.0}, "Jute fiber": {"carbon_content_kgC_per_kg": 0.4043956043956044, "rotation_period_yr": 1.0}, "Grass fiber": {"carbon_content_kgC_per_kg": 0.4503399999999999, "rotation_period_yr": 1.0}, "Bark chips": {"carbon_content_kgC_per_kg": 0.2058333333333334, "rotation_period_yr": 80.0}, "Sawdust": {"carbon_content_kgC_per_kg": 0.2905882352941176, "rotation_period_yr": 80.0}, "Wood (hard wood, raw)": {"carbon_content_kgC_per_kg": 0.2905882352941177, "rotation_period_yr": 100.0}, "Wood (soft wood, raw)": {"carbon_content_kgC_per_kg": 0.2905882352941178, "rotation_period_yr": 65.0}, "Cellulose reject fibers": {"carbon_content_kgC_per_kg": 0.4040000000000005, "rotation_period_yr": null}, "Seagrass": {"carbon_content_kgC_per_kg": 0.336, "rotation_period_yr": null}}, "compat": {"Peas": {"product": "typical", "waste": "possible", "wild_harvested": null, "notes": "Product = purpose-grown pea crop. Waste = plausible if modelling off-spec/rejected peas from food processing. No commercial wild-harvested pea stream exists."}, "Cotton fiber": {"product": "typical", "waste": "possible", "wild_harvested": null, "notes": "Product = purpose-grown cotton crop. Waste = plausible via textile/gin waste recycling streams. Cotton is exclusively cultivated, no wild-harvested route."}, "Hemp fiber": {"product": "typical", "waste": "possible", "wild_harvested": null, "notes": "Product = purpose-grown fibre crop (matches sourced ecoinvent dataset). Waste = plausible via processing residues/shives. Exclusively cultivated, no wild-harvested route."}, "Kenaf fiber": {"product": "typical", "waste": "possible", "wild_harvested": null, "notes": "Product = purpose-grown fibre crop. Waste = plausible via processing residues. Exclusively cultivated, no wild-harvested route."}, "Jute fiber": {"product": "typical", "waste": "possible", "wild_harvested": null, "notes": "Product = purpose-grown fibre crop. Waste = plausible via processing residues. Exclusively cultivated, no wild-harvested route."}, "Grass fiber": {"product": "typical", "waste": "possible", "wild_harvested": "possible", "notes": "Product = purpose-grown energy/fibre grass. Waste = plausible via agricultural residue. Wild-harvested = genuinely possible (unmanaged grassland/meadow cutting is a real practice), unlike the other fibre crops above."}, "Bark chips": {"product": "possible", "waste": "typical", "wild_harvested": null, "notes": "Waste = typical (debarking residue from timber processing, low/no independent market value). Product = possible in niche cases (mulch, tanning bark has some independent market value). Wild-harvested = n/a, bark is inherently tied to processing a harvested tree, not a standalone wild-collected material."}, "Sawdust": {"product": "possible", "waste": "typical", "wild_harvested": null, "notes": "Waste = typical (milling residue). Product = possible (some markets sell sawdust as a primary feedstock, e.g. pellet production). Wild-harvested = n/a, inherently a milling byproduct."}, "Wood (hard wood, raw)": {"product": "typical", "waste": "typical", "wild_harvested": null, "notes": "Product = typical (virgin sawnwood). Waste = typical (reclaimed/salvaged timber is a well-established route, not merely theoretical). Wild-harvested = n/a, not modelled as a distinct route from managed/purpose forestry in this tool."}, "Wood (soft wood, raw)": {"product": "typical", "waste": "typical", "wild_harvested": null, "notes": "Same logic as hardwood: virgin (product) and reclaimed (waste) are both well-established routes. Wild-harvested = n/a."}, "Seagrass": {"product": null, "waste": "possible", "wild_harvested": "typical", "notes": "Wild-harvested = typical (beach-cast wrack, cut-off allocation, matches sourced carbon content data). Waste = possible if modelled as a coastal-cleanup byproduct rather than direct wild collection \u2014 same generic burden either way, so mostly a framing choice. Product = n/a, not commercially cultivated as a construction material feedstock."}, "Cellulose reject fibers": {"product": null, "waste": "typical", "wild_harvested": null, "notes": "Waste = typical and only valid option \u2014 definitionally a reject/byproduct stream of recycled paper milling, so it cannot be reframed as a primary product. Wild-harvested = n/a by the general rule: nothing collected at a factory gate is wild-harvested."}}, "categories": ["acidification", "climate change", "climate change: biogenic", "climate change: fossil", "climate change: land use and land use change", "ecotoxicity: freshwater", "ecotoxicity: freshwater, inorganics", "ecotoxicity: freshwater, organics", "energy resources: non-renewable", "eutrophication: freshwater", "eutrophication: marine", "eutrophication: terrestrial", "human toxicity: carcinogenic", "human toxicity: carcinogenic, inorganics", "human toxicity: carcinogenic, organics", "human toxicity: non-carcinogenic", "human toxicity: non-carcinogenic, inorganics", "human toxicity: non-carcinogenic, organics", "ionising radiation: human health", "land use", "material resources: metals/minerals", "ozone depletion", "particulate matter formation", "photochemical oxidant formation: human health", "water use"], "transport_material_name": "Road transport"}</script>
+<script>
+(function(){
+  "use strict";
+  const DATA = JSON.parse(document.getElementById('data-bundle').textContent);
+
+  // ============================================================
+  // Constants & functions ported 1:1 from 01_materials_module.ipynb
+  // ============================================================
+  const TIME_HORIZON_YR = 100;
+  const MOLAR_RATIO = 44 / 12; // kg CO2 per kg C
+  const TRANSPORT_MATERIAL_NAME = DATA.transport_material_name; // "Road transport"
+
+  const ROTATION_PERIODS = [1,10,20,30,40,50,60,70,80,90,100];
+  const STORAGE_PERIODS  = [0,10,20,30,40,50,60,70,80,90,100];
+  const GWPBIO_TABLE = {
+      1: [ 0.00,-0.07,-0.15,-0.23,-0.32,-0.40,-0.50,-0.60,-0.71,-0.84,-0.99],
+     10: [ 0.04,-0.04,-0.12,-0.20,-0.28,-0.37,-0.46,-0.57,-0.68,-0.80,-0.96],
+     20: [ 0.08, 0.00,-0.08,-0.16,-0.24,-0.33,-0.42,-0.53,-0.64,-0.76,-0.92],
+     30: [ 0.12, 0.04,-0.04,-0.12,-0.20,-0.29,-0.38,-0.48,-0.60,-0.72,-0.88],
+     40: [ 0.16, 0.09, 0.01,-0.08,-0.16,-0.25,-0.34,-0.44,-0.55,-0.68,-0.84],
+     50: [ 0.20, 0.13, 0.05,-0.03,-0.12,-0.21,-0.30,-0.40,-0.51,-0.64,-0.80],
+     60: [ 0.25, 0.17, 0.09, 0.01,-0.07,-0.16,-0.26,-0.36,-0.47,-0.59,-0.75],
+     70: [ 0.29, 0.22, 0.14, 0.06,-0.03,-0.12,-0.21,-0.31,-0.42,-0.55,-0.71],
+     80: [ 0.34, 0.26, 0.18, 0.10, 0.02,-0.07,-0.17,-0.27,-0.38,-0.50,-0.66],
+     90: [ 0.38, 0.31, 0.23, 0.15, 0.06,-0.03,-0.12,-0.22,-0.33,-0.46,-0.62],
+    100: [ 0.44, 0.37, 0.29, 0.21, 0.12, 0.032,-0.06,-0.16,-0.27,-0.40,-0.56],
+  };
+
+  function lookupGwpbio(rotationYr, storageYr){
+    let nearestRotation = ROTATION_PERIODS[0];
+    let best = Infinity;
+    for (const r of ROTATION_PERIODS){
+      const d = Math.abs(r - rotationYr);
+      if (d < best){ best = d; nearestRotation = r; }
+    }
+    const row = GWPBIO_TABLE[nearestRotation];
+    storageYr = Math.max(0, Math.min(storageYr, STORAGE_PERIODS[STORAGE_PERIODS.length-1]));
+    for (let i=0; i<STORAGE_PERIODS.length-1; i++){
+      const lo = STORAGE_PERIODS[i], hi = STORAGE_PERIODS[i+1];
+      if (lo <= storageYr && storageYr <= hi){
+        const frac = (storageYr - lo) / (hi - lo);
+        return row[i] + frac * (row[i+1] - row[i]);
+      }
+    }
+    return row[row.length-1];
+  }
+
+  const BERN_A = [0.217, 0.259, 0.338, 0.186];
+  const BERN_TAU = [null, 172.9, 18.51, 1.186];
+
+  function agwpIntegral(t){
+    const [a0,a1,a2,a3] = BERN_A;
+    const [,tau1,tau2,tau3] = BERN_TAU;
+    return (
+      a0 * t
+      + a1 * tau1 * (1 - Math.exp(-t/tau1))
+      + a2 * tau2 * (1 - Math.exp(-t/tau2))
+      + a3 * tau3 * (1 - Math.exp(-t/tau3))
+    );
+  }
+
+  function dynamicCf(tauStorage, T){
+    T = (T === undefined) ? TIME_HORIZON_YR : T;
+    return agwpIntegral(T - tauStorage) / agwpIntegral(T);
+  }
+
+  function isBiobased(materialName){
+    return Object.prototype.hasOwnProperty.call(DATA.compat, materialName);
+  }
+
+  function isValidAllocation(materialName, allocationType){
+    const row = DATA.compat[materialName];
+    if (!row) return false;
+    const key = allocationType.replace(/-/g, '_'); // "wild-harvested" -> "wild_harvested"
+    return row[key] !== null && row[key] !== undefined;
+  }
+
+  function eligibilityForAllocation(allocationType){
+    if (allocationType === 'product') return 'sequestration';
+    if (allocationType === 'waste' || allocationType === 'wild-harvested') return 'delayed_emissions';
+    throw new Error('Unrecognised allocation_type: ' + allocationType);
+  }
+
+  function getBurdenPerKg(materialName, allocationType){
+    const biobased = isBiobased(materialName);
+    let lookupName = materialName;
+    if (biobased && (allocationType === 'waste' || allocationType === 'wild-harvested')){
+      lookupName = TRANSPORT_MATERIAL_NAME;
+    }
+    const row = DATA.burdens[lookupName];
+    if (!row) throw new Error("No burden data found for '" + lookupName + "'");
+    return row; // {category: score}
+  }
+
+  function getBenefitClimateChange(materialName, allocationType, lifetimeYr){
+    if (!allocationType) return 0.0; // binding/baseline materials
+    const params = DATA.benefit_params[materialName];
+    if (!params) return 0.0;
+    const carbonFraction = params.carbon_content_kgC_per_kg;
+    if (carbonFraction === null || carbonFraction === undefined) return 0.0;
+
+    const eligibility = eligibilityForAllocation(allocationType);
+    if (eligibility === 'sequestration'){
+      const rotationYr = params.rotation_period_yr;
+      if (rotationYr === null || rotationYr === undefined){
+        throw new Error("'" + materialName + "' is sequestration-eligible but has no rotation_period_yr");
+      }
+      const gwp = lookupGwpbio(rotationYr, lifetimeYr);
+      return carbonFraction * MOLAR_RATIO * gwp;
+    } else {
+      const dcf = dynamicCf(lifetimeYr);
+      return carbonFraction * MOLAR_RATIO * (dcf - 1);
+    }
+  }
+
+  function computeRecipeImpacts(recipe, lifetimeYr){
+    const totalBurdens = {};
+    DATA.categories.forEach(c => totalBurdens[c] = 0.0);
+    let totalBenefit = 0.0;
+
+    for (const item of recipe){
+      const biobased = isBiobased(item.material_name);
+      if (biobased){
+        if (!item.allocation_type){
+          throw new Error("'" + item.material_name + "' is biobased and requires an allocation_type");
+        }
+        if (!isValidAllocation(item.material_name, item.allocation_type)){
+          throw new Error("Invalid allocation for '" + item.material_name + "'");
+        }
+      }
+      const burdenPerKg = getBurdenPerKg(item.material_name, item.allocation_type);
+      for (const cat of DATA.categories){
+        const v = burdenPerKg[cat];
+        if (v !== null && v !== undefined){
+          totalBurdens[cat] += v * item.quantity_kg;
+        }
+      }
+      const benefitPerKg = getBenefitClimateChange(item.material_name, item.allocation_type, lifetimeYr);
+      totalBenefit += benefitPerKg * item.quantity_kg;
+    }
+    return {burdens: totalBurdens, benefit: totalBenefit};
+  }
+
+  // ============================================================
+  // App state
+  // ============================================================
+  let recipe = []; // [{material_name, quantity_kg, allocation_type}]
+  let lifetimeYr = 25;
+  let catSort = {key: 'category', dir: 1};
+
+  const ALL_MATERIAL_NAMES = Object.keys(DATA.material_group).filter(n => n !== TRANSPORT_MATERIAL_NAME);
+
+  const GROUP_ORDER = [
+    'Food product','Fiber','Forestry by-product','Forestry product','Marine biomass',
+    'Industrial biobased','Mechanical binder','Chemical binder','Mineral binder','Baseline material'
+  ];
+  const GROUP_COLORS = {
+    'Food product':'#B08340', 'Fiber':'#6E7F53', 'Forestry by-product':'#8C6239',
+    'Forestry product':'#5C4630', 'Marine biomass':'#3E6B7A', 'Industrial biobased':'#7A6A8C',
+    'Mechanical binder':'#6B6459', 'Chemical binder':'#9C6B4F', 'Mineral binder':'#A8A192',
+    'Baseline material':'#59503E'
+  };
+
+  const ALLOC_LABELS = {'product':'Product','waste':'Waste','wild-harvested':'Wild-harvested'};
+  const ALLOC_KEYS = ['product','waste','wild-harvested'];
+
+  function validAllocationsFor(materialName){
+    return ALLOC_KEYS.filter(a => isValidAllocation(materialName, a));
+  }
+
+  // ============================================================
+  // Number formatting
+  // ============================================================
+  function fmt(v, sig){
+    sig = sig || 3;
+    if (v === null || v === undefined || isNaN(v)) return '—';
+    if (v === 0) return '0';
+    const abs = Math.abs(v);
+    if (abs !== 0 && (abs < 0.001 || abs >= 100000)){
+      return v.toExponential(sig-1).replace('e+','e').replace('e-','e−');
+    }
+    // fixed precision to `sig` significant digits
+    const digits = Math.max(0, sig - 1 - Math.floor(Math.log10(abs)));
+    return v.toLocaleString('en-US', {minimumFractionDigits:0, maximumFractionDigits: Math.min(digits,6)});
+  }
+
+  function fmtSigned(v, sig){
+    const s = fmt(Math.abs(v), sig);
+    return (v < 0 ? '−' : '') + s;
+  }
+
+  // ============================================================
+  // Rendering: material library
+  // ============================================================
+  const libGroupsEl = document.getElementById('lib-groups');
+  const libCountEl = document.getElementById('lib-count');
+  const libSearchEl = document.getElementById('lib-search');
+
+  function renderLibrary(){
+    const q = libSearchEl.value.trim().toLowerCase();
+    const byGroup = {};
+    ALL_MATERIAL_NAMES.forEach(name => {
+      if (q && !name.toLowerCase().includes(q)) return;
+      const g = DATA.material_group[name] || 'Other';
+      (byGroup[g] = byGroup[g] || []).push(name);
+    });
+    const groups = Object.keys(byGroup).sort((a,b) => {
+      const ia = GROUP_ORDER.indexOf(a), ib = GROUP_ORDER.indexOf(b);
+      return (ia<0?999:ia) - (ib<0?999:ib);
+    });
+
+    let html = '';
+    let total = 0;
+    groups.forEach(g => {
+      const items = byGroup[g].sort();
+      total += items.length;
+      html += `<div class="lib-group-label">${g}</div>`;
+      items.forEach(name => {
+        const added = recipe.some(r => r.material_name === name);
+        const color = GROUP_COLORS[g] || '#8A8069';
+        html += `<button class="lib-item${added?' added':''}" data-name="${escAttr(name)}" ${added?'disabled':''}>
+          <span class="swatch" style="background:${color}"></span>
+          <span class="name">${esc(name)}</span>
+          <span class="plus">${added ? '✓' : '+'}</span>
+        </button>`;
+      });
+    });
+    libGroupsEl.innerHTML = html || '<div class="empty-state" style="padding:24px 8px;"><p>No materials match your search.</p></div>';
+    libCountEl.textContent = ALL_MATERIAL_NAMES.length + ' available';
+
+    libGroupsEl.querySelectorAll('.lib-item:not(.added)').forEach(btn => {
+      btn.addEventListener('click', () => addMaterial(btn.dataset.name));
+    });
+  }
+
+  libSearchEl.addEventListener('input', renderLibrary);
+
+  function esc(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+  function escAttr(s){ return esc(s); }
+
+  // ============================================================
+  // Recipe management
+  // ============================================================
+  function addMaterial(name){
+    if (recipe.some(r => r.material_name === name)) return;
+    let allocation_type = null;
+    if (isBiobased(name)){
+      const valid = validAllocationsFor(name);
+      const typical = DATA.source_table; // not used here
+      // prefer whichever the compat notes call "typical" if any
+      const compatRow = DATA.compat[name];
+      let pref = valid.find(a => compatRow[a.replace(/-/g,'_')] === 'typical');
+      allocation_type = pref || valid[0] || null;
+    }
+    recipe.push({material_name: name, quantity_kg: 1, allocation_type});
+    renderAll();
+  }
+
+  function removeMaterial(name){
+    recipe = recipe.filter(r => r.material_name !== name);
+    renderAll();
+  }
+
+  function setQuantity(name, qty){
+    const item = recipe.find(r => r.material_name === name);
+    if (item) item.quantity_kg = qty;
+    renderResults();
+  }
+
+  function setAllocation(name, alloc){
+    const item = recipe.find(r => r.material_name === name);
+    if (item) item.allocation_type = alloc;
+    renderResults();
+  }
+
+  // ============================================================
+  // Rendering: recipe ledger
+  // ============================================================
+  const recipeBodyEl = document.getElementById('recipe-body');
+  const recipeCountEl = document.getElementById('recipe-count');
+
+  function renderRecipe(){
+    recipeCountEl.textContent = recipe.length + (recipe.length === 1 ? ' material' : ' materials');
+    if (recipe.length === 0){
+      recipeBodyEl.innerHTML = `<div class="empty-state">
+        <div class="glyph">✎</div>
+        <p>Your ledger is empty. Add materials from the list on the left to start building a recipe.</p>
+      </div>`;
+      return;
+    }
+    let html = '';
+    recipe.forEach(item => {
+      const group = DATA.material_group[item.material_name] || '';
+      const biobased = isBiobased(item.material_name);
+      html += `<div class="row" data-name="${escAttr(item.material_name)}">
+        <div class="who">
+          <div class="nm">${esc(item.material_name)}</div>
+          <div class="grp">${esc(group)}</div>
+        </div>
+        <div class="stamps">`;
+      if (biobased){
+        ALLOC_KEYS.forEach(a => {
+          const valid = isValidAllocation(item.material_name, a);
+          const active = item.allocation_type === a;
+          html += `<button class="stamp-btn${active?' active':''}" data-alloc="${a}" ${valid?'':'disabled'} title="${valid?'':'Not a valid sourcing route for this material'}">${ALLOC_LABELS[a]}</button>`;
+        });
+      } else {
+        html += `<span class="no-alloc">no allocation dimension</span>`;
+      }
+      html += `</div>
+        <div class="qty-field">
+          <input type="number" min="0" step="0.1" value="${item.quantity_kg}" class="qty-input">
+          <span class="unit">kg</span>
+        </div>
+        <button class="remove-btn" title="Remove">✕</button>
+      </div>`;
+    });
+    recipeBodyEl.innerHTML = html;
+
+    recipeBodyEl.querySelectorAll('.row').forEach(rowEl => {
+      const name = rowEl.dataset.name;
+      rowEl.querySelectorAll('.stamp-btn:not([disabled])').forEach(btn => {
+        btn.addEventListener('click', () => {
+          setAllocation(name, btn.dataset.alloc);
+          rowEl.querySelectorAll('.stamp-btn').forEach(b => b.classList.toggle('active', b === btn));
+        });
+      });
+      rowEl.querySelector('.qty-input').addEventListener('input', (e) => {
+        const v = parseFloat(e.target.value);
+        setQuantity(name, isNaN(v) ? 0 : v);
+      });
+      rowEl.querySelector('.remove-btn').addEventListener('click', () => removeMaterial(name));
+    });
+  }
+
+  // ============================================================
+  // Rendering: lifetime slider
+  // ============================================================
+  const lifetimeSlider = document.getElementById('lifetime-slider');
+  const lifetimeValueEl = document.getElementById('lifetime-value');
+  lifetimeSlider.addEventListener('input', () => {
+    lifetimeYr = parseFloat(lifetimeSlider.value);
+    lifetimeValueEl.textContent = lifetimeYr;
+    renderResults();
+  });
+
+  // ============================================================
+  // Rendering: results (ledger summary, chart, category table)
+  // ============================================================
+  const resultsEl = document.getElementById('results');
+  const sumBurdenEl = document.getElementById('sum-burden');
+  const sumBenefitEl = document.getElementById('sum-benefit');
+  const sumNetEl = document.getElementById('sum-net');
+  const chartWrapEl = document.getElementById('chart-wrap');
+  const catTableBodyEl = document.getElementById('cat-table-body');
+
+  function renderResults(){
+    if (recipe.length === 0){
+      resultsEl.style.display = 'none';
+      return;
+    }
+    resultsEl.style.display = '';
+
+    let impacts;
+    try {
+      impacts = computeRecipeImpacts(recipe, lifetimeYr);
+    } catch(err){
+      resultsEl.innerHTML = `<div class="empty-state"><p>${esc(err.message)}</p></div>`;
+      return;
+    }
+
+    const burdenCC = impacts.burdens['climate change'] || 0;
+    const benefitCC = impacts.benefit || 0;
+    const netCC = burdenCC + benefitCC;
+
+    sumBurdenEl.innerHTML = fmt(burdenCC) + '<span class="u">kg CO₂-eq</span>';
+    sumBenefitEl.innerHTML = fmtSigned(benefitCC) + '<span class="u">kg CO₂-eq</span>';
+    sumNetEl.innerHTML = fmtSigned(netCC) + '<span class="u">kg CO₂-eq</span>';
+    sumNetEl.className = 'val ' + (netCC >= 0 ? 'pos' : 'neg');
+
+    renderChart();
+    renderCategoryTable(impacts.burdens);
+  }
+
+  function renderChart(){
+    const rows = [];
+    recipe.forEach(item => {
+      const burdenPerKg = getBurdenPerKg(item.material_name, item.allocation_type);
+      const burden = burdenPerKg['climate change'] || 0;
+      let benefit = 0;
+      try { benefit = getBenefitClimateChange(item.material_name, item.allocation_type, lifetimeYr); } catch(e){}
+      const label = item.allocation_type ? `${item.material_name} (${ALLOC_LABELS[item.allocation_type]})` : item.material_name;
+      rows.push({label, burden, benefit, isBaseline:false});
+    });
+    ['Concrete','Steel'].forEach(name => {
+      const burdenPerKg = getBurdenPerKg(name, null);
+      const burden = burdenPerKg['climate change'] || 0;
+      rows.push({label: name + ' (baseline)', burden, benefit:0, isBaseline:true});
+    });
+    rows.sort((a,b) => a.burden - b.burden);
+
+    const barH = 26, gap = 10, leftLabelW = 220, chartW = 560, pad = 16;
+    const n = rows.length;
+    const rowH = barH + gap;
+    const height = n * rowH + pad*2 + 24;
+    const plotW = chartW;
+    const maxAbs = Math.max(0.0001, ...rows.map(r => Math.max(Math.abs(r.burden), Math.abs(r.benefit))));
+    const scale = (plotW/2 - 10) / maxAbs;
+    const midX = leftLabelW + plotW/2;
+
+    function xFor(v){ return midX + v*scale; }
+
+    let bars = '';
+    rows.forEach((r, i) => {
+      const y = pad + i*rowH;
+      const burdenColor = r.isBaseline ? '#B8AE94' : 'var(--burden)';
+      const benefitColor = r.isBaseline ? '#B8AE94' : 'var(--benefit)';
+
+      // burden bar (top half of row)
+      const bx0 = Math.min(midX, xFor(r.burden));
+      const bw = Math.abs(xFor(r.burden) - midX);
+      bars += `<rect x="${bx0}" y="${y}" width="${bw}" height="${barH/2-1}" fill="${burdenColor}"></rect>`;
+
+      // benefit bar (bottom half of row)
+      const nx0 = Math.min(midX, xFor(r.benefit));
+      const nw = Math.abs(xFor(r.benefit) - midX);
+      bars += `<rect x="${nx0}" y="${y+barH/2+1}" width="${nw}" height="${barH/2-1}" fill="${benefitColor}"></rect>`;
+
+      bars += `<text x="${leftLabelW-10}" y="${y+barH/2+4}" text-anchor="end" font-size="11.5" fill="var(--ink)">${esc(r.label)}</text>`;
+    });
+
+    const axisY = pad + n*rowH + 6;
+    const svg = `<svg viewBox="0 0 ${leftLabelW+plotW+pad} ${height}" width="100%" style="max-width:100%; height:auto; display:block;">
+      <line x1="${midX}" y1="${pad-4}" x2="${midX}" y2="${axisY}" stroke="var(--ink)" stroke-width="1"></line>
+      ${bars}
+      <text x="${midX}" y="${axisY+16}" text-anchor="middle" font-size="11" fill="var(--ink-faint)">0</text>
+      <text x="${leftLabelW+8}" y="${axisY+16}" text-anchor="start" font-size="11" fill="var(--ink-faint)">+ burden →</text>
+      <text x="${midX-8}" y="${axisY+16}" text-anchor="end" font-size="11" fill="var(--ink-faint)">← credit</text>
+    </svg>`;
+    chartWrapEl.innerHTML = svg;
+  }
+
+  function renderCategoryTable(burdens){
+    let rows = DATA.categories.map(cat => ({
+      category: cat,
+      score: burdens[cat] || 0,
+      unit: DATA.units[cat] || ''
+    }));
+    rows.sort((a,b) => {
+      let av = a[catSort.key], bv = b[catSort.key];
+      if (typeof av === 'string') { av = av.toLowerCase(); bv = bv.toLowerCase(); }
+      if (av < bv) return -1*catSort.dir;
+      if (av > bv) return 1*catSort.dir;
+      return 0;
+    });
+    let html = '';
+    rows.forEach(r => {
+      const hl = r.category === 'climate change' ? ' class="highlight"' : '';
+      html += `<tr${hl}><td>${esc(r.category)}</td><td class="num">${fmtSigned(r.score,4)}</td><td>${esc(r.unit)}</td></tr>`;
+    });
+    catTableBodyEl.innerHTML = html;
+  }
+
+  document.querySelectorAll('table.cat-table th[data-sort]').forEach(th => {
+    th.addEventListener('click', () => {
+      const key = th.dataset.sort;
+      if (catSort.key === key) catSort.dir *= -1; else { catSort.key = key; catSort.dir = 1; }
+      renderResults();
+    });
+  });
+
+  // ============================================================
+  // Init
+  // ============================================================
+  function renderAll(){
+    renderLibrary();
+    renderRecipe();
+    renderResults();
+  }
+  renderAll();
+})();
+
+</script>
+</body>
+</html>
