@@ -4,6 +4,7 @@
 // be checked against it. Reference case (see notebook) validated to match:
 //   Material 1.4554 / Production 8.9899 / Repair 0.7869 / TOTAL 11.2322
 //   EoL burden 0.0850 / seq_growth -1.0535 / seq_avoided -0.5177
+// (validated with background = { scenarioLabel: null, t: 0 }, i.e. pure baseline)
 // ============================================================================
 
 const CATEGORIES = RAW_DATA.categories;
@@ -11,6 +12,9 @@ const QUALITY_RATIO_PRIMARY = 1.0;
 const MOLAR_RATIO = 44 / 12;
 const CONV_EFF_HEAT = 0.6;
 const CONV_EFF_ELEC = 0.25;
+const NO_BACKGROUND = { scenarioLabel: null, t: 0 };
+
+function lerp(a, b, t) { return a + (b - a) * t; } // also defined in app.js — kept local so calc.js stays dependency-free
 
 function zeroSeries() {
   const s = {};
@@ -29,21 +33,36 @@ function scaleSeries(a, s) {
 }
 
 // ---- unit burden lookups --------------------------------------------------
-function rowsFor(name, loc, src) {
+// `background` blends the burden between the 'baseline' background and a premise
+// scenario (`background.scenarioLabel`, one of RAW_DATA.scenarios), at `background.t`
+// percent of the way there (0 = today/baseline, 100 = that scenario). This is a
+// sensitivity/exploration device — linear interpolation of unit-burden scores between
+// two discrete points in time, not a modeled emissions trajectory.
+function rowsFor(name, loc, src, scn) {
   return RAW_DATA.unitBurdens.filter(r =>
     r.m === name &&
     (loc === undefined || loc === null || r.loc === loc) &&
-    (src === undefined || src === null || r.src === src)
+    (src === undefined || src === null || r.src === src) &&
+    r.scn === scn
   );
 }
-function getUnitBurden(name, opts = {}) {
-  const rows = rowsFor(name, opts.location, opts.materialSource);
+function getUnitBurdenAt(name, opts, scn) {
+  const rows = rowsFor(name, opts.location, opts.materialSource, scn);
   const s = zeroSeries();
   for (const r of rows) s[r.cat] = r.score;
   return s;
 }
-function getUnitBurdenBySource(materialName, materialSource) {
-  return getUnitBurden(materialName, { materialSource });
+function getUnitBurden(name, opts = {}, background = NO_BACKGROUND) {
+  const baseline = getUnitBurdenAt(name, opts, "baseline");
+  if (!background.scenarioLabel || background.t <= 0) return baseline;
+  const future = getUnitBurdenAt(name, opts, background.scenarioLabel);
+  const t = Math.min(background.t, 100) / 100;
+  const blended = {};
+  for (const k in baseline) blended[k] = lerp(baseline[k], future[k], t);
+  return blended;
+}
+function getUnitBurdenBySource(materialName, materialSource, background) {
+  return getUnitBurden(materialName, { materialSource }, background);
 }
 function isGrowthEligible(materialSource) {
   return materialSource === "virgin";
@@ -56,31 +75,31 @@ function getEolConstants(materialName) {
 function getBenefitParams(materialName) {
   return RAW_DATA.benefitParams[materialName] || null; // {C, rot} or null
 }
-function getMaterialUnitBurden(materialName, materialSource) {
+function getMaterialUnitBurden(materialName, materialSource, background) {
   if (materialSource === "recycled") {
     const { A, Qs } = getEolConstants(materialName);
-    const eRecycled = getUnitBurdenBySource(materialName, "recycled");
-    const eVirgin = getUnitBurdenBySource(materialName, "virgin");
+    const eRecycled = getUnitBurdenBySource(materialName, "recycled", background);
+    const eVirgin = getUnitBurdenBySource(materialName, "virgin", background);
     return addSeries(
       scaleSeries(eRecycled, A),
       scaleSeries(eVirgin, (1 - A) * (Qs / QUALITY_RATIO_PRIMARY))
     );
   }
-  return getUnitBurdenBySource(materialName, materialSource);
+  return getUnitBurdenBySource(materialName, materialSource, background);
 }
 
 // ---- material & process burdens -------------------------------------------
-function computeMaterialBurdens(bom, totalInputKg) {
+function computeMaterialBurdens(bom, totalInputKg, background) {
   let total = zeroSeries();
   for (const item of bom) {
     const kg = (totalInputKg * item.pct) / 100;
-    const ub = getMaterialUnitBurden(item.material, item.source);
+    const ub = getMaterialUnitBurden(item.material, item.source, background);
     total = addSeries(total, scaleSeries(ub, kg));
   }
   return total;
 }
 
-function computeProcessBurdens(chain, targetOutputKg) {
+function computeProcessBurdens(chain, targetOutputKg, background) {
   const n = chain.length;
   const requiredInputKg = new Array(n);
   let nextRequired = targetOutputKg;
@@ -96,11 +115,11 @@ function computeProcessBurdens(chain, targetOutputKg) {
     const machineWearKg = step.kgMachine * (processTimeHrs / step.lifetimeHrs);
     const energyUseKwh = step.powerKW * processTimeHrs;
     const machineBurden = scaleSeries(
-      getUnitBurden("machine wear", { materialSource: step.machineSource }),
+      getUnitBurden("machine wear", { materialSource: step.machineSource }, background),
       machineWearKg
     );
     const electricityBurden = scaleSeries(
-      getUnitBurden("energy use", { location: step.elecLoc }),
+      getUnitBurden("energy use", { location: step.elecLoc }, background),
       energyUseKwh
     );
     total = addSeries(addSeries(total, machineBurden), electricityBurden);
@@ -119,8 +138,8 @@ function absSeries(s) {
   for (const k in s) o[k] = Math.abs(s[k]);
   return o;
 }
-function computeEolBurdens(eol, totalDisposedKg, Aeol) {
-  const cat = (name) => getUnitBurden(name);
+function computeEolBurdens(eol, totalDisposedKg, Aeol, background) {
+  const cat = (name) => getUnitBurden(name, {}, background);
   const compost = absSeries(scaleSeries(cat("waste composting"), (1 - Aeol) * (eol.composted / 100) * totalDisposedKg));
   const recOpen = absSeries(scaleSeries(cat("waste recycling"), (1 - Aeol) * (eol.recycledOpen / 100) * totalDisposedKg));
   const recClosed = absSeries(scaleSeries(cat("waste recycling"), (1 - Aeol) * (eol.recycledClosed / 100) * totalDisposedKg));
@@ -131,17 +150,17 @@ function computeEolBurdens(eol, totalDisposedKg, Aeol) {
   return { total, breakdown: { compost, recOpen, recClosed, incin, landfill } };
 }
 
-function computeEolBenefits(eol, totalDisposedKg, Aeol, Qs, LHV, disposalLoc) {
+function computeEolBenefits(eol, totalDisposedKg, Aeol, Qs, LHV, disposalLoc, background) {
   const compostCredit = scaleSeries(
-    getUnitBurden("avoided burden - composting"),
+    getUnitBurden("avoided burden - composting", {}, background),
     -(1 - Aeol) * (eol.composted / 100) * Qs * totalDisposedKg
   );
   const recycleOpenCredit = scaleSeries(
-    getUnitBurden("avoided buden - open loop recycling"),
+    getUnitBurden("avoided buden - open loop recycling", {}, background),
     -(1 - Aeol) * (eol.recycledOpen / 100) * Qs * totalDisposedKg
   );
-  const heat = getUnitBurden("avoided burden - incineration, heat");
-  const elec = getUnitBurden("avoided burden - incineration, electricity", { location: disposalLoc });
+  const heat = getUnitBurden("avoided burden - incineration, heat", {}, background);
+  const elec = getUnitBurden("avoided burden - incineration, electricity", { location: disposalLoc }, background);
   const incinerateFactor = -(eol.incinerated / 100) * LHV * totalDisposedKg;
   const incinerateCredit = scaleSeries(
     addSeries(scaleSeries(heat, CONV_EFF_HEAT), scaleSeries(elec, CONV_EFF_ELEC)),
@@ -216,14 +235,16 @@ function computeDelayedEmissionsCredit(bom, totalKg, storageYr) {
 }
 
 // ============================================================================
-// runModel(scenario) — full pipeline, returns everything the UI needs
+// runModel(scenario, background) — full pipeline, returns everything the UI needs
+// `background` — { scenarioLabel, t } — blends the background unit-burden data
+// toward a premise scenario; defaults to pure baseline (NO_BACKGROUND) when omitted.
 // ============================================================================
-function runModel(scenario) {
+function runModel(scenario, background = NO_BACKGROUND) {
   const productKg = scenario.productKg;
 
-  const prod = computeProcessBurdens(scenario.productionChain, productKg);
+  const prod = computeProcessBurdens(scenario.productionChain, productKg, background);
   const totalMaterialInputKg = prod.firstRequiredInputKg;
-  const materialBurdens = computeMaterialBurdens(scenario.productionBom, totalMaterialInputKg);
+  const materialBurdens = computeMaterialBurdens(scenario.productionBom, totalMaterialInputKg, background);
 
   let repairBurdens = zeroSeries();
   let repairMaterialInputKg = 0;
@@ -235,10 +256,10 @@ function runModel(scenario) {
 
   if (scenario.repair.enabled) {
     repairMaterialKg = (scenario.repair.repairMaterialPctOfProduct / 100) * productKg;
-    const rep = computeProcessBurdens(scenario.repairChain, repairMaterialKg);
+    const rep = computeProcessBurdens(scenario.repairChain, repairMaterialKg, background);
     repairMaterialInputKg = rep.firstRequiredInputKg;
     repairSteps = rep.steps;
-    const repairMaterialBurdensPerEvent = computeMaterialBurdens(scenario.repairBom, repairMaterialInputKg);
+    const repairMaterialBurdensPerEvent = computeMaterialBurdens(scenario.repairBom, repairMaterialInputKg, background);
     repairBurdens = scaleSeries(addSeries(rep.total, repairMaterialBurdensPerEvent), nRepairs);
 
     productionStorageYr = scenario.repair.expectedLifetimeYr + scenario.repair.extensionPerRepairYr * nRepairs;
@@ -249,8 +270,8 @@ function runModel(scenario) {
 
   const totalDisposedKg = productKg + repairMaterialKg * nRepairs;
   const { A: Aeol, Qs: QsEol, LHV } = getEolConstants("RAW product");
-  const eolBurdens = computeEolBurdens(scenario.eol, totalDisposedKg, Aeol);
-  const eolBenefits = computeEolBenefits(scenario.eol, totalDisposedKg, Aeol, QsEol, LHV, scenario.eol.disposalElecLoc);
+  const eolBurdens = computeEolBurdens(scenario.eol, totalDisposedKg, Aeol, background);
+  const eolBenefits = computeEolBenefits(scenario.eol, totalDisposedKg, Aeol, QsEol, LHV, scenario.eol.disposalElecLoc, background);
 
   const prodSeq = computeSequestrationCredit(scenario.productionBom, totalMaterialInputKg, productionStorageYr);
   const prodDelay = computeDelayedEmissionsCredit(scenario.productionBom, totalMaterialInputKg, productionStorageYr);
@@ -270,7 +291,7 @@ function runModel(scenario) {
   const net = addSeries(addSeries(totalBurdens, seqTotal), eolBenefits.total);
 
   return {
-    scenario,
+    scenario, background,
     totalMaterialInputKg, repairMaterialInputKg, totalDisposedKg,
     productionSteps: prod.steps, repairSteps,
     materialBurdens, productionBurdens: prod.total, repairBurdens,

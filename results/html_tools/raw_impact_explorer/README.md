@@ -7,26 +7,45 @@ individual changes matter most — before committing to them on the shop floor.
 It's a direct port of `02_model.ipynb`: every function in `calc.js` mirrors a
 function in the notebook by name, and the reference case (the 3D-printed
 biopolymer example) is validated to reproduce the notebook's printed output
-exactly (Material 1.4554 / Production 8.9899 / Repair 0.7869 kg CO2-eq, etc.).
+exactly (Material 1.4554 / Production 8.9899 / Repair 0.7869 kg CO2-eq, etc.,
+with the background slider below at 0%/baseline).
 If you update the LCA model, update `calc.js` to match and re-check against
 the notebook before trusting the tool again.
 
 ## Files
 
 - `index.html` — page structure & styling
-- `data.js` — `unit_burdens.csv`, `eol_constants.csv`, `benefits_constants.csv`
+- `data.js` — `unit_burdens*.csv`, `eol_constants.csv`, `benefits_constants.csv`
   baked into one JS object (`RAW_DATA`), so the tool works offline / from a
   double-clicked file, not just when served
+- `build_data.py` — regenerates `data.js` from the three processed CSVs
 - `calc.js` — the calculation engine (pure functions, no DOM)
 - `app.js` — UI state, form rendering, the compare/diff/slider engine, export
   and recording
 
 To refresh the underlying LCA data (new ecoinvent version, more materials,
-updated CFF constants, ...), regenerate `data.js` from the three CSVs — the
-conversion script is a ~30-line Python snippet (ask Claude to reproduce it,
-or see the chat where this was built) and just needs to run again whenever
-the CSVs change. Everything else in the tool reads from `RAW_DATA` and
-doesn't need to change.
+updated CFF constants, a new premise scenario run, ...), run
+`python build_data.py` from this directory. It reads the three CSVs from
+`data/processed/` and rewrites `data.js` — nothing else in the tool needs to
+change, since everything reads from `RAW_DATA`.
+
+**Dummy scenario data**: `build_data.py`'s `SOURCE_UNIT_BURDENS` currently
+points at `unit_burdens_dummy.csv` (the same synthetic baseline/`image_SSP2-M_2050`/
+`image_SSP2-L_2050` dataset used by `02_model.ipynb`'s `USE_DUMMY_DATA` toggle),
+since there's no real premise output yet — see `notebooks/260813_lcaModel/01b_dataPrep_prospective.ipynb`.
+Flip it to `unit_burdens.csv` and re-run once that notebook has produced real
+scenario data.
+
+## Background scenario slider
+
+Alongside the existing Today/Future compare tab (which blends the *foreground*
+recipe — BOM, process chain, EoL split), the results panel has a second,
+independent slider: **Background: Today → Future**, plus a dropdown choosing
+which IAM pathway "Future" means. It linearly interpolates *background* unit
+burdens (electricity, cement, steel — the sectors `premise` actually updates)
+between the `baseline` data and the selected scenario. This is a sensitivity/
+exploration device, not a modelled emissions trajectory — most materials in
+the BOM aren't premise-sensitive at all and won't move as you drag it.
 
 ## Deploying (GitHub Pages)
 

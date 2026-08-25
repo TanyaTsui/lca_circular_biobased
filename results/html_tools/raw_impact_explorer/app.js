@@ -66,12 +66,16 @@ function emptyBomItem() {
 }
 
 // ---------- global state ------------------------------------------------------
+const FUTURE_SCENARIOS = RAW_DATA.scenarios.filter(s => s !== "baseline");
 const state = {
   scenarios: { A: defaultScenario(), B: null },
   activeTab: "A",
   category: "climate change",
   compareDiffs: [],
   compareT: {}, // diffId -> 0..100
+  // Background axis — independent of the A/B prototype-vs-scaled-up compare: slides the
+  // *background* unit-burden data between today's baseline and a premise IAM scenario.
+  background: { scenarioLabel: FUTURE_SCENARIOS[0] || null, t: 0 },
   sheetUrl: "",
 };
 
@@ -476,12 +480,12 @@ function renderCompare() {
 
   // ranked drivers: hold everything at 0 except one diff at 100, measure delta in the active category
   const catKey = state.category;
-  const baseline = runModel(previewScenario(A, diffs, Object.fromEntries(diffs.map(d => [d.id, 0]))));
+  const baseline = runModel(previewScenario(A, diffs, Object.fromEntries(diffs.map(d => [d.id, 0]))), state.background);
   const baseNet = baseline.net[catKey];
   const driverRows = diffs.map(d => {
     const tMap = Object.fromEntries(diffs.map(x => [x.id, 0]));
     tMap[d.id] = 100;
-    const res = runModel(previewScenario(A, diffs, tMap));
+    const res = runModel(previewScenario(A, diffs, tMap), state.background);
     const delta = res.net[catKey] - baseNet;
     return { label: d.label, delta };
   }).sort((a, b) => Math.abs(b.delta) - Math.abs(a.delta)).slice(0, 8);
@@ -521,14 +525,46 @@ function renderCompare() {
 function currentPreviewResult() {
   if (state.activeTab === "compare" && state.scenarios.B) {
     const scenario = previewScenario(state.scenarios.A, state.compareDiffs, state.compareT);
-    return runModel(scenario);
+    return runModel(scenario, state.background);
   }
   const key = state.activeTab === "B" ? "B" : "A";
   const scenario = state.scenarios[key] || state.scenarios.A;
-  return runModel(scenario);
+  return runModel(scenario, state.background);
 }
 
-function renderResultsColumn() {
+// Split in two so the background slider (rendered in renderResultsControls) never gets
+// destroyed mid-drag: its own `input` handler only re-renders renderResultsBody(), never
+// renderResultsControls() — same principle as the existing diff-sliders, which live in
+// left-col and only ever trigger a re-render of results-col, never their own container.
+function renderResultsControls() {
+  const cat = state.category;
+  const catOptions = CATEGORIES.map(c => `<option value="${c}" ${c === cat ? "selected" : ""}>${c}</option>`).join("");
+
+  const bg = state.background;
+  const scenarioOptions = FUTURE_SCENARIOS.map(s => `<option value="${s}" ${s === bg.scenarioLabel ? "selected" : ""}>${s}</option>`).join("");
+  const backgroundControl = FUTURE_SCENARIOS.length === 0 ? "" : `
+    <div class="diff-card" style="margin-top:14px;">
+      <div class="diff-card-top">
+        <span class="name">Background: Today &rarr; Future</span>
+        <span class="delta mono" id="background-t-label">${bg.t}%</span>
+      </div>
+      <div class="diff-vals"><span>Baseline</span>
+        <select class="cat-select" id="background-scenario-select" style="max-width:200px;">${scenarioOptions}</select>
+      </div>
+      <input type="range" min="0" max="100" step="1" value="${bg.t}" class="diff-slider" id="background-slider">
+      <div class="section-note" style="margin:8px 0 0;">Linearly blends background unit burdens (electricity, cement, steel) between today's data and the selected IAM scenario — a sensitivity device, not a modelled emissions trajectory.</div>
+    </div>`;
+
+  return `
+    <div class="results-head">
+      <h3 style="color:var(--ink);">Impact result</h3>
+      <select class="cat-select" id="category-select">${catOptions}</select>
+    </div>
+    ${backgroundControl}
+  `;
+}
+
+function renderResultsBody() {
   const result = currentPreviewResult();
   const cat = state.category;
   const netVal = result.net[cat];
@@ -572,13 +608,7 @@ function renderResultsColumn() {
         <div class="val">${fmt(val)} ${unit}</div>
       </div>`).join("");
 
-  const catOptions = CATEGORIES.map(c => `<option value="${c}" ${c === cat ? "selected" : ""}>${c}</option>`).join("");
-
   return `
-    <div class="results-head">
-      <h3 style="color:var(--ink);">Impact result</h3>
-      <select class="cat-select" id="category-select">${catOptions}</select>
-    </div>
     <div class="net-number ${netVal <= 0 ? "negative" : "positive"}">${fmt(netVal)}<span class="net-unit"> ${unit}</span></div>
     <div class="net-caption">Net impact — burdens minus sequestration &amp; circularity credit${seqNote}</div>
     <div class="bars">
@@ -633,10 +663,34 @@ function renderLeft() {
   if (state.activeTab === "compare") el.innerHTML = renderCompare();
   else el.innerHTML = renderScenarioEditor(state.activeTab);
 }
+// Full render: rebuilds the controls (category select + background control, including
+// the slider itself) and the body. Safe to call from anything except the background
+// slider's own `input` handler, which would otherwise destroy the slider mid-drag.
 function renderResults() {
-  document.getElementById("results-col").innerHTML = renderResultsColumn();
+  document.getElementById("results-controls").innerHTML = renderResultsControls();
+  document.getElementById("results-body").innerHTML = renderResultsBody();
+
   const sel = document.getElementById("category-select");
   if (sel) sel.addEventListener("change", (e) => { state.category = e.target.value; renderResults(); if (state.activeTab === "compare") renderLeft2Sliders(); });
+
+  const bgSlider = document.getElementById("background-slider");
+  if (bgSlider) bgSlider.addEventListener("input", (e) => {
+    state.background.t = Number(e.target.value);
+    document.getElementById("background-t-label").textContent = `${state.background.t}%`;
+    renderResultsBodyOnly(); // NOT renderResults() — would destroy this slider mid-drag
+    if (state.activeTab === "compare") renderLeft2Sliders();
+  });
+  const bgSelect = document.getElementById("background-scenario-select");
+  if (bgSelect) bgSelect.addEventListener("change", (e) => {
+    state.background.scenarioLabel = e.target.value;
+    renderResultsBodyOnly();
+    if (state.activeTab === "compare") renderLeft2Sliders();
+  });
+}
+// Patches only the results body (net number, bars, breakdown) — used while dragging the
+// background slider so its own container (results-controls) is never touched.
+function renderResultsBodyOnly() {
+  document.getElementById("results-body").innerHTML = renderResultsBody();
 }
 function renderLeft2Sliders() {
   // re-render only the driver list + labels without losing slider drag state
@@ -768,7 +822,7 @@ document.getElementById("tabs").addEventListener("click", (e) => {
 // ============================================================================
 function buildExportPayload() {
   const A = state.scenarios.A, B = state.scenarios.B;
-  const resA = runModel(A);
+  const resA = runModel(A, state.background);
   const payload = {
     recordedAt: new Date().toISOString(),
     recorder: {
@@ -776,10 +830,11 @@ function buildExportPayload() {
       organisation: document.getElementById("rec-org").value,
       processLabel: document.getElementById("rec-process").value,
     },
+    background: state.background,
     today: { inputs: A, results: { totalBurdens: resA.totalBurdens, seqTotal: resA.seqTotal, eolBenefits: resA.eolBenefits, net: resA.net } },
   };
   if (B) {
-    const resB = runModel(B);
+    const resB = runModel(B, state.background);
     payload.future = { inputs: B, results: { totalBurdens: resB.totalBurdens, seqTotal: resB.seqTotal, eolBenefits: resB.eolBenefits, net: resB.net } };
   }
   return payload;
