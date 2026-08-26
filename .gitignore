@@ -7,3 +7,8 @@ venv/
 *.egg-info/
 .DS_Store
 .env
+
+# premise run artifacts (logs, change/scenario reports, linking diagnostics)
+export/
+unlinked.log
+missing_classifications.csv

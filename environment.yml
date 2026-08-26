@@ -3,14 +3,18 @@ channels:
   - conda-forge
   - defaults
 dependencies:
-  - python=3.13
+  - python=3.11
   - pandas=2.2.3
   - numpy=1.26.4
   - matplotlib=3.10.1
   - ipykernel=6.29.5
+  - cryptography
+  - numba=0.67.0
+  - llvmlite=0.49.0
   - pip
   - pip:
       - bw2data==4.4.2
+      - peewee<4
       - bw2io==0.9.6
       - bw2calc==2.0.1
       - premise[bw25]

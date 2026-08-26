@@ -29,12 +29,12 @@ updated CFF constants, a new premise scenario run, ...), run
 `data/processed/` and rewrites `data.js` — nothing else in the tool needs to
 change, since everything reads from `RAW_DATA`.
 
-**Dummy scenario data**: `build_data.py`'s `SOURCE_UNIT_BURDENS` currently
-points at `unit_burdens_dummy.csv` (the same synthetic baseline/`image_SSP2-M_2050`/
-`image_SSP2-L_2050` dataset used by `02_model.ipynb`'s `USE_DUMMY_DATA` toggle),
-since there's no real premise output yet — see `notebooks/260813_lcaModel/01b_dataPrep_prospective.ipynb`.
-Flip it to `unit_burdens.csv` and re-run once that notebook has produced real
-scenario data.
+**Scenario data**: `01b_dataPrep_prospective.ipynb` has been run for real, so
+`build_data.py`'s `SOURCE_UNIT_BURDENS` points at the real `unit_burdens.csv`
+(baseline / `image_SSP2-M_2050` / `image_SSP2-L_2050`, from real premise
+databases) — the synthetic `unit_burdens_dummy.csv` used during development is
+no longer referenced. Re-run `python build_data.py` any time `01b` produces a
+new scenario run.
 
 ## Background scenario slider
 

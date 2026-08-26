@@ -13,11 +13,10 @@ import pandas as pd
 DATA_DIR = Path(__file__).resolve().parents[3] / "data" / "processed"
 OUT_PATH = Path(__file__).resolve().parent / "data.js"
 
-# Points at the dummy scenario dataset (baseline / image_SSP2-M_2050 / image_SSP2-L_2050)
-# built alongside 02_model.ipynb's USE_DUMMY_DATA toggle, since there's no real premise
-# output yet. Flip to "unit_burdens.csv" once 01b_dataPrep_prospective.ipynb has been run
-# for real.
-SOURCE_UNIT_BURDENS = "unit_burdens_dummy.csv"
+# 01b_dataPrep_prospective.ipynb has been run for real — unit_burdens.csv now has real
+# premise scenario data (baseline / image_SSP2-M_2050 / image_SSP2-L_2050), so this points
+# at the real file instead of the synthetic unit_burdens_dummy.csv used for development.
+SOURCE_UNIT_BURDENS = "unit_burdens.csv"
 
 # Same EU normalisation factors as 02_model.ipynb's EF_NORMALISATION cell — not derived
 # from the CSVs, and not currently used by calc.js/app.js, but kept for parity with the
