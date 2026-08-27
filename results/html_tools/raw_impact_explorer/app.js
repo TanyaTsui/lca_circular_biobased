@@ -20,42 +20,36 @@ function defaultSourceFor(material) {
   const opts = RAW_DATA.bomMaterials[material] || ["virgin"];
   return opts[0];
 }
+// Display-only relabels. The canonical value (left side) stays in state and is what
+// calc.js / eolConstants / benefitParams look up — only the shown text changes.
+const DISPLAY_LABELS = { "Soft wood": "wood, soft", "Hard wood": "wood, hard", "co-product": "by-product" };
+function disp(v) { return DISPLAY_LABELS[v] !== undefined ? DISPLAY_LABELS[v] : v; }
 
-// ---------- default (starting) scenario — mirrors the notebook example ------
-function defaultScenario() {
+// ---------- blank (starting) scenario — the tool opens empty; worked examples
+// live in presets.js and are loaded via "Load a case" ---------------------------
+function blankScenario() {
   return {
     productKg: 1.0,
-    productionBom: [
-      { material: "Pea protein binder", pct: 70, source: "virgin" },
-      { material: "Sawdust", pct: 20, source: "co-product" },
-      { material: "Seagrass", pct: 10, source: "wild-harvested" },
-    ],
-    productionChain: [
-      { name: "Mixing", kgMachine: 80, powerKW: 1.5, rateKgHr: 15.0, lifetimeHrs: 15000, elecLoc: "NL", retainedPct: 98, machineSource: "virgin" },
-      { name: "3D printing", kgMachine: 250, powerKW: 2.5, rateKgHr: 0.5, lifetimeHrs: 20000, elecLoc: "NL", retainedPct: 92, machineSource: "recycled" },
-      { name: "Baking", kgMachine: 500, powerKW: 8.0, rateKgHr: 4.0, lifetimeHrs: 25000, elecLoc: "NL", retainedPct: 30, machineSource: "virgin" },
-    ],
+    productionBom: [],
+    productionChain: [],
     repair: {
-      enabled: true,
+      enabled: false,
       repairMaterialPctOfProduct: 10,
       expectedLifetimeYr: 20,
       extensionPerRepairYr: 10,
       numRepairs: 3,
     },
-    repairBom: [
-      { material: "Pea protein binder", pct: 80, source: "virgin" },
-      { material: "Seagrass", pct: 10, source: "wild-harvested" },
-      { material: "Hemp fiber", pct: 10, source: "virgin" },
-    ],
-    repairChain: [
-      { name: "Mixing", kgMachine: 80, powerKW: 1.5, rateKgHr: 15.0, lifetimeHrs: 15000, elecLoc: "NL", retainedPct: 98, machineSource: "virgin" },
-      { name: "3D printing", kgMachine: 250, powerKW: 2.5, rateKgHr: 0.5, lifetimeHrs: 20000, elecLoc: "NL", retainedPct: 92, machineSource: "virgin" },
-    ],
+    repairBom: [],
+    repairChain: [],
     eol: {
-      composted: 30, recycledOpen: 20, recycledClosed: 30, incinerated: 10, landfilled: 10,
+      composted: 0, recycledOpen: 0, recycledClosed: 0, incinerated: 0, landfilled: 0,
       disposalElecLoc: "NL",
     },
   };
+}
+function isBlankScenario(s) {
+  return !!s && s.productionBom.length === 0 && s.productionChain.length === 0
+    && s.repairBom.length === 0 && s.repairChain.length === 0;
 }
 function emptyStep(name) {
   return { name: name || "New step", kgMachine: 50, powerKW: 1.0, rateKgHr: 5.0, lifetimeHrs: 15000, elecLoc: "NL", retainedPct: 95, machineSource: "virgin" };
@@ -64,19 +58,24 @@ function emptyBomItem() {
   const m = Object.keys(RAW_DATA.bomMaterials)[0];
   return { material: m, pct: 0, source: defaultSourceFor(m) };
 }
+const PRESETS = (typeof RAW_PRESETS !== "undefined") ? RAW_PRESETS : [];
 
 // ---------- global state ------------------------------------------------------
 const FUTURE_SCENARIOS = RAW_DATA.scenarios.filter(s => s !== "baseline");
 const state = {
-  scenarios: { A: defaultScenario(), B: null },
+  scenarios: { A: blankScenario(), B: null },
   activeTab: "A",
   category: "climate change",
   compareDiffs: [],
   compareT: {}, // diffId -> 0..100
+  compareMasterT: 0, // master "slide everything" position
+  expandedBreakdown: {}, // breakdown row key -> bool (drill-down open)
   // Background axis — independent of the A/B prototype-vs-scaled-up compare: slides the
   // *background* unit-burden data between today's baseline and a premise IAM scenario.
   background: { scenarioLabel: FUTURE_SCENARIOS[0] || null, t: 0 },
-  sheetUrl: "",
+  // Pre-configured deployed Apps Script Web App for the shared RAW project sheet
+  // (spreadsheet 1V-yfoLJ4mOpQNL9FhD3dTIvIVj3SZCwywt3PAdA_jyw). Override via Recording settings.
+  sheetUrl: "https://script.google.com/macros/s/AKfycbw9YYi6u7Z8i8J21qSyBm-mpd1sHL06672gMI77qVzzcrLitzDggvBo61edBHu19EY-/exec",
 };
 
 // ============================================================================
@@ -93,7 +92,7 @@ function fieldSelect(label, value, path, options, opts = {}) {
   return `<div class="field${opts.wide ? ' field-wide' : ''}">
     <label>${label}</label>
     <select data-path="${path}">
-      ${options.map(o => `<option value="${o}" ${o === value ? "selected" : ""}>${o}</option>`).join("")}
+      ${options.map(o => `<option value="${o}" ${o === value ? "selected" : ""}>${disp(o)}</option>`).join("")}
     </select>
   </div>`;
 }
@@ -113,7 +112,7 @@ function renderBomSection(scKey, bomKey, title, hint) {
     const opts = RAW_DATA.bomMaterials[item.material] || [item.source];
     return `<div class="item-card">
       <div class="item-card-head">
-        <div class="item-title"><span class="item-index">${i + 1}</span>${item.material}</div>
+        <div class="item-title"><span class="item-index">${i + 1}</span>${disp(item.material)}</div>
         <button class="remove-btn" data-action="remove-bom" data-sc="${scKey}" data-bom="${bomKey}" data-idx="${i}">remove</button>
       </div>
       <div class="field-grid">
@@ -144,7 +143,11 @@ function renderChainSection(scKey, chainKey, title, hint) {
           <input type="text" value="${step.name}" data-path="${scKey}.${chainKey}.${i}.name"
             style="border:none;background:transparent;font-family:var(--font-display);font-weight:600;font-size:13px;color:var(--ink);padding:0;width:140px;">
         </div>
-        <button class="remove-btn" data-action="remove-step" data-sc="${scKey}" data-chain="${chainKey}" data-idx="${i}">remove</button>
+        <div class="item-actions">
+          <button class="remove-btn" data-action="move-step" data-sc="${scKey}" data-chain="${chainKey}" data-idx="${i}" data-dir="-1" ${i === 0 ? "disabled" : ""} title="move up">&uarr;</button>
+          <button class="remove-btn" data-action="move-step" data-sc="${scKey}" data-chain="${chainKey}" data-idx="${i}" data-dir="1" ${i === chain.length - 1 ? "disabled" : ""} title="move down">&darr;</button>
+          <button class="remove-btn" data-action="remove-step" data-sc="${scKey}" data-chain="${chainKey}" data-idx="${i}">remove</button>
+        </div>
       </div>
       <div class="field-grid">
         ${fieldNum("Machine mass", step.kgMachine, `${scKey}.${chainKey}.${i}.kgMachine`, { unit: "kg" })}
@@ -176,19 +179,17 @@ function renderRepairSection(scKey) {
     inner = `
       <div class="field-grid" style="margin-bottom:16px;">
         ${fieldNum("Repair material (% of product mass, per event)", r.repairMaterialPctOfProduct, `${scKey}.repair.repairMaterialPctOfProduct`, { unit: "%" })}
-        ${fieldNum("Expected lifetime without repair", r.expectedLifetimeYr, `${scKey}.repair.expectedLifetimeYr`, { unit: "yr" })}
-        ${fieldNum("Lifetime extension per repair", r.extensionPerRepairYr, `${scKey}.repair.extensionPerRepairYr`, { unit: "yr" })}
-        ${fieldNum("Number of repair events", r.numRepairs, `${scKey}.repair.numRepairs`, { unit: "" })}
       </div>
+      <button class="add-row-btn" data-action="copy-prod-bom" data-sc="${scKey}" style="margin-bottom:12px;">⧉ Copy bill of materials from production</button>
       ${renderBomSectionInner(scKey, "repairBom", "Repair bill of materials")}
+      <button class="add-row-btn" data-action="copy-prod-chain" data-sc="${scKey}" style="margin-bottom:12px;">⧉ Copy process chain from production</button>
       ${renderChainSectionInner(scKey, "repairChain", "Repair process chain")}
     `;
   }
   return `<div class="section">
     <div class="section-head">
       <h3>Repair</h3>
-      <label class="toggle-row"><span class="switch"><input type="checkbox" ${r.enabled ? "checked" : ""} data-action="toggle-repair" data-sc="${scKey}"><span class="slider"></span></span>
-      <span class="hint">${r.enabled ? "included" : "not included"}</span></label>
+      <span class="hint">${r.enabled ? "included" : "not included"} &middot; toggle &amp; lifetimes in Product basis</span>
     </div>
     <p class="section-note">Repairs use their own (usually shorter) chain and their own bill of materials, and extend the product's service life.</p>
     ${inner}
@@ -204,7 +205,7 @@ function renderBomSectionInner(scKey, bomKey, title) {
     const opts = RAW_DATA.bomMaterials[item.material] || [item.source];
     return `<div class="item-card">
       <div class="item-card-head">
-        <div class="item-title"><span class="item-index">${i + 1}</span>${item.material}</div>
+        <div class="item-title"><span class="item-index">${i + 1}</span>${disp(item.material)}</div>
         <button class="remove-btn" data-action="remove-bom" data-sc="${scKey}" data-bom="${bomKey}" data-idx="${i}">remove</button>
       </div>
       <div class="field-grid">
@@ -231,7 +232,11 @@ function renderChainSectionInner(scKey, chainKey, title) {
           <input type="text" value="${step.name}" data-path="${scKey}.${chainKey}.${i}.name"
             style="border:none;background:transparent;font-family:var(--font-display);font-weight:600;font-size:13px;color:var(--ink);padding:0;width:140px;">
         </div>
-        <button class="remove-btn" data-action="remove-step" data-sc="${scKey}" data-chain="${chainKey}" data-idx="${i}">remove</button>
+        <div class="item-actions">
+          <button class="remove-btn" data-action="move-step" data-sc="${scKey}" data-chain="${chainKey}" data-idx="${i}" data-dir="-1" ${i === 0 ? "disabled" : ""} title="move up">&uarr;</button>
+          <button class="remove-btn" data-action="move-step" data-sc="${scKey}" data-chain="${chainKey}" data-idx="${i}" data-dir="1" ${i === chain.length - 1 ? "disabled" : ""} title="move down">&darr;</button>
+          <button class="remove-btn" data-action="remove-step" data-sc="${scKey}" data-chain="${chainKey}" data-idx="${i}">remove</button>
+        </div>
       </div>
       <div class="field-grid">
         ${fieldNum("Machine mass", step.kgMachine, `${scKey}.${chainKey}.${i}.kgMachine`, { unit: "kg" })}
@@ -276,6 +281,16 @@ function renderEolSection(scKey) {
   </div>`;
 }
 
+function renderStartBanner(scKey) {
+  const btns = PRESETS.map(p => `<button class="preset-btn" data-action="load-preset" data-preset="${p.id}">
+    <span class="preset-name">${p.name}</span><span class="preset-blurb">${p.blurb}</span></button>`).join("");
+  return `<div class="section" style="background:rgba(181,101,29,0.06);">
+    <div class="section-head"><h3>Start a model</h3><span class="hint">or just start filling in the form ↓</span></div>
+    <p class="section-note">This model is empty. Load a worked example to explore or adapt — everything stays editable:</p>
+    <div class="preset-list">${btns}</div>
+  </div>`;
+}
+
 function renderScenarioEditor(scKey) {
   const scenario = state.scenarios[scKey];
   if (!scenario) {
@@ -287,11 +302,21 @@ function renderScenarioEditor(scKey) {
       </div>
     </div>`;
   }
+  const repairOn = scenario.repair.enabled;
   return `<div class="panel">
+    ${scKey === "A" && isBlankScenario(scenario) ? renderStartBanner(scKey) : ""}
     <div class="section" style="border-bottom:1px solid var(--line-soft);">
-      <div class="section-head"><h3>Product basis</h3></div>
+      <div class="section-head">
+        <h3>Product basis</h3>
+        <label class="toggle-row"><span class="switch"><input type="checkbox" ${repairOn ? "checked" : ""} data-action="toggle-repair" data-sc="${scKey}"><span class="slider"></span></span>
+        <span class="hint">${repairOn ? "repair included" : "repair not included"}</span></label>
+      </div>
+      <p class="section-note">Lifetime assumptions set how long biogenic carbon is considered stored${repairOn ? ", and how many repair cycles are added" : ""}.</p>
       <div class="field-grid">
         ${fieldNum("Target output mass", scenario.productKg, `${scKey}.productKg`, { unit: "kg", step: "0.01" })}
+        ${fieldNum("Expected lifetime without repair", scenario.repair.expectedLifetimeYr, `${scKey}.repair.expectedLifetimeYr`, { unit: "yr" })}
+        ${repairOn ? fieldNum("Lifetime extension per repair", scenario.repair.extensionPerRepairYr, `${scKey}.repair.extensionPerRepairYr`, { unit: "yr" }) : ""}
+        ${repairOn ? fieldNum("Number of repair events", scenario.repair.numRepairs, `${scKey}.repair.numRepairs`, { unit: "" }) : ""}
       </div>
     </div>
     ${renderBomSection(scKey, "productionBom", "Bill of materials — production", "Composition of the input mass, as % of the total. Production and repair each have their own mix.")}
@@ -307,42 +332,51 @@ function renderScenarioEditor(scKey) {
 function buildDiffs(A, B) {
   const diffs = [];
 
+  // Stable id from group+label so `state.compareT` / slider positions survive the
+  // rebuild that every renderCompare() does (random ids used to reset everything to 0,
+  // which also broke the compare toggles).
+  function diffId(group, label) { return "d_" + (group + "|" + label).replace(/[^a-z0-9]+/gi, "_").toLowerCase(); }
+
   function addSlider(label, group, a, b, unit, apply, order = 1) {
     if (Math.abs(a - b) < 1e-9) return;
-    diffs.push({ id: uid("d"), type: "slider", label, group, a, b, unit, apply, order });
+    diffs.push({ id: diffId(group, label), type: "slider", label, group, a, b, unit, apply, order });
   }
   function addToggle(label, group, a, b, apply, order = 0) {
     if (a === b) return;
-    diffs.push({ id: uid("d"), type: "toggle", label, group, a, b, apply, order });
+    diffs.push({ id: diffId(group, label), type: "toggle", label, group, a, b, apply, order });
   }
 
-  addSlider("Target output mass", "Product", A.productKg, B.productKg, "kg", (c, t) => { c.productKg = lerp(A.productKg, B.productKg, t); });
+  addSlider("Target output mass", "Product basis", A.productKg, B.productKg, "kg", (c, t) => { c.productKg = lerp(A.productKg, B.productKg, t); });
 
+  // One mix slider per BOM: slides the whole bill of materials from Today's mix to
+  // Future's mix (per-material % lerped, sources switch at the halfway point).
   function diffBom(bomKey, groupLabel) {
     const bomA = A[bomKey], bomB = B[bomKey];
     const names = Array.from(new Set([...bomA.map(x => x.material), ...bomB.map(x => x.material)]));
-    for (const name of names) {
-      const ia = bomA.find(x => x.material === name);
-      const ib = bomB.find(x => x.material === name);
-      const pctA = ia ? ia.pct : 0, pctB = ib ? ib.pct : 0;
-      const srcA = ia ? ia.source : (ib ? ib.source : "virgin");
-      const srcB = ib ? ib.source : (ia ? ia.source : "virgin");
-      if (Math.abs(pctA - pctB) > 1e-9) {
-        addSlider(`${name} — % of input mass`, groupLabel, pctA, pctB, "%", (c, t) => {
+    const changed = names.some(name => {
+      const ia = bomA.find(x => x.material === name), ib = bomB.find(x => x.material === name);
+      return !ia || !ib || Math.abs(ia.pct - ib.pct) > 1e-9 || ia.source !== ib.source;
+    });
+    if (!changed) return;
+    diffs.push({
+      id: diffId(groupLabel, "mix"), type: "slider",
+      label: `${groupLabel}: Today mix → Future mix`, group: groupLabel,
+      a: 0, b: 100, unit: "%", order: 1, isMix: true,
+      apply: (c, t) => {
+        for (const name of names) {
+          const ia = bomA.find(x => x.material === name);
+          const ib = bomB.find(x => x.material === name);
+          const pctA = ia ? ia.pct : 0, pctB = ib ? ib.pct : 0;
+          const srcA = ia ? ia.source : (ib ? ib.source : "virgin");
+          const srcB = ib ? ib.source : (ia ? ia.source : "virgin");
           const pct = lerp(pctA, pctB, t);
           const src = t >= 0.5 ? srcB : srcA;
           let it = c[bomKey].find(x => x.material === name);
           if (!it) { it = { material: name, pct, source: src }; c[bomKey].push(it); }
           else { it.pct = pct; it.source = src; }
-        });
-      }
-      if (ia && ib && ia.source !== ib.source) {
-        addToggle(`${name} — material source`, groupLabel, ia.source, ib.source, (c, t) => {
-          const it = c[bomKey].find(x => x.material === name);
-          if (it) it.source = t >= 0.5 ? ib.source : ia.source;
-        });
-      }
-    }
+        }
+      },
+    });
   }
   diffBom("productionBom", "Production mix");
   diffBom("repairBom", "Repair mix");
@@ -389,27 +423,29 @@ function buildDiffs(A, B) {
   diffChain("productionChain", "Production process");
   diffChain("repairChain", "Repair process");
 
-  addToggle("Repairs included", "Repair", A.repair.enabled, B.repair.enabled, (c, t) => {
+  addToggle("Repairs included", "Product basis", A.repair.enabled, B.repair.enabled, (c, t) => {
     c.repair.enabled = t >= 0.5 ? B.repair.enabled : A.repair.enabled;
   }, 0);
-  addSlider("Repair material (% of product mass)", "Repair", A.repair.repairMaterialPctOfProduct, B.repair.repairMaterialPctOfProduct, "%", (c, t) => {
-    c.repair.repairMaterialPctOfProduct = lerp(A.repair.repairMaterialPctOfProduct, B.repair.repairMaterialPctOfProduct, t);
-  });
-  addSlider("Expected lifetime", "Repair", A.repair.expectedLifetimeYr, B.repair.expectedLifetimeYr, "yr", (c, t) => {
+  addSlider("Expected lifetime without repair", "Product basis", A.repair.expectedLifetimeYr, B.repair.expectedLifetimeYr, "yr", (c, t) => {
     c.repair.expectedLifetimeYr = lerp(A.repair.expectedLifetimeYr, B.repair.expectedLifetimeYr, t);
   });
-  addSlider("Lifetime extension per repair", "Repair", A.repair.extensionPerRepairYr, B.repair.extensionPerRepairYr, "yr", (c, t) => {
-    c.repair.extensionPerRepairYr = lerp(A.repair.extensionPerRepairYr, B.repair.extensionPerRepairYr, t);
-  });
-  addSlider("Number of repair events", "Repair", A.repair.numRepairs, B.repair.numRepairs, "", (c, t) => {
-    c.repair.numRepairs = Math.round(lerp(A.repair.numRepairs, B.repair.numRepairs, t));
+  if (A.repair.enabled || B.repair.enabled) {
+    addSlider("Lifetime extension per repair", "Product basis", A.repair.extensionPerRepairYr, B.repair.extensionPerRepairYr, "yr", (c, t) => {
+      c.repair.extensionPerRepairYr = lerp(A.repair.extensionPerRepairYr, B.repair.extensionPerRepairYr, t);
+    });
+    addSlider("Number of repair events", "Product basis", A.repair.numRepairs, B.repair.numRepairs, "", (c, t) => {
+      c.repair.numRepairs = Math.round(lerp(A.repair.numRepairs, B.repair.numRepairs, t));
+    });
+  }
+  addSlider("Repair material (% of product mass)", "Repair", A.repair.repairMaterialPctOfProduct, B.repair.repairMaterialPctOfProduct, "%", (c, t) => {
+    c.repair.repairMaterialPctOfProduct = lerp(A.repair.repairMaterialPctOfProduct, B.repair.repairMaterialPctOfProduct, t);
   });
 
   const eolA = A.eol, eolB = B.eol;
   const eolKeys = ["composted", "recycledOpen", "recycledClosed", "incinerated", "landfilled"];
   if (eolKeys.some(k => eolA[k] !== eolB[k])) {
     diffs.push({
-      id: uid("d"), type: "slider", label: "End-of-life disposal mix", group: "End of life",
+      id: "d_end_of_life_mix", type: "slider", label: "End-of-life disposal mix", group: "End of life",
       a: 0, b: 100, unit: "%", order: 1,
       apply: (c, t) => { for (const k of eolKeys) c.eol[k] = lerp(eolA[k], eolB[k], t); },
       isMix: true,
@@ -510,7 +546,13 @@ function renderCompare() {
         <button class="btn btn-sm" id="btn-apply-compare">Preview full Future</button>
       </div>
     </div>
-    <p class="section-note" style="margin-bottom:18px;">Each slider moves one parameter between Today's value and Future's value, independently — everything else stays put. Drag to see how sensitive the result is to that one change.</p>
+    <p class="section-note" style="margin-bottom:14px;">The master slider moves every lever together, straight from Today to the full Future scenario. Each lever below also moves on its own — everything else stays put — to show how sensitive the result is to that one change.</p>
+    <div class="diff-card" style="margin-bottom:20px;border-color:var(--rust);background:rgba(181,101,29,0.06);">
+      <div class="diff-card-top"><span class="name">Slide everything: Today → Future</span>
+        <span class="delta mono" id="compare-master-label">${state.compareMasterT}%</span></div>
+      <div class="diff-vals"><span>Today (every lever)</span><span>Full Future scenario</span></div>
+      <input type="range" min="0" max="100" step="1" value="${state.compareMasterT}" class="diff-slider" id="compare-master">
+    </div>
     <div style="margin-bottom:22px;">
       <h4 style="font-size:12.5px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px;">Biggest single-lever drivers (${catKey})</h4>
       <div class="driver-list">${driverHtml}</div>
@@ -573,6 +615,13 @@ function renderResultsBody() {
   const circVal = result.eolBenefits[cat];
   const unit = catUnit(cat);
 
+  const matVal = result.materialBurdens[cat];
+  const prodVal = result.productionBurdens[cat];
+  const repVal = result.repairBurdens[cat];
+  const eolVal = result.eolBurdens[cat];
+  const repairOn = result.scenario.repair.enabled;
+  const nRep = result.repairNumEvents || 0;
+
   const allVals = [burdenVal, seqVal, circVal, netVal];
   const maxAbs = Math.max(...allVals.map(v => Math.abs(v)), 1e-9);
   function barRow(label, val, color) {
@@ -587,32 +636,92 @@ function renderResultsBody() {
       <div class="bar-val">${fmt(val)}</div>
     </div>`;
   }
+  // Burden bar, segmented by component (burdens are positive → right half of the track)
+  const segDefs = [
+    ["Material", matVal, "var(--rust-deep)"],
+    ["Production", prodVal, "var(--rust)"],
+    ...(repairOn ? [["Repair", repVal, "var(--tan)"]] : []),
+    ["End of life", eolVal, "var(--purple)"],
+  ];
+  let segAcc = 50;
+  const segHtml = segDefs.map(([lbl, v, c]) => {
+    const w = (Math.max(v, 0) / maxAbs) * 50;
+    const html = `<div class="bar-fill" style="left:${segAcc}%;width:${w}%;background:${c};" title="${lbl}: ${fmt(v)} ${unit}"></div>`;
+    segAcc += w;
+    return html;
+  }).join("");
+  const burdenBar = `<div class="bar-row">
+    <div class="bar-label">Burden</div>
+    <div class="bar-track"><div class="zero-line" style="left:50%;"></div>${segHtml}</div>
+    <div class="bar-val">${fmt(burdenVal)}</div>
+  </div>`;
 
   const seqNote = cat !== "climate change"
     ? `<div style="font-size:11px;color:var(--ink-soft);margin-top:8px;">Sequestration credit is only modelled for climate change — shown as 0 in other categories.</div>`
     : "";
 
-  // itemised breakdown (climate-change-style breakdown, generalised to selected category)
-  const items = [];
-  items.push(["Material burden", result.materialBurdens[cat], "var(--rust-deep)"]);
-  items.push(["Production burden", result.productionBurdens[cat], "var(--rust)"]);
-  if (result.scenario.repair.enabled) items.push(["Repair burden", result.repairBurdens[cat], "var(--tan)"]);
-  items.push(["End-of-life burden", result.eolBurdens[cat], "var(--purple)"]);
-  if (cat === "climate change") {
-    items.push(["Sequestration benefit", result.seqTotal[cat], "var(--teal)"]);
-  }
-  items.push(["Circularity benefit (EoL)", result.eolBenefits[cat], "var(--blue)"]);
-  const breakdownHtml = items.filter(([, v]) => Math.abs(v) > 1e-9).sort((a, b) => Math.abs(b[1]) - Math.abs(a[1]))
-    .map(([label, val, color]) => `<div class="breakdown-row">
-        <div class="lbl"><span class="breakdown-dot" style="background:${color};"></span>${label}</div>
+  // itemised breakdown — each row expands to a per-item drill-down
+  function childRows(list) {
+    return list.filter(([, v]) => Math.abs(v) > 1e-9)
+      .sort((a, b) => Math.abs(b[1]) - Math.abs(a[1]))
+      .map(([label, val, color]) => `<div class="breakdown-row child">
+        <div class="lbl"><span class="breakdown-dot" style="background:${color || 'var(--ink-soft)'};"></span>${label}</div>
         <div class="val">${fmt(val)} ${unit}</div>
       </div>`).join("");
+  }
+  const eb = result.eolBurdensBreakdown || {};
+  const cb = result.eolBenefitsBreakdown || {};
+  const sub = {
+    mat: (result.materialItems || []).map(it => [`${disp(it.material)} — ${disp(it.source)}`, it.burden[cat], "var(--rust-deep)"]),
+    prod: (result.productionSteps || []).map(s => [s.name, s.burden[cat], "var(--rust)"]),
+    rep: [
+      ["Repair materials" + (nRep ? ` (×${nRep})` : ""), (result.repairMaterialItems || []).reduce((a, it) => a + it.burden[cat], 0) * nRep, "var(--tan)"],
+      ...(result.repairSteps || []).map(s => [s.name + (nRep ? ` (×${nRep})` : ""), s.burden[cat] * nRep, "var(--tan)"]),
+    ],
+    eol: [
+      ["Composting", (eb.compost || {})[cat], "var(--purple)"],
+      ["Recycling (open loop)", (eb.recOpen || {})[cat], "var(--purple)"],
+      ["Recycling (closed loop)", (eb.recClosed || {})[cat], "var(--purple)"],
+      ["Incineration", (eb.incin || {})[cat], "var(--purple)"],
+      ["Landfilling", (eb.landfill || {})[cat], "var(--purple)"],
+    ],
+    seq: [
+      ["Biogenic growth uptake", result.seqGrowth, "var(--teal)"],
+      ["Delayed / avoided emissions", result.seqAvoided, "var(--teal)"],
+    ],
+    circ: [
+      ["Avoided — composting", (cb.compostCredit || {})[cat], "var(--blue)"],
+      ["Avoided — open-loop recycling", (cb.recycleOpenCredit || {})[cat], "var(--blue)"],
+      ["Avoided — incineration (heat + power)", (cb.incinerateCredit || {})[cat], "var(--blue)"],
+    ],
+  };
+  const items = [];
+  items.push({ key: "mat", label: "Material burden", val: matVal, color: "var(--rust-deep)" });
+  items.push({ key: "prod", label: "Production burden", val: prodVal, color: "var(--rust)" });
+  if (repairOn) items.push({ key: "rep", label: "Repair burden", val: repVal, color: "var(--tan)" });
+  items.push({ key: "eol", label: "End-of-life burden", val: eolVal, color: "var(--purple)" });
+  if (cat === "climate change") items.push({ key: "seq", label: "Sequestration benefit", val: seqVal, color: "var(--teal)" });
+  items.push({ key: "circ", label: "Circularity benefit (EoL)", val: circVal, color: "var(--blue)" });
+  const breakdownHtml = items.filter(it => Math.abs(it.val) > 1e-9)
+    .sort((a, b) => Math.abs(b.val) - Math.abs(a.val))
+    .map(it => {
+      const kids = childRows(sub[it.key] || []);
+      const canExpand = kids.length > 0;
+      const open = canExpand && !!state.expandedBreakdown[it.key];
+      return `<div class="breakdown-group">
+        <div class="breakdown-row parent${canExpand ? ' expandable' : ''}" ${canExpand ? `data-expand="${it.key}"` : ''}>
+          <div class="lbl"><span class="breakdown-caret">${canExpand ? (open ? '▾' : '▸') : ''}</span><span class="breakdown-dot" style="background:${it.color};"></span>${it.label}</div>
+          <div class="val">${fmt(it.val)} ${unit}</div>
+        </div>
+        ${open ? `<div class="breakdown-children">${kids}</div>` : ''}
+      </div>`;
+    }).join("");
 
   return `
     <div class="net-number ${netVal <= 0 ? "negative" : "positive"}">${fmt(netVal)}<span class="net-unit"> ${unit}</span></div>
     <div class="net-caption">Net impact — burdens minus sequestration &amp; circularity credit${seqNote}</div>
     <div class="bars">
-      ${barRow("Burden", burdenVal, "var(--rust)")}
+      ${burdenBar}
       ${barRow("Sequestration", seqVal, "var(--teal)")}
       ${barRow("Circularity", circVal, "var(--blue)")}
       ${barRow("Net", netVal, "var(--net)")}
@@ -668,7 +777,15 @@ function renderLeft() {
 // slider's own `input` handler, which would otherwise destroy the slider mid-drag.
 function renderResults() {
   document.getElementById("results-controls").innerHTML = renderResultsControls();
-  document.getElementById("results-body").innerHTML = renderResultsBody();
+  const body = document.getElementById("results-body");
+  body.innerHTML = renderResultsBody();
+  body.onclick = (e) => {
+    const row = e.target.closest("[data-expand]");
+    if (!row) return;
+    const k = row.dataset.expand;
+    state.expandedBreakdown[k] = !state.expandedBreakdown[k];
+    renderResultsBodyOnly();
+  };
 
   const sel = document.getElementById("category-select");
   if (sel) sel.addEventListener("change", (e) => { state.category = e.target.value; renderResults(); if (state.activeTab === "compare") renderLeft2Sliders(); });
@@ -737,6 +854,21 @@ function wireLeftEvents() {
 
   left.oninput = (e) => {
     const t = e.target;
+    if (t.id === "compare-master") {
+      const v = Number(t.value);
+      state.compareMasterT = v;
+      for (const d of state.compareDiffs) state.compareT[d.id] = v;
+      left.querySelectorAll("input.diff-slider").forEach(sl => {
+        if (sl.id === "compare-master") return;
+        sl.value = v;
+        const dv = document.getElementById("deltaval-" + sl.dataset.slider);
+        if (dv) dv.textContent = v + "%";
+      });
+      const ml = document.getElementById("compare-master-label");
+      if (ml) ml.textContent = v + "%";
+      renderResults();
+      return;
+    }
     if (t.dataset.path) {
       const path = t.dataset.path;
       const isNum = t.type === "number";
@@ -764,6 +896,11 @@ function wireLeftEvents() {
     }
   };
 
+  // master compare slider: on release, full re-render so the toggle buttons resync
+  left.onchange = (e) => {
+    if (e.target.id === "compare-master") { renderLeft(); wireLeftEvents(); renderResults(); }
+  };
+
   left.onclick = (e) => {
     const btn = e.target.closest("button, .switch input");
     if (!btn) return;
@@ -772,6 +909,11 @@ function wireLeftEvents() {
     if (btn.id === "btn-copy-a-to-b") {
       state.scenarios.B = deepClone(state.scenarios.A);
       renderAll();
+      return;
+    }
+    if (action === "load-preset") {
+      const p = PRESETS.find(x => x.id === btn.dataset.preset);
+      if (p) applyImportedPayload({ today: p.today, future: p.future || null, background: p.background }, p.name);
       return;
     }
     if (action === "add-bom") {
@@ -790,6 +932,24 @@ function wireLeftEvents() {
       state.scenarios[btn.dataset.sc][btn.dataset.chain].splice(Number(btn.dataset.idx), 1);
       renderLeft(); wireLeftEvents(); renderResults();
     }
+    if (action === "move-step") {
+      const arr = state.scenarios[btn.dataset.sc][btn.dataset.chain];
+      const i = Number(btn.dataset.idx), j = i + Number(btn.dataset.dir);
+      if (j >= 0 && j < arr.length) {
+        const tmp = arr[i]; arr[i] = arr[j]; arr[j] = tmp;
+        renderLeft(); wireLeftEvents(); renderResults();
+      }
+    }
+    if (action === "copy-prod-bom") {
+      const sc = btn.dataset.sc;
+      state.scenarios[sc].repairBom = deepClone(state.scenarios[sc].productionBom);
+      renderLeft(); wireLeftEvents(); renderResults();
+    }
+    if (action === "copy-prod-chain") {
+      const sc = btn.dataset.sc;
+      state.scenarios[sc].repairChain = deepClone(state.scenarios[sc].productionChain);
+      renderLeft(); wireLeftEvents(); renderResults();
+    }
     if (action === "toggle-repair") {
       const sc = btn.dataset.sc;
       state.scenarios[sc].repair.enabled = btn.checked;
@@ -801,10 +961,12 @@ function wireLeftEvents() {
     }
     if (btn.id === "btn-reset-compare") {
       for (const d of state.compareDiffs) state.compareT[d.id] = 0;
+      state.compareMasterT = 0;
       renderLeft(); wireLeftEvents(); renderResults();
     }
     if (btn.id === "btn-apply-compare") {
       for (const d of state.compareDiffs) state.compareT[d.id] = 100;
+      state.compareMasterT = 100;
       renderLeft(); wireLeftEvents(); renderResults();
     }
   };
@@ -849,6 +1011,89 @@ document.getElementById("btn-export").addEventListener("click", () => {
   a.download = `${label}_${new Date().toISOString().slice(0, 10)}.json`;
   a.click();
 });
+
+// ---------- import previously exported inputs ------------------------------
+function mergeScenario(raw) {
+  // backfill anything missing against the current default so an older/partial export
+  // can't crash the model (new keys, renamed sub-objects, ...)
+  const def = blankScenario();
+  const s = Object.assign({}, def, raw);
+  s.repair = Object.assign({}, def.repair, raw.repair || {});
+  s.eol = Object.assign({}, def.eol, raw.eol || {});
+  for (const k of ["productionBom", "repairBom", "productionChain", "repairChain"]) {
+    if (!Array.isArray(s[k])) s[k] = deepClone(def[k]);
+  }
+  return s;
+}
+function applyImportedPayload(data, srcLabel) {
+  let A = null, B = null;
+  if (data && data.today && data.today.inputs) {
+    A = data.today.inputs;
+    B = (data.future && data.future.inputs) ? data.future.inputs : null;
+  } else if (data && data.inputs && data.inputs.productionBom) {
+    A = data.inputs;
+  } else if (data && data.productionBom) {
+    A = data;
+  }
+  if (!A) { setRecordStatus("That JSON doesn't look like a tool export (no scenario inputs found).", "err"); return; }
+  state.scenarios.A = mergeScenario(A);
+  state.scenarios.B = B ? mergeScenario(B) : null;
+  if (data.background && typeof data.background === "object") {
+    state.background = Object.assign({ scenarioLabel: FUTURE_SCENARIOS[0] || null, t: 0 }, data.background);
+  }
+  state.compareT = {};
+  state.compareMasterT = 0;
+  state.expandedBreakdown = {};
+  state.activeTab = "A";
+  renderAll();
+  const what = srcLabel ? `Loaded case: ${srcLabel}` : "Imported inputs from file";
+  setRecordStatus(what + (B ? " — Today + Future scenario." : "."), "ok");
+}
+document.getElementById("btn-import").addEventListener("click", () => {
+  document.getElementById("file-import").click();
+});
+document.getElementById("file-import").addEventListener("change", (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    try {
+      applyImportedPayload(JSON.parse(reader.result));
+    } catch (err) {
+      setRecordStatus("Couldn't read that file — is it a JSON export from this tool?", "err");
+    }
+    e.target.value = ""; // allow re-importing the same file
+  };
+  reader.readAsText(file);
+});
+
+// ---------- "Load a case" presets modal -----------------------------------
+const presetsModal = document.getElementById("presets-backdrop");
+document.getElementById("btn-examples").addEventListener("click", () => {
+  document.getElementById("presets-list").innerHTML = PRESETS.map(p =>
+    `<button class="preset-btn" data-preset="${p.id}">
+      <span class="preset-name">${p.name}</span><span class="preset-blurb">${p.blurb}</span></button>`).join("")
+    || `<p style="font-size:12px;color:var(--ink-soft);">No presets bundled.</p>`;
+  presetsModal.classList.add("open");
+});
+document.getElementById("presets-cancel").addEventListener("click", () => presetsModal.classList.remove("open"));
+document.getElementById("presets-blank").addEventListener("click", () => {
+  state.scenarios.A = blankScenario();
+  state.scenarios.B = null;
+  state.compareT = {}; state.compareMasterT = 0; state.expandedBreakdown = {};
+  state.activeTab = "A";
+  presetsModal.classList.remove("open");
+  renderAll();
+  setRecordStatus("Cleared to a blank canvas.", "");
+});
+document.getElementById("presets-list").addEventListener("click", (e) => {
+  const b = e.target.closest("[data-preset]");
+  if (!b) return;
+  const p = PRESETS.find(x => x.id === b.dataset.preset);
+  if (p) applyImportedPayload({ today: p.today, future: p.future || null, background: p.background }, p.name);
+  presetsModal.classList.remove("open");
+});
+presetsModal.addEventListener("click", (e) => { if (e.target === presetsModal) presetsModal.classList.remove("open"); });
 
 const modal = document.getElementById("modal-backdrop");
 document.getElementById("btn-sheet-settings").addEventListener("click", () => {

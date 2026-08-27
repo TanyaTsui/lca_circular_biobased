@@ -15,6 +15,7 @@ the notebook before trusting the tool again.
 ## Files
 
 - `index.html` — page structure & styling
+- `presets.js` — the four "Load a case" worked examples (`RAW_PRESETS`)
 - `data.js` — `unit_burdens*.csv`, `eol_constants.csv`, `benefits_constants.csv`
   baked into one JS object (`RAW_DATA`), so the tool works offline / from a
   double-clicked file, not just when served
@@ -36,6 +37,68 @@ databases) — the synthetic `unit_burdens_dummy.csv` used during development is
 no longer referenced. Re-run `python build_data.py` any time `01b` produces a
 new scenario run.
 
+## Starting a model
+
+The tool **opens blank**. The Today tab shows a *Start a model* banner with four
+worked examples (also reachable any time via **Load a case** in the top bar):
+
+| Case | What it is |
+|---|---|
+| Biopolymer 3D printing | pea-protein/sawdust/seagrass, printed + baked; ships with an optimised future line |
+| Reclaimed hardwood CNC | 100% recycled hardwood, scanned + CNC-milled (net-negative) |
+| Knitted hemp fibre | virgin hemp carded/spun/knitted, closed-loop recycled |
+| Coreless filament winding | hemp roving wet-wound with epoxy, incineration-heavy EoL |
+
+Presets live in `presets.js` (same shape as an exported inputs file). *Blank
+canvas* in the Load-a-case dialog clears everything. Every field stays editable
+after loading.
+
+## Inputs & results panel
+
+- **Product basis** holds the lifetime assumptions and the repair on/off toggle.
+  *Expected lifetime without repair* is always shown (it sets the carbon-storage
+  duration); *lifetime extension per repair* and *number of repair events* only
+  appear when repair is toggled on. Repair-only inputs (repair material %, repair
+  BOM, repair chain) stay in the Repair section; the repair BOM and chain each
+  have a *Copy from production* button.
+- **Production process chain** steps can be reordered with the ↑/↓ buttons on
+  each step card (the chain is still solved backward from the target output
+  mass, so order changes the result).
+- Material-source labels are display-only relabels: `co-product` shows as
+  `by-product`, `Soft wood`/`Hard wood` as `wood, soft`/`wood, hard`. The
+  canonical value is what `calc.js` and the CSVs use and what exports contain.
+- The **Burden** bar in the results panel is segmented by component (material /
+  production / repair / end-of-life). Each row in the itemised breakdown below
+  expands on click to a per-item drill-down (per process, per material, per EoL
+  route, growth vs. delayed-emissions for sequestration).
+- With materials but **no process steps**, results are still shown — the input
+  mass is taken to equal the target output mass (no processing losses).
+
+## Compare tab
+
+- A **master slider** ("Slide everything: Today → Future") at the top moves
+  every lever to the same position at once; releasing it re-syncs the toggle
+  buttons.
+- Each **bill of materials** contributes a single mix slider (Today mix → Future
+  mix) rather than one slider per material.
+- Diff ids are now derived from group + label (stable across re-renders), so
+  slider positions and toggles survive editing another lever.
+
+## Import / export
+
+- **Export inputs (.json)** downloads both scenarios' inputs (+ background).
+- **Import inputs (.json)** reloads a previously exported file — Today, Future
+  and background are all restored; missing keys are backfilled from the default
+  scenario so older exports still load.
+
+## Recording target (pre-configured)
+
+`state.sheetUrl` in `app.js` is pre-set to the deployed Apps Script Web App for
+the shared RAW project sheet
+(`docs.google.com/spreadsheets/d/1V-yfoLJ4mOpQNL9FhD3dTIvIVj3SZCwywt3PAdA_jyw`),
+so **Record to research log** works with no setup. Override it in Recording
+settings if you need a different target.
+
 ## Background scenario slider
 
 Alongside the existing Today/Future compare tab (which blends the *foreground*
@@ -49,7 +112,8 @@ the BOM aren't premise-sensitive at all and won't move as you drag it.
 
 ## Deploying (GitHub Pages)
 
-Same as your other tools: put these four files in a folder in your
+Same as your other tools: put these files (`index.html`, `data.js`,
+`presets.js`, `calc.js`, `app.js`) in a folder in your
 `tanyatsui.github.io` repo (or any static host) and it just works — no build
 step, no server. Test locally first by opening `index.html` directly in a
 browser (works fine without a server since data is inlined, not fetched).

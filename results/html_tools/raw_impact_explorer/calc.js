@@ -91,12 +91,15 @@ function getMaterialUnitBurden(materialName, materialSource, background) {
 // ---- material & process burdens -------------------------------------------
 function computeMaterialBurdens(bom, totalInputKg, background) {
   let total = zeroSeries();
+  const items = [];
   for (const item of bom) {
     const kg = (totalInputKg * item.pct) / 100;
     const ub = getMaterialUnitBurden(item.material, item.source, background);
-    total = addSeries(total, scaleSeries(ub, kg));
+    const burden = scaleSeries(ub, kg);
+    total = addSeries(total, burden);
+    items.push({ material: item.material, source: item.source, kg, burden });
   }
-  return total;
+  return { total, items };
 }
 
 function computeProcessBurdens(chain, targetOutputKg, background) {
@@ -127,9 +130,13 @@ function computeProcessBurdens(chain, targetOutputKg, background) {
       name: step.name,
       requiredInputKg: requiredInputKg[i],
       processTimeHrs, machineWearKg, energyUseKwh,
+      machineBurden, electricityBurden,
+      burden: addSeries(machineBurden, electricityBurden),
     });
   }
-  return { total, steps, firstRequiredInputKg: requiredInputKg[0] };
+  // Empty chain → no processing → input mass equals the target output mass. Without this
+  // fallback firstRequiredInputKg is undefined and every downstream material kg is NaN.
+  return { total, steps, firstRequiredInputKg: n > 0 ? requiredInputKg[0] : targetOutputKg };
 }
 
 // ---- end of life ------------------------------------------------------------
@@ -244,11 +251,13 @@ function runModel(scenario, background = NO_BACKGROUND) {
 
   const prod = computeProcessBurdens(scenario.productionChain, productKg, background);
   const totalMaterialInputKg = prod.firstRequiredInputKg;
-  const materialBurdens = computeMaterialBurdens(scenario.productionBom, totalMaterialInputKg, background);
+  const materialRes = computeMaterialBurdens(scenario.productionBom, totalMaterialInputKg, background);
+  const materialBurdens = materialRes.total;
 
   let repairBurdens = zeroSeries();
   let repairMaterialInputKg = 0;
   let repairSteps = [];
+  let repairMaterialItems = [];
   let productionStorageYr = scenario.repair.expectedLifetimeYr;
   let repairStorageYr = [];
   let repairMaterialKg = 0;
@@ -259,7 +268,9 @@ function runModel(scenario, background = NO_BACKGROUND) {
     const rep = computeProcessBurdens(scenario.repairChain, repairMaterialKg, background);
     repairMaterialInputKg = rep.firstRequiredInputKg;
     repairSteps = rep.steps;
-    const repairMaterialBurdensPerEvent = computeMaterialBurdens(scenario.repairBom, repairMaterialInputKg, background);
+    const repairMaterialRes = computeMaterialBurdens(scenario.repairBom, repairMaterialInputKg, background);
+    repairMaterialItems = repairMaterialRes.items;
+    const repairMaterialBurdensPerEvent = repairMaterialRes.total;
     repairBurdens = scaleSeries(addSeries(rep.total, repairMaterialBurdensPerEvent), nRepairs);
 
     productionStorageYr = scenario.repair.expectedLifetimeYr + scenario.repair.extensionPerRepairYr * nRepairs;
@@ -294,6 +305,7 @@ function runModel(scenario, background = NO_BACKGROUND) {
     scenario, background,
     totalMaterialInputKg, repairMaterialInputKg, totalDisposedKg,
     productionSteps: prod.steps, repairSteps,
+    materialItems: materialRes.items, repairMaterialItems, repairNumEvents: nRepairs,
     materialBurdens, productionBurdens: prod.total, repairBurdens,
     eolBurdens: eolBurdens.total, eolBurdensBreakdown: eolBurdens.breakdown,
     seqGrowth, seqAvoided, seqTotal,
