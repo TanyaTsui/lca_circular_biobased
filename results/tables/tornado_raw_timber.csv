@@ -1,0 +1,41 @@
+id,group,stage,item,parameter,low,high,swing,baseline
+raw_timber|product|product size formula||depth_ratio,design,product,product size formula,depth_ratio,-140.92081900778686,-62.63147511457192,78.28934389321495,-90.18932416498356
+raw_timber|end-of-life|waste||disposal grid location,location,end-of-life,waste,disposal grid location,-129.37175948268572,-68.91978224322179,60.45197723946393,-90.18932416498356
+raw_timber|product|product size formula||width_ratio,design,product,product size formula,width_ratio,-112.73665520622947,-75.15777013748631,37.57888506874316,-90.18932416498356
+raw_timber|product|product size formula||density,design,product,product size formula,density,-108.22718899798028,-72.15145933198684,36.075729665993435,-90.18932416498356
+raw_timber|production|CNC milling||electricity location,location,production,CNC milling,electricity location,-97.41648757706706,-76.87555069651526,20.540936880551797,-90.18932416498356
+raw_timber|production|CNC milling||process yield,manufacturing,production,CNC milling,process yield,-99.4530147040698,-86.48384794934906,12.969166754720746,-90.18932416498356
+raw_timber|production|Scanning||process yield,manufacturing,production,Scanning,process yield,-101.52830065478749,-90.18932416498356,11.338976489803926,-90.18932416498356
+raw_timber|use|product||expected lifetime,circularity,use,product,expected lifetime,-96.66048492465953,-85.99902010984542,10.66146481481411,-90.18932416498356
+raw_timber|end-of-life|waste|incinerated|share of waste,circularity,end-of-life,waste,share of waste,-92.0371625485645,-87.63754734956223,4.39961519900227,-90.18932416498356
+raw_timber|end-of-life|waste|recycled_closed|share of waste,circularity,end-of-life,waste,share of waste,-92.42212887847718,-88.12827366022017,4.293855218257008,-90.18932416498356
+raw_timber|repair|CNC milling||electricity location,location,repair,CNC milling,electricity location,-91.63475684740025,-87.52656947128989,4.108187376110365,-90.18932416498356
+raw_timber|repair|repair material||share of product mass per repair,circularity,repair,repair material,share of product mass per repair,-92.00620061139473,-88.37244771857237,3.6337528928223577,-90.18932416498356
+raw_timber|use|product||lifetime extension per repair,circularity,use,product,lifetime extension per repair,-92.09522131375735,-88.60577039642229,3.4894509173350627,-90.18932416498356
+raw_timber|production|CNC milling||output rate,manufacturing,production,CNC milling,output rate,-91.57284813212867,-88.11403821426589,3.45880991786278,-90.18932416498356
+raw_timber|production|CNC milling||power,manufacturing,production,CNC milling,power,-91.81483878062011,-88.56380954934701,3.251029231273094,-90.18932416498356
+raw_timber|production|Scanning||electricity location,location,production,Scanning,electricity location,-90.55068233558774,-89.52363549156014,1.0270468440275948,-90.18932416498356
+raw_timber|repair|CNC milling||output rate,manufacturing,repair,CNC milling,output rate,-90.46602895841258,-89.77426697484002,0.6917619835725617,-90.18932416498356
+raw_timber|repair|CNC milling||power,manufacturing,repair,CNC milling,power,-90.51442708811086,-89.86422124185624,0.6502058462546216,-90.18932416498356
+raw_timber|repair|Scanning||process yield,manufacturing,repair,Scanning,process yield,-90.67296792431195,-90.18932416498356,0.48364375932838755,-90.18932416498356
+raw_timber|use|product||number of repair events,circularity,use,product,number of repair events,-91.023537060707,-90.7492511632932,0.2742858974138045,-90.18932416498356
+raw_timber|repair|Scanning||electricity location,location,repair,Scanning,electricity location,-90.26159579910438,-90.05618643029888,0.20540936880550476,-90.18932416498356
+raw_timber|production|Scanning||output rate,manufacturing,production,Scanning,output rate,-90.25946464514463,-90.08411344474194,0.17535120040268737,-90.18932416498356
+raw_timber|production|CNC milling||machine source,manufacturing,production,CNC milling,machine source,-90.36237821091595,-90.18932416498356,0.17305404593238904,-90.18932416498356
+raw_timber|production|Scanning||power,manufacturing,production,Scanning,power,-90.27059989576539,-90.10804843420172,0.16255146156366607,-90.18932416498356
+raw_timber|repair|CNC milling||process yield,manufacturing,repair,CNC milling,process yield,-90.2579107341684,-90.1618895373096,0.09602119685879984,-90.18932416498356
+raw_timber|production|CNC milling||machine lifetime,manufacturing,production,CNC milling,machine lifetime,-90.21825261909822,-90.14593148381157,0.07232113528665707,-90.18932416498356
+raw_timber|production|CNC milling||machine weight,manufacturing,production,CNC milling,machine weight,-90.22403830992116,-90.15461002004596,0.06942828987519079,-90.18932416498356
+raw_timber|repair|Scanning||output rate,manufacturing,repair,Scanning,output rate,-90.20335226101577,-90.16828202093524,0.03507024008052895,-90.18932416498356
+raw_timber|repair|CNC milling||machine source,manufacturing,repair,CNC milling,machine source,-90.22393497417004,-90.18932416498356,0.03461080918647497,-90.18932416498356
+raw_timber|repair|Scanning||power,manufacturing,repair,Scanning,power,-90.20557931113993,-90.17306901882719,0.032510292312736055,-90.18932416498356
+raw_timber|repair|CNC milling||machine lifetime,manufacturing,repair,CNC milling,machine lifetime,-90.19510985580649,-90.18064562874915,0.014464227057345624,-90.18932416498356
+raw_timber|production|Scanning||machine source,manufacturing,production,Scanning,machine source,-90.20374533547792,-90.18932416498356,0.014421170494358648,-90.18932416498356
+raw_timber|repair|CNC milling||machine weight,manufacturing,repair,CNC milling,machine weight,-90.19626699397108,-90.18238133599604,0.013885657975038157,-90.18932416498356
+raw_timber|production|Scanning||machine lifetime,manufacturing,production,Scanning,machine lifetime,-90.1917348694931,-90.18570810821922,0.006026761273886905,-90.18932416498356
+raw_timber|production|Scanning||machine weight,manufacturing,production,Scanning,machine weight,-90.19221701039501,-90.18643131957208,0.005785690822932565,-90.18932416498356
+raw_timber|repair|Scanning||machine source,manufacturing,repair,Scanning,machine source,-90.19220839908243,-90.18932416498356,0.0028842340988717297,-90.18932416498356
+raw_timber|repair|Scanning||machine lifetime,manufacturing,repair,Scanning,machine lifetime,-90.18980630588547,-90.18860095363068,0.0012053522547859075,-90.18932416498356
+raw_timber|repair|Scanning||machine weight,manufacturing,repair,Scanning,machine weight,-90.18990273406584,-90.18874559590125,0.001157138164586513,-90.18932416498356
+raw_timber|production|Hard wood|recycled|share of input mass,design,production,Hard wood,share of input mass,-90.18932416498356,-90.18932416498356,0.0,-90.18932416498356
+raw_timber|repair|Hard wood|recycled|share of input mass,design,repair,Hard wood,share of input mass,-90.18932416498356,-90.18932416498356,0.0,-90.18932416498356

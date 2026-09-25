@@ -22,7 +22,9 @@ def test_uncertainty_collapses_to_the_typical_result_without_ranges():
     inp = load_inputs(SNAPSHOT)
     df = inp.params.df
     df["min"], df["max"] = df["typical_value"].where(df["distribution"] != "choice"), df["typical_value"].where(df["distribution"] != "choice")
-    model = Model(inp, Background(BACKGROUND, "baseline"))
+    bg = Background(BACKGROUND, "baseline")
+    bg.samples = None                                   # parameter uncertainty only
+    model = Model(inp, bg)
     ua = run_uncertainty(inp, {"baseline": model}, "raw_knit", 5, 1)["baseline"]
     typical = run_products(model, "raw_knit")
     for label, r in typical.items():
@@ -36,3 +38,15 @@ def test_paired_draws_and_reproducibility():
     b = run_uncertainty(inp, {"baseline": m}, "raw_knit", 20, 7)["baseline"]
     for label in a.net:
         assert np.array_equal(a.net[label], b.net[label])
+
+
+def test_background_samples_add_spread_even_with_fixed_parameters():
+    inp = load_inputs(SNAPSHOT)
+    df = inp.params.df
+    df["min"], df["max"] = df["typical_value"].where(df["distribution"] != "choice"), df["typical_value"].where(df["distribution"] != "choice")
+    bg = Background(BACKGROUND, "baseline")
+    if bg.samples is None:
+        pytest.skip("no background samples committed")
+    ua = run_uncertainty(inp, {"baseline": Model(inp, bg)}, "raw_knit", 20, 1)["baseline"]
+    label = next(iter(ua.net))
+    assert ua.net[label][:, bg.gwp_index].std() > 0

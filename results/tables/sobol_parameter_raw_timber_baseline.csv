@@ -1,0 +1,1001 @@
+name,group,category,S1,ST,ST_lo,ST_hi,raw_case,background
+raw_timber|product|product size formula||depth_ratio,design,acidification,0.002892769019105336,0.03186360000363822,0.02282479252881636,0.04497593785300131,raw_timber,today
+raw_timber|product|product size formula||depth_ratio,design,climate change,0.17578147996358734,0.33054569528046984,0.28775564282710103,0.37548282525522136,raw_timber,today
+raw_timber|product|product size formula||depth_ratio,design,climate change: biogenic,0.31179509220296686,0.5779137313516756,0.5128469611822932,0.6522080904403379,raw_timber,today
+raw_timber|product|product size formula||depth_ratio,design,climate change: fossil,0.05611159596635881,0.11782109485626087,0.10015844987816641,0.13892728811782903,raw_timber,today
+raw_timber|product|product size formula||depth_ratio,design,climate change: land use and land use change,0.003536687705842771,0.032856224999315765,0.02463137987231214,0.04230502767779337,raw_timber,today
+raw_timber|product|product size formula||depth_ratio,design,ecotoxicity: freshwater,0.005405682982876139,0.02646942832914537,0.019909378972740057,0.035504821761131095,raw_timber,today
+raw_timber|product|product size formula||depth_ratio,design,"ecotoxicity: freshwater, inorganics",0.004989644640384321,0.026107589772270682,0.019637398190548886,0.03494643075900754,raw_timber,today
+raw_timber|product|product size formula||depth_ratio,design,"ecotoxicity: freshwater, organics",0.07986245675451724,0.25813091713649816,0.22293797493398593,0.29613245072201927,raw_timber,today
+raw_timber|product|product size formula||depth_ratio,design,energy resources: non-renewable,0.17263662665720547,0.3492319258442895,0.3050433905670517,0.40750215079171065,raw_timber,today
+raw_timber|product|product size formula||depth_ratio,design,eutrophication: freshwater,0.0077614692981405695,0.026090313614608125,0.019506382372240495,0.0335668733112939,raw_timber,today
+raw_timber|product|product size formula||depth_ratio,design,eutrophication: marine,0.028573566910515946,0.06891488772166224,0.056113159493800066,0.0871744179864913,raw_timber,today
+raw_timber|product|product size formula||depth_ratio,design,eutrophication: terrestrial,0.01877015642811046,0.0585871710663281,0.047542899456628554,0.07522677819826093,raw_timber,today
+raw_timber|product|product size formula||depth_ratio,design,human toxicity: carcinogenic,0.028994488620061182,0.0728486112989738,0.059562271966889575,0.09114955594931949,raw_timber,today
+raw_timber|product|product size formula||depth_ratio,design,"human toxicity: carcinogenic, inorganics",0.00041545146102786395,0.02591712302229337,0.02024460764620214,0.03360387088201743,raw_timber,today
+raw_timber|product|product size formula||depth_ratio,design,"human toxicity: carcinogenic, organics",0.1711089222446834,0.4082748778104929,0.3636922176639992,0.465574452981727,raw_timber,today
+raw_timber|product|product size formula||depth_ratio,design,human toxicity: non-carcinogenic,0.00862519062326914,0.0333444222068252,0.024410044638382977,0.046836690689787575,raw_timber,today
+raw_timber|product|product size formula||depth_ratio,design,"human toxicity: non-carcinogenic, inorganics",0.007231619212114057,0.031469672952517236,0.02290751408409367,0.0443362353395684,raw_timber,today
+raw_timber|product|product size formula||depth_ratio,design,"human toxicity: non-carcinogenic, organics",0.1760348196984573,0.34605984997377726,0.303242927265794,0.3974909014821875,raw_timber,today
+raw_timber|product|product size formula||depth_ratio,design,ionising radiation: human health,0.014197055256607551,0.05007063122023204,0.03955641411540409,0.06223601583120251,raw_timber,today
+raw_timber|product|product size formula||depth_ratio,design,land use,0.3081991042003984,0.5756212528921022,0.5084872427835988,0.6480763314229052,raw_timber,today
+raw_timber|product|product size formula||depth_ratio,design,material resources: metals/minerals,0.14750912700107938,0.272375843100253,0.23605076479662526,0.31122063710918607,raw_timber,today
+raw_timber|product|product size formula||depth_ratio,design,ozone depletion,0.20854993302759392,0.45824568947448063,0.4050728298969835,0.5228612053865084,raw_timber,today
+raw_timber|product|product size formula||depth_ratio,design,particulate matter formation,0.03540092539329402,0.09331801151186923,0.07795736020971974,0.11317918794261304,raw_timber,today
+raw_timber|product|product size formula||depth_ratio,design,photochemical oxidant formation: human health,0.02853958406621874,0.08893461531642456,0.07419245315851977,0.10664259525674917,raw_timber,today
+raw_timber|product|product size formula||depth_ratio,design,water use,0.022638344148694735,0.0663737306628234,0.05405050302461059,0.08208383173163436,raw_timber,today
+raw_timber|product|product size formula||width_ratio,design,acidification,0.0027742971427989864,0.008908425561757197,0.006329877029410965,0.012271173852228673,raw_timber,today
+raw_timber|product|product size formula||width_ratio,design,climate change,-0.060056116871157535,0.09600114686493082,0.083201018483175,0.11193246318845214,raw_timber,today
+raw_timber|product|product size formula||width_ratio,design,climate change: biogenic,-0.08352558912483316,0.16443108914638158,0.14628573085093835,0.19137570887600575,raw_timber,today
+raw_timber|product|product size formula||width_ratio,design,climate change: fossil,-0.015925357889100062,0.03459074011470809,0.028639288298583674,0.04184003674231386,raw_timber,today
+raw_timber|product|product size formula||width_ratio,design,climate change: land use and land use change,0.0012207717417997612,0.009212674527121874,0.006721265076879991,0.011783847194504765,raw_timber,today
+raw_timber|product|product size formula||width_ratio,design,ecotoxicity: freshwater,0.011062196160671164,0.007602378927616991,0.005672409723458533,0.010276941292330175,raw_timber,today
+raw_timber|product|product size formula||width_ratio,design,"ecotoxicity: freshwater, inorganics",0.011280399382589517,0.007500783792706893,0.005649441738032704,0.010103973475129395,raw_timber,today
+raw_timber|product|product size formula||width_ratio,design,"ecotoxicity: freshwater, organics",-0.03804430854993104,0.07883589732032878,0.06819056811206399,0.09065324199268136,raw_timber,today
+raw_timber|product|product size formula||width_ratio,design,energy resources: non-renewable,-0.04844947804461996,0.09746130301328199,0.0840035002964437,0.11083701556576649,raw_timber,today
+raw_timber|product|product size formula||width_ratio,design,eutrophication: freshwater,0.013572236017221444,0.007827912945495452,0.005996708388766687,0.010331013598304241,raw_timber,today
+raw_timber|product|product size formula||width_ratio,design,eutrophication: marine,-0.005338366661617979,0.01983973494130926,0.015804809200239408,0.02531387319322554,raw_timber,today
+raw_timber|product|product size formula||width_ratio,design,eutrophication: terrestrial,-0.006888119909782197,0.016933522033377706,0.013334810715458327,0.021561988211164788,raw_timber,today
+raw_timber|product|product size formula||width_ratio,design,human toxicity: carcinogenic,-0.0055618508801679855,0.021122905988918132,0.01713310781822224,0.02651612577782221,raw_timber,today
+raw_timber|product|product size formula||width_ratio,design,"human toxicity: carcinogenic, inorganics",0.011624603410967431,0.007377239517414432,0.005800531817033172,0.00967220698270694,raw_timber,today
+raw_timber|product|product size formula||width_ratio,design,"human toxicity: carcinogenic, organics",-0.06472270798639586,0.12292945386020371,0.10697420908038902,0.1413800200988469,raw_timber,today
+raw_timber|product|product size formula||width_ratio,design,human toxicity: non-carcinogenic,0.004549213246765762,0.009299206326970458,0.006737192138101632,0.013017087095502441,raw_timber,today
+raw_timber|product|product size formula||width_ratio,design,"human toxicity: non-carcinogenic, inorganics",0.005311206422804698,0.008760871019606176,0.006319126273075569,0.012315691179432172,raw_timber,today
+raw_timber|product|product size formula||width_ratio,design,"human toxicity: non-carcinogenic, organics",-0.058972965650391715,0.10192790875056666,0.0879770364012626,0.11876066430765819,raw_timber,today
+raw_timber|product|product size formula||width_ratio,design,ionising radiation: human health,0.002743430024964671,0.012126762765632498,0.009738931215299737,0.014773464623268054,raw_timber,today
+raw_timber|product|product size formula||width_ratio,design,land use,-0.08532080071391489,0.16240907100397733,0.14327970597035986,0.18625715549517974,raw_timber,today
+raw_timber|product|product size formula||width_ratio,design,material resources: metals/minerals,-0.03129093796802786,0.08298345423372465,0.0699413699070837,0.09726153566855635,raw_timber,today
+raw_timber|product|product size formula||width_ratio,design,ozone depletion,-0.07388994747370428,0.1359720028032091,0.11776258882300389,0.15750956661163495,raw_timber,today
+raw_timber|product|product size formula||width_ratio,design,particulate matter formation,-0.015213482861068271,0.027205560915162616,0.02193494147018721,0.033223662248502296,raw_timber,today
+raw_timber|product|product size formula||width_ratio,design,photochemical oxidant formation: human health,-0.014951107209499857,0.02604030886131356,0.02119653672624944,0.03212802347493983,raw_timber,today
+raw_timber|product|product size formula||width_ratio,design,water use,-0.016592413609075003,0.017159294761221223,0.01458180583314987,0.020681952768961606,raw_timber,today
+raw_timber|product|product size formula||density,design,acidification,0.0013423130025204289,0.009035433098890057,0.006338122650807811,0.011972251248923808,raw_timber,today
+raw_timber|product|product size formula||density,design,climate change,0.054308161371664804,0.08401571639273336,0.07165088348413144,0.09763773629813609,raw_timber,today
+raw_timber|product|product size formula||density,design,climate change: biogenic,0.06977903156373619,0.13674498432226384,0.11853739841393662,0.15512976814080398,raw_timber,today
+raw_timber|product|product size formula||density,design,climate change: fossil,0.021983867368202903,0.03065811204877383,0.025059933019982134,0.0364879499235897,raw_timber,today
+raw_timber|product|product size formula||density,design,climate change: land use and land use change,0.001409022836519665,0.00813782756840712,0.006023387193206443,0.010223567438739286,raw_timber,today
+raw_timber|product|product size formula||density,design,ecotoxicity: freshwater,0.001671711030741131,0.00714645133829454,0.005105019253616988,0.00938778228470032,raw_timber,today
+raw_timber|product|product size formula||density,design,"ecotoxicity: freshwater, inorganics",0.0013847831188215248,0.007034895415389975,0.0050274113850814015,0.00921397047995038,raw_timber,today
+raw_timber|product|product size formula||density,design,"ecotoxicity: freshwater, organics",0.031257304050488655,0.06433422983929082,0.05409497068926604,0.07360631997884065,raw_timber,today
+raw_timber|product|product size formula||density,design,energy resources: non-renewable,0.046206296047350146,0.07942365195017154,0.06904284588598648,0.09023395803705085,raw_timber,today
+raw_timber|product|product size formula||density,design,eutrophication: freshwater,0.0017498392789249433,0.006985777588107166,0.005114214974420305,0.009127128851620784,raw_timber,today
+raw_timber|product|product size formula||density,design,eutrophication: marine,0.012051674902060182,0.01848729806810666,0.014627921918030898,0.022833064849613578,raw_timber,today
+raw_timber|product|product size formula||density,design,eutrophication: terrestrial,0.011112009063858595,0.016104365107220825,0.012562356712619998,0.019931043902660914,raw_timber,today
+raw_timber|product|product size formula||density,design,human toxicity: carcinogenic,0.017211323420533116,0.019564043746930496,0.015614041233504388,0.02388276048027598,raw_timber,today
+raw_timber|product|product size formula||density,design,"human toxicity: carcinogenic, inorganics",-0.0027296446000529113,0.006886258312312799,0.005100858806819964,0.008704261464737132,raw_timber,today
+raw_timber|product|product size formula||density,design,"human toxicity: carcinogenic, organics",0.06189090112019606,0.10139742153651576,0.08699939379956266,0.11620795937008424,raw_timber,today
+raw_timber|product|product size formula||density,design,human toxicity: non-carcinogenic,0.0042199752070307475,0.009326652212983996,0.006738921598008729,0.012341298251530929,raw_timber,today
+raw_timber|product|product size formula||density,design,"human toxicity: non-carcinogenic, inorganics",0.0033049480087076824,0.00881698685219761,0.006269795228917613,0.01176013362697018,raw_timber,today
+raw_timber|product|product size formula||density,design,"human toxicity: non-carcinogenic, organics",0.06827644995887787,0.0863958169611439,0.0733225094518343,0.09894156041447327,raw_timber,today
+raw_timber|product|product size formula||density,design,ionising radiation: human health,0.003952533189104333,0.009589386778096237,0.007605869209376164,0.011446957210338487,raw_timber,today
+raw_timber|product|product size formula||density,design,land use,0.0680327050745311,0.13483033559358867,0.11738391309934158,0.152841700911651,raw_timber,today
+raw_timber|product|product size formula||density,design,material resources: metals/minerals,0.04197652840033922,0.06800084569814895,0.05661361983444787,0.07747926305647915,raw_timber,today
+raw_timber|product|product size formula||density,design,ozone depletion,0.05529220663671037,0.1119356261328759,0.09544918653193359,0.1271578252749146,raw_timber,today
+raw_timber|product|product size formula||density,design,particulate matter formation,0.021392660925419284,0.024223658884267966,0.019245313984161388,0.029103034010098634,raw_timber,today
+raw_timber|product|product size formula||density,design,photochemical oxidant formation: human health,0.01797194051863757,0.02377615119991768,0.01918806742684811,0.02831691615714577,raw_timber,today
+raw_timber|product|product size formula||density,design,water use,0.019491969837095214,0.016635640025762,0.012810374572838236,0.02014374236082602,raw_timber,today
+raw_timber|production|Hard wood|recycled|share of input mass,design,acidification,-9.996380398428602e-21,9.67971659856734e-35,2.2025174884279144e-35,1.8822729806048695e-34,raw_timber,today
+raw_timber|production|Hard wood|recycled|share of input mass,design,climate change,-2.2819182051451267e-17,4.82787940308534e-32,3.742040175516569e-32,6.172032206169612e-32,raw_timber,today
+raw_timber|production|Hard wood|recycled|share of input mass,design,climate change: biogenic,1.1425920837422551e-18,1.3076241026940978e-31,1.0482161657938401e-31,1.5727319226582532e-31,raw_timber,today
+raw_timber|production|Hard wood|recycled|share of input mass,design,climate change: fossil,-8.623476004048653e-19,2.3744031095087164e-35,0.0,7.489252407693453e-35,raw_timber,today
+raw_timber|production|Hard wood|recycled|share of input mass,design,climate change: land use and land use change,-1.8622275854868168e-18,7.562509604033759e-34,4.950643074887921e-34,1.1556557419349674e-33,raw_timber,today
+raw_timber|production|Hard wood|recycled|share of input mass,design,ecotoxicity: freshwater,1.7329911003460089e-18,4.676177571139042e-34,1.9163571588790166e-34,7.783612207225095e-34,raw_timber,today
+raw_timber|production|Hard wood|recycled|share of input mass,design,"ecotoxicity: freshwater, inorganics",1.0007861866929223e-18,4.07227661374572e-34,6.850016944667809e-35,8.32957514451667e-34,raw_timber,today
+raw_timber|production|Hard wood|recycled|share of input mass,design,"ecotoxicity: freshwater, organics",-1.2680292817677661e-17,6.959802347067894e-33,3.3724710969464514e-33,1.0989842600344931e-32,raw_timber,today
+raw_timber|production|Hard wood|recycled|share of input mass,design,energy resources: non-renewable,0.0,0.0,0.0,0.0,raw_timber,today
+raw_timber|production|Hard wood|recycled|share of input mass,design,eutrophication: freshwater,4.655948662883601e-20,6.934559566277508e-36,1.1917344585292556e-36,1.6884248969426576e-35,raw_timber,today
+raw_timber|production|Hard wood|recycled|share of input mass,design,eutrophication: marine,-3.5081219833747455e-18,3.637084655933991e-33,2.4410235689197813e-33,5.0703891857097656e-33,raw_timber,today
+raw_timber|production|Hard wood|recycled|share of input mass,design,eutrophication: terrestrial,-5.0401078998256534e-18,1.506058419580322e-33,7.75355663453118e-34,2.7285968247204966e-33,raw_timber,today
+raw_timber|production|Hard wood|recycled|share of input mass,design,human toxicity: carcinogenic,-1.2516776350136127e-18,6.372302664935346e-33,4.205391509686307e-33,9.397024469362182e-33,raw_timber,today
+raw_timber|production|Hard wood|recycled|share of input mass,design,"human toxicity: carcinogenic, inorganics",-2.663079661059656e-18,2.8933027635215483e-33,2.0209920657414788e-33,4.3659718946338e-33,raw_timber,today
+raw_timber|production|Hard wood|recycled|share of input mass,design,"human toxicity: carcinogenic, organics",1.806233615518436e-17,6.601144274259193e-33,3.97728815633659e-33,1.0376664568549363e-32,raw_timber,today
+raw_timber|production|Hard wood|recycled|share of input mass,design,human toxicity: non-carcinogenic,-1.2236080613613143e-18,4.037984217981544e-33,2.7900154850857856e-33,5.310809416197407e-33,raw_timber,today
+raw_timber|production|Hard wood|recycled|share of input mass,design,"human toxicity: non-carcinogenic, inorganics",-3.4185600393144497e-18,4.442938325716557e-33,3.166767473599072e-33,6.159194837158509e-33,raw_timber,today
+raw_timber|production|Hard wood|recycled|share of input mass,design,"human toxicity: non-carcinogenic, organics",-1.2508165833185278e-17,1.2791916504180987e-32,8.220157908263806e-33,1.8763560373316666e-32,raw_timber,today
+raw_timber|production|Hard wood|recycled|share of input mass,design,ionising radiation: human health,1.670413824079858e-19,2.6534248784892756e-36,0.0,7.056676886830947e-36,raw_timber,today
+raw_timber|production|Hard wood|recycled|share of input mass,design,land use,9.482884930527837e-17,1.647754329408792e-31,1.3160053973054186e-31,1.9611477203009106e-31,raw_timber,today
+raw_timber|production|Hard wood|recycled|share of input mass,design,material resources: metals/minerals,4.0974070810353774e-18,7.727823443488728e-34,0.0,3.096599546774248e-33,raw_timber,today
+raw_timber|production|Hard wood|recycled|share of input mass,design,ozone depletion,-3.857918588501092e-18,2.4239818844270253e-34,0.0,7.709026206127007e-34,raw_timber,today
+raw_timber|production|Hard wood|recycled|share of input mass,design,particulate matter formation,-6.521970270656403e-18,4.951416217169035e-33,2.7247489542216962e-33,7.307007454679356e-33,raw_timber,today
+raw_timber|production|Hard wood|recycled|share of input mass,design,photochemical oxidant formation: human health,1.758610547107776e-18,8.79355205656091e-34,3.968957366056253e-34,1.4707078189726612e-33,raw_timber,today
+raw_timber|production|Hard wood|recycled|share of input mass,design,water use,-5.3498671826367905e-18,3.8313480482053683e-33,2.5416528358704672e-33,5.296717461289147e-33,raw_timber,today
+raw_timber|repair|Hard wood|recycled|share of input mass,design,acidification,6.363936652248121e-20,4.4135495371706e-35,1.9824080868783053e-36,1.210538214376704e-34,raw_timber,today
+raw_timber|repair|Hard wood|recycled|share of input mass,design,climate change,3.250971765057506e-18,4.420708851017902e-33,1.3637650139880286e-33,8.014314998990034e-33,raw_timber,today
+raw_timber|repair|Hard wood|recycled|share of input mass,design,climate change: biogenic,-6.844717707870281e-19,2.345315649502104e-32,1.613999630465056e-32,3.1278304722643207e-32,raw_timber,today
+raw_timber|repair|Hard wood|recycled|share of input mass,design,climate change: fossil,-3.2543244592596118e-18,3.799044975213946e-34,0.0,1.179165093856083e-33,raw_timber,today
+raw_timber|repair|Hard wood|recycled|share of input mass,design,climate change: land use and land use change,1.0082314881574196e-18,5.66624814946761e-35,9.81898219177609e-36,1.2344932687946855e-34,raw_timber,today
+raw_timber|repair|Hard wood|recycled|share of input mass,design,ecotoxicity: freshwater,8.691258637604257e-19,2.99754972508913e-34,2.3392894315734836e-35,7.909526928035541e-34,raw_timber,today
+raw_timber|repair|Hard wood|recycled|share of input mass,design,"ecotoxicity: freshwater, inorganics",-6.482882269098121e-19,2.03613830687286e-34,4.389659664991699e-35,4.219492535290115e-34,raw_timber,today
+raw_timber|repair|Hard wood|recycled|share of input mass,design,"ecotoxicity: freshwater, organics",-7.129848641928755e-18,1.21391901402347e-33,1.680601669903081e-34,2.732130287813305e-33,raw_timber,today
+raw_timber|repair|Hard wood|recycled|share of input mass,design,energy resources: non-renewable,0.0,0.0,0.0,0.0,raw_timber,today
+raw_timber|repair|Hard wood|recycled|share of input mass,design,eutrophication: freshwater,0.0,0.0,0.0,0.0,raw_timber,today
+raw_timber|repair|Hard wood|recycled|share of input mass,design,eutrophication: marine,-1.755743833630367e-18,7.799351794513624e-34,3.7369641397335783e-34,1.3155519209738547e-33,raw_timber,today
+raw_timber|repair|Hard wood|recycled|share of input mass,design,eutrophication: terrestrial,-1.6847661392836658e-18,2.3343905503494988e-34,9.872175520660247e-35,4.020476518609807e-34,raw_timber,today
+raw_timber|repair|Hard wood|recycled|share of input mass,design,human toxicity: carcinogenic,5.294083865791299e-18,1.5759458203603544e-33,5.714399134863774e-34,2.6970495418689493e-33,raw_timber,today
+raw_timber|repair|Hard wood|recycled|share of input mass,design,"human toxicity: carcinogenic, inorganics",-1.1530044161031327e-18,7.926856886360407e-34,3.581871531807763e-34,1.327840668979952e-33,raw_timber,today
+raw_timber|repair|Hard wood|recycled|share of input mass,design,"human toxicity: carcinogenic, organics",5.287220155249018e-19,6.492928794353305e-34,0.0,1.6309818005927717e-33,raw_timber,today
+raw_timber|repair|Hard wood|recycled|share of input mass,design,human toxicity: non-carcinogenic,4.5311596883729614e-18,7.73231020464551e-34,4.056240982271546e-34,1.3960664084634149e-33,raw_timber,today
+raw_timber|repair|Hard wood|recycled|share of input mass,design,"human toxicity: non-carcinogenic, inorganics",-1.8426064233996982e-19,8.078069683121014e-34,3.657599878659715e-34,1.3424972045796799e-33,raw_timber,today
+raw_timber|repair|Hard wood|recycled|share of input mass,design,"human toxicity: non-carcinogenic, organics",-1.2285741974312715e-18,3.252182162079912e-33,1.1631472393437979e-33,5.3714457919089446e-33,raw_timber,today
+raw_timber|repair|Hard wood|recycled|share of input mass,design,ionising radiation: human health,0.0,0.0,0.0,0.0,raw_timber,today
+raw_timber|repair|Hard wood|recycled|share of input mass,design,land use,-2.5107199054480775e-17,1.8695450812883405e-32,1.0796160918602842e-32,2.535086971895369e-32,raw_timber,today
+raw_timber|repair|Hard wood|recycled|share of input mass,design,material resources: metals/minerals,0.0,0.0,0.0,0.0,raw_timber,today
+raw_timber|repair|Hard wood|recycled|share of input mass,design,ozone depletion,0.0,0.0,0.0,0.0,raw_timber,today
+raw_timber|repair|Hard wood|recycled|share of input mass,design,particulate matter formation,-7.606100643441565e-19,8.066914061679888e-34,1.0678640949999914e-34,1.8396532760725436e-33,raw_timber,today
+raw_timber|repair|Hard wood|recycled|share of input mass,design,photochemical oxidant formation: human health,1.2880469815711101e-18,1.3085642941310877e-34,4.775891444117729e-36,3.547955464375142e-34,raw_timber,today
+raw_timber|repair|Hard wood|recycled|share of input mass,design,water use,-1.6863235471792872e-18,1.4173773126308877e-33,5.545088327739476e-34,2.36553418276831e-33,raw_timber,today
+raw_timber|production|Scanning||machine weight,manufacturing,acidification,-3.3813033744962193e-06,1.9821669371043405e-09,1.531650244883169e-09,2.4897871894018757e-09,raw_timber,today
+raw_timber|production|Scanning||machine weight,manufacturing,climate change,4.848541552416206e-07,1.1418230925847823e-09,8.844853670745068e-10,1.4557462793805096e-09,raw_timber,today
+raw_timber|production|Scanning||machine weight,manufacturing,climate change: biogenic,2.28349051416094e-07,2.9469693280899985e-12,2.2723521122775927e-12,3.793918193963485e-12,raw_timber,today
+raw_timber|production|Scanning||machine weight,manufacturing,climate change: fossil,-2.8919435996492563e-06,1.8541142429046358e-09,1.4201443261396933e-09,2.323727322026189e-09,raw_timber,today
+raw_timber|production|Scanning||machine weight,manufacturing,climate change: land use and land use change,9.337789771741562e-07,4.0049717851826327e-10,3.113407740074848e-10,5.126628759908557e-10,raw_timber,today
+raw_timber|production|Scanning||machine weight,manufacturing,ecotoxicity: freshwater,-1.8116152332779905e-05,2.3559736606105128e-08,1.8226343600643706e-08,2.9741603414615208e-08,raw_timber,today
+raw_timber|production|Scanning||machine weight,manufacturing,"ecotoxicity: freshwater, inorganics",-1.7835565417022093e-05,2.2556952918057874e-08,1.746280317092185e-08,2.8482868000211125e-08,raw_timber,today
+raw_timber|production|Scanning||machine weight,manufacturing,"ecotoxicity: freshwater, organics",1.756388596560266e-05,7.171192843121507e-08,5.7085080860255956e-08,9.293609748391612e-08,raw_timber,today
+raw_timber|production|Scanning||machine weight,manufacturing,energy resources: non-renewable,2.3685305296895517e-06,1.97267742869056e-09,1.5146668231576406e-09,2.529156534284805e-09,raw_timber,today
+raw_timber|production|Scanning||machine weight,manufacturing,eutrophication: freshwater,-3.3022814982143723e-06,7.026738059441655e-10,5.469529700798294e-10,8.918293614139799e-10,raw_timber,today
+raw_timber|production|Scanning||machine weight,manufacturing,eutrophication: marine,-3.853769203422765e-06,2.9623219583421057e-09,2.273765376104551e-09,3.7177730893028596e-09,raw_timber,today
+raw_timber|production|Scanning||machine weight,manufacturing,eutrophication: terrestrial,-5.018013229599005e-06,5.158182738545195e-09,3.929482296658429e-09,6.449167041481127e-09,raw_timber,today
+raw_timber|production|Scanning||machine weight,manufacturing,human toxicity: carcinogenic,-3.0409111567043174e-05,1.8402882994747197e-07,1.4028540017067553e-07,2.290085780031654e-07,raw_timber,today
+raw_timber|production|Scanning||machine weight,manufacturing,"human toxicity: carcinogenic, inorganics",-2.2371503485350725e-05,4.212194654381981e-08,3.2539701720646817e-08,5.2801543500471755e-08,raw_timber,today
+raw_timber|production|Scanning||machine weight,manufacturing,"human toxicity: carcinogenic, organics",4.580177939051646e-05,3.5835741852157345e-07,2.9006535936145427e-07,4.710140412570491e-07,raw_timber,today
+raw_timber|production|Scanning||machine weight,manufacturing,human toxicity: non-carcinogenic,-2.1634532924061177e-05,5.6890796769930236e-08,4.3755961921182366e-08,7.138825168881124e-08,raw_timber,today
+raw_timber|production|Scanning||machine weight,manufacturing,"human toxicity: non-carcinogenic, inorganics",-2.1299455974762373e-05,5.3581232904042814e-08,4.121243055751505e-08,6.724635346255805e-08,raw_timber,today
+raw_timber|production|Scanning||machine weight,manufacturing,"human toxicity: non-carcinogenic, organics",6.744946556868396e-07,2.3799849733332995e-07,1.8594206635598056e-07,3.0393273751779116e-07,raw_timber,today
+raw_timber|production|Scanning||machine weight,manufacturing,ionising radiation: human health,3.549542532551408e-07,1.1024499318871105e-11,8.524428593796915e-12,1.4327128348303093e-11,raw_timber,today
+raw_timber|production|Scanning||machine weight,manufacturing,land use,-1.9308672144323916e-06,1.6340598542853155e-10,1.2577588690518728e-10,2.1040588970962057e-10,raw_timber,today
+raw_timber|production|Scanning||machine weight,manufacturing,material resources: metals/minerals,5.538648407899775e-06,7.778101705362131e-07,6.19327438274189e-07,1.0157196298719546e-06,raw_timber,today
+raw_timber|production|Scanning||machine weight,manufacturing,ozone depletion,1.1804307838722427e-06,2.830218955972957e-10,2.22490826720681e-10,3.6960304947579e-10,raw_timber,today
+raw_timber|production|Scanning||machine weight,manufacturing,particulate matter formation,-2.9461215253564943e-05,3.6571117224305867e-07,2.766164255427133e-07,4.661029712602865e-07,raw_timber,today
+raw_timber|production|Scanning||machine weight,manufacturing,photochemical oxidant formation: human health,-3.9960795783179685e-06,6.454683391231322e-09,4.919887653562426e-09,8.111557203376104e-09,raw_timber,today
+raw_timber|production|Scanning||machine weight,manufacturing,water use,5.780043745860912e-07,1.722503639772915e-08,1.3618848699588703e-08,2.2079413133798262e-08,raw_timber,today
+raw_timber|production|Scanning||power,manufacturing,acidification,0.0002723277025025421,3.986601604152983e-06,2.839262264287623e-06,5.391354355213332e-06,raw_timber,today
+raw_timber|production|Scanning||power,manufacturing,climate change,0.0007643290169494029,3.0143179012632957e-06,2.3973031105471168e-06,3.780695564610577e-06,raw_timber,today
+raw_timber|production|Scanning||power,manufacturing,climate change: biogenic,5.501989736684108e-06,3.393869394536178e-08,2.3478986017193366e-08,4.48123469757236e-08,raw_timber,today
+raw_timber|production|Scanning||power,manufacturing,climate change: fossil,0.0006835929281140244,4.9020946514660945e-06,3.8765234878247156e-06,6.254121233714991e-06,raw_timber,today
+raw_timber|production|Scanning||power,manufacturing,climate change: land use and land use change,7.217006944916156e-05,2.5074818589359026e-06,1.8087209158017452e-06,3.219856380061145e-06,raw_timber,today
+raw_timber|production|Scanning||power,manufacturing,ecotoxicity: freshwater,0.0004173565916111794,6.677996795193141e-06,5.298910639160709e-06,8.642924509645288e-06,raw_timber,today
+raw_timber|production|Scanning||power,manufacturing,"ecotoxicity: freshwater, inorganics",0.0004040080873477209,6.557592709867134e-06,5.190550752754264e-06,8.500141064704598e-06,raw_timber,today
+raw_timber|production|Scanning||power,manufacturing,"ecotoxicity: freshwater, organics",0.0010757629298443626,6.651197721482016e-06,5.372868421430112e-06,8.01126846658566e-06,raw_timber,today
+raw_timber|production|Scanning||power,manufacturing,energy resources: non-renewable,0.001752121827414318,1.157801361777836e-05,9.437665657457997e-06,1.3739371655475963e-05,raw_timber,today
+raw_timber|production|Scanning||power,manufacturing,eutrophication: freshwater,0.0002527336545567131,3.639850110161116e-06,2.783629256808396e-06,4.847170981421155e-06,raw_timber,today
+raw_timber|production|Scanning||power,manufacturing,eutrophication: marine,0.0005882210818781323,5.279799009537538e-06,4.075168837671579e-06,6.986882699157852e-06,raw_timber,today
+raw_timber|production|Scanning||power,manufacturing,eutrophication: terrestrial,0.0006484928125211334,6.17566325531307e-06,4.823061953626666e-06,7.813596382484573e-06,raw_timber,today
+raw_timber|production|Scanning||power,manufacturing,human toxicity: carcinogenic,0.0012504778926741037,1.5088008288837465e-05,1.2414303826038103e-05,1.8338130806444428e-05,raw_timber,today
+raw_timber|production|Scanning||power,manufacturing,"human toxicity: carcinogenic, inorganics",0.00031783927120330167,7.785214005783164e-06,6.0773231235029524e-06,1.0002337995486744e-05,raw_timber,today
+raw_timber|production|Scanning||power,manufacturing,"human toxicity: carcinogenic, organics",0.002124988089437876,1.3512815855947322e-05,1.1357607737640243e-05,1.6229111986454313e-05,raw_timber,today
+raw_timber|production|Scanning||power,manufacturing,human toxicity: non-carcinogenic,0.0006864970751421222,9.629165247113865e-06,7.634926651492198e-06,1.2201205014700695e-05,raw_timber,today
+raw_timber|production|Scanning||power,manufacturing,"human toxicity: non-carcinogenic, inorganics",0.0006404453220297072,9.199567507045183e-06,7.262120592212809e-06,1.1700102339660765e-05,raw_timber,today
+raw_timber|production|Scanning||power,manufacturing,"human toxicity: non-carcinogenic, organics",0.003387761935691092,3.236294330686639e-05,2.8099510473693088e-05,3.740027091848064e-05,raw_timber,today
+raw_timber|production|Scanning||power,manufacturing,ionising radiation: human health,1.628827818241678e-05,4.049910352388386e-06,3.148591300986036e-06,5.219344267754399e-06,raw_timber,today
+raw_timber|production|Scanning||power,manufacturing,land use,-0.0003403183564623754,3.8445421974416284e-07,3.218783887368349e-07,4.5498129756113435e-07,raw_timber,today
+raw_timber|production|Scanning||power,manufacturing,material resources: metals/minerals,0.004008554613899863,7.73253095816478e-05,6.460057117049176e-05,8.899657884452742e-05,raw_timber,today
+raw_timber|production|Scanning||power,manufacturing,ozone depletion,0.0008206759090102628,2.8358480838417827e-06,2.3119204480399993e-06,3.410378916957501e-06,raw_timber,today
+raw_timber|production|Scanning||power,manufacturing,particulate matter formation,0.0017433870680510788,2.416329776519886e-05,2.0273254778267694e-05,2.868200354316864e-05,raw_timber,today
+raw_timber|production|Scanning||power,manufacturing,photochemical oxidant formation: human health,0.000752438720645493,6.211018119860374e-06,4.938694900224788e-06,7.657737464663582e-06,raw_timber,today
+raw_timber|production|Scanning||power,manufacturing,water use,0.0011492007664288722,1.7432266180963432e-05,1.446417022900112e-05,2.0449103081211447e-05,raw_timber,today
+raw_timber|production|Scanning||output rate,manufacturing,acidification,0.00010960494399940912,4.364501424331404e-06,3.004479768532191e-06,5.913609036853803e-06,raw_timber,today
+raw_timber|production|Scanning||output rate,manufacturing,climate change,0.0008364128475229083,3.2588778106509474e-06,2.5625510256248417e-06,4.022266235011163e-06,raw_timber,today
+raw_timber|production|Scanning||output rate,manufacturing,climate change: biogenic,1.2007912985737842e-05,3.6018312411690576e-08,2.6473976439697964e-08,4.739652039476807e-08,raw_timber,today
+raw_timber|production|Scanning||output rate,manufacturing,climate change: fossil,0.0006117702353153978,5.299838443247002e-06,4.033219605985844e-06,6.598825587988169e-06,raw_timber,today
+raw_timber|production|Scanning||output rate,manufacturing,climate change: land use and land use change,7.118362281878457e-05,3.5742081778245797e-06,2.6506340098111595e-06,4.718988827647492e-06,raw_timber,today
+raw_timber|production|Scanning||output rate,manufacturing,ecotoxicity: freshwater,0.00016751489192161345,7.570383229500963e-06,5.73430718967612e-06,9.401988769761041e-06,raw_timber,today
+raw_timber|production|Scanning||output rate,manufacturing,"ecotoxicity: freshwater, inorganics",0.00015133441129729485,7.427745880509646e-06,5.621085132428473e-06,9.247880957789185e-06,raw_timber,today
+raw_timber|production|Scanning||output rate,manufacturing,"ecotoxicity: freshwater, organics",0.0012328184956663366,7.783886454861263e-06,6.253571921784899e-06,9.658556642807148e-06,raw_timber,today
+raw_timber|production|Scanning||output rate,manufacturing,energy resources: non-renewable,0.0018924421142515993,1.1861759308459248e-05,9.704718783390501e-06,1.3916474531245077e-05,raw_timber,today
+raw_timber|production|Scanning||output rate,manufacturing,eutrophication: freshwater,9.511244529601837e-05,3.905911169895201e-06,2.8464160892711236e-06,5.122210229129827e-06,raw_timber,today
+raw_timber|production|Scanning||output rate,manufacturing,eutrophication: marine,0.00044970251585451813,5.743132011890266e-06,4.253128858103357e-06,7.381623002335564e-06,raw_timber,today
+raw_timber|production|Scanning||output rate,manufacturing,eutrophication: terrestrial,0.0004833915072075373,6.755286526658128e-06,5.068341519409006e-06,8.572645597686261e-06,raw_timber,today
+raw_timber|production|Scanning||output rate,manufacturing,human toxicity: carcinogenic,0.0011245457516372277,1.832219412086699e-05,1.4659474127586731e-05,2.222303680062209e-05,raw_timber,today
+raw_timber|production|Scanning||output rate,manufacturing,"human toxicity: carcinogenic, inorganics",-1.5671578567719995e-05,9.035681031586e-06,6.917514846663691e-06,1.1422441657867447e-05,raw_timber,today
+raw_timber|production|Scanning||output rate,manufacturing,"human toxicity: carcinogenic, organics",0.0028647560471001896,1.737629211536847e-05,1.4608501541217179e-05,2.0939670104900663e-05,raw_timber,today
+raw_timber|production|Scanning||output rate,manufacturing,human toxicity: non-carcinogenic,0.0004082971471981396,1.1247466754842529e-05,8.736362423189135e-06,1.4154577745584777e-05,raw_timber,today
+raw_timber|production|Scanning||output rate,manufacturing,"human toxicity: non-carcinogenic, inorganics",0.0003586766471316996,1.0735832153048625e-05,8.312606521469571e-06,1.3549552265009304e-05,raw_timber,today
+raw_timber|production|Scanning||output rate,manufacturing,"human toxicity: non-carcinogenic, organics",0.003954750648942442,3.8311143542859666e-05,3.298100139703703e-05,4.501243618484831e-05,raw_timber,today
+raw_timber|production|Scanning||output rate,manufacturing,ionising radiation: human health,8.129465735848253e-05,4.262849176990281e-06,3.246527743008727e-06,5.758655771280589e-06,raw_timber,today
+raw_timber|production|Scanning||output rate,manufacturing,land use,-0.0004909743757684008,4.179296898103038e-07,3.4964011435812467e-07,5.063386694652612e-07,raw_timber,today
+raw_timber|production|Scanning||output rate,manufacturing,material resources: metals/minerals,0.0053097736741837395,9.324732911835613e-05,7.833473183044813e-05,0.00011174045606070005,raw_timber,today
+raw_timber|production|Scanning||output rate,manufacturing,ozone depletion,0.0010720398066272408,2.96889788007831e-06,2.3526835192221682e-06,3.77990481096537e-06,raw_timber,today
+raw_timber|production|Scanning||output rate,manufacturing,particulate matter formation,0.0016406334438193737,2.968521404323611e-05,2.4331227416484666e-05,3.544723658063565e-05,raw_timber,today
+raw_timber|production|Scanning||output rate,manufacturing,photochemical oxidant formation: human health,0.0006119628352961485,6.805669766085045e-06,5.243990573286489e-06,8.564165123873542e-06,raw_timber,today
+raw_timber|production|Scanning||output rate,manufacturing,water use,0.0009623855938875879,2.0507084164798634e-05,1.7125771685475584e-05,2.46323550615128e-05,raw_timber,today
+raw_timber|production|Scanning||machine lifetime,manufacturing,acidification,5.5781653031304814e-06,1.9805719220676734e-09,1.5663953877235665e-09,2.5066611842132883e-09,raw_timber,today
+raw_timber|production|Scanning||machine lifetime,manufacturing,climate change,7.288273921271629e-06,1.140902544580373e-09,9.296183935086504e-10,1.4247435226403414e-09,raw_timber,today
+raw_timber|production|Scanning||machine lifetime,manufacturing,climate change: biogenic,3.151534603220389e-07,2.944600826808988e-12,2.3641985088484297e-12,3.664896342454911e-12,raw_timber,today
+raw_timber|production|Scanning||machine lifetime,manufacturing,climate change: fossil,7.790191132923296e-06,1.8526194174081622e-09,1.5048824344591348e-09,2.2869842488024414e-09,raw_timber,today
+raw_timber|production|Scanning||machine lifetime,manufacturing,climate change: land use and land use change,-1.738753892238389e-06,4.0017532632889095e-10,3.1712898956598595e-10,4.867476670494496e-10,raw_timber,today
+raw_timber|production|Scanning||machine lifetime,manufacturing,ecotoxicity: freshwater,1.6977988715135904e-05,2.3540802345539675e-08,1.8906885750483753e-08,2.8982638922979555e-08,raw_timber,today
+raw_timber|production|Scanning||machine lifetime,manufacturing,"ecotoxicity: freshwater, inorganics",1.6342689162510794e-05,2.253882471093951e-08,1.809567484440791e-08,2.7745376685397745e-08,raw_timber,today
+raw_timber|production|Scanning||machine lifetime,manufacturing,"ecotoxicity: freshwater, organics",3.8710273737405e-05,7.16542596208975e-08,5.7579105122670964e-08,8.837915430532213e-08,raw_timber,today
+raw_timber|production|Scanning||machine lifetime,manufacturing,energy resources: non-renewable,8.087441283532075e-06,1.9710830636005867e-09,1.5906007130659128e-09,2.425478959273882e-09,raw_timber,today
+raw_timber|production|Scanning||machine lifetime,manufacturing,eutrophication: freshwater,2.760356251834212e-06,7.021091548389957e-10,5.653306704250342e-10,8.597192131996565e-10,raw_timber,today
+raw_timber|production|Scanning||machine lifetime,manufacturing,eutrophication: marine,8.474115743527718e-06,2.9599190005634592e-09,2.346740195693416e-09,3.7036644644458055e-09,raw_timber,today
+raw_timber|production|Scanning||machine lifetime,manufacturing,eutrophication: terrestrial,1.0894938887328942e-05,5.153997664446637e-09,4.09779967322241e-09,6.422912216139097e-09,raw_timber,today
+raw_timber|production|Scanning||machine lifetime,manufacturing,human toxicity: carcinogenic,6.6310031683657e-05,1.838809370135627e-07,1.4688511927576634e-07,2.2781070883545395e-07,raw_timber,today
+raw_timber|production|Scanning||machine lifetime,manufacturing,"human toxicity: carcinogenic, inorganics",1.8820317346962964e-05,4.208809804885129e-08,3.351178182674282e-08,5.2299040654376564e-08,raw_timber,today
+raw_timber|production|Scanning||machine lifetime,manufacturing,"human toxicity: carcinogenic, organics",0.00010428016519931169,3.580694045884011e-07,2.879759660148245e-07,4.5106053067535274e-07,raw_timber,today
+raw_timber|production|Scanning||machine lifetime,manufacturing,human toxicity: non-carcinogenic,2.927918416089431e-05,5.684507771705603e-08,4.500486746705291e-08,7.07420377486716e-08,raw_timber,today
+raw_timber|production|Scanning||machine lifetime,manufacturing,"human toxicity: non-carcinogenic, inorganics",2.7773869733617987e-05,5.35381744932487e-08,4.237229766708749e-08,6.668755687080088e-08,raw_timber,today
+raw_timber|production|Scanning||machine lifetime,manufacturing,"human toxicity: non-carcinogenic, organics",0.00010287290270950413,2.37806984523331e-07,1.937902533082597e-07,2.969530616711378e-07,raw_timber,today
+raw_timber|production|Scanning||machine lifetime,manufacturing,ionising radiation: human health,-1.8381529699194353e-07,1.10156354682243e-11,8.759713886686223e-12,1.3469340786322997e-11,raw_timber,today
+raw_timber|production|Scanning||machine lifetime,manufacturing,land use,-2.2268084871875754e-06,1.6327194173016285e-10,1.286872736441147e-10,2.0145225693586878e-10,raw_timber,today
+raw_timber|production|Scanning||machine lifetime,manufacturing,material resources: metals/minerals,0.00011873814717679292,7.771851522980463e-07,6.147395009488616e-07,9.721478674438189e-07,raw_timber,today
+raw_timber|production|Scanning||machine lifetime,manufacturing,ozone depletion,3.23217846797744e-06,2.8278708963946493e-10,2.2511378506387361e-10,3.595528006722679e-10,raw_timber,today
+raw_timber|production|Scanning||machine lifetime,manufacturing,particulate matter formation,0.0001019131254189617,3.6541628986099796e-07,2.9339387253785276e-07,4.483194884101523e-07,raw_timber,today
+raw_timber|production|Scanning||machine lifetime,manufacturing,photochemical oxidant formation: human health,1.3439976132409354e-05,6.449440636049685e-09,5.1891847886008055e-09,7.953849247522556e-09,raw_timber,today
+raw_timber|production|Scanning||machine lifetime,manufacturing,water use,1.3179728505106582e-05,1.7211194282110358e-08,1.372757135748762e-08,2.0911262078496984e-08,raw_timber,today
+raw_timber|production|Scanning||process yield,manufacturing,acidification,-8.696384920068177e-05,1.2642289758959026e-06,1.031415283413323e-06,1.5220925367824334e-06,raw_timber,today
+raw_timber|production|Scanning||process yield,manufacturing,climate change,-0.005474458840612317,0.009036015533394596,0.007674007688446287,0.010619358021668045,raw_timber,today
+raw_timber|production|Scanning||process yield,manufacturing,climate change: biogenic,-0.007009130963752332,0.03741938644446548,0.03195761217759938,0.04350918366633237,raw_timber,today
+raw_timber|production|Scanning||process yield,manufacturing,climate change: fossil,5.301326792994974e-06,1.2218304295818986e-06,9.368509290577861e-07,1.5494720003306783e-06,raw_timber,today
+raw_timber|production|Scanning||process yield,manufacturing,climate change: land use and land use change,-0.0002850155693772756,7.681502612641051e-05,6.355911233619371e-05,9.337796804046899e-05,raw_timber,today
+raw_timber|production|Scanning||process yield,manufacturing,ecotoxicity: freshwater,-3.774629389427463e-05,6.129568065060144e-06,4.9575367963703995e-06,7.615501753116641e-06,raw_timber,today
+raw_timber|production|Scanning||process yield,manufacturing,"ecotoxicity: freshwater, inorganics",-3.505484534482186e-05,6.938250886513136e-06,5.63448137889733e-06,8.596331458313318e-06,raw_timber,today
+raw_timber|production|Scanning||process yield,manufacturing,"ecotoxicity: freshwater, organics",0.0018137426378363327,0.00020138967946775293,0.00017377228178240109,0.00022934122884552222,raw_timber,today
+raw_timber|production|Scanning||process yield,manufacturing,energy resources: non-renewable,0.0005522689605364542,4.57185543833648e-06,3.730533755241973e-06,5.365621937656505e-06,raw_timber,today
+raw_timber|production|Scanning||process yield,manufacturing,eutrophication: freshwater,2.6654018095958914e-05,8.904877028859223e-07,6.746852575812053e-07,1.1456095636488492e-06,raw_timber,today
+raw_timber|production|Scanning||process yield,manufacturing,eutrophication: marine,-0.0014949083736469668,0.0006980713739130654,0.0005692882662421819,0.0008406390937874031,raw_timber,today
+raw_timber|production|Scanning||process yield,manufacturing,eutrophication: terrestrial,-0.0006260086408679884,7.338323628029935e-05,5.9683253029198916e-05,8.90615069228629e-05,raw_timber,today
+raw_timber|production|Scanning||process yield,manufacturing,human toxicity: carcinogenic,-0.0013977774414360466,0.0004172954188566725,0.00033987695983376376,0.0005060699520217706,raw_timber,today
+raw_timber|production|Scanning||process yield,manufacturing,"human toxicity: carcinogenic, inorganics",-2.1043133346102537e-05,0.00025631761027251643,0.000211926025217003,0.000309542473647043,raw_timber,today
+raw_timber|production|Scanning||process yield,manufacturing,"human toxicity: carcinogenic, organics",-0.0022501986408526298,0.00019476886049346845,0.0001690883953765838,0.00022492317765837282,raw_timber,today
+raw_timber|production|Scanning||process yield,manufacturing,human toxicity: non-carcinogenic,-0.0007666463405947594,0.00037322279981187367,0.000305278832513337,0.000452845934353937,raw_timber,today
+raw_timber|production|Scanning||process yield,manufacturing,"human toxicity: non-carcinogenic, inorganics",-0.0007000660557942702,0.00035969094081227094,0.0002942833596099314,0.0004357996124881627,raw_timber,today
+raw_timber|production|Scanning||process yield,manufacturing,"human toxicity: non-carcinogenic, organics",-0.004445517806073721,0.000861758180486336,0.0007200908207562497,0.0010011103005527146,raw_timber,today
+raw_timber|production|Scanning||process yield,manufacturing,ionising radiation: human health,0.00020809682274271552,2.3893854846662933e-06,1.8033821951595233e-06,3.0206927414090864e-06,raw_timber,today
+raw_timber|production|Scanning||process yield,manufacturing,land use,-0.007803960490125078,0.04110580513006733,0.03530925872983954,0.04789126329309402,raw_timber,today
+raw_timber|production|Scanning||process yield,manufacturing,material resources: metals/minerals,0.0010220327938449143,3.726056414751497e-05,3.002883395487238e-05,4.4193746386413004e-05,raw_timber,today
+raw_timber|production|Scanning||process yield,manufacturing,ozone depletion,3.9643306438871775e-05,2.422749168123458e-07,1.8619195369045914e-07,3.1302386821906785e-07,raw_timber,today
+raw_timber|production|Scanning||process yield,manufacturing,particulate matter formation,-0.0015894309868812882,0.00020354980132230183,0.00016825200756653505,0.0002473336366523422,raw_timber,today
+raw_timber|production|Scanning||process yield,manufacturing,photochemical oxidant formation: human health,-0.0005086730929709851,2.648021782481027e-05,2.1691448077100552e-05,3.20660126433523e-05,raw_timber,today
+raw_timber|production|Scanning||process yield,manufacturing,water use,-0.001298427969222212,0.00023799092168824273,0.00020139097835891664,0.00027785257992931744,raw_timber,today
+raw_timber|production|Scanning||machine source,manufacturing,acidification,3.307153148372227e-05,1.7292575198286216e-07,1.474159031576918e-07,2.0348573247300308e-07,raw_timber,today
+raw_timber|production|Scanning||machine source,manufacturing,climate change,1.9840408507583585e-05,9.940633862057216e-08,8.730482148796984e-08,1.141382556326313e-07,raw_timber,today
+raw_timber|production|Scanning||machine source,manufacturing,climate change: biogenic,6.918649836060114e-07,2.577262149278858e-10,2.2891394692925078e-10,2.9558809149387995e-10,raw_timber,today
+raw_timber|production|Scanning||machine source,manufacturing,climate change: fossil,1.9840030307964935e-05,1.6141576239482795e-07,1.399184202887173e-07,1.8447068620414345e-07,raw_timber,today
+raw_timber|production|Scanning||machine source,manufacturing,climate change: land use and land use change,3.370669750845138e-06,3.5039665798611916e-08,3.037219849920859e-08,4.069245424788811e-08,raw_timber,today
+raw_timber|production|Scanning||machine source,manufacturing,ecotoxicity: freshwater,7.811519139357641e-05,2.0607871704073717e-06,1.7911726130048293e-06,2.3816160937660397e-06,raw_timber,today
+raw_timber|production|Scanning||machine source,manufacturing,"ecotoxicity: freshwater, inorganics",7.721338947074262e-05,1.9731415780351117e-06,1.715169405104309e-06,2.2796773111400848e-06,raw_timber,today
+raw_timber|production|Scanning||machine source,manufacturing,"ecotoxicity: freshwater, organics",-0.00012129953943456853,6.2625148989471745e-06,5.617993919582822e-06,7.1490103276639e-06,raw_timber,today
+raw_timber|production|Scanning||machine source,manufacturing,energy resources: non-renewable,4.3247294971579395e-06,1.7140413447191242e-07,1.4933552576212023e-07,1.9453262145139573e-07,raw_timber,today
+raw_timber|production|Scanning||machine source,manufacturing,eutrophication: freshwater,1.2394548529906247e-05,6.15062988554667e-08,5.2744723877763654e-08,7.04956665446595e-08,raw_timber,today
+raw_timber|production|Scanning||machine source,manufacturing,eutrophication: marine,3.224714260593961e-05,2.5682448831067757e-07,2.1992798973855963e-07,2.990708304299621e-07,raw_timber,today
+raw_timber|production|Scanning||machine source,manufacturing,eutrophication: terrestrial,4.112809790565336e-05,4.471475936120539e-07,3.831045013188533e-07,5.202439579395636e-07,raw_timber,today
+raw_timber|production|Scanning||machine source,manufacturing,human toxicity: carcinogenic,0.0002094735126586593,1.6099906377926783e-05,1.379141869231196e-05,1.8619939996645638e-05,raw_timber,today
+raw_timber|production|Scanning||machine source,manufacturing,"human toxicity: carcinogenic, inorganics",0.00013443843585102375,3.686672040087931e-06,3.155227632142857e-06,4.281678829234541e-06,raw_timber,today
+raw_timber|production|Scanning||machine source,manufacturing,"human toxicity: carcinogenic, organics",-0.0001813949802516867,3.134026926256341e-05,2.8304981900299287e-05,3.611599988262113e-05,raw_timber,today
+raw_timber|production|Scanning||machine source,manufacturing,human toxicity: non-carcinogenic,0.00016248975539721007,4.977507587793003e-06,4.25798225581045e-06,5.8379781891907715e-06,raw_timber,today
+raw_timber|production|Scanning||machine source,manufacturing,"human toxicity: non-carcinogenic, inorganics",0.00015875948218473148,4.688551154496047e-06,4.011848924631605e-06,5.49017177933581e-06,raw_timber,today
+raw_timber|production|Scanning||machine source,manufacturing,"human toxicity: non-carcinogenic, organics",0.00011509720721520926,2.0763232438678996e-05,1.8508362803301354e-05,2.3724235408323787e-05,raw_timber,today
+raw_timber|production|Scanning||machine source,manufacturing,ionising radiation: human health,-6.210267884608866e-07,9.631386759388107e-10,8.3732530461859e-10,1.1024295184120858e-09,raw_timber,today
+raw_timber|production|Scanning||machine source,manufacturing,land use,-5.871019596561989e-06,1.4096945850815961e-08,1.2314884105486129e-08,1.6032167953166842e-08,raw_timber,today
+raw_timber|production|Scanning||machine source,manufacturing,material resources: metals/minerals,-0.0004837761634189909,6.809638160911862e-05,5.989257691472186e-05,7.819461265700316e-05,raw_timber,today
+raw_timber|production|Scanning||machine source,manufacturing,ozone depletion,-2.334637945708203e-06,2.4324026878345772e-08,2.192741691239167e-08,2.80666665476973e-08,raw_timber,today
+raw_timber|production|Scanning||machine source,manufacturing,particulate matter formation,0.0002204116602777208,3.183440971886782e-05,2.7646970265998807e-05,3.650774777564697e-05,raw_timber,today
+raw_timber|production|Scanning||machine source,manufacturing,photochemical oxidant formation: human health,4.0772149348312324e-05,5.592151123279477e-07,4.833500911397517e-07,6.452804927331365e-07,raw_timber,today
+raw_timber|production|Scanning||machine source,manufacturing,water use,0.00014858417166853288,1.5073168602832094e-06,1.3282172982895679e-06,1.6962340748830555e-06,raw_timber,today
+raw_timber|production|CNC milling||machine weight,manufacturing,acidification,4.666475138870108e-05,2.4487355182130566e-07,1.9053307888482933e-07,3.1859929182222317e-07,raw_timber,today
+raw_timber|production|CNC milling||machine weight,manufacturing,climate change,0.00014145666903829052,1.4105883997451563e-07,1.1054030511796677e-07,1.8097314431828222e-07,raw_timber,today
+raw_timber|production|CNC milling||machine weight,manufacturing,climate change: biogenic,8.008604671906445e-06,3.6406369720614053e-10,2.879495093831299e-10,4.5465742300787107e-10,raw_timber,today
+raw_timber|production|CNC milling||machine weight,manufacturing,climate change: fossil,0.00011600701261967393,2.290540497926318e-07,1.796959341277001e-07,2.997410140691173e-07,raw_timber,today
+raw_timber|production|CNC milling||machine weight,manufacturing,climate change: land use and land use change,-1.3856504343734426e-05,4.947675733497355e-08,3.8648928488175363e-08,6.507052196279563e-08,raw_timber,today
+raw_timber|production|CNC milling||machine weight,manufacturing,ecotoxicity: freshwater,0.00017848754056058513,2.9105307655175537e-06,2.2561449432916495e-06,3.7650107984980354e-06,raw_timber,today
+raw_timber|production|CNC milling||machine weight,manufacturing,"ecotoxicity: freshwater, inorganics",0.00016880728511838464,2.7866485372463946e-06,2.159369062925758e-06,3.605195780523396e-06,raw_timber,today
+raw_timber|production|CNC milling||machine weight,manufacturing,"ecotoxicity: freshwater, organics",0.0008527410401054905,8.859171518691586e-06,6.777477435966936e-06,1.1727100091781974e-05,raw_timber,today
+raw_timber|production|CNC milling||machine weight,manufacturing,energy resources: non-renewable,0.00013810439843225456,2.4370101672086667e-07,1.874335616934826e-07,3.0787711555756324e-07,raw_timber,today
+raw_timber|production|CNC milling||machine weight,manufacturing,eutrophication: freshwater,3.150465226910331e-05,8.680715805879725e-08,6.786233643053939e-08,1.1100472652427204e-07,raw_timber,today
+raw_timber|production|CNC milling||machine weight,manufacturing,eutrophication: marine,0.00011276112656298859,3.659596477778451e-07,2.8331268994639206e-07,4.809192331008865e-07,raw_timber,today
+raw_timber|production|CNC milling||machine weight,manufacturing,eutrophication: terrestrial,0.0001346488069995408,6.372321045994687e-07,4.930394358898763e-07,8.346307030955986e-07,raw_timber,today
+raw_timber|production|CNC milling||machine weight,manufacturing,human toxicity: carcinogenic,0.0009331622753997408,2.2734616449301398e-05,1.7542708688196888e-05,2.987059961135751e-05,raw_timber,today
+raw_timber|production|CNC milling||machine weight,manufacturing,"human toxicity: carcinogenic, inorganics",0.00012529609884340923,5.2036754931762106e-06,4.0374056220553646e-06,6.787300272864375e-06,raw_timber,today
+raw_timber|production|CNC milling||machine weight,manufacturing,"human toxicity: carcinogenic, organics",0.002419285510042155,4.4270880433707644e-05,3.4181877030387764e-05,5.7910662539923273e-05,raw_timber,today
+raw_timber|production|CNC milling||machine weight,manufacturing,human toxicity: non-carcinogenic,0.0003196580076833431,7.028194703272231e-06,5.414460962825485e-06,9.210236358113135e-06,raw_timber,today
+raw_timber|production|CNC milling||machine weight,manufacturing,"human toxicity: non-carcinogenic, inorganics",0.00029415035892117004,6.619336701385388e-06,5.10297662877023e-06,8.67260202228564e-06,raw_timber,today
+raw_timber|production|CNC milling||machine weight,manufacturing,"human toxicity: non-carcinogenic, organics",0.002021630676394483,2.9401931948703154e-05,2.2759206194562418e-05,3.792834249785501e-05,raw_timber,today
+raw_timber|production|CNC milling||machine weight,manufacturing,ionising radiation: human health,-1.9944473126788834e-06,1.3619482340945252e-09,1.0493148843408373e-09,1.7292098071520517e-09,raw_timber,today
+raw_timber|production|CNC milling||machine weight,manufacturing,land use,-5.7152967980383156e-05,2.0186819716080518e-08,1.5973471514880536e-08,2.5197934130597294e-08,raw_timber,today
+raw_timber|production|CNC milling||machine weight,manufacturing,material resources: metals/minerals,0.0034832294321134752,9.608938041142e-05,7.51427325348152e-05,0.0001246950835061431,raw_timber,today
+raw_timber|production|CNC milling||machine weight,manufacturing,ozone depletion,7.262439463855778e-05,3.496382675422443e-08,2.710619736132093e-08,4.544737556163245e-08,raw_timber,today
+raw_timber|production|CNC milling||machine weight,manufacturing,particulate matter formation,0.0014251660624320258,4.517932115651294e-05,3.492676596265277e-05,5.974967913014431e-05,raw_timber,today
+raw_timber|production|CNC milling||machine weight,manufacturing,photochemical oxidant formation: human health,0.00017516561772467216,7.973991548567586e-07,6.253018460295713e-07,1.0466828478633646e-06,raw_timber,today
+raw_timber|production|CNC milling||machine weight,manufacturing,water use,0.00010511012424444908,2.127952448800927e-06,1.6584420950656698e-06,2.805091422331681e-06,raw_timber,today
+raw_timber|production|CNC milling||power,manufacturing,acidification,-0.002533747611143282,0.0013128767117323826,0.0008901968479632394,0.0018816590048966796,raw_timber,today
+raw_timber|production|CNC milling||power,manufacturing,climate change,0.0038698511770247274,0.001008457965369883,0.0007621065345859409,0.0013277298129290597,raw_timber,today
+raw_timber|production|CNC milling||power,manufacturing,climate change: biogenic,0.0006025565012254238,1.1829792937969318e-05,8.3633181057946e-06,1.6043002166143003e-05,raw_timber,today
+raw_timber|production|CNC milling||power,manufacturing,climate change: fossil,-0.00015687573048509478,0.0016397033869611033,0.0012477604965846721,0.0021936193051330546,raw_timber,today
+raw_timber|production|CNC milling||power,manufacturing,climate change: land use and land use change,0.00013710568654008124,0.0012500620207867273,0.0008852668016710803,0.0016149457338617578,raw_timber,today
+raw_timber|production|CNC milling||power,manufacturing,ecotoxicity: freshwater,-0.005281758470278776,0.0022452274390440657,0.0017299891425177384,0.002950596140565971,raw_timber,today
+raw_timber|production|CNC milling||power,manufacturing,"ecotoxicity: freshwater, inorganics",-0.005379935428611814,0.002203499700867717,0.0016914204778298294,0.002896934674233538,raw_timber,today
+raw_timber|production|CNC milling||power,manufacturing,"ecotoxicity: freshwater, organics",0.0210002875525049,0.0023429764951320535,0.0019048784065502642,0.0028427960420746995,raw_timber,today
+raw_timber|production|CNC milling||power,manufacturing,energy resources: non-renewable,0.02361547568158085,0.004045580481804272,0.003270080473977382,0.0049758760256476825,raw_timber,today
+raw_timber|production|CNC milling||power,manufacturing,eutrophication: freshwater,-0.005139856621227577,0.0011988917227609844,0.0008517117191153227,0.001599230890911608,raw_timber,today
+raw_timber|production|CNC milling||power,manufacturing,eutrophication: marine,-0.0016430739739341988,0.001761847607152996,0.0013196237964200848,0.002397443973227711,raw_timber,today
+raw_timber|production|CNC milling||power,manufacturing,eutrophication: terrestrial,-0.0009080037110972321,0.002078655140193482,0.0015831768000553082,0.0027862529798096825,raw_timber,today
+raw_timber|production|CNC milling||power,manufacturing,human toxicity: carcinogenic,0.004305873977375796,0.0052333385989267334,0.004260300751123392,0.006575258303572014,raw_timber,today
+raw_timber|production|CNC milling||power,manufacturing,"human toxicity: carcinogenic, inorganics",-0.0060874831101531655,0.002640687667867788,0.0020419432065297387,0.003467600301439897,raw_timber,today
+raw_timber|production|CNC milling||power,manufacturing,"human toxicity: carcinogenic, organics",0.03839597703858946,0.004851992011174888,0.004097554307590432,0.005704565931273469,raw_timber,today
+raw_timber|production|CNC milling||power,manufacturing,human toxicity: non-carcinogenic,-0.0028370365254503814,0.003303476193445054,0.002602986227283872,0.004316486034886679,raw_timber,today
+raw_timber|production|CNC milling||power,manufacturing,"human toxicity: non-carcinogenic, inorganics",-0.003225138763040149,0.003150709884308674,0.0024785497298963747,0.004132794792272636,raw_timber,today
+raw_timber|production|CNC milling||power,manufacturing,"human toxicity: non-carcinogenic, organics",0.04595380158081702,0.011584036950204058,0.009855598100152184,0.013802849189659806,raw_timber,today
+raw_timber|production|CNC milling||power,manufacturing,ionising radiation: human health,-0.0006374170948309747,0.0015951554015749168,0.0011828886425242862,0.0019770274452280954,raw_timber,today
+raw_timber|production|CNC milling||power,manufacturing,land use,-0.0051683503832942014,0.0001389458315712858,0.00011634006624025905,0.00016549660916517943,raw_timber,today
+raw_timber|production|CNC milling||power,manufacturing,material resources: metals/minerals,0.09179101441200467,0.028313272168575935,0.024034173698504985,0.03294335789645582,raw_timber,today
+raw_timber|production|CNC milling||power,manufacturing,ozone depletion,0.014996101619355637,0.0009989832761396326,0.0007941260472379497,0.0012298709416845327,raw_timber,today
+raw_timber|production|CNC milling||power,manufacturing,particulate matter formation,0.012867012586636932,0.008450126094120764,0.007060563904128852,0.010481821121292005,raw_timber,today
+raw_timber|production|CNC milling||power,manufacturing,photochemical oxidant formation: human health,0.001758446245577085,0.002089250351260368,0.0016298583275953136,0.0027524572153526006,raw_timber,today
+raw_timber|production|CNC milling||power,manufacturing,water use,0.014775223089480993,0.006493522107545513,0.00537904877615802,0.007751197651578206,raw_timber,today
+raw_timber|production|CNC milling||output rate,manufacturing,acidification,-0.0013672215977589706,0.0014166400548521914,0.000955190434706066,0.0019842111528545494,raw_timber,today
+raw_timber|production|CNC milling||output rate,manufacturing,climate change,-0.0012225131632269692,0.0010620015194473529,0.0008220769085458081,0.0013935143362996708,raw_timber,today
+raw_timber|production|CNC milling||output rate,manufacturing,climate change: biogenic,-0.0004886267279926325,1.3000853256210097e-05,9.711539619781153e-06,1.8760011256481377e-05,raw_timber,today
+raw_timber|production|CNC milling||output rate,manufacturing,climate change: fossil,-0.00019527417261252234,0.001726900965051494,0.0013444096941812394,0.0022429208574779565,raw_timber,today
+raw_timber|production|CNC milling||output rate,manufacturing,climate change: land use and land use change,-0.0002537669478779285,0.0011840793130871705,0.0008877539711109429,0.0015127370325934107,raw_timber,today
+raw_timber|production|CNC milling||output rate,manufacturing,ecotoxicity: freshwater,0.0007990892884494292,0.0024072177526046905,0.0018724008802054927,0.003052154752304635,raw_timber,today
+raw_timber|production|CNC milling||output rate,manufacturing,"ecotoxicity: freshwater, inorganics",0.0007772330630815989,0.002362998980205679,0.0018306640543007588,0.003001697343410302,raw_timber,today
+raw_timber|production|CNC milling||output rate,manufacturing,"ecotoxicity: freshwater, organics",0.01036261956332154,0.002453724932808652,0.001857810211220864,0.0032608783026663044,raw_timber,today
+raw_timber|production|CNC milling||output rate,manufacturing,energy resources: non-renewable,0.002841585454520848,0.00415694359583172,0.0034955396368381818,0.00505313068924485,raw_timber,today
+raw_timber|production|CNC milling||output rate,manufacturing,eutrophication: freshwater,0.00030701162595353634,0.0012895759981359379,0.0009722966467590052,0.001674366333769407,raw_timber,today
+raw_timber|production|CNC milling||output rate,manufacturing,eutrophication: marine,-0.000939058851940495,0.0018609160991373693,0.0013908388895898286,0.002454640061368188,raw_timber,today
+raw_timber|production|CNC milling||output rate,manufacturing,eutrophication: terrestrial,-0.00015597101410748843,0.0021680477004408115,0.001651593461313067,0.002771655150590684,raw_timber,today
+raw_timber|production|CNC milling||output rate,manufacturing,human toxicity: carcinogenic,0.0016650123034024037,0.005625254978878564,0.004627554404740434,0.0067705135354811435,raw_timber,today
+raw_timber|production|CNC milling||output rate,manufacturing,"human toxicity: carcinogenic, inorganics",-7.915955569620287e-05,0.002850986094680647,0.0022227718145815885,0.003631902301198896,raw_timber,today
+raw_timber|production|CNC milling||output rate,manufacturing,"human toxicity: carcinogenic, organics",0.01624067501780853,0.0051212483530208896,0.004191358919086399,0.006251796042978523,raw_timber,today
+raw_timber|production|CNC milling||output rate,manufacturing,human toxicity: non-carcinogenic,-0.0005013755247530879,0.0035193805121841596,0.002839095928649912,0.004458706330236878,raw_timber,today
+raw_timber|production|CNC milling||output rate,manufacturing,"human toxicity: non-carcinogenic, inorganics",-0.0005485747496372324,0.0033598717898416113,0.0026924449613852258,0.004277232435364493,raw_timber,today
+raw_timber|production|CNC milling||output rate,manufacturing,"human toxicity: non-carcinogenic, organics",0.014329061621001015,0.012015046268034154,0.010363549564361625,0.014187630453529958,raw_timber,today
+raw_timber|production|CNC milling||output rate,manufacturing,ionising radiation: human health,0.00210055487054471,0.0015893003711031006,0.0012207909677442203,0.0020355138928740174,raw_timber,today
+raw_timber|production|CNC milling||output rate,manufacturing,land use,0.0003980067183106717,0.00013165061380853907,0.00010723176537585412,0.00016415594446462598,raw_timber,today
+raw_timber|production|CNC milling||output rate,manufacturing,material resources: metals/minerals,0.054491803016870115,0.028565948785031586,0.024421662628830488,0.03383431560770365,raw_timber,today
+raw_timber|production|CNC milling||output rate,manufacturing,ozone depletion,0.0059891983410417455,0.0009696716518622817,0.0007284500075285234,0.001313261117893744,raw_timber,today
+raw_timber|production|CNC milling||output rate,manufacturing,particulate matter formation,0.005131175307182619,0.009116837254739458,0.007698067420555117,0.010682392734811653,raw_timber,today
+raw_timber|production|CNC milling||output rate,manufacturing,photochemical oxidant formation: human health,-0.00044023787335190984,0.002214384579805738,0.0017175180561444555,0.002793000118153215,raw_timber,today
+raw_timber|production|CNC milling||output rate,manufacturing,water use,-0.003370884889539949,0.006982651245881034,0.005762161504502884,0.008536890424485348,raw_timber,today
+raw_timber|production|CNC milling||machine lifetime,manufacturing,acidification,-3.9983336182736895e-05,2.951982648648202e-07,2.2130743924277932e-07,3.6762627195845986e-07,raw_timber,today
+raw_timber|production|CNC milling||machine lifetime,manufacturing,climate change,3.645510976410043e-05,1.7004806730127124e-07,1.334974990289159e-07,2.0795819428419136e-07,raw_timber,today
+raw_timber|production|CNC milling||machine lifetime,manufacturing,climate change: biogenic,4.338245909428355e-06,4.388838823493651e-10,3.4857217986935774e-10,5.214132282692996e-10,raw_timber,today
+raw_timber|production|CNC milling||machine lifetime,manufacturing,climate change: fossil,4.28299432443995e-06,2.7612731051981163e-07,2.1281350414107407e-07,3.4058934719603764e-07,raw_timber,today
+raw_timber|production|CNC milling||machine lifetime,manufacturing,climate change: land use and land use change,-5.84765849566097e-06,5.964492703501108e-08,4.648687615200661e-08,7.433605715433548e-08,raw_timber,today
+raw_timber|production|CNC milling||machine lifetime,manufacturing,ecotoxicity: freshwater,-0.00013083642997658107,3.508685676815762e-06,2.6761850811594127e-06,4.346944108439611e-06,raw_timber,today
+raw_timber|production|CNC milling||machine lifetime,manufacturing,"ecotoxicity: freshwater, inorganics",-0.00013061331007236225,3.3593439296875372e-06,2.564235616410833e-06,4.160070564468575e-06,raw_timber,today
+raw_timber|production|CNC milling||machine lifetime,manufacturing,"ecotoxicity: freshwater, organics",0.0003951041890657229,1.0679851298688413e-05,8.228392937072377e-06,1.3155404915080391e-05,raw_timber,today
+raw_timber|production|CNC milling||machine lifetime,manufacturing,energy resources: non-renewable,6.43111370569404e-05,2.9378393050649456e-07,2.29937153919713e-07,3.59361221416637e-07,raw_timber,today
+raw_timber|production|CNC milling||machine lifetime,manufacturing,eutrophication: freshwater,-1.787627940415262e-05,1.0464725500701671e-07,8.074900307630679e-08,1.2911982058921527e-07,raw_timber,today
+raw_timber|production|CNC milling||machine lifetime,manufacturing,eutrophication: marine,-1.8392438504141485e-05,4.4116685596380247e-07,3.3533164763647444e-07,5.439981000491243e-07,raw_timber,today
+raw_timber|production|CNC milling||machine lifetime,manufacturing,eutrophication: terrestrial,-3.630190212252575e-05,7.681875505560299e-07,5.833139003987107e-07,9.525856843329049e-07,raw_timber,today
+raw_timber|production|CNC milling||machine lifetime,manufacturing,human toxicity: carcinogenic,-0.00018001620317818315,2.740689978965564e-05,2.0748880272954794e-05,3.38434664262164e-05,raw_timber,today
+raw_timber|production|CNC milling||machine lifetime,manufacturing,"human toxicity: carcinogenic, inorganics",-0.00024112327481156702,6.273104256230227e-06,4.720137478315786e-06,7.732120224060436e-06,raw_timber,today
+raw_timber|production|CNC milling||machine lifetime,manufacturing,"human toxicity: carcinogenic, organics",0.0010125424681347668,5.33691660402585e-05,4.1796901383947616e-05,6.622650888174683e-05,raw_timber,today
+raw_timber|production|CNC milling||machine lifetime,manufacturing,human toxicity: non-carcinogenic,-0.0001969471393249197,8.472587613950665e-06,6.373081753202705e-06,1.0566480752651959e-05,raw_timber,today
+raw_timber|production|CNC milling||machine lifetime,manufacturing,"human toxicity: non-carcinogenic, inorganics",-0.0001991481689926075,7.979703655820807e-06,6.008947913713645e-06,9.941810685778514e-06,raw_timber,today
+raw_timber|production|CNC milling||machine lifetime,manufacturing,"human toxicity: non-carcinogenic, organics",0.0005274392412762248,3.544441301401534e-05,2.746733993903932e-05,4.3101312829380076e-05,raw_timber,today
+raw_timber|production|CNC milling||machine lifetime,manufacturing,ionising radiation: human health,2.589163566448572e-06,1.6418472573741415e-09,1.285921340970476e-09,2.0246274111947752e-09,raw_timber,today
+raw_timber|production|CNC milling||machine lifetime,manufacturing,land use,-3.281362678983918e-05,2.433517214776246e-08,1.9232627925370248e-08,2.8973950234816475e-08,raw_timber,today
+raw_timber|production|CNC milling||machine lifetime,manufacturing,material resources: metals/minerals,0.0013177909653447892,0.00011583710639770336,9.026616093251592e-05,0.0001428288360673934,raw_timber,today
+raw_timber|production|CNC milling||machine lifetime,manufacturing,ozone depletion,3.813536313259831e-05,4.2148512675185215e-08,3.347651328810003e-08,5.227816588480703e-08,raw_timber,today
+raw_timber|production|CNC milling||machine lifetime,manufacturing,particulate matter formation,-0.00010229339267883176,5.44641904837896e-05,4.145578463130752e-05,6.724962491257514e-05,raw_timber,today
+raw_timber|production|CNC milling||machine lifetime,manufacturing,photochemical oxidant formation: human health,-2.0862882668715175e-05,9.612693136707863e-07,7.351500989099758e-07,1.1871281318360274e-06,raw_timber,today
+raw_timber|production|CNC milling||machine lifetime,manufacturing,water use,-3.331039813832495e-05,2.565276669764195e-06,1.9826083630948573e-06,3.216997557064243e-06,raw_timber,today
+raw_timber|production|CNC milling||process yield,manufacturing,acidification,0.0005671649555437455,0.0009913058923969576,0.0006858535745352556,0.0015040306469454709,raw_timber,today
+raw_timber|production|CNC milling||process yield,manufacturing,climate change,-0.0033538170909131887,0.01086524319511583,0.0094971497255532,0.012692291368105285,raw_timber,today
+raw_timber|production|CNC milling||process yield,manufacturing,climate change: biogenic,0.0327775981339675,0.06464210866688024,0.05662884306373548,0.07494934245357081,raw_timber,today
+raw_timber|production|CNC milling||process yield,manufacturing,climate change: fossil,-0.0019014335520447475,0.0013448820149763816,0.0010362596648874026,0.0017999999518405502,raw_timber,today
+raw_timber|production|CNC milling||process yield,manufacturing,climate change: land use and land use change,0.0009784066289883668,0.0013041799544512588,0.0010015288279139687,0.001614126520687179,raw_timber,today
+raw_timber|production|CNC milling||process yield,manufacturing,ecotoxicity: freshwater,0.0007257730323220097,0.0016133040494135376,0.0012365538248916125,0.00218350770557632,raw_timber,today
+raw_timber|production|CNC milling||process yield,manufacturing,"ecotoxicity: freshwater, inorganics",0.0007415320625301077,0.0015683719272253868,0.0011994797825642671,0.0021277211883559384,raw_timber,today
+raw_timber|production|CNC milling||process yield,manufacturing,"ecotoxicity: freshwater, organics",0.000299433577011521,0.0036574014561125624,0.0031019965727427587,0.004404162837558507,raw_timber,today
+raw_timber|production|CNC milling||process yield,manufacturing,energy resources: non-renewable,0.004413073925902212,0.003233278013864247,0.0027449823862810154,0.0038707230620413824,raw_timber,today
+raw_timber|production|CNC milling||process yield,manufacturing,eutrophication: freshwater,0.00031197648298128447,0.0010035087932792652,0.0007697852009796401,0.001420740189376223,raw_timber,today
+raw_timber|production|CNC milling||process yield,manufacturing,eutrophication: marine,-0.00015438654582548624,0.0005075138831903667,0.0003846878134211869,0.0006810873097866672,raw_timber,today
+raw_timber|production|CNC milling||process yield,manufacturing,eutrophication: terrestrial,-0.0007211417112623125,0.0009776838686870934,0.0007065629114721217,0.0013956646272058467,raw_timber,today
+raw_timber|production|CNC milling||process yield,manufacturing,human toxicity: carcinogenic,0.0012116571939940074,0.001660142303225329,0.001270275494932843,0.002248831985436037,raw_timber,today
+raw_timber|production|CNC milling||process yield,manufacturing,"human toxicity: carcinogenic, inorganics",0.0014867410646213952,0.0008944264174980195,0.000630468241501278,0.0013182505022621695,raw_timber,today
+raw_timber|production|CNC milling||process yield,manufacturing,"human toxicity: carcinogenic, organics",0.0038442048669940624,0.0020052176469757435,0.0017323853025524116,0.0023861096177023025,raw_timber,today
+raw_timber|production|CNC milling||process yield,manufacturing,human toxicity: non-carcinogenic,0.0013526721850567437,0.0009431556593047034,0.0006657917564905887,0.0013734638199172304,raw_timber,today
+raw_timber|production|CNC milling||process yield,manufacturing,"human toxicity: non-carcinogenic, inorganics",0.0013732933087689933,0.0009104478742067135,0.0006405760768698525,0.001335509199411969,raw_timber,today
+raw_timber|production|CNC milling||process yield,manufacturing,"human toxicity: non-carcinogenic, organics",0.004476625358973786,0.0032082069877625405,0.0026872626044671306,0.0038691111773806615,raw_timber,today
+raw_timber|production|CNC milling||process yield,manufacturing,ionising radiation: human health,0.0009188836837389789,0.0010870438978955376,0.0007876352709771349,0.0013749763859162174,raw_timber,today
+raw_timber|production|CNC milling||process yield,manufacturing,land use,0.04267585577723782,0.07763640030437909,0.06826618899878606,0.09025992666684003,raw_timber,today
+raw_timber|production|CNC milling||process yield,manufacturing,material resources: metals/minerals,0.03780441611220213,0.023788689164480414,0.02034790843646829,0.027374991320131825,raw_timber,today
+raw_timber|production|CNC milling||process yield,manufacturing,ozone depletion,-0.003298841834687934,0.000703616296529032,0.0005785148666990226,0.0008587463848122307,raw_timber,today
+raw_timber|production|CNC milling||process yield,manufacturing,particulate matter formation,0.0020024462578670625,0.004141057976155591,0.0033310666638023943,0.005224874125323849,raw_timber,today
+raw_timber|production|CNC milling||process yield,manufacturing,photochemical oxidant formation: human health,-0.0018792901947456567,0.001213083311673682,0.0009106256481340914,0.0016931488547183176,raw_timber,today
+raw_timber|production|CNC milling||process yield,manufacturing,water use,0.0017932726154284069,0.0024973054308041784,0.002076110203542072,0.0032147956319211464,raw_timber,today
+raw_timber|production|CNC milling||machine source,manufacturing,acidification,-0.0002649224814786048,2.1293985207465296e-05,1.8170347885375465e-05,2.473151126767614e-05,raw_timber,today
+raw_timber|production|CNC milling||machine source,manufacturing,climate change,-0.00022305804134732193,1.224084371380816e-05,1.0717992089053423e-05,1.3912748972822405e-05,raw_timber,today
+raw_timber|production|CNC milling||machine source,manufacturing,climate change: biogenic,-7.181573683611488e-06,3.1736269152009635e-08,2.8187913957134276e-08,3.748081705050016e-08,raw_timber,today
+raw_timber|production|CNC milling||machine source,manufacturing,climate change: fossil,-0.00021132812933657432,1.9876651205934894e-05,1.7253494053488068e-05,2.2668277884027384e-05,raw_timber,today
+raw_timber|production|CNC milling||machine source,manufacturing,climate change: land use and land use change,0.00013498135556672827,4.314765826573466e-06,3.710742029148021e-06,4.987321564779849e-06,raw_timber,today
+raw_timber|production|CNC milling||machine source,manufacturing,ecotoxicity: freshwater,-0.00042455191854861354,0.0002537642370740625,0.00021944564879048303,0.000290287330284357,raw_timber,today
+raw_timber|production|CNC milling||machine source,manufacturing,"ecotoxicity: freshwater, inorganics",-0.0004209048640424058,0.00024297160540368525,0.00021006977735202128,0.00027781498605947423,raw_timber,today
+raw_timber|production|CNC milling||machine source,manufacturing,"ecotoxicity: freshwater, organics",0.0008451135892919566,0.000771162756793615,0.0006596995471788007,0.000911627985854923,raw_timber,today
+raw_timber|production|CNC milling||machine source,manufacturing,energy resources: non-renewable,-0.0004330580820687259,2.1106614035746603e-05,1.8655626085009683e-05,2.3934109367356424e-05,raw_timber,today
+raw_timber|production|CNC milling||machine source,manufacturing,eutrophication: freshwater,-9.771460953298128e-05,7.57385295698524e-06,6.658562622167405e-06,8.592050847816055e-06,raw_timber,today
+raw_timber|production|CNC milling||machine source,manufacturing,eutrophication: marine,-0.0002844292879447704,3.16252310155893e-05,2.7462171246285506e-05,3.609017617040184e-05,raw_timber,today
+raw_timber|production|CNC milling||machine source,manufacturing,eutrophication: terrestrial,-0.00033217811127397493,5.50615170658461e-05,4.78781799570881e-05,6.323309282750761e-05,raw_timber,today
+raw_timber|production|CNC milling||machine source,manufacturing,human toxicity: carcinogenic,-0.0003079094255775348,0.0019825339159845403,0.0017165478847108845,0.0022615396913949885,raw_timber,today
+raw_timber|production|CNC milling||machine source,manufacturing,"human toxicity: carcinogenic, inorganics",-0.000617727860432036,0.00045397483594109044,0.00038891217245195484,0.0005258163212800576,raw_timber,today
+raw_timber|production|CNC milling||machine source,manufacturing,"human toxicity: carcinogenic, organics",0.0031290043212914933,0.0038592241029615612,0.00334498286905043,0.004514632963887867,raw_timber,today
+raw_timber|production|CNC milling||machine source,manufacturing,human toxicity: non-carcinogenic,-0.000747640299280607,0.0006129276393432479,0.0005226376084632838,0.0007071524822901105,raw_timber,today
+raw_timber|production|CNC milling||machine source,manufacturing,"human toxicity: non-carcinogenic, inorganics",-0.0007385231055237399,0.0005773456976967763,0.0004929597513006506,0.0006666926198372684,raw_timber,today
+raw_timber|production|CNC milling||machine source,manufacturing,"human toxicity: non-carcinogenic, organics",0.0002644025282339257,0.0025567734090421565,0.0022383076681434084,0.0029383192444144934,raw_timber,today
+raw_timber|production|CNC milling||machine source,manufacturing,ionising radiation: human health,-1.0558495007163588e-05,1.1860038474899631e-07,1.0388123871070735e-07,1.355992680825861e-07,raw_timber,today
+raw_timber|production|CNC milling||machine source,manufacturing,land use,6.74019372537842e-05,1.7358904210377657e-06,1.539485371722367e-06,2.036856368406606e-06,raw_timber,today
+raw_timber|production|CNC milling||machine source,manufacturing,material resources: metals/minerals,0.009724442310606676,0.008385352245339431,0.007180793195120838,0.00988151495201654,raw_timber,today
+raw_timber|production|CNC milling||machine source,manufacturing,ozone depletion,-3.8491147162585735e-05,2.995247744157705e-06,2.5855065945784782e-06,3.604104516525905e-06,raw_timber,today
+raw_timber|production|CNC milling||machine source,manufacturing,particulate matter formation,-0.0002798814928293964,0.003920072296167616,0.0034254061838667623,0.004501408072482765,raw_timber,today
+raw_timber|production|CNC milling||machine source,manufacturing,photochemical oxidant formation: human health,-0.0003828367018594595,6.886145176851882e-05,6.009236071676181e-05,7.886698713159864e-05,raw_timber,today
+raw_timber|production|CNC milling||machine source,manufacturing,water use,-0.0008548582504705934,0.0001856101971961662,0.00016342354824407869,0.00021384720280768837,raw_timber,today
+raw_timber|repair|Scanning||machine weight,manufacturing,acidification,-3.3781200619166953e-07,8.73349793594586e-11,6.455024262562334e-11,1.2121615149473378e-10,raw_timber,today
+raw_timber|repair|Scanning||machine weight,manufacturing,climate change,1.0185823366466387e-06,5.0309002215706794e-11,3.789957143680517e-11,6.505551043177719e-11,raw_timber,today
+raw_timber|repair|Scanning||machine weight,manufacturing,climate change: biogenic,8.779108669186293e-08,1.2984472782891915e-13,9.647319651772311e-14,1.7385064789878626e-13,raw_timber,today
+raw_timber|repair|Scanning||machine weight,manufacturing,climate change: fossil,4.966747319642992e-07,8.169272131944956e-11,6.040876184578931e-11,1.0850924635386763e-10,raw_timber,today
+raw_timber|repair|Scanning||machine weight,manufacturing,climate change: land use and land use change,2.7424285075729046e-07,1.7646079064016044e-11,1.3065234409523969e-11,2.3135053233251586e-11,raw_timber,today
+raw_timber|repair|Scanning||machine weight,manufacturing,ecotoxicity: freshwater,-5.997473647335354e-08,1.0380521266771745e-09,7.777248722318647e-10,1.3962254178054258e-09,raw_timber,today
+raw_timber|repair|Scanning||machine weight,manufacturing,"ecotoxicity: freshwater, inorganics",-9.326413345627023e-08,9.938690569282267e-10,7.451046670166361e-10,1.3365870752379697e-09,raw_timber,today
+raw_timber|repair|Scanning||machine weight,manufacturing,"ecotoxicity: freshwater, organics",5.14370394414402e-06,3.1596557403040045e-09,2.378960877806655e-09,4.1710381009887574e-09,raw_timber,today
+raw_timber|repair|Scanning||machine weight,manufacturing,energy resources: non-renewable,9.345911790948984e-07,8.691635181085579e-11,6.469978219301127e-11,1.189745107805554e-10,raw_timber,today
+raw_timber|repair|Scanning||machine weight,manufacturing,eutrophication: freshwater,1.5416254911415996e-07,3.096011502330075e-11,2.3107887253273275e-11,4.101213654617638e-11,raw_timber,today
+raw_timber|repair|Scanning||machine weight,manufacturing,eutrophication: marine,2.8895902323338443e-07,1.3051953628082655e-10,9.608142159058812e-11,1.7819691316127125e-10,raw_timber,today
+raw_timber|repair|Scanning||machine weight,manufacturing,eutrophication: terrestrial,-4.0022425488339726e-08,2.2726882266037027e-10,1.6776960504563272e-10,3.0934843247237317e-10,raw_timber,today
+raw_timber|repair|Scanning||machine weight,manufacturing,human toxicity: carcinogenic,2.0209222972558004e-06,8.108389800495766e-09,5.987083172848954e-09,1.1075533557199443e-08,raw_timber,today
+raw_timber|repair|Scanning||machine weight,manufacturing,"human toxicity: carcinogenic, inorganics",-1.6358558399783486e-06,1.8559113499090627e-09,1.372730301527728e-09,2.5377512063391377e-09,raw_timber,today
+raw_timber|repair|Scanning||machine weight,manufacturing,"human toxicity: carcinogenic, organics",1.8246055068877323e-05,1.5789381030606823e-08,1.1887883904396456e-08,2.0737550203951874e-08,raw_timber,today
+raw_timber|repair|Scanning||machine weight,manufacturing,human toxicity: non-carcinogenic,-4.753848005805977e-07,2.5066331481796214e-09,1.8478959243297704e-09,3.451731171741665e-09,raw_timber,today
+raw_timber|repair|Scanning||machine weight,manufacturing,"human toxicity: non-carcinogenic, inorganics",-5.996097910346629e-07,2.360812403361068e-09,1.7399053964780705e-09,3.2516980354404657e-09,raw_timber,today
+raw_timber|repair|Scanning||machine weight,manufacturing,"human toxicity: non-carcinogenic, organics",1.3050389099402623e-05,1.0486298365616312e-08,8.023855325580342e-09,1.3425054781236831e-08,raw_timber,today
+raw_timber|repair|Scanning||machine weight,manufacturing,ionising radiation: human health,1.7034653549480667e-08,4.857439010286922e-13,3.6572191743951895e-13,6.369608534997752e-13,raw_timber,today
+raw_timber|repair|Scanning||machine weight,manufacturing,land use,-6.391765506948142e-07,7.199536980237651e-12,5.350023152524843e-12,9.55463754012148e-12,raw_timber,today
+raw_timber|repair|Scanning||machine weight,manufacturing,material resources: metals/minerals,2.875711628150258e-05,3.4270656870263474e-08,2.5986636901332202e-08,4.39513207296035e-08,raw_timber,today
+raw_timber|repair|Scanning||machine weight,manufacturing,ozone depletion,5.835195346665228e-07,1.2469523119406238e-11,9.399947134817266e-12,1.626630549138678e-11,raw_timber,today
+raw_timber|repair|Scanning||machine weight,manufacturing,particulate matter formation,3.7901752741189544e-07,1.6113319729606602e-08,1.2068541358437976e-08,2.149076763205786e-08,raw_timber,today
+raw_timber|repair|Scanning||machine weight,manufacturing,photochemical oxidant formation: human health,1.150575763033153e-07,2.8439203674776755e-10,2.108656237323681e-10,3.817659391815946e-10,raw_timber,today
+raw_timber|repair|Scanning||machine weight,manufacturing,water use,-7.74997636051969e-07,7.589425951415272e-10,5.64993700237084e-10,9.920381992990315e-10,raw_timber,today
+raw_timber|repair|Scanning||power,manufacturing,acidification,3.215231317025494e-06,1.213505516036745e-07,8.157283132672808e-08,1.6285433929234458e-07,raw_timber,today
+raw_timber|repair|Scanning||power,manufacturing,climate change,-7.001955503787826e-05,1.0452624370211662e-07,8.16836335819903e-08,1.2681088077578125e-07,raw_timber,today
+raw_timber|repair|Scanning||power,manufacturing,climate change: biogenic,-2.2899776416577517e-05,1.923681540048934e-09,1.3827323946558447e-09,2.64245311590479e-09,raw_timber,today
+raw_timber|repair|Scanning||power,manufacturing,climate change: fossil,-4.219843363400598e-05,1.6980254268484568e-07,1.3217667587693868e-07,2.0976090315067098e-07,raw_timber,today
+raw_timber|repair|Scanning||power,manufacturing,climate change: land use and land use change,-5.200298311765503e-06,1.320078115996063e-07,8.999053324929347e-08,1.81602175304693e-07,raw_timber,today
+raw_timber|repair|Scanning||power,manufacturing,ecotoxicity: freshwater,6.6653189536839e-07,2.3816039131566406e-07,1.8392141375157356e-07,3.0283448119484486e-07,raw_timber,today
+raw_timber|repair|Scanning||power,manufacturing,"ecotoxicity: freshwater, inorganics",1.7780798021891833e-06,2.3365210601262867e-07,1.797468774754407e-07,2.9762460312494843e-07,raw_timber,today
+raw_timber|repair|Scanning||power,manufacturing,"ecotoxicity: freshwater, organics",-2.922986883800521e-05,2.45414546500068e-07,2.0386303057594895e-07,2.9331694577976367e-07,raw_timber,today
+raw_timber|repair|Scanning||power,manufacturing,energy resources: non-renewable,4.141941661609859e-05,4.4386382493579147e-07,3.7365484949851714e-07,5.336507041107596e-07,raw_timber,today
+raw_timber|repair|Scanning||power,manufacturing,eutrophication: freshwater,2.083990021754096e-06,1.3477310740521524e-07,1.002090238931656e-07,1.7892410783366294e-07,raw_timber,today
+raw_timber|repair|Scanning||power,manufacturing,eutrophication: marine,-1.8833277784673106e-05,1.7560262645771787e-07,1.3549296992342344e-07,2.2429772426131326e-07,raw_timber,today
+raw_timber|repair|Scanning||power,manufacturing,eutrophication: terrestrial,-1.1987930184380434e-05,2.0182752467982557e-07,1.5670858506631533e-07,2.5392379855118626e-07,raw_timber,today
+raw_timber|repair|Scanning||power,manufacturing,human toxicity: carcinogenic,-3.0706897072338614e-05,5.402864002790994e-07,4.419461321938643e-07,6.638734639950855e-07,raw_timber,today
+raw_timber|repair|Scanning||power,manufacturing,"human toxicity: carcinogenic, inorganics",1.0357147660126653e-05,2.693753196393221e-07,2.1009907165042503e-07,3.4112304072283355e-07,raw_timber,today
+raw_timber|repair|Scanning||power,manufacturing,"human toxicity: carcinogenic, organics",-4.8200345555033236e-05,4.957623226527384e-07,4.2608393216891725e-07,5.79544273835355e-07,raw_timber,today
+raw_timber|repair|Scanning||power,manufacturing,human toxicity: non-carcinogenic,-8.864009291265535e-06,3.344201674845577e-07,2.6255072695073616e-07,4.1889245560199486e-07,raw_timber,today
+raw_timber|repair|Scanning||power,manufacturing,"human toxicity: non-carcinogenic, inorganics",-7.145496398002282e-06,3.180782175934037e-07,2.502590020450686e-07,3.98517989645841e-07,raw_timber,today
+raw_timber|repair|Scanning||power,manufacturing,"human toxicity: non-carcinogenic, organics",-0.00012696970831435725,1.2415973896900437e-06,1.0479015844976365e-06,1.4718228199744243e-06,raw_timber,today
+raw_timber|repair|Scanning||power,manufacturing,ionising radiation: human health,4.108931402812867e-05,1.8194338173241357e-07,1.348500974312101e-07,2.3532459972595994e-07,raw_timber,today
+raw_timber|repair|Scanning||power,manufacturing,land use,2.9366904656863567e-05,1.4484994877819174e-08,1.2388664111031697e-08,1.7328401412352447e-08,raw_timber,today
+raw_timber|repair|Scanning||power,manufacturing,material resources: metals/minerals,-0.0002931367037383747,3.048271077112758e-06,2.6032394243166495e-06,3.5216850876075584e-06,raw_timber,today
+raw_timber|repair|Scanning||power,manufacturing,ozone depletion,-8.076556220541329e-05,1.0875132735821975e-07,8.879004296992805e-08,1.3143820462611512e-07,raw_timber,today
+raw_timber|repair|Scanning||power,manufacturing,particulate matter formation,-3.117087869339576e-05,8.768235702475973e-07,7.266795749635158e-07,1.0462377770015788e-06,raw_timber,today
+raw_timber|repair|Scanning||power,manufacturing,photochemical oxidant formation: human health,-1.0302072502590148e-05,2.0593848219774318e-07,1.6187589484081527e-07,2.510839294782685e-07,raw_timber,today
+raw_timber|repair|Scanning||power,manufacturing,water use,3.0028269303479366e-05,7.128547930584334e-07,5.870989467963714e-07,8.513903185649414e-07,raw_timber,today
+raw_timber|repair|Scanning||output rate,manufacturing,acidification,-6.070120675104069e-05,1.77292348237139e-07,1.1490804015424319e-07,2.4774157792238063e-07,raw_timber,today
+raw_timber|repair|Scanning||output rate,manufacturing,climate change,-5.074487315491225e-05,1.3491869965314254e-07,9.833718401479661e-08,1.7600545877444594e-07,raw_timber,today
+raw_timber|repair|Scanning||output rate,manufacturing,climate change: biogenic,4.731068400088598e-06,1.6579508602199243e-09,1.2765665272481882e-09,2.1598898456883132e-09,raw_timber,today
+raw_timber|repair|Scanning||output rate,manufacturing,climate change: fossil,-4.9208497139483585e-05,2.1933108201960246e-07,1.601426333502598e-07,2.8599104479918047e-07,raw_timber,today
+raw_timber|repair|Scanning||output rate,manufacturing,climate change: land use and land use change,-3.1635307935597375e-05,1.4846929827211905e-07,1.0713341212340556e-07,2.064508048003663e-07,raw_timber,today
+raw_timber|repair|Scanning||output rate,manufacturing,ecotoxicity: freshwater,-2.8686368821918725e-05,3.1479791482291796e-07,2.3613206729927531e-07,4.1032259449297336e-07,raw_timber,today
+raw_timber|repair|Scanning||output rate,manufacturing,"ecotoxicity: freshwater, inorganics",-2.8430187825063425e-05,3.087089570141022e-07,2.31077628118546e-07,4.030657076826035e-07,raw_timber,today
+raw_timber|repair|Scanning||output rate,manufacturing,"ecotoxicity: freshwater, organics",2.1432754645847078e-05,3.436736642910265e-07,2.8535231757468484e-07,4.185023859295034e-07,raw_timber,today
+raw_timber|repair|Scanning||output rate,manufacturing,energy resources: non-renewable,-5.012533719092236e-05,4.827423190706729e-07,4.005693441468595e-07,5.725749433982246e-07,raw_timber,today
+raw_timber|repair|Scanning||output rate,manufacturing,eutrophication: freshwater,-3.9573550190132564e-05,1.6343343398397908e-07,1.1508194123819327e-07,2.1929910280792238e-07,raw_timber,today
+raw_timber|repair|Scanning||output rate,manufacturing,eutrophication: marine,-6.068382528522276e-05,2.3667607013746758e-07,1.668615272328253e-07,3.128447225161131e-07,raw_timber,today
+raw_timber|repair|Scanning||output rate,manufacturing,eutrophication: terrestrial,-5.2903716559989457e-05,2.7813417614950065e-07,2.025193407100795e-07,3.612959703136924e-07,raw_timber,today
+raw_timber|repair|Scanning||output rate,manufacturing,human toxicity: carcinogenic,-3.515818009736454e-05,7.700988482744028e-07,5.998977715151484e-07,9.378329565393059e-07,raw_timber,today
+raw_timber|repair|Scanning||output rate,manufacturing,"human toxicity: carcinogenic, inorganics",-2.7447414684738256e-05,3.732356232791588e-07,2.7402533862704685e-07,4.855571333915517e-07,raw_timber,today
+raw_timber|repair|Scanning||output rate,manufacturing,"human toxicity: carcinogenic, organics",1.5713346175421164e-05,7.541190998030041e-07,6.487200931111525e-07,9.215282733439759e-07,raw_timber,today
+raw_timber|repair|Scanning||output rate,manufacturing,human toxicity: non-carcinogenic,-3.4189664168005906e-05,4.6419087083493214e-07,3.398333046758189e-07,5.841952472514252e-07,raw_timber,today
+raw_timber|repair|Scanning||output rate,manufacturing,"human toxicity: non-carcinogenic, inorganics",-3.4240181836224007e-05,4.4270470287693996e-07,3.2321346271696866e-07,5.611611502992126e-07,raw_timber,today
+raw_timber|repair|Scanning||output rate,manufacturing,"human toxicity: non-carcinogenic, organics",2.0270510943230058e-05,1.6136323509779899e-06,1.3631358326720574e-06,1.922754738800959e-06,raw_timber,today
+raw_timber|repair|Scanning||output rate,manufacturing,ionising radiation: human health,-2.8341044696917573e-05,1.625001457279119e-07,1.247869287585767e-07,2.0427926658962335e-07,raw_timber,today
+raw_timber|repair|Scanning||output rate,manufacturing,land use,-9.197064663241685e-06,1.737774139437848e-08,1.4592659146474846e-08,2.0932080899237465e-08,raw_timber,today
+raw_timber|repair|Scanning||output rate,manufacturing,material resources: metals/minerals,9.337490441257611e-05,3.925531765452162e-06,3.264964765157045e-06,4.645417318465994e-06,raw_timber,today
+raw_timber|repair|Scanning||output rate,manufacturing,ozone depletion,4.798995171076911e-05,1.228721982553411e-07,9.7942785178513e-08,1.52889131448548e-07,raw_timber,today
+raw_timber|repair|Scanning||output rate,manufacturing,particulate matter formation,-2.4130680765592645e-05,1.2458996512899437e-06,1.0143231446173437e-06,1.5134310795456573e-06,raw_timber,today
+raw_timber|repair|Scanning||output rate,manufacturing,photochemical oxidant formation: human health,-5.9501335033722335e-05,2.83634270075936e-07,2.1394216524846644e-07,3.628913577245368e-07,raw_timber,today
+raw_timber|repair|Scanning||output rate,manufacturing,water use,-5.7817989008731627e-05,8.393344183105348e-07,6.732884102529587e-07,1.0097586726815471e-06,raw_timber,today
+raw_timber|repair|Scanning||machine lifetime,manufacturing,acidification,4.3976793444339125e-07,9.020045835614919e-11,6.913191328715872e-11,1.1608060623399535e-10,raw_timber,today
+raw_timber|repair|Scanning||machine lifetime,manufacturing,climate change,-6.926757246848523e-07,5.195967215268218e-11,4.085961892758424e-11,6.73719129809784e-11,raw_timber,today
+raw_timber|repair|Scanning||machine lifetime,manufacturing,climate change: biogenic,-8.70279619423808e-08,1.3410492594213382e-13,1.0910255327493078e-13,1.6691782672601687e-13,raw_timber,today
+raw_timber|repair|Scanning||machine lifetime,manufacturing,climate change: fossil,7.672439135133018e-09,8.437311104205122e-11,6.517885817167906e-11,1.0836211364455466e-10,raw_timber,today
+raw_timber|repair|Scanning||machine lifetime,manufacturing,climate change: land use and land use change,-5.901478608121966e-07,1.8225045544990506e-11,1.4236074067419223e-11,2.2910899406051392e-11,raw_timber,today
+raw_timber|repair|Scanning||machine lifetime,manufacturing,ecotoxicity: freshwater,2.9861008624972787e-06,1.0721105471679202e-09,8.29133827473006e-10,1.3358368515904248e-09,raw_timber,today
+raw_timber|repair|Scanning||machine lifetime,manufacturing,"ecotoxicity: freshwater, inorganics",2.9608449665542767e-06,1.026477832110685e-09,7.941365284055745e-10,1.2787056178273433e-09,raw_timber,today
+raw_timber|repair|Scanning||machine lifetime,manufacturing,"ecotoxicity: freshwater, organics",-6.017259163603143e-06,3.263324267629293e-09,2.6170816583996774e-09,4.130039973811454e-09,raw_timber,today
+raw_timber|repair|Scanning||machine lifetime,manufacturing,energy resources: non-renewable,-1.4672229619490465e-06,8.976817979740535e-11,7.125538224073624e-11,1.1459964349880118e-10,raw_timber,today
+raw_timber|repair|Scanning||machine lifetime,manufacturing,eutrophication: freshwater,4.531892714215114e-07,3.197591350835567e-11,2.4909865029680288e-11,4.001713490673508e-11,raw_timber,today
+raw_timber|repair|Scanning||machine lifetime,manufacturing,eutrophication: marine,3.1647050344561016e-07,1.3480214154211202e-10,1.036100850634275e-10,1.7241839892475412e-10,raw_timber,today
+raw_timber|repair|Scanning||machine lifetime,manufacturing,eutrophication: terrestrial,5.807670240686423e-07,2.347259749531353e-10,1.7995135555108323e-10,2.994657804708326e-10,raw_timber,today
+raw_timber|repair|Scanning||machine lifetime,manufacturing,human toxicity: carcinogenic,3.067268921068915e-06,8.37442545756323e-09,6.448639212537191e-09,1.066371293958873e-08,raw_timber,today
+raw_timber|repair|Scanning||machine lifetime,manufacturing,"human toxicity: carcinogenic, inorganics",4.330005510681802e-06,1.9168036323650708e-09,1.4668251414441257e-09,2.4229389856632895e-09,raw_timber,today
+raw_timber|repair|Scanning||machine lifetime,manufacturing,"human toxicity: carcinogenic, organics",-1.8756944080856715e-05,1.630742971413122e-08,1.3170606569032409e-08,2.0731948563934922e-08,raw_timber,today
+raw_timber|repair|Scanning||machine lifetime,manufacturing,human toxicity: non-carcinogenic,3.0624139561027827e-06,2.588875584425758e-09,1.9708841603230364e-09,3.3061063770651047e-09,raw_timber,today
+raw_timber|repair|Scanning||machine lifetime,manufacturing,"human toxicity: non-carcinogenic, inorganics",3.118750489333963e-06,2.4382704605967662e-09,1.855573310836297e-09,3.11286788168645e-09,raw_timber,today
+raw_timber|repair|Scanning||machine lifetime,manufacturing,"human toxicity: non-carcinogenic, organics",-1.0367331038636943e-05,1.0830356010138588e-08,8.45106391413946e-09,1.3792502396575117e-08,raw_timber,today
+raw_timber|repair|Scanning||machine lifetime,manufacturing,ionising radiation: human health,-1.0274275479334549e-07,5.016811714420758e-13,3.9891311448694997e-13,6.246903457807134e-13,raw_timber,today
+raw_timber|repair|Scanning||machine lifetime,manufacturing,land use,6.804747952228758e-07,7.435786095801741e-12,6.086284726618716e-12,9.230373231932594e-12,raw_timber,today
+raw_timber|repair|Scanning||machine lifetime,manufacturing,material resources: metals/minerals,-1.4481283239266484e-05,3.539507379689824e-08,2.8140390749722634e-08,4.418833419964044e-08,raw_timber,today
+raw_timber|repair|Scanning||machine lifetime,manufacturing,ozone depletion,-6.150100456811296e-07,1.2878735966900271e-11,1.033820686708986e-11,1.642030051553381e-11,raw_timber,today
+raw_timber|repair|Scanning||machine lifetime,manufacturing,particulate matter formation,3.5037815190458886e-06,1.664200837841693e-08,1.2665327721441248e-08,2.1119432622478555e-08,raw_timber,today
+raw_timber|repair|Scanning||machine lifetime,manufacturing,photochemical oxidant formation: human health,1.7612159266532418e-07,2.937235874516712e-10,2.2632736539106595e-10,3.761950474604013e-10,raw_timber,today
+raw_timber|repair|Scanning||machine lifetime,manufacturing,water use,-2.8537940557352045e-06,7.838434369844241e-10,6.304738809960074e-10,9.92869564974949e-10,raw_timber,today
+raw_timber|repair|Scanning||process yield,manufacturing,acidification,8.707269373322915e-06,5.5605862375960494e-08,4.314204368972549e-08,6.660640786198462e-08,raw_timber,today
+raw_timber|repair|Scanning||process yield,manufacturing,climate change,0.0011207135811825328,2.1446551560869823e-05,1.7184425150357617e-05,2.559601703670526e-05,raw_timber,today
+raw_timber|repair|Scanning||process yield,manufacturing,climate change: biogenic,0.010576856921323059,0.0016016555504770437,0.0013065758234567996,0.0018919107663432316,raw_timber,today
+raw_timber|repair|Scanning||process yield,manufacturing,climate change: fossil,-2.263296943888182e-05,6.072196065099076e-08,4.148240544214331e-08,8.140738912302466e-08,raw_timber,today
+raw_timber|repair|Scanning||process yield,manufacturing,climate change: land use and land use change,-5.78881388691545e-06,3.268813289296464e-06,2.7659947864446633e-06,3.791252857348751e-06,raw_timber,today
+raw_timber|repair|Scanning||process yield,manufacturing,ecotoxicity: freshwater,9.476352187096825e-06,2.553379631293722e-07,2.040975952218806e-07,3.087220443269249e-07,raw_timber,today
+raw_timber|repair|Scanning||process yield,manufacturing,"ecotoxicity: freshwater, inorganics",9.84978567512167e-06,2.89029011494397e-07,2.3167910358305131e-07,3.4900742725634585e-07,raw_timber,today
+raw_timber|repair|Scanning||process yield,manufacturing,"ecotoxicity: freshwater, organics",-0.00026286099188648903,8.57848212288452e-06,7.335599950362787e-06,1.010375318838372e-05,raw_timber,today
+raw_timber|repair|Scanning||process yield,manufacturing,energy resources: non-renewable,-0.00010718543146051017,1.8847093757553914e-07,1.4974252433701086e-07,2.3195252721507664e-07,raw_timber,today
+raw_timber|repair|Scanning||process yield,manufacturing,eutrophication: freshwater,6.766992453504087e-06,4.220909943357368e-08,2.757507509112569e-08,5.7864209679891944e-08,raw_timber,today
+raw_timber|repair|Scanning||process yield,manufacturing,eutrophication: marine,0.0004155353473347402,2.968679988371581e-05,2.381912239736206e-05,3.4519586675955435e-05,raw_timber,today
+raw_timber|repair|Scanning||process yield,manufacturing,eutrophication: terrestrial,9.868222411337616e-05,3.0723054452650823e-06,2.497298204189957e-06,3.56607437598584e-06,raw_timber,today
+raw_timber|repair|Scanning||process yield,manufacturing,human toxicity: carcinogenic,0.00028155417251854404,1.774692309576485e-05,1.4330478123705753e-05,2.0562864667210784e-05,raw_timber,today
+raw_timber|repair|Scanning||process yield,manufacturing,"human toxicity: carcinogenic, inorganics",4.603842609892395e-05,1.0867214593628675e-05,8.788923670392592e-06,1.2659875404536294e-05,raw_timber,today
+raw_timber|repair|Scanning||process yield,manufacturing,"human toxicity: carcinogenic, organics",0.00046294247306537657,8.358313030250955e-06,7.152757072035007e-06,9.84834161365919e-06,raw_timber,today
+raw_timber|repair|Scanning||process yield,manufacturing,human toxicity: non-carcinogenic,0.00017282261347937382,1.583712830959311e-05,1.2777422500263797e-05,1.8507238106507605e-05,raw_timber,today
+raw_timber|repair|Scanning||process yield,manufacturing,"human toxicity: non-carcinogenic, inorganics",0.0001598626077781776,1.5258180533129042e-05,1.2323275773132508e-05,1.7816664650655616e-05,raw_timber,today
+raw_timber|repair|Scanning||process yield,manufacturing,"human toxicity: non-carcinogenic, organics",0.0009673192206711862,3.692387402575343e-05,3.0246381582269815e-05,4.225465958386423e-05,raw_timber,today
+raw_timber|repair|Scanning||process yield,manufacturing,ionising radiation: human health,-3.7172264751730944e-05,8.979421407237186e-08,6.483102918714745e-08,1.1434464998966792e-07,raw_timber,today
+raw_timber|repair|Scanning||process yield,manufacturing,land use,0.011624593185519307,0.0017591315663967608,0.0014492122951359043,0.0021085757605340976,raw_timber,today
+raw_timber|repair|Scanning||process yield,manufacturing,material resources: metals/minerals,-3.1664786867039395e-05,1.527496399726117e-06,1.224486351286244e-06,1.8168239034010037e-06,raw_timber,today
+raw_timber|repair|Scanning||process yield,manufacturing,ozone depletion,5.617105346629336e-05,1.0342087890614467e-08,7.900466364015022e-09,1.350753653778567e-08,raw_timber,today
+raw_timber|repair|Scanning||process yield,manufacturing,particulate matter formation,0.00024748332413781067,8.65586154083273e-06,7.036919404156417e-06,9.99188661881656e-06,raw_timber,today
+raw_timber|repair|Scanning||process yield,manufacturing,photochemical oxidant formation: human health,7.663700338075402e-05,1.0991598744304062e-06,8.947571897802955e-07,1.284159454360027e-06,raw_timber,today
+raw_timber|repair|Scanning||process yield,manufacturing,water use,0.0004638104244606451,1.0198476376987346e-05,8.427452625116435e-06,1.1776407732112032e-05,raw_timber,today
+raw_timber|repair|Scanning||machine source,manufacturing,acidification,2.9859189169983195e-06,6.529985944582209e-09,5.441237872220325e-09,7.716667562780451e-09,raw_timber,today
+raw_timber|repair|Scanning||machine source,manufacturing,climate change,-5.723514967361203e-07,3.753761290909683e-09,3.224790141319185e-09,4.407432300182702e-09,raw_timber,today
+raw_timber|repair|Scanning||machine source,manufacturing,climate change: biogenic,-8.04163410854657e-08,9.732203224294975e-12,8.39758568829286e-12,1.1526178745490066e-11,raw_timber,today
+raw_timber|repair|Scanning||machine source,manufacturing,climate change: fossil,1.259425213847197e-06,6.095348134016804e-09,5.211107346167809e-09,7.046726525576136e-09,raw_timber,today
+raw_timber|repair|Scanning||machine source,manufacturing,climate change: land use and land use change,7.147324066925549e-07,1.3231605041133599e-09,1.1413756092553579e-09,1.5740795960337977e-09,raw_timber,today
+raw_timber|repair|Scanning||machine source,manufacturing,ecotoxicity: freshwater,1.5841188262897662e-05,7.781901251393573e-08,6.63871415637092e-08,9.089388510372943e-08,raw_timber,today
+raw_timber|repair|Scanning||machine source,manufacturing,"ecotoxicity: freshwater, inorganics",1.577343580935649e-05,7.45093580539587e-08,6.354234417709939e-08,8.708408395145447e-08,raw_timber,today
+raw_timber|repair|Scanning||machine source,manufacturing,"ecotoxicity: freshwater, organics",-4.165909209463012e-05,2.364837729427094e-07,2.0261349620101832e-07,2.8314819540904874e-07,raw_timber,today
+raw_timber|repair|Scanning||machine source,manufacturing,energy resources: non-renewable,1.5925316670364104e-07,6.47252694356358e-09,5.614885721544834e-09,7.534554194689783e-09,raw_timber,today
+raw_timber|repair|Scanning||machine source,manufacturing,eutrophication: freshwater,3.141984017340313e-06,2.322587945544095e-09,1.9906774308084073e-09,2.7011569816671585e-09,raw_timber,today
+raw_timber|repair|Scanning||machine source,manufacturing,eutrophication: marine,3.311273865511519e-06,9.698152413178646e-09,8.145256905370202e-09,1.1285600715082832e-08,raw_timber,today
+raw_timber|repair|Scanning||machine source,manufacturing,eutrophication: terrestrial,2.8525773013718607e-06,1.6885093561599366e-08,1.4212262327952083e-08,1.9471284640077236e-08,raw_timber,today
+raw_timber|repair|Scanning||machine source,manufacturing,human toxicity: carcinogenic,2.7118036579919337e-05,6.079612848373051e-07,5.114400649362585e-07,7.013589420058004e-07,raw_timber,today
+raw_timber|repair|Scanning||machine source,manufacturing,"human toxicity: carcinogenic, inorganics",2.3279123105221267e-05,1.3921533564558595e-07,1.1709195963931401e-07,1.6383397518149245e-07,raw_timber,today
+raw_timber|repair|Scanning||machine source,manufacturing,"human toxicity: carcinogenic, organics",-6.351113554076636e-05,1.1834646687223998e-06,1.029528098401818e-06,1.3806812587185081e-06,raw_timber,today
+raw_timber|repair|Scanning||machine source,manufacturing,human toxicity: non-carcinogenic,2.309099019027351e-05,1.8795959661671782e-07,1.5712539547472647e-07,2.209660724308142e-07,raw_timber,today
+raw_timber|repair|Scanning||machine source,manufacturing,"human toxicity: non-carcinogenic, inorganics",2.2791599978501945e-05,1.7704808444233564e-07,1.479853557757707e-07,2.0809662092901926e-07,raw_timber,today
+raw_timber|repair|Scanning||machine source,manufacturing,"human toxicity: non-carcinogenic, organics",-6.409266323760204e-06,7.840568245851261e-07,6.851468098760093e-07,9.046621210785974e-07,raw_timber,today
+raw_timber|repair|Scanning||machine source,manufacturing,ionising radiation: human health,6.520433166794604e-08,3.636984049192449e-11,3.217350383952589e-11,4.242482503821114e-11,raw_timber,today
+raw_timber|repair|Scanning||machine source,manufacturing,land use,5.321157721067715e-07,5.323259098888752e-10,4.6054345250388756e-10,6.229862718062751e-10,raw_timber,today
+raw_timber|repair|Scanning||machine source,manufacturing,material resources: metals/minerals,-3.0664719799917224e-05,2.5714412670505106e-06,2.203268646175173e-06,2.9514566503414234e-06,raw_timber,today
+raw_timber|repair|Scanning||machine source,manufacturing,ozone depletion,-2.1125904009606953e-06,9.185187967085271e-10,7.819725726698682e-10,1.086025847377626e-09,raw_timber,today
+raw_timber|repair|Scanning||machine source,manufacturing,particulate matter formation,1.9286086366103205e-05,1.202124296899919e-06,1.0227975876437813e-06,1.382118477437489e-06,raw_timber,today
+raw_timber|repair|Scanning||machine source,manufacturing,photochemical oxidant formation: human health,8.617210121232271e-07,2.1116963677346123e-08,1.782793487021768e-08,2.4403469401381247e-08,raw_timber,today
+raw_timber|repair|Scanning||machine source,manufacturing,water use,4.37153346837933e-06,5.691898285142509e-08,4.876399167036813e-08,6.657183875106023e-08,raw_timber,today
+raw_timber|repair|CNC milling||machine weight,manufacturing,acidification,6.899168238434638e-06,1.1750415175343984e-08,8.408408056528884e-09,1.581688291489062e-08,raw_timber,today
+raw_timber|repair|CNC milling||machine weight,manufacturing,climate change,-7.334191338991819e-06,6.7687936148322794e-09,4.9838846780794654e-09,8.878221523204105e-09,raw_timber,today
+raw_timber|repair|CNC milling||machine weight,manufacturing,climate change: biogenic,-9.24987445404838e-07,1.7469840529659702e-11,1.2967486253050459e-11,2.2230311850675203e-11,raw_timber,today
+raw_timber|repair|CNC milling||machine weight,manufacturing,climate change: fossil,2.650105053714939e-06,1.0991296821920946e-08,8.137932165992145e-09,1.4595270807385601e-08,raw_timber,today
+raw_timber|repair|CNC milling||machine weight,manufacturing,climate change: land use and land use change,-2.5163596399795538e-06,2.3741754628835605e-09,1.7929638846243674e-09,3.011865073599862e-09,raw_timber,today
+raw_timber|repair|CNC milling||machine weight,manufacturing,ecotoxicity: freshwater,4.2715147934803256e-05,1.396637724807949e-07,1.0109663624337747e-07,1.8365377524702018e-07,raw_timber,today
+raw_timber|repair|CNC milling||machine weight,manufacturing,"ecotoxicity: freshwater, inorganics",4.233705341150715e-05,1.33719201079878e-07,9.675529589267366e-08,1.7587597319700958e-07,raw_timber,today
+raw_timber|repair|CNC milling||machine weight,manufacturing,"ecotoxicity: freshwater, organics",-8.350335818921127e-05,4.2511317377234137e-07,3.237470981248975e-07,5.499412836700142e-07,raw_timber,today
+raw_timber|repair|CNC milling||machine weight,manufacturing,energy resources: non-renewable,-1.6688660687572922e-05,1.1694127409689458e-08,8.636589106936898e-09,1.496313739128155e-08,raw_timber,today
+raw_timber|repair|CNC milling||machine weight,manufacturing,eutrophication: freshwater,7.5172200008454375e-06,4.165499968493079e-09,3.021622927898268e-09,5.485087325697864e-09,raw_timber,today
+raw_timber|repair|CNC milling||machine weight,manufacturing,eutrophication: marine,5.6848681440063045e-06,1.756074644646017e-08,1.2598392408581387e-08,2.3373858886457374e-08,raw_timber,today
+raw_timber|repair|CNC milling||machine weight,manufacturing,eutrophication: terrestrial,8.154334325526771e-06,3.057788041398315e-08,2.1960569238218013e-08,4.091527142554137e-08,raw_timber,today
+raw_timber|repair|CNC milling||machine weight,manufacturing,human toxicity: carcinogenic,4.5978748724776574e-05,1.0909358492312672e-06,7.886422278044937e-07,1.4494471513093698e-06,raw_timber,today
+raw_timber|repair|CNC milling||machine weight,manufacturing,"human toxicity: carcinogenic, inorganics",5.8064587484690735e-05,2.497018735259124e-07,1.7906774882331302e-07,3.3316367475826663e-07,raw_timber,today
+raw_timber|repair|CNC milling||machine weight,manufacturing,"human toxicity: carcinogenic, organics",-0.0002344801783820052,2.1243678727780017e-06,1.6083513477602173e-06,2.7492772395710194e-06,raw_timber,today
+raw_timber|repair|CNC milling||machine weight,manufacturing,human toxicity: non-carcinogenic,4.688022630274772e-05,3.3725264836244387e-07,2.411759465560753e-07,4.525965665627658e-07,raw_timber,today
+raw_timber|repair|CNC milling||machine weight,manufacturing,"human toxicity: non-carcinogenic, inorganics",4.701077906778202e-05,3.176333254633138e-07,2.271521247822517e-07,4.2645686438275124e-07,raw_timber,today
+raw_timber|repair|CNC milling||machine weight,manufacturing,"human toxicity: non-carcinogenic, organics",-8.62425827118006e-05,1.410870651884729e-06,1.0429526750926093e-06,1.8179611329985606e-06,raw_timber,today
+raw_timber|repair|CNC milling||machine weight,manufacturing,ionising radiation: human health,-1.1735747543464144e-06,6.535398779861107e-11,4.989809996981621e-11,8.372415124884372e-11,raw_timber,today
+raw_timber|repair|CNC milling||machine weight,manufacturing,land use,7.501658472457267e-06,9.686691760857278e-10,7.189596963924209e-10,1.246941405002521e-09,raw_timber,today
+raw_timber|repair|CNC milling||machine weight,manufacturing,material resources: metals/minerals,-0.00014594468550618343,4.610913696943332e-06,3.5015447174437916e-06,5.977698134562635e-06,raw_timber,today
+raw_timber|repair|CNC milling||machine weight,manufacturing,ozone depletion,-6.459595755686782e-06,1.6777385905676008e-09,1.277806434403789e-09,2.2197475814382184e-09,raw_timber,today
+raw_timber|repair|CNC milling||machine weight,manufacturing,particulate matter formation,2.18158531836648e-05,2.1679568670714012e-06,1.5784756112736231e-06,2.875572689747712e-06,raw_timber,today
+raw_timber|repair|CNC milling||machine weight,manufacturing,photochemical oxidant formation: human health,3.3658446817134412e-06,3.826355226718639e-08,2.775647757905221e-08,5.05599243693855e-08,raw_timber,today
+raw_timber|repair|CNC milling||machine weight,manufacturing,water use,-3.393676879025058e-06,1.0211123036758116e-07,7.536018399651839e-08,1.3404903792005366e-07,raw_timber,today
+raw_timber|repair|CNC milling||power,manufacturing,acidification,-2.1217999316755766e-05,4.930736074640034e-05,3.392732420516926e-05,7.121569617620077e-05,raw_timber,today
+raw_timber|repair|CNC milling||power,manufacturing,climate change,-0.0013117444340669518,3.981227769683196e-05,2.9910106955272696e-05,5.014456572502457e-05,raw_timber,today
+raw_timber|repair|CNC milling||power,manufacturing,climate change: biogenic,1.722876037928096e-05,5.936593198973845e-07,4.111048071633717e-07,7.982373327535293e-07,raw_timber,today
+raw_timber|repair|CNC milling||power,manufacturing,climate change: fossil,-0.0008494362835669671,6.471136303469353e-05,4.892912843129726e-05,8.40419322646673e-05,raw_timber,today
+raw_timber|repair|CNC milling||power,manufacturing,climate change: land use and land use change,7.926790588843195e-05,3.925269966380655e-05,2.9633348185795736e-05,5.282858049328867e-05,raw_timber,today
+raw_timber|repair|CNC milling||power,manufacturing,ecotoxicity: freshwater,0.0004102326714776381,8.950005369636934e-05,6.827666545548978e-05,0.00011785136859967037,raw_timber,today
+raw_timber|repair|CNC milling||power,manufacturing,"ecotoxicity: freshwater, inorganics",0.00042405031540998625,8.785807340533396e-05,6.691633856242124e-05,0.00011596126258823613,raw_timber,today
+raw_timber|repair|CNC milling||power,manufacturing,"ecotoxicity: freshwater, organics",-0.001837119890856322,8.907140156647993e-05,6.967426971230238e-05,0.00011566982897756896,raw_timber,today
+raw_timber|repair|CNC milling||power,manufacturing,energy resources: non-renewable,0.0018405091029529746,0.0001554533507282668,0.00012620358371322242,0.0001873438568305464,raw_timber,today
+raw_timber|repair|CNC milling||power,manufacturing,eutrophication: freshwater,0.00031137848789885566,5.0041042793591964e-05,3.631890999140618e-05,6.715730967733027e-05,raw_timber,today
+raw_timber|repair|CNC milling||power,manufacturing,eutrophication: marine,-0.00029987379988803594,6.821321320186265e-05,4.970557927234021e-05,9.144721936749352e-05,raw_timber,today
+raw_timber|repair|CNC milling||power,manufacturing,eutrophication: terrestrial,-0.00039277414413457215,7.895192021718358e-05,5.901435559549608e-05,0.00010513692096001465,raw_timber,today
+raw_timber|repair|CNC milling||power,manufacturing,human toxicity: carcinogenic,0.00021501147389934178,0.00020066110788468617,0.0001576168533243477,0.00024788450979752356,raw_timber,today
+raw_timber|repair|CNC milling||power,manufacturing,"human toxicity: carcinogenic, inorganics",0.0005949686855898898,0.00010224903499976057,7.714007118122346e-05,0.0001370287221654224,raw_timber,today
+raw_timber|repair|CNC milling||power,manufacturing,"human toxicity: carcinogenic, organics",-0.0012556993885544728,0.00018042341790116767,0.00015203410042386955,0.00022285041007078638,raw_timber,today
+raw_timber|repair|CNC milling||power,manufacturing,human toxicity: non-carcinogenic,0.0004194352976595489,0.00012648565820099186,9.644276335420172e-05,0.00016813456515345565,raw_timber,today
+raw_timber|repair|CNC milling||power,manufacturing,"human toxicity: non-carcinogenic, inorganics",0.00042294993900439783,0.00012061372094034776,9.18271731868158e-05,0.00016038993986223075,raw_timber,today
+raw_timber|repair|CNC milling||power,manufacturing,"human toxicity: non-carcinogenic, organics",-1.2830663284431286e-05,0.000443330068157062,0.0003713305943019542,0.0005241735817361459,raw_timber,today
+raw_timber|repair|CNC milling||power,manufacturing,ionising radiation: human health,-6.141544352870954e-05,5.692114260002301e-05,4.3172343939951416e-05,7.199841680580447e-05,raw_timber,today
+raw_timber|repair|CNC milling||power,manufacturing,land use,0.00047983161002322985,5.25982288537943e-06,4.348317546144826e-06,6.257126910743488e-06,raw_timber,today
+raw_timber|repair|CNC milling||power,manufacturing,material resources: metals/minerals,0.0009766166149431418,0.0010735038360386165,0.0008990569294235111,0.0012823685908343128,raw_timber,today
+raw_timber|repair|CNC milling||power,manufacturing,ozone depletion,-0.0016695711100415157,3.911198623310012e-05,3.049270735720775e-05,5.1625180884149796e-05,raw_timber,today
+raw_timber|repair|CNC milling||power,manufacturing,particulate matter formation,0.00043849121292096813,0.0003217466900117488,0.0002598162350275318,0.00039000423528086787,raw_timber,today
+raw_timber|repair|CNC milling||power,manufacturing,photochemical oxidant formation: human health,-0.0007075746946299304,7.970113510953948e-05,6.15624236721741e-05,0.00010479342044081709,raw_timber,today
+raw_timber|repair|CNC milling||power,manufacturing,water use,0.00039009735167681777,0.0002435938896215096,0.0002021227360269078,0.0002999170507455777,raw_timber,today
+raw_timber|repair|CNC milling||output rate,manufacturing,acidification,-0.0008045214396355626,5.913919475826848e-05,3.972208462666499e-05,8.504817358243678e-05,raw_timber,today
+raw_timber|repair|CNC milling||output rate,manufacturing,climate change,-0.0028732556505588706,4.56656994203106e-05,3.450363098413361e-05,5.9524272062557935e-05,raw_timber,today
+raw_timber|repair|CNC milling||output rate,manufacturing,climate change: biogenic,-0.00034307229313184517,6.289730301400026e-07,4.505076007854988e-07,8.341163060131065e-07,raw_timber,today
+raw_timber|repair|CNC milling||output rate,manufacturing,climate change: fossil,-0.0025535184547579846,7.424464200143884e-05,5.519603194433587e-05,9.864298316724438e-05,raw_timber,today
+raw_timber|repair|CNC milling||output rate,manufacturing,climate change: land use and land use change,-9.609004441668758e-05,4.4839249755065176e-05,2.9014583738290446e-05,6.66826694024479e-05,raw_timber,today
+raw_timber|repair|CNC milling||output rate,manufacturing,ecotoxicity: freshwater,-0.001220744270787926,0.00010660199152097424,7.86709447596416e-05,0.00013910990746736425,raw_timber,today
+raw_timber|repair|CNC milling||output rate,manufacturing,"ecotoxicity: freshwater, inorganics",-0.0011742136766702668,0.00010467948338103783,7.710012177195506e-05,0.0001368405183925108,raw_timber,today
+raw_timber|repair|CNC milling||output rate,manufacturing,"ecotoxicity: freshwater, organics",-0.003562216146440194,9.879416208449863e-05,8.128914951144079e-05,0.00011940969703354962,raw_timber,today
+raw_timber|repair|CNC milling||output rate,manufacturing,energy resources: non-renewable,-0.0035369425744331304,0.00017775859661736492,0.00013968324564264672,0.00021752419307509172,raw_timber,today
+raw_timber|repair|CNC milling||output rate,manufacturing,eutrophication: freshwater,-0.001248354461042296,5.8082306200159504e-05,4.061156551186961e-05,7.772294601401212e-05,raw_timber,today
+raw_timber|repair|CNC milling||output rate,manufacturing,eutrophication: marine,-0.001818524299757278,7.967452391652862e-05,5.826523264767187e-05,0.00011079377431169322,raw_timber,today
+raw_timber|repair|CNC milling||output rate,manufacturing,eutrophication: terrestrial,-0.0015729489284774898,9.167026109860717e-05,6.814032741763303e-05,0.0001239637925077157,raw_timber,today
+raw_timber|repair|CNC milling||output rate,manufacturing,human toxicity: carcinogenic,-0.0026710054541772502,0.0002446264199766725,0.00019116640092836935,0.000310918974961817,raw_timber,today
+raw_timber|repair|CNC milling||output rate,manufacturing,"human toxicity: carcinogenic, inorganics",-0.0004027474544619395,0.00012420749792080456,9.232270789714687e-05,0.00016475834344910416,raw_timber,today
+raw_timber|repair|CNC milling||output rate,manufacturing,"human toxicity: carcinogenic, organics",-0.006078400603347414,0.00021774114890497594,0.00017957070433810354,0.0002561113984762464,raw_timber,today
+raw_timber|repair|CNC milling||output rate,manufacturing,human toxicity: non-carcinogenic,-0.00111931527559032,0.000152950966101,0.00011487741685438375,0.0002013966063771659,raw_timber,today
+raw_timber|repair|CNC milling||output rate,manufacturing,"human toxicity: non-carcinogenic, inorganics",-0.001026186290859558,0.00014601990654151934,0.0001094300164437719,0.0001926241412618101,raw_timber,today
+raw_timber|repair|CNC milling||output rate,manufacturing,"human toxicity: non-carcinogenic, organics",-0.00859907693625264,0.0005178068312597598,0.00041838266773250977,0.0006268132523311255,raw_timber,today
+raw_timber|repair|CNC milling||output rate,manufacturing,ionising radiation: human health,0.0008977232200724778,6.7352604425719e-05,4.681467234410451e-05,8.820224961344976e-05,raw_timber,today
+raw_timber|repair|CNC milling||output rate,manufacturing,land use,0.0010174756926635605,5.632789519114161e-06,4.577241648360631e-06,6.653902329042841e-06,raw_timber,today
+raw_timber|repair|CNC milling||output rate,manufacturing,material resources: metals/minerals,-0.012893209068501468,0.0012509591865713222,0.0010144100742386518,0.0014720104401886715,raw_timber,today
+raw_timber|repair|CNC milling||output rate,manufacturing,ozone depletion,-0.003343342210690494,4.0515981446453785e-05,3.324639236539472e-05,4.874607713517399e-05,raw_timber,today
+raw_timber|repair|CNC milling||output rate,manufacturing,particulate matter formation,-0.0034808602880753857,0.0003936942408243555,0.0003128755219266074,0.0004925850503068418,raw_timber,today
+raw_timber|repair|CNC milling||output rate,manufacturing,photochemical oxidant formation: human health,-0.001973956924762979,9.203012960763366e-05,6.928171101953091e-05,0.00012198159867954836,raw_timber,today
+raw_timber|repair|CNC milling||output rate,manufacturing,water use,-0.0006352189820104794,0.0002828973439756893,0.0002304293438808596,0.00035322789657910383,raw_timber,today
+raw_timber|repair|CNC milling||machine lifetime,manufacturing,acidification,1.8816718450472288e-06,9.109918373359683e-09,7.404374897924275e-09,1.1490277490405983e-08,raw_timber,today
+raw_timber|repair|CNC milling||machine lifetime,manufacturing,climate change,-5.103847452532835e-06,5.2477401445883205e-09,4.375652339237691e-09,6.3032777727003054e-09,raw_timber,today
+raw_timber|repair|CNC milling||machine lifetime,manufacturing,climate change: biogenic,-4.863502973860073e-07,1.3544106434602525e-11,1.1195350241811295e-11,1.6669329701044312e-11,raw_timber,today
+raw_timber|repair|CNC milling||machine lifetime,manufacturing,climate change: fossil,-1.6093495873559006e-06,8.521381005824936e-09,7.0883373752746404e-09,1.0311719016959209e-08,raw_timber,today
+raw_timber|repair|CNC milling||machine lifetime,manufacturing,climate change: land use and land use change,-6.97084658043365e-07,1.8406628232150925e-09,1.4753528447323198e-09,2.2231101264774122e-09,raw_timber,today
+raw_timber|repair|CNC milling||machine lifetime,manufacturing,ecotoxicity: freshwater,1.1906773832167684e-05,1.0827923816261465e-07,8.90474187036546e-08,1.3234099213519602e-07,raw_timber,today
+raw_timber|repair|CNC milling||machine lifetime,manufacturing,"ecotoxicity: freshwater, inorganics",1.204693429354199e-05,1.0367050091229078e-07,8.527640911055178e-08,1.268293508767951e-07,raw_timber,today
+raw_timber|repair|CNC milling||machine lifetime,manufacturing,"ecotoxicity: freshwater, organics",-5.9666178356529166e-05,3.295838421775773e-07,2.6787885397616853e-07,4.0470053883829216e-07,raw_timber,today
+raw_timber|repair|CNC milling||machine lifetime,manufacturing,energy resources: non-renewable,-1.0368105517605287e-05,9.066268447081884e-09,7.564118424889317e-09,1.1153586475081772e-08,raw_timber,today
+raw_timber|repair|CNC milling||machine lifetime,manufacturing,eutrophication: freshwater,1.9422605886207436e-06,3.2294500549698106e-09,2.6749631470247937e-09,3.90409725010397e-09,raw_timber,today
+raw_timber|repair|CNC milling||machine lifetime,manufacturing,eutrophication: marine,-4.6530621863677144e-07,1.3614549999444095e-08,1.1254170598815515e-08,1.6624678175413553e-08,raw_timber,today
+raw_timber|repair|CNC milling||machine lifetime,manufacturing,eutrophication: terrestrial,1.574890120889061e-07,2.3706512628169605e-08,1.938129830095915e-08,2.9090517529740487e-08,raw_timber,today
+raw_timber|repair|CNC milling||machine lifetime,manufacturing,human toxicity: carcinogenic,-5.747001071574605e-06,8.457862891154595e-07,6.970900234741324e-07,1.0328877078162798e-06,raw_timber,today
+raw_timber|repair|CNC milling||machine lifetime,manufacturing,"human toxicity: carcinogenic, inorganics",2.076550649909146e-05,1.9359014116023278e-07,1.5854435247554987e-07,2.397661928012358e-07,raw_timber,today
+raw_timber|repair|CNC milling||machine lifetime,manufacturing,"human toxicity: carcinogenic, organics",-0.00016166075971299517,1.6469906833384357e-06,1.3229379219916142e-06,2.0213708533108555e-06,raw_timber,today
+raw_timber|repair|CNC milling||machine lifetime,manufacturing,human toxicity: non-carcinogenic,1.3756081744814875e-05,2.6146694811562123e-07,2.1532863082768922e-07,3.2428772248073905e-07,raw_timber,today
+raw_timber|repair|CNC milling||machine lifetime,manufacturing,"human toxicity: non-carcinogenic, inorganics",1.426029028249393e-05,2.46256381226661e-07,2.0269623551695727e-07,3.057018367998409e-07,raw_timber,today
+raw_timber|repair|CNC milling||machine lifetime,manufacturing,"human toxicity: non-carcinogenic, organics",-7.124003878595333e-05,1.0938265831316844e-06,9.12811293858908e-07,1.3307578831791346e-06,raw_timber,today
+raw_timber|repair|CNC milling||machine lifetime,manufacturing,ionising radiation: human health,-4.180157948684191e-07,5.066796535960275e-11,4.1325996465115545e-11,6.216117383356402e-11,raw_timber,today
+raw_timber|repair|CNC milling||machine lifetime,manufacturing,land use,3.839870536987336e-06,7.509905202503318e-10,6.186827124218274e-10,9.337172537965862e-10,raw_timber,today
+raw_timber|repair|CNC milling||machine lifetime,manufacturing,material resources: metals/minerals,-0.00012313738010314693,3.5747726979336006e-06,2.8747057777750257e-06,4.423142673834233e-06,raw_timber,today
+raw_timber|repair|CNC milling||machine lifetime,manufacturing,ozone depletion,-3.841514614820431e-06,1.3007142443710893e-09,1.033515312023975e-09,1.6161012296140226e-09,raw_timber,today
+raw_timber|repair|CNC milling||machine lifetime,manufacturing,particulate matter formation,-2.453575109367902e-05,1.6807830877755019e-06,1.3775703427210912e-06,2.039995125283029e-06,raw_timber,today
+raw_timber|repair|CNC milling||machine lifetime,manufacturing,photochemical oxidant formation: human health,-3.2282673313185304e-06,2.966507482083731e-08,2.4331430207317395e-08,3.610440948628169e-08,raw_timber,today
+raw_timber|repair|CNC milling||machine lifetime,manufacturing,water use,9.813543360565574e-06,7.916531454329794e-08,6.499737837664414e-08,9.549571262253319e-08,raw_timber,today
+raw_timber|repair|CNC milling||process yield,manufacturing,acidification,0.0001832663268580851,3.4490954742128614e-05,2.3301687037899973e-05,4.946083720283088e-05,raw_timber,today
+raw_timber|repair|CNC milling||process yield,manufacturing,climate change,-0.0012806315006791157,1.3264767175889488e-05,1.0198613351975191e-05,1.7107762558271018e-05,raw_timber,today
+raw_timber|repair|CNC milling||process yield,manufacturing,climate change: biogenic,-0.0020416806643996847,0.0026041071742643174,0.002226610088099006,0.003110195409455224,raw_timber,today
+raw_timber|repair|CNC milling||process yield,manufacturing,climate change: fossil,0.0003168317773949305,4.8726491721855956e-05,3.649902890213569e-05,6.308333913297172e-05,raw_timber,today
+raw_timber|repair|CNC milling||process yield,manufacturing,climate change: land use and land use change,-0.00039453458902413333,6.089823886501903e-05,4.439937850069816e-05,8.365863016352612e-05,raw_timber,today
+raw_timber|repair|CNC milling||process yield,manufacturing,ecotoxicity: freshwater,0.0006146574989855496,5.7744491482217406e-05,4.303670572241378e-05,7.435728591449719e-05,raw_timber,today
+raw_timber|repair|CNC milling||process yield,manufacturing,"ecotoxicity: freshwater, inorganics",0.000599447637876231,5.605564391755538e-05,4.174537153089169e-05,7.243093956017206e-05,raw_timber,today
+raw_timber|repair|CNC milling||process yield,manufacturing,"ecotoxicity: freshwater, organics",0.0005154978437605602,0.00013790134621158702,0.00011187436205156467,0.0001663544201677369,raw_timber,today
+raw_timber|repair|CNC milling||process yield,manufacturing,energy resources: non-renewable,0.0004849117472642881,0.0001244065522559778,0.00010404969418510899,0.00015068964632498043,raw_timber,today
+raw_timber|repair|CNC milling||process yield,manufacturing,eutrophication: freshwater,0.00029012011593224204,3.474894028455008e-05,2.5402617148487775e-05,4.5449936510335296e-05,raw_timber,today
+raw_timber|repair|CNC milling||process yield,manufacturing,eutrophication: marine,-0.0007626414705757957,2.0260898877276254e-05,1.5416777546600513e-05,2.5967305157257872e-05,raw_timber,today
+raw_timber|repair|CNC milling||process yield,manufacturing,eutrophication: terrestrial,3.783677561216669e-05,3.477456439548477e-05,2.4495694639377023e-05,4.723486065876305e-05,raw_timber,today
+raw_timber|repair|CNC milling||process yield,manufacturing,human toxicity: carcinogenic,0.00032562244569777683,5.934037752303547e-05,4.425249443680032e-05,7.698426592641197e-05,raw_timber,today
+raw_timber|repair|CNC milling||process yield,manufacturing,"human toxicity: carcinogenic, inorganics",0.00027571813182717807,3.0813678349392986e-05,2.081414262979826e-05,4.371624245666073e-05,raw_timber,today
+raw_timber|repair|CNC milling||process yield,manufacturing,"human toxicity: carcinogenic, organics",0.0005796319193560938,7.533459686798751e-05,6.125224754113888e-05,9.190685736676826e-05,raw_timber,today
+raw_timber|repair|CNC milling||process yield,manufacturing,human toxicity: non-carcinogenic,0.00014356675078912382,3.2891137412092725e-05,2.237958364300973e-05,4.6190990376055264e-05,raw_timber,today
+raw_timber|repair|CNC milling||process yield,manufacturing,"human toxicity: non-carcinogenic, inorganics",0.00013511081912748028,3.166290198400002e-05,2.1330633741397096e-05,4.4756880218722674e-05,raw_timber,today
+raw_timber|repair|CNC milling||process yield,manufacturing,"human toxicity: non-carcinogenic, organics",0.0012051415986353666,0.00012345271892443585,9.916256776048928e-05,0.0001491240016561565,raw_timber,today
+raw_timber|repair|CNC milling||process yield,manufacturing,ionising radiation: human health,-0.0006669470931640647,4.9418535110647945e-05,3.696174112235426e-05,6.342277593174669e-05,raw_timber,today
+raw_timber|repair|CNC milling||process yield,manufacturing,land use,-0.0014966850086285297,0.0031233537865002796,0.0026384725401616027,0.0037083924475398225,raw_timber,today
+raw_timber|repair|CNC milling||process yield,manufacturing,material resources: metals/minerals,0.006314549002211715,0.0009646636446554069,0.000791103720813031,0.0011569089270721733,raw_timber,today
+raw_timber|repair|CNC milling||process yield,manufacturing,ozone depletion,0.0008772168866275848,2.9096610694769924e-05,2.2397758208088557e-05,3.665243702818877e-05,raw_timber,today
+raw_timber|repair|CNC milling||process yield,manufacturing,particulate matter formation,0.0011956454462538765,0.00015586762160123909,0.00012379454687948664,0.0001939274159825519,raw_timber,today
+raw_timber|repair|CNC milling||process yield,manufacturing,photochemical oxidant formation: human health,2.0335575286478825e-05,4.29026462912737e-05,3.18640974423158e-05,5.6447882998323694e-05,raw_timber,today
+raw_timber|repair|CNC milling||process yield,manufacturing,water use,0.00025702792564059624,0.00010343227319798424,8.230612559516688e-05,0.0001304531662708318,raw_timber,today
+raw_timber|repair|CNC milling||machine source,manufacturing,acidification,-9.007142500428116e-05,8.640280154660694e-07,7.234046883077955e-07,1.0074923093281218e-06,raw_timber,today
+raw_timber|repair|CNC milling||machine source,manufacturing,climate change,-6.677132371543391e-05,4.966863552607298e-07,4.3084680324602106e-07,5.674867403630422e-07,raw_timber,today
+raw_timber|repair|CNC milling||machine source,manufacturing,climate change: biogenic,-2.4947078637533573e-06,1.2877357331916015e-09,1.124597363416609e-09,1.4607759717580847e-09,raw_timber,today
+raw_timber|repair|CNC milling||machine source,manufacturing,climate change: fossil,-8.57814342667098e-05,8.065180532554509e-07,6.902593686598311e-07,9.285579385427196e-07,raw_timber,today
+raw_timber|repair|CNC milling||machine source,manufacturing,climate change: land use and land use change,3.2691783612126246e-05,1.7507660111588963e-07,1.5263416160614174e-07,2.0278329962584906e-07,raw_timber,today
+raw_timber|repair|CNC milling||machine source,manufacturing,ecotoxicity: freshwater,-0.00029327052601463944,1.0296776672808755e-05,8.787186758774819e-06,1.1831677283038012e-05,raw_timber,today
+raw_timber|repair|CNC milling||machine source,manufacturing,"ecotoxicity: freshwater, inorganics",-0.0002879405786210152,9.858853191930964e-06,8.412409715185337e-06,1.1318587828342806e-05,raw_timber,today
+raw_timber|repair|CNC milling||machine source,manufacturing,"ecotoxicity: freshwater, organics",0.00016727828497389266,3.1290818504003385e-05,2.646092141099317e-05,3.664132851817535e-05,raw_timber,today
+raw_timber|repair|CNC milling||machine source,manufacturing,energy resources: non-renewable,-0.00015391312929523287,8.564252140139972e-07,7.412772899280018e-07,9.945674452459635e-07,raw_timber,today
+raw_timber|repair|CNC milling||machine source,manufacturing,eutrophication: freshwater,-5.1951406352586404e-05,3.07317821257878e-07,2.66019159740417e-07,3.481946444452472e-07,raw_timber,today
+raw_timber|repair|CNC milling||machine source,manufacturing,eutrophication: marine,-0.0001167057765935409,1.2832302327079525e-06,1.0891070759881523e-06,1.4974814577416877e-06,raw_timber,today
+raw_timber|repair|CNC milling||machine source,manufacturing,eutrophication: terrestrial,-0.00013495532861491956,2.2341845763222703e-06,1.8942803153819802e-06,2.600593257471861e-06,raw_timber,today
+raw_timber|repair|CNC milling||machine source,manufacturing,human toxicity: carcinogenic,-0.0008558242187612229,8.044360077895434e-05,6.83711718846757e-05,9.383044009255422e-05,raw_timber,today
+raw_timber|repair|CNC milling||machine source,manufacturing,"human toxicity: carcinogenic, inorganics",-0.000404268805462028,1.842055269354648e-05,1.5525589266943334e-05,2.1213943541681854e-05,raw_timber,today
+raw_timber|repair|CNC milling||machine source,manufacturing,"human toxicity: carcinogenic, organics",-0.0002467716672620638,0.00015659247014747046,0.00013570530785042274,0.00018188696592137912,raw_timber,today
+raw_timber|repair|CNC milling||machine source,manufacturing,human toxicity: non-carcinogenic,-0.0005264598684213484,2.487024606649874e-05,2.091041616597459e-05,2.88838924851339e-05,raw_timber,today
+raw_timber|repair|CNC milling||machine source,manufacturing,"human toxicity: non-carcinogenic, inorganics",-0.0005089730860059452,2.3426467735308305e-05,1.96824961314826e-05,2.7190314854482088e-05,raw_timber,today
+raw_timber|repair|CNC milling||machine source,manufacturing,"human toxicity: non-carcinogenic, organics",-0.0009058444542112288,0.00010374403067757508,8.92026957069021e-05,0.00011843831441521302,raw_timber,today
+raw_timber|repair|CNC milling||machine source,manufacturing,ionising radiation: human health,-3.894196216703503e-06,4.8123474337845694e-09,4.243526249327222e-09,5.574986286597461e-09,raw_timber,today
+raw_timber|repair|CNC milling||machine source,manufacturing,land use,2.1530646049379862e-05,7.043575643275777e-08,6.192301909587444e-08,7.987881650191073e-08,raw_timber,today
+raw_timber|repair|CNC milling||machine source,manufacturing,material resources: metals/minerals,-0.0006516711101650814,0.00034024534106394177,0.00029392559569695894,0.0003897501938034139,raw_timber,today
+raw_timber|repair|CNC milling||machine source,manufacturing,ozone depletion,-1.3298150831384272e-05,1.2153563266806526e-07,1.0467939719041142e-07,1.3997215370437013e-07,raw_timber,today
+raw_timber|repair|CNC milling||machine source,manufacturing,particulate matter formation,-0.0013526862481374035,0.0001590614557839445,0.00013530434217988828,0.00018274384483311942,raw_timber,today
+raw_timber|repair|CNC milling||machine source,manufacturing,photochemical oxidant formation: human health,-0.0001341407931680329,2.794132847091801e-06,2.3899495763832977e-06,3.2187629826172983e-06,raw_timber,today
+raw_timber|repair|CNC milling||machine source,manufacturing,water use,-0.00018372641951760902,7.531347879280244e-06,6.484368211037857e-06,8.531222812529434e-06,raw_timber,today
+raw_timber|use|product||expected lifetime,circularity,acidification,-0.004164311448898911,0.004485905121871208,0.0033477069077375602,0.005573645567365295,raw_timber,today
+raw_timber|use|product||expected lifetime,circularity,climate change,-0.03528869495759652,0.007413115684366786,0.006134099153352595,0.008566896193604387,raw_timber,today
+raw_timber|use|product||expected lifetime,circularity,climate change: biogenic,-0.06335560710636312,0.06824626465016044,0.05989710397838985,0.07926620910390222,raw_timber,today
+raw_timber|use|product||expected lifetime,circularity,climate change: fossil,-0.018124840704795288,0.015755391290842965,0.013160070344349822,0.018145371263545797,raw_timber,today
+raw_timber|use|product||expected lifetime,circularity,climate change: land use and land use change,-0.002870582670140636,0.003582967774894678,0.0026935026496577113,0.004749796320588018,raw_timber,today
+raw_timber|use|product||expected lifetime,circularity,ecotoxicity: freshwater,-0.003492980717269128,0.003623922284085088,0.0027619564184906543,0.004392699010891263,raw_timber,today
+raw_timber|use|product||expected lifetime,circularity,"ecotoxicity: freshwater, inorganics",-0.0033612113304955977,0.0035631935682764373,0.0027059354779944244,0.004345165851947476,raw_timber,today
+raw_timber|use|product||expected lifetime,circularity,"ecotoxicity: freshwater, organics",-0.036989213388753724,0.0333001216145261,0.02847804712940316,0.039377165964919185,raw_timber,today
+raw_timber|use|product||expected lifetime,circularity,energy resources: non-renewable,-0.034105820243378306,0.03925099533091686,0.034101908367811115,0.04488643378226439,raw_timber,today
+raw_timber|use|product||expected lifetime,circularity,eutrophication: freshwater,-0.002929552472379057,0.0036507505408063324,0.002822916471348899,0.004421997182691238,raw_timber,today
+raw_timber|use|product||expected lifetime,circularity,eutrophication: marine,-0.011264097131136346,0.00931508659701959,0.007408655020640519,0.011010743503016049,raw_timber,today
+raw_timber|use|product||expected lifetime,circularity,eutrophication: terrestrial,-0.011689650959228734,0.008064850572117888,0.006344427512301991,0.009594956120308482,raw_timber,today
+raw_timber|use|product||expected lifetime,circularity,human toxicity: carcinogenic,-0.012890607563610332,0.009757607892191574,0.007829323025381009,0.011394314009147602,raw_timber,today
+raw_timber|use|product||expected lifetime,circularity,"human toxicity: carcinogenic, inorganics",-0.001927423374645685,0.0034139890145145515,0.002679277991076174,0.004165659681366574,raw_timber,today
+raw_timber|use|product||expected lifetime,circularity,"human toxicity: carcinogenic, organics",-0.06039995290218622,0.050656434293673655,0.044158620021769755,0.06004196845774115,raw_timber,today
+raw_timber|use|product||expected lifetime,circularity,human toxicity: non-carcinogenic,-0.004401560793800548,0.004615758641700915,0.003470550815464274,0.005713251487230107,raw_timber,today
+raw_timber|use|product||expected lifetime,circularity,"human toxicity: non-carcinogenic, inorganics",-0.003974811330270442,0.004363470585474075,0.003233719099958083,0.005413676093459899,raw_timber,today
+raw_timber|use|product||expected lifetime,circularity,"human toxicity: non-carcinogenic, organics",-0.049086980712770074,0.04365422835785535,0.038336852468627315,0.050871241814765815,raw_timber,today
+raw_timber|use|product||expected lifetime,circularity,ionising radiation: human health,-0.004120042442270508,0.004272544096402158,0.0034119733038096133,0.005175125767906141,raw_timber,today
+raw_timber|use|product||expected lifetime,circularity,land use,-0.0625144279149029,0.06678202923170722,0.059032607959903616,0.07765172061148296,raw_timber,today
+raw_timber|use|product||expected lifetime,circularity,material resources: metals/minerals,-0.03564564451366987,0.0342279585369733,0.029611507772107738,0.040206093181792725,raw_timber,today
+raw_timber|use|product||expected lifetime,circularity,ozone depletion,-0.05698254854904993,0.05747643608797111,0.049834135484756535,0.0671623585613167,raw_timber,today
+raw_timber|use|product||expected lifetime,circularity,particulate matter formation,-0.017976862505922495,0.012238425452776334,0.010205107225191776,0.01408907890291637,raw_timber,today
+raw_timber|use|product||expected lifetime,circularity,photochemical oxidant formation: human health,-0.01679230556149643,0.012041175369784699,0.009779501881762303,0.013943616627773358,raw_timber,today
+raw_timber|use|product||expected lifetime,circularity,water use,-0.0026021797242425124,0.008368839143218041,0.006755735513516075,0.00977682194046205,raw_timber,today
+raw_timber|use|product||lifetime extension per repair,circularity,acidification,-0.0014358355912928444,0.0005737143223956701,0.0002998556663072031,0.0009424231554834852,raw_timber,today
+raw_timber|use|product||lifetime extension per repair,circularity,climate change,-0.011461340778416712,0.0007692427817162007,0.0005408848652971166,0.001051297538151246,raw_timber,today
+raw_timber|use|product||lifetime extension per repair,circularity,climate change: biogenic,-0.05506528427607042,0.011490832003770986,0.009911798397016173,0.013564753004172763,raw_timber,today
+raw_timber|use|product||lifetime extension per repair,circularity,climate change: fossil,-0.013019966033712181,0.0023447707085529623,0.001793601350426282,0.0030044505906583626,raw_timber,today
+raw_timber|use|product||lifetime extension per repair,circularity,climate change: land use and land use change,-0.0021826685986614026,0.0006662112017120488,0.0004969617626471536,0.0008527090472612827,raw_timber,today
+raw_timber|use|product||lifetime extension per repair,circularity,ecotoxicity: freshwater,-0.0011342820196514735,0.0005112100005487755,0.0003016622164708322,0.0007793895923230499,raw_timber,today
+raw_timber|use|product||lifetime extension per repair,circularity,"ecotoxicity: freshwater, inorganics",-0.001038431966733005,0.0005048521097521034,0.00030027851577739276,0.000765691605084936,raw_timber,today
+raw_timber|use|product||lifetime extension per repair,circularity,"ecotoxicity: freshwater, organics",-0.029556029676531106,0.005441555305698144,0.004662951643591389,0.006452467753700124,raw_timber,today
+raw_timber|use|product||lifetime extension per repair,circularity,energy resources: non-renewable,-0.030255982782564996,0.0067720808644795225,0.005594772406038181,0.00814674551795445,raw_timber,today
+raw_timber|use|product||lifetime extension per repair,circularity,eutrophication: freshwater,-0.0012493415905176042,0.0005204952169757876,0.00032803516381758055,0.0007650481272709338,raw_timber,today
+raw_timber|use|product||lifetime extension per repair,circularity,eutrophication: marine,-0.007045983875113319,0.0013068865831712278,0.0009079547158897247,0.0018137961387020634,raw_timber,today
+raw_timber|use|product||lifetime extension per repair,circularity,eutrophication: terrestrial,-0.00596804297045944,0.0011198180827345972,0.0007534663861570783,0.001586353457877108,raw_timber,today
+raw_timber|use|product||lifetime extension per repair,circularity,human toxicity: carcinogenic,-0.00765672478719766,0.001403263223009805,0.0009730384908102662,0.0019549427873375384,raw_timber,today
+raw_timber|use|product||lifetime extension per repair,circularity,"human toxicity: carcinogenic, inorganics",-0.0001949615544287221,0.0005013493878491028,0.0003194716321190408,0.0007120462863252415,raw_timber,today
+raw_timber|use|product||lifetime extension per repair,circularity,"human toxicity: carcinogenic, organics",-0.04468461289007556,0.008403296905762499,0.007215909078844998,0.009739746837971361,raw_timber,today
+raw_timber|use|product||lifetime extension per repair,circularity,human toxicity: non-carcinogenic,-0.001648642537374652,0.0006067732222963329,0.00033726303558366153,0.0009871104738419765,raw_timber,today
+raw_timber|use|product||lifetime extension per repair,circularity,"human toxicity: non-carcinogenic, inorganics",-0.0013739403948839404,0.0005715550766058158,0.00031036171045432904,0.0009369248170178223,raw_timber,today
+raw_timber|use|product||lifetime extension per repair,circularity,"human toxicity: non-carcinogenic, organics",-0.0363980927861116,0.007021163629107716,0.005874231183910727,0.008296465230173052,raw_timber,today
+raw_timber|use|product||lifetime extension per repair,circularity,ionising radiation: human health,-0.0006169674155437129,0.0008870409311219098,0.0007080813530118355,0.0011390279877156889,raw_timber,today
+raw_timber|use|product||lifetime extension per repair,circularity,land use,-0.05348954855016295,0.011338008573132814,0.009843766431397824,0.013382937648114102,raw_timber,today
+raw_timber|use|product||lifetime extension per repair,circularity,material resources: metals/minerals,-0.02603256758488549,0.005670184384717301,0.004702258473310515,0.006687590908022937,raw_timber,today
+raw_timber|use|product||lifetime extension per repair,circularity,ozone depletion,-0.04649859109835109,0.009541828234675575,0.008203026946237882,0.011269754056997913,raw_timber,today
+raw_timber|use|product||lifetime extension per repair,circularity,particulate matter formation,-0.01074626184810938,0.001838119214601218,0.0013368242038678758,0.0024435806285596755,raw_timber,today
+raw_timber|use|product||lifetime extension per repair,circularity,photochemical oxidant formation: human health,-0.010128571457348145,0.0017452292586519812,0.0012816643403619945,0.00229121834512333,raw_timber,today
+raw_timber|use|product||lifetime extension per repair,circularity,water use,-0.0023784562015556937,0.0012611584130169174,0.0009521734044597805,0.001586601976538856,raw_timber,today
+raw_timber|use|product||number of repair events,circularity,acidification,-0.002450157476522295,0.002035743869516561,0.0014360650263235692,0.002696422990016931,raw_timber,today
+raw_timber|use|product||number of repair events,circularity,climate change,-0.014397233652792284,0.0013372795324109378,0.0010359070369698445,0.001643469233677518,raw_timber,today
+raw_timber|use|product||number of repair events,circularity,climate change: biogenic,-0.008031168946133808,0.021096398083766572,0.01732174446728002,0.024688162607658524,raw_timber,today
+raw_timber|use|product||number of repair events,circularity,climate change: fossil,-0.004039404712883406,0.005106810168270583,0.003999568731456012,0.006503438791658202,raw_timber,today
+raw_timber|use|product||number of repair events,circularity,climate change: land use and land use change,-0.00234233477985918,0.001658567202217225,0.0012304997793275057,0.002123839430556759,raw_timber,today
+raw_timber|use|product||number of repair events,circularity,ecotoxicity: freshwater,-0.0024916423855347795,0.0019764556784967846,0.0014746791014738246,0.00253395984182282,raw_timber,today
+raw_timber|use|product||number of repair events,circularity,"ecotoxicity: freshwater, inorganics",-0.0024830460275951515,0.0019675193033673057,0.001455484338162416,0.002515085534459066,raw_timber,today
+raw_timber|use|product||number of repair events,circularity,"ecotoxicity: freshwater, organics",0.003395539758749848,0.01018018820411384,0.007952267531712257,0.01271285580658373,raw_timber,today
+raw_timber|use|product||number of repair events,circularity,energy resources: non-renewable,0.004537597167100538,0.01256803413163698,0.010354438973745946,0.015166872662569829,raw_timber,today
+raw_timber|use|product||number of repair events,circularity,eutrophication: freshwater,-0.0031638618582715654,0.0020200049443100513,0.0014955407627927648,0.0025949686273876566,raw_timber,today
+raw_timber|use|product||number of repair events,circularity,eutrophication: marine,-0.00414352946948354,0.003415770573289917,0.002551033181815721,0.00441164612409354,raw_timber,today
+raw_timber|use|product||number of repair events,circularity,eutrophication: terrestrial,-0.002757482372314576,0.00300744309661745,0.0022784606287245,0.0038429606489991724,raw_timber,today
+raw_timber|use|product||number of repair events,circularity,human toxicity: carcinogenic,-0.001143959359999288,0.003453871199322906,0.0026177910323665547,0.0044320047208445,raw_timber,today
+raw_timber|use|product||number of repair events,circularity,"human toxicity: carcinogenic, inorganics",-0.001541956858089147,0.001933319514592401,0.0014005270534173328,0.0024505231253555988,raw_timber,today
+raw_timber|use|product||number of repair events,circularity,"human toxicity: carcinogenic, organics",0.009536034997371327,0.015459724835007706,0.012283068700249792,0.019267569728581152,raw_timber,today
+raw_timber|use|product||number of repair events,circularity,human toxicity: non-carcinogenic,-0.0022576775089377748,0.002115045932177228,0.0014757720982430831,0.002792797536316546,raw_timber,today
+raw_timber|use|product||number of repair events,circularity,"human toxicity: non-carcinogenic, inorganics",-0.002215111320452152,0.0020549316522116877,0.0014492488854645923,0.002706199824978002,raw_timber,today
+raw_timber|use|product||number of repair events,circularity,"human toxicity: non-carcinogenic, organics",0.003911615029185995,0.012784343393704028,0.010365206370568713,0.01580521151996481,raw_timber,today
+raw_timber|use|product||number of repair events,circularity,ionising radiation: human health,-0.0018837040897603599,0.0025484871404176115,0.0018585424652819247,0.0032384265442399777,raw_timber,today
+raw_timber|use|product||number of repair events,circularity,land use,-0.009151254389143673,0.021087800911022848,0.017291505277227677,0.0249990043233521,raw_timber,today
+raw_timber|use|product||number of repair events,circularity,material resources: metals/minerals,0.01900635741614692,0.010410711405346286,0.007935718525431078,0.013379003988307646,raw_timber,today
+raw_timber|use|product||number of repair events,circularity,ozone depletion,0.0035231714889135605,0.01706328156034576,0.01366613121325199,0.021089938496265576,raw_timber,today
+raw_timber|use|product||number of repair events,circularity,particulate matter formation,0.0001818233246030522,0.004008638702023389,0.003161093446973461,0.005057016060178746,raw_timber,today
+raw_timber|use|product||number of repair events,circularity,photochemical oxidant formation: human health,-0.003219568185167155,0.004059407776368904,0.003183480038210537,0.005152083942207176,raw_timber,today
+raw_timber|use|product||number of repair events,circularity,water use,-0.005415098350218781,0.0027080637249521757,0.002053369608277184,0.0035109473692530547,raw_timber,today
+raw_timber|repair|repair material||share of product mass per repair,circularity,acidification,-0.0004477480200030437,0.00024901223246094324,0.00018187148099476171,0.00032774671003562124,raw_timber,today
+raw_timber|repair|repair material||share of product mass per repair,circularity,climate change,-0.00017889814199030114,0.0008715848416359101,0.0007307848277140307,0.001006183992679366,raw_timber,today
+raw_timber|repair|repair material||share of product mass per repair,circularity,climate change: biogenic,0.007252741263516483,0.003973101296293688,0.0034089138078474417,0.00477665036147704,raw_timber,today
+raw_timber|repair|repair material||share of product mass per repair,circularity,climate change: fossil,-0.0006819497996811811,0.0008549565833358794,0.0007060864378009495,0.001015508060605723,raw_timber,today
+raw_timber|repair|repair material||share of product mass per repair,circularity,climate change: land use and land use change,0.0013322531351387507,0.00021063083573938883,0.00015304811251314228,0.0002765756329052383,raw_timber,today
+raw_timber|repair|repair material||share of product mass per repair,circularity,ecotoxicity: freshwater,-0.0007302557018847459,0.00021015692444194346,0.00015578532526364412,0.00026516971768374717,raw_timber,today
+raw_timber|repair|repair material||share of product mass per repair,circularity,"ecotoxicity: freshwater, inorganics",-0.0007075750895886931,0.00020754625627464722,0.0001537002052045668,0.0002629508288730208,raw_timber,today
+raw_timber|repair|repair material||share of product mass per repair,circularity,"ecotoxicity: freshwater, organics",-0.0001442881213564977,0.0018521647271804859,0.0015565152478745129,0.002280713354606293,raw_timber,today
+raw_timber|repair|repair material||share of product mass per repair,circularity,energy resources: non-renewable,0.0019421339023083998,0.002432894513350602,0.002067940776521138,0.0028464487984756013,raw_timber,today
+raw_timber|repair|repair material||share of product mass per repair,circularity,eutrophication: freshwater,-0.0009174772339785701,0.0002112704587463787,0.00015993160346324255,0.0002678412793388058,raw_timber,today
+raw_timber|repair|repair material||share of product mass per repair,circularity,eutrophication: marine,-0.0008606589906768103,0.0005081191256352244,0.00040043242821242975,0.0006185871330826497,raw_timber,today
+raw_timber|repair|repair material||share of product mass per repair,circularity,eutrophication: terrestrial,-0.0007159777550768762,0.0004345626786946888,0.0003391527119239285,0.0005417059640267295,raw_timber,today
+raw_timber|repair|repair material||share of product mass per repair,circularity,human toxicity: carcinogenic,-0.001213738903604403,0.0005457047746460285,0.000434606643320301,0.0006610190886589769,raw_timber,today
+raw_timber|repair|repair material||share of product mass per repair,circularity,"human toxicity: carcinogenic, inorganics",-0.000388001433047692,0.00020864156386689458,0.0001520199514387788,0.00027369022250768913,raw_timber,today
+raw_timber|repair|repair material||share of product mass per repair,circularity,"human toxicity: carcinogenic, organics",0.0007615251827781869,0.00297387634007751,0.002557933440707555,0.0036075972294480224,raw_timber,today
+raw_timber|repair|repair material||share of product mass per repair,circularity,human toxicity: non-carcinogenic,-0.0007580564057564209,0.0002601756816761633,0.00018813225053804979,0.0003416920850684142,raw_timber,today
+raw_timber|repair|repair material||share of product mass per repair,circularity,"human toxicity: non-carcinogenic, inorganics",-0.0007399135830880243,0.00024668564673895884,0.00017777197906438527,0.00032421645823453463,raw_timber,today
+raw_timber|repair|repair material||share of product mass per repair,circularity,"human toxicity: non-carcinogenic, organics",0.00021969259953091527,0.0024967100814265366,0.002151371895151479,0.0029349798073557976,raw_timber,today
+raw_timber|repair|repair material||share of product mass per repair,circularity,ionising radiation: human health,0.0009370886735829437,0.00031888566644262654,0.00025528690309746315,0.00039453855954734666,raw_timber,today
+raw_timber|repair|repair material||share of product mass per repair,circularity,land use,0.00815089597587733,0.003931200341356618,0.0033657154870444256,0.004731340069495236,raw_timber,today
+raw_timber|repair|repair material||share of product mass per repair,circularity,material resources: metals/minerals,-0.002355155918292328,0.002127582855822762,0.001724873462730599,0.0026428003351937467,raw_timber,today
+raw_timber|repair|repair material||share of product mass per repair,circularity,ozone depletion,0.002996615751993671,0.003281607433478671,0.0027742239417188662,0.003989033597076131,raw_timber,today
+raw_timber|repair|repair material||share of product mass per repair,circularity,particulate matter formation,-0.0012312621447760884,0.0006922053696163731,0.0005660861410251412,0.0008356002143634176,raw_timber,today
+raw_timber|repair|repair material||share of product mass per repair,circularity,photochemical oxidant formation: human health,-0.0005034635178901381,0.0006424850944738146,0.0005270127314381331,0.0007636171657067455,raw_timber,today
+raw_timber|repair|repair material||share of product mass per repair,circularity,water use,0.001289750985617964,0.0004409513826667684,0.00035188712548543834,0.0005235218161576972,raw_timber,today
+raw_timber|end-of-life|waste|recycled_closed|share of waste,circularity,acidification,0.0011517956139946175,0.0005231807259608013,0.00037998390095926354,0.0006758910608002754,raw_timber,today
+raw_timber|end-of-life|waste|recycled_closed|share of waste,circularity,climate change,-0.0008915767453536064,0.0011768458418609119,0.000991475793558147,0.0013902030591879974,raw_timber,today
+raw_timber|end-of-life|waste|recycled_closed|share of waste,circularity,climate change: biogenic,-0.00035350195738548555,3.385644819243488e-06,2.606853893449824e-06,4.503444305634173e-06,raw_timber,today
+raw_timber|end-of-life|waste|recycled_closed|share of waste,circularity,climate change: fossil,0.0015157429190305782,0.001915403923753615,0.001628379077953276,0.002266958360593365,raw_timber,today
+raw_timber|end-of-life|waste|recycled_closed|share of waste,circularity,climate change: land use and land use change,-0.0024712419674869216,0.00042081781699725694,0.00030206445832302986,0.0005431544828003221,raw_timber,today
+raw_timber|end-of-life|waste|recycled_closed|share of waste,circularity,ecotoxicity: freshwater,0.000986304874488738,0.0004526248146734788,0.00033440143022648694,0.0005756586644340435,raw_timber,today
+raw_timber|end-of-life|waste|recycled_closed|share of waste,circularity,"ecotoxicity: freshwater, inorganics",0.0009249248466107133,0.00042920844183700236,0.00031389496768907275,0.0005481826931620149,raw_timber,today
+raw_timber|end-of-life|waste|recycled_closed|share of waste,circularity,"ecotoxicity: freshwater, organics",-0.008475494224168932,0.0052350520175422745,0.004564044499491762,0.006216734869456814,raw_timber,today
+raw_timber|end-of-life|waste|recycled_closed|share of waste,circularity,energy resources: non-renewable,0.0029583654559536855,0.005873152590086763,0.005085667336882682,0.006799544615983608,raw_timber,today
+raw_timber|end-of-life|waste|recycled_closed|share of waste,circularity,eutrophication: freshwater,0.0008790455064678511,0.00036149052189010303,0.00026568607587154505,0.00046221947248476706,raw_timber,today
+raw_timber|end-of-life|waste|recycled_closed|share of waste,circularity,eutrophication: marine,0.0012430593019818336,0.0007163884511445211,0.0005654331521728646,0.0008981818017311476,raw_timber,today
+raw_timber|end-of-life|waste|recycled_closed|share of waste,circularity,eutrophication: terrestrial,0.0010227015889898816,0.0009987840139644751,0.0008223143454020609,0.0012136362154901118,raw_timber,today
+raw_timber|end-of-life|waste|recycled_closed|share of waste,circularity,human toxicity: carcinogenic,0.001231481971815348,0.0014170778634061422,0.0011701655912050553,0.0017134082580131773,raw_timber,today
+raw_timber|end-of-life|waste|recycled_closed|share of waste,circularity,"human toxicity: carcinogenic, inorganics",0.0002462785643394984,0.00026841517084498636,0.00018374133843946698,0.0003544544628988122,raw_timber,today
+raw_timber|end-of-life|waste|recycled_closed|share of waste,circularity,"human toxicity: carcinogenic, organics",-0.011138495570941306,0.006182693470829247,0.0054046639432066244,0.007365627636015472,raw_timber,today
+raw_timber|end-of-life|waste|recycled_closed|share of waste,circularity,human toxicity: non-carcinogenic,0.0012221316289204687,0.0005233339220733539,0.00038646775154750466,0.0006710421151983567,raw_timber,today
+raw_timber|end-of-life|waste|recycled_closed|share of waste,circularity,"human toxicity: non-carcinogenic, inorganics",0.0011596924884088818,0.0004795152639839033,0.0003478569033219238,0.0006208662132067802,raw_timber,today
+raw_timber|end-of-life|waste|recycled_closed|share of waste,circularity,"human toxicity: non-carcinogenic, organics",-0.0036475767005248287,0.006071626945445841,0.005286262158276181,0.007130600370845111,raw_timber,today
+raw_timber|end-of-life|waste|recycled_closed|share of waste,circularity,ionising radiation: human health,-0.0011774848086868446,0.00070418245669239,0.0005662295127592992,0.0008698538523980554,raw_timber,today
+raw_timber|end-of-life|waste|recycled_closed|share of waste,circularity,land use,0.0009444006068305649,4.287338479769666e-05,3.740544191147002e-05,5.056218857100002e-05,raw_timber,today
+raw_timber|end-of-life|waste|recycled_closed|share of waste,circularity,material resources: metals/minerals,-0.008002030767462998,0.0095225008724551,0.008064992958393689,0.01123070172841205,raw_timber,today
+raw_timber|end-of-life|waste|recycled_closed|share of waste,circularity,ozone depletion,-0.0058876623942852166,0.005694771714741228,0.004996714964386423,0.006786334780601422,raw_timber,today
+raw_timber|end-of-life|waste|recycled_closed|share of waste,circularity,particulate matter formation,0.00201775478175641,0.003017776133649439,0.002569479814586721,0.003547749216070567,raw_timber,today
+raw_timber|end-of-life|waste|recycled_closed|share of waste,circularity,photochemical oxidant formation: human health,0.0005514123287021167,0.0015504299837618032,0.0013098094245199868,0.001833854196590712,raw_timber,today
+raw_timber|end-of-life|waste|recycled_closed|share of waste,circularity,water use,0.000560687616879865,0.0013808776886114213,0.0011494317065701015,0.0016147345473571067,raw_timber,today
+raw_timber|end-of-life|waste|incinerated|share of waste,circularity,acidification,-0.0012545119907848654,0.0005135741325751542,0.00037045953062418826,0.0006991348342300683,raw_timber,today
+raw_timber|end-of-life|waste|incinerated|share of waste,circularity,climate change,0.001215148449681718,0.001137331751321458,0.0009506726544394387,0.0013908426725030773,raw_timber,today
+raw_timber|end-of-life|waste|incinerated|share of waste,circularity,climate change: biogenic,-0.0003404635442375799,3.080584874123062e-06,2.3480063072560194e-06,4.177173896400539e-06,raw_timber,today
+raw_timber|end-of-life|waste|incinerated|share of waste,circularity,climate change: fossil,0.001088236109532787,0.0018509736348418608,0.0015435884319217465,0.0022701337855082476,raw_timber,today
+raw_timber|end-of-life|waste|incinerated|share of waste,circularity,climate change: land use and land use change,-0.0014117076986338893,0.00047527133665996036,0.0003527171500375476,0.0006137716317647596,raw_timber,today
+raw_timber|end-of-life|waste|incinerated|share of waste,circularity,ecotoxicity: freshwater,-0.00013283295326798155,0.00043858478329166173,0.0003129466561831315,0.0006027982777961811,raw_timber,today
+raw_timber|end-of-life|waste|incinerated|share of waste,circularity,"ecotoxicity: freshwater, inorganics",-0.0001517222530139435,0.00041608836185248857,0.0002946434119514409,0.0005748881142591624,raw_timber,today
+raw_timber|end-of-life|waste|incinerated|share of waste,circularity,"ecotoxicity: freshwater, organics",0.0072356923418619495,0.00502047004234876,0.004231764955477178,0.005944931804457356,raw_timber,today
+raw_timber|end-of-life|waste|incinerated|share of waste,circularity,energy resources: non-renewable,0.010735970255145453,0.005471925831005661,0.004576806098914801,0.0063446426401633504,raw_timber,today
+raw_timber|end-of-life|waste|incinerated|share of waste,circularity,eutrophication: freshwater,0.00011594726079131623,0.00034523850142287256,0.0002481961305521047,0.0004689762105727154,raw_timber,today
+raw_timber|end-of-life|waste|incinerated|share of waste,circularity,eutrophication: marine,-0.0005182506095660871,0.0006949584568379664,0.0005228177072965444,0.0009081411793610671,raw_timber,today
+raw_timber|end-of-life|waste|incinerated|share of waste,circularity,eutrophication: terrestrial,-0.0009617778306440166,0.0009732808552484212,0.0007650372957897356,0.001248360923035379,raw_timber,today
+raw_timber|end-of-life|waste|incinerated|share of waste,circularity,human toxicity: carcinogenic,0.0003393843488867884,0.0013654154344956563,0.0011008223245725737,0.0017278989529096013,raw_timber,today
+raw_timber|end-of-life|waste|incinerated|share of waste,circularity,"human toxicity: carcinogenic, inorganics",-0.00040054841361797345,0.00026470203998681287,0.0001784560988170187,0.0003808943710235974,raw_timber,today
+raw_timber|end-of-life|waste|incinerated|share of waste,circularity,"human toxicity: carcinogenic, organics",0.010765110649869751,0.005911729692970811,0.0050100119602128085,0.007039697712753896,raw_timber,today
+raw_timber|end-of-life|waste|incinerated|share of waste,circularity,human toxicity: non-carcinogenic,-0.00071798556991758,0.0005122374037393009,0.00036464526389258555,0.0006987163693559508,raw_timber,today
+raw_timber|end-of-life|waste|incinerated|share of waste,circularity,"human toxicity: non-carcinogenic, inorganics",-0.0007259443984631019,0.0004698310254911419,0.0003311603732692286,0.0006481374667231184,raw_timber,today
+raw_timber|end-of-life|waste|incinerated|share of waste,circularity,"human toxicity: non-carcinogenic, organics",0.0074940068725509006,0.0058580484738790005,0.004880270925547967,0.0069528650582839635,raw_timber,today
+raw_timber|end-of-life|waste|incinerated|share of waste,circularity,ionising radiation: human health,0.0011792419615494125,0.0006358005872377779,0.0004757838195567713,0.0008540916134230136,raw_timber,today
+raw_timber|end-of-life|waste|incinerated|share of waste,circularity,land use,0.00031513609619467656,4.281639985402433e-05,3.536075837602911e-05,5.211175739501468e-05,raw_timber,today
+raw_timber|end-of-life|waste|incinerated|share of waste,circularity,material resources: metals/minerals,0.018558109888749143,0.009177840520883803,0.007803172078545968,0.010978862661721182,raw_timber,today
+raw_timber|end-of-life|waste|incinerated|share of waste,circularity,ozone depletion,0.009057498606887381,0.005506881962325139,0.004687124381148439,0.00654619237657077,raw_timber,today
+raw_timber|end-of-life|waste|incinerated|share of waste,circularity,particulate matter formation,0.0010857066320063382,0.0028849370583899484,0.0023828197111552545,0.0034821451596764026,raw_timber,today
+raw_timber|end-of-life|waste|incinerated|share of waste,circularity,photochemical oxidant formation: human health,-0.0006736102992196769,0.001501017321331736,0.0012213812261978908,0.001852129892110636,raw_timber,today
+raw_timber|end-of-life|waste|incinerated|share of waste,circularity,water use,-0.003571206647816483,0.0014172303798936348,0.0011817747238252183,0.001739593535961407,raw_timber,today
+raw_timber|production|Scanning||electricity location,location,acidification,0.0031051099622971235,0.00029215598446784356,0.00023777690055582656,0.0003663111307857227,raw_timber,today
+raw_timber|production|Scanning||electricity location,location,climate change,0.004967554011878044,0.00015692842502078674,0.00013430886327315525,0.00018803524575502175,raw_timber,today
+raw_timber|production|Scanning||electricity location,location,climate change: biogenic,-0.0006779915956654772,2.3773682645181503e-06,1.9308214881112665e-06,2.8757020293333675e-06,raw_timber,today
+raw_timber|production|Scanning||electricity location,location,climate change: fossil,0.004839495343077383,0.00025744502698551893,0.00021411042591177486,0.0003137311450985802,raw_timber,today
+raw_timber|production|Scanning||electricity location,location,climate change: land use and land use change,0.0017311073466376762,0.00032576573947625757,0.0002731642577436999,0.00039318107036228646,raw_timber,today
+raw_timber|production|Scanning||electricity location,location,ecotoxicity: freshwater,0.002747911381660825,0.00030841694335812035,0.0002559899046191495,0.00037439173244153615,raw_timber,today
+raw_timber|production|Scanning||electricity location,location,"ecotoxicity: freshwater, inorganics",0.0026702973756833163,0.0003086213690497478,0.00025666001134620563,0.0003748316045643944,raw_timber,today
+raw_timber|production|Scanning||electricity location,location,"ecotoxicity: freshwater, organics",-0.004423116783671756,0.00021362193166518821,0.00018705642020594993,0.000245767098757609,raw_timber,today
+raw_timber|production|Scanning||electricity location,location,energy resources: non-renewable,0.004231666910894731,0.00016790626044524157,0.0001423326335130137,0.00019453933569762758,raw_timber,today
+raw_timber|production|Scanning||electricity location,location,eutrophication: freshwater,0.002629548980585426,0.00031294021982430453,0.00026023493013022206,0.00037521311807591976,raw_timber,today
+raw_timber|production|Scanning||electricity location,location,eutrophication: marine,0.004572078713055643,0.00027726056657173266,0.0002309499388956434,0.00034418961141383813,raw_timber,today
+raw_timber|production|Scanning||electricity location,location,eutrophication: terrestrial,0.004407050114711338,0.00028276643790602025,0.0002350110869257045,0.0003450709327251732,raw_timber,today
+raw_timber|production|Scanning||electricity location,location,human toxicity: carcinogenic,0.0046907456334541004,0.0002761923726352882,0.00023060092589039248,0.0003389035504815004,raw_timber,today
+raw_timber|production|Scanning||electricity location,location,"human toxicity: carcinogenic, inorganics",0.0016479436959417671,0.00030272552863302434,0.0002507799272506157,0.00037584101470769326,raw_timber,today
+raw_timber|production|Scanning||electricity location,location,"human toxicity: carcinogenic, organics",-0.0031067221173227853,0.00012179139512634619,0.00010779193240925752,0.00014292820044595062,raw_timber,today
+raw_timber|production|Scanning||electricity location,location,human toxicity: non-carcinogenic,0.0034053801860511605,0.000296643349664956,0.000242572165234144,0.0003706023103175148,raw_timber,today
+raw_timber|production|Scanning||electricity location,location,"human toxicity: non-carcinogenic, inorganics",0.0032466486436318943,0.0002977485644033979,0.00024354011780681412,0.0003714611695431708,raw_timber,today
+raw_timber|production|Scanning||electricity location,location,"human toxicity: non-carcinogenic, organics",0.004044431607916269,0.00013338652538366026,0.00011491168624087878,0.00016125132335457313,raw_timber,today
+raw_timber|production|Scanning||electricity location,location,ionising radiation: human health,0.001192013801864174,0.00035904408712617594,0.0003067687628455725,0.00041099255142504923,raw_timber,today
+raw_timber|production|Scanning||electricity location,location,land use,0.00011862189209246782,5.116153515971208e-06,4.322888912743308e-06,5.821533456172719e-06,raw_timber,today
+raw_timber|production|Scanning||electricity location,location,material resources: metals/minerals,-0.0019101680573598572,0.00017592309326463866,0.00014560732697886783,0.00021312754413584713,raw_timber,today
+raw_timber|production|Scanning||electricity location,location,ozone depletion,-0.003040342144669144,9.699986864271376e-05,8.190499007151348e-05,0.00011583845685233687,raw_timber,today
+raw_timber|production|Scanning||electricity location,location,particulate matter formation,0.005345838971437423,0.00026612952904935124,0.00022207719551171188,0.0003266079542731419,raw_timber,today
+raw_timber|production|Scanning||electricity location,location,photochemical oxidant formation: human health,0.004538521077042966,0.0002656417831428885,0.00022269702493922717,0.0003194429804277046,raw_timber,today
+raw_timber|production|Scanning||electricity location,location,water use,0.0027456400723936043,0.0003020769664343397,0.00026404441718929023,0.00034890571997327034,raw_timber,today
+raw_timber|production|CNC milling||electricity location,location,acidification,0.09717736669815528,0.10804326448822359,0.08934371865512392,0.13229302161563417,raw_timber,today
+raw_timber|production|CNC milling||electricity location,location,climate change,0.036640230424433415,0.05655678219114052,0.04777793996216213,0.06789296802076449,raw_timber,today
+raw_timber|production|CNC milling||electricity location,location,climate change: biogenic,0.0014467801199397,0.000783052111844979,0.0006699706815339114,0.0009239188072014573,raw_timber,today
+raw_timber|production|CNC milling||electricity location,location,climate change: fossil,0.07035820982505807,0.09277602642630116,0.07746707078084605,0.11005108611535111,raw_timber,today
+raw_timber|production|CNC milling||electricity location,location,climate change: land use and land use change,0.10460191906780235,0.10612066699516419,0.08990651569863693,0.12764252709777935,raw_timber,today
+raw_timber|production|CNC milling||electricity location,location,ecotoxicity: freshwater,0.08640085358919877,0.11186463208529358,0.09465129797737167,0.13452730629217793,raw_timber,today
+raw_timber|production|CNC milling||electricity location,location,"ecotoxicity: freshwater, inorganics",0.08663085159748772,0.11199876714115363,0.09494107778672824,0.1346545374742461,raw_timber,today
+raw_timber|production|CNC milling||electricity location,location,"ecotoxicity: freshwater, organics",0.10906493006265686,0.06989625730730376,0.06090952926317668,0.08129536698396493,raw_timber,today
+raw_timber|production|CNC milling||electricity location,location,energy resources: non-renewable,0.07084192370787859,0.05547836397474955,0.04715669252928237,0.06551094740361947,raw_timber,today
+raw_timber|production|CNC milling||electricity location,location,eutrophication: freshwater,0.08878518109047953,0.11501100421451614,0.09821103178584466,0.13764751108351814,raw_timber,today
+raw_timber|production|CNC milling||electricity location,location,eutrophication: marine,0.08378379987381952,0.1014118114340035,0.08431825942119354,0.1227913403513623,raw_timber,today
+raw_timber|production|CNC milling||electricity location,location,eutrophication: terrestrial,0.08678748543795288,0.10252610056137061,0.08589829159864373,0.12361907481593525,raw_timber,today
+raw_timber|production|CNC milling||electricity location,location,human toxicity: carcinogenic,0.08683743659461829,0.09933110283168056,0.08194395871392095,0.11981723453605067,raw_timber,today
+raw_timber|production|CNC milling||electricity location,location,"human toxicity: carcinogenic, inorganics",0.09448824383419384,0.11062254132882976,0.09300883602199603,0.13438067688429367,raw_timber,today
+raw_timber|production|CNC milling||electricity location,location,"human toxicity: carcinogenic, organics",0.10430966594922615,0.04050957487360046,0.03575676441520149,0.04705181062205295,raw_timber,today
+raw_timber|production|CNC milling||electricity location,location,human toxicity: non-carcinogenic,0.09018114583418618,0.10684244227450491,0.08865563262742052,0.13132189326504853,raw_timber,today
+raw_timber|production|CNC milling||electricity location,location,"human toxicity: non-carcinogenic, inorganics",0.09089859382496814,0.10725875727264936,0.08922288111233677,0.1318421208820671,raw_timber,today
+raw_timber|production|CNC milling||electricity location,location,"human toxicity: non-carcinogenic, organics",0.0432447602094557,0.0454494042003742,0.03816179523845851,0.05424519728814256,raw_timber,today
+raw_timber|production|CNC milling||electricity location,location,ionising radiation: human health,0.069236116544648,0.11004326810100024,0.09472621156781616,0.12726424421008184,raw_timber,today
+raw_timber|production|CNC milling||electricity location,location,land use,0.0033008506643232545,0.0016081199301304023,0.0013951977198502765,0.001907471064243137,raw_timber,today
+raw_timber|production|CNC milling||electricity location,location,material resources: metals/minerals,0.09290982587144342,0.05438422755866687,0.04665832403312982,0.06408924968398529,raw_timber,today
+raw_timber|production|CNC milling||electricity location,location,ozone depletion,0.025530663113520043,0.03078966278503878,0.026328619400125687,0.03573274705781243,raw_timber,today
+raw_timber|production|CNC milling||electricity location,location,particulate matter formation,0.09479800567574334,0.0953065292730011,0.07976797427162562,0.11541310713147358,raw_timber,today
+raw_timber|production|CNC milling||electricity location,location,photochemical oxidant formation: human health,0.0860000504001596,0.09862043273835669,0.08313508645924171,0.11671567773611646,raw_timber,today
+raw_timber|production|CNC milling||electricity location,location,water use,0.06780515249878837,0.1051799434414357,0.09197062296529956,0.12177299497196478,raw_timber,today
+raw_timber|repair|Scanning||electricity location,location,acidification,4.363083541303303e-05,1.0927318128324589e-05,8.330340678018188e-06,1.4040760529979616e-05,raw_timber,today
+raw_timber|repair|Scanning||electricity location,location,climate change,0.0006550497959022215,5.957116315662716e-06,4.9555664215794015e-06,7.152278717883509e-06,raw_timber,today
+raw_timber|repair|Scanning||electricity location,location,climate change: biogenic,8.2265488330926e-05,8.492006612438154e-08,6.745191051216218e-08,1.038173987272846e-07,raw_timber,today
+raw_timber|repair|Scanning||electricity location,location,climate change: fossil,0.00044033742499345705,9.771780609544188e-06,8.017285129563638e-06,1.1962967989969217e-05,raw_timber,today
+raw_timber|repair|Scanning||electricity location,location,climate change: land use and land use change,-0.0002933885710593069,1.1896101614253425e-05,1.0079799417394814e-05,1.4051834363064242e-05,raw_timber,today
+raw_timber|repair|Scanning||electricity location,location,ecotoxicity: freshwater,0.00011650227848541785,1.1940631495500929e-05,9.598104270498674e-06,1.5043255736412717e-05,raw_timber,today
+raw_timber|repair|Scanning||electricity location,location,"ecotoxicity: freshwater, inorganics",0.00010823301893775648,1.1957720425770195e-05,9.615781621877546e-06,1.5079130138902548e-05,raw_timber,today
+raw_timber|repair|Scanning||electricity location,location,"ecotoxicity: freshwater, organics",-5.932469446516847e-05,8.261650260047306e-06,6.961041772039479e-06,9.469503513076685e-06,raw_timber,today
+raw_timber|repair|Scanning||electricity location,location,energy resources: non-renewable,0.0009575015757954003,5.573268249578216e-06,4.804363086291786e-06,6.6092323786532645e-06,raw_timber,today
+raw_timber|repair|Scanning||electricity location,location,eutrophication: freshwater,0.00019157006732807908,1.2375431785298064e-05,1.0180469220674716e-05,1.4980513466311682e-05,raw_timber,today
+raw_timber|repair|Scanning||electricity location,location,eutrophication: marine,0.0003042703768889087,1.053864565858564e-05,8.355483648142549e-06,1.3282502568697554e-05,raw_timber,today
+raw_timber|repair|Scanning||electricity location,location,eutrophication: terrestrial,0.00016843319877501086,1.061745128282284e-05,8.495016606593675e-06,1.3413389801747057e-05,raw_timber,today
+raw_timber|repair|Scanning||electricity location,location,human toxicity: carcinogenic,0.0002845288582910988,1.0441891202706883e-05,8.352465397453869e-06,1.303080638320112e-05,raw_timber,today
+raw_timber|repair|Scanning||electricity location,location,"human toxicity: carcinogenic, inorganics",-3.529785107250325e-05,1.1581093426697835e-05,8.968674516897866e-06,1.4853572471550561e-05,raw_timber,today
+raw_timber|repair|Scanning||electricity location,location,"human toxicity: carcinogenic, organics",-0.0001193876796074436,4.577260015519024e-06,3.872823526995385e-06,5.42483816141596e-06,raw_timber,today
+raw_timber|repair|Scanning||electricity location,location,human toxicity: non-carcinogenic,0.00012991280066144457,1.127614035325795e-05,8.6475063609028e-06,1.452629720883369e-05,raw_timber,today
+raw_timber|repair|Scanning||electricity location,location,"human toxicity: non-carcinogenic, inorganics",0.00011568297037407372,1.1318763999052562e-05,8.670900267579087e-06,1.4575668047502955e-05,raw_timber,today
+raw_timber|repair|Scanning||electricity location,location,"human toxicity: non-carcinogenic, organics",0.0004219408483638818,4.965195271533035e-06,4.115657978763377e-06,5.771371944718457e-06,raw_timber,today
+raw_timber|repair|Scanning||electricity location,location,ionising radiation: human health,7.525273295799483e-05,1.2420703762043131e-05,1.0488113395209201e-05,1.423769936400713e-05,raw_timber,today
+raw_timber|repair|Scanning||electricity location,location,land use,6.707193119733922e-05,1.821022455915772e-07,1.5008293112511822e-07,2.1631855688505435e-07,raw_timber,today
+raw_timber|repair|Scanning||electricity location,location,material resources: metals/minerals,-0.00019083977366182934,6.777049321364398e-06,5.9280984437507876e-06,8.118514725508763e-06,raw_timber,today
+raw_timber|repair|Scanning||electricity location,location,ozone depletion,2.578659175198356e-05,3.5566466081720854e-06,3.0622236240150008e-06,4.095979094991267e-06,raw_timber,today
+raw_timber|repair|Scanning||electricity location,location,particulate matter formation,0.0002351877268343083,9.841079359339432e-06,8.161486882918472e-06,1.2099458627357438e-05,raw_timber,today
+raw_timber|repair|Scanning||electricity location,location,photochemical oxidant formation: human health,0.0002308332529438857,1.0041581282339998e-05,8.243834142120921e-06,1.232021033556985e-05,raw_timber,today
+raw_timber|repair|Scanning||electricity location,location,water use,0.0002985833498745579,1.1475430199722277e-05,9.923772600445684e-06,1.3507538042344695e-05,raw_timber,today
+raw_timber|repair|CNC milling||electricity location,location,acidification,0.011424945212326013,0.004572984879347972,0.003542886615046651,0.00565248511484269,raw_timber,today
+raw_timber|repair|CNC milling||electricity location,location,climate change,0.004298583399544903,0.0023201810981763405,0.0019505840365086752,0.0026935344409199247,raw_timber,today
+raw_timber|repair|CNC milling||electricity location,location,climate change: biogenic,-0.0010767882711797028,3.877763086546497e-05,3.193762349937206e-05,4.520522661359909e-05,raw_timber,today
+raw_timber|repair|CNC milling||electricity location,location,climate change: fossil,0.008304655776473074,0.0038038069815352,0.00311813617173788,0.004552861351436298,raw_timber,today
+raw_timber|repair|CNC milling||electricity location,location,climate change: land use and land use change,0.006446587276119642,0.004205656900179197,0.0035552385897872642,0.004970929408353481,raw_timber,today
+raw_timber|repair|CNC milling||electricity location,location,ecotoxicity: freshwater,0.01010195322536099,0.004675520593772975,0.0038619435426156734,0.005640443002398194,raw_timber,today
+raw_timber|repair|CNC milling||electricity location,location,"ecotoxicity: freshwater, inorganics",0.010072871078738048,0.004681867536472241,0.003863756007609893,0.005646759671266897,raw_timber,today
+raw_timber|repair|CNC milling||electricity location,location,"ecotoxicity: freshwater, organics",-0.0012250607549853466,0.0025251098726063992,0.0021881643211659435,0.0028868648425818843,raw_timber,today
+raw_timber|repair|CNC milling||electricity location,location,energy resources: non-renewable,0.009633547891540844,0.002334857112670067,0.0019497559085099876,0.002679735931914637,raw_timber,today
+raw_timber|repair|CNC milling||electricity location,location,eutrophication: freshwater,0.009614846883096578,0.004809603132833949,0.003946162408945205,0.005647306498837848,raw_timber,today
+raw_timber|repair|CNC milling||electricity location,location,eutrophication: marine,0.010651541743686375,0.004213179979438591,0.0033688067958587654,0.00517644928542077,raw_timber,today
+raw_timber|repair|CNC milling||electricity location,location,eutrophication: terrestrial,0.010336018910162104,0.004245761391298335,0.0033695854952214914,0.0051942253910901275,raw_timber,today
+raw_timber|repair|CNC milling||electricity location,location,human toxicity: carcinogenic,0.01092807446506782,0.004133891195875685,0.003310486514221082,0.005055560095970695,raw_timber,today
+raw_timber|repair|CNC milling||electricity location,location,"human toxicity: carcinogenic, inorganics",0.010336455389958744,0.004658231955864259,0.0036782857361047287,0.0057601201590740825,raw_timber,today
+raw_timber|repair|CNC milling||electricity location,location,"human toxicity: carcinogenic, organics",0.002052548298291796,0.0014271224088699941,0.0012349628920835332,0.0016741587907510552,raw_timber,today
+raw_timber|repair|CNC milling||electricity location,location,human toxicity: non-carcinogenic,0.011013837839769443,0.004524674725990485,0.0035396175029232656,0.005593349355457776,raw_timber,today
+raw_timber|repair|CNC milling||electricity location,location,"human toxicity: non-carcinogenic, inorganics",0.010987253843993105,0.004544113247183054,0.0035480764233056243,0.005614527429995591,raw_timber,today
+raw_timber|repair|CNC milling||electricity location,location,"human toxicity: non-carcinogenic, organics",0.0036762625936133725,0.0018478677751367222,0.001557616354628126,0.0021377049056482004,raw_timber,today
+raw_timber|repair|CNC milling||electricity location,location,ionising radiation: human health,0.011375684798247406,0.004687048891843357,0.003866611859565274,0.005457780795348223,raw_timber,today
+raw_timber|repair|CNC milling||electricity location,location,land use,0.0014641690796715833,6.617823671128167e-05,5.383877800467309e-05,7.696351041470246e-05,raw_timber,today
+raw_timber|repair|CNC milling||electricity location,location,material resources: metals/minerals,0.005170874677336447,0.0023817418255198406,0.001979739278208067,0.0028384459146371514,raw_timber,today
+raw_timber|repair|CNC milling||electricity location,location,ozone depletion,-0.005864356673104591,0.0012537463984279398,0.0010843087923600085,0.0014638417994968995,raw_timber,today
+raw_timber|repair|CNC milling||electricity location,location,particulate matter formation,0.0098127404241066,0.0038650129461819433,0.0031502815307335183,0.004545210136414032,raw_timber,today
+raw_timber|repair|CNC milling||electricity location,location,photochemical oxidant formation: human health,0.009263151939816182,0.003990508659976924,0.003220075034155318,0.004785406348874496,raw_timber,today
+raw_timber|repair|CNC milling||electricity location,location,water use,0.00478693081723877,0.004426413060081584,0.003701130582558048,0.0051805794566144,raw_timber,today
+raw_timber|end-of-life|waste||disposal grid location,location,acidification,0.9370750215801597,0.9636661985978581,0.8672971776435472,1.0674376732673914,raw_timber,today
+raw_timber|end-of-life|waste||disposal grid location,location,climate change,0.612004185804158,0.49121938025655326,0.429581570627011,0.5585985288678936,raw_timber,today
+raw_timber|end-of-life|waste||disposal grid location,location,climate change: biogenic,0.0552011394476281,0.005760183883554036,0.004744197155268327,0.006753303179452573,raw_timber,today
+raw_timber|end-of-life|waste||disposal grid location,location,climate change: fossil,0.8639880791362579,0.8056331558674811,0.7223825841743725,0.8977493633100548,raw_timber,today
+raw_timber|end-of-life|waste||disposal grid location,location,climate change: land use and land use change,0.8344545852183016,0.8780597586437486,0.7930090253229134,0.9662068296828664,raw_timber,today
+raw_timber|end-of-life|waste||disposal grid location,location,ecotoxicity: freshwater,0.9222430985584833,0.9706873802526498,0.8673202115137671,1.0656624996601392,raw_timber,today
+raw_timber|end-of-life|waste||disposal grid location,location,"ecotoxicity: freshwater, inorganics",0.9204896462911724,0.9719260057199488,0.8689093641683249,1.0667881857098576,raw_timber,today
+raw_timber|end-of-life|waste||disposal grid location,location,"ecotoxicity: freshwater, organics",0.4179187510393925,0.549124322587153,0.4818963517781218,0.6210822763490078,raw_timber,today
+raw_timber|end-of-life|waste||disposal grid location,location,energy resources: non-renewable,0.1578036752677836,0.4649218131475783,0.40889709183831335,0.5205459942637005,raw_timber,today
+raw_timber|end-of-life|waste||disposal grid location,location,eutrophication: freshwater,0.9378691961768051,0.9636219223227683,0.8657241741638934,1.0643774200587213,raw_timber,today
+raw_timber|end-of-life|waste||disposal grid location,location,eutrophication: marine,0.9153734721278154,0.8914235176199065,0.7961372814495153,0.9859120437063538,raw_timber,today
+raw_timber|end-of-life|waste||disposal grid location,location,eutrophication: terrestrial,0.9045229302657675,0.9054569393197954,0.8126199849484463,0.9914547264857059,raw_timber,today
+raw_timber|end-of-life|waste||disposal grid location,location,human toxicity: carcinogenic,0.9027164186552598,0.872344686014704,0.7844004461865036,0.9682328082659871,raw_timber,today
+raw_timber|end-of-life|waste||disposal grid location,location,"human toxicity: carcinogenic, inorganics",0.9051378033549815,0.9813682073605867,0.8804045484311833,1.073946476755666,raw_timber,today
+raw_timber|end-of-life|waste||disposal grid location,location,"human toxicity: carcinogenic, organics",0.29545621917681153,0.2984552311615849,0.2624765823115102,0.3394639659644307,raw_timber,today
+raw_timber|end-of-life|waste||disposal grid location,location,human toxicity: non-carcinogenic,0.9382393932030271,0.9580081581668717,0.8642507286354897,1.0525478770693015,raw_timber,today
+raw_timber|end-of-life|waste||disposal grid location,location,"human toxicity: non-carcinogenic, inorganics",0.9376142705827029,0.9619574444570093,0.8682577370386458,1.0571429024591057,raw_timber,today
+raw_timber|end-of-life|waste||disposal grid location,location,"human toxicity: non-carcinogenic, organics",0.5225344367581438,0.3923712181279112,0.34101773609317265,0.44076874449939807,raw_timber,today
+raw_timber|end-of-life|waste||disposal grid location,location,ionising radiation: human health,0.7038427855230232,0.9404278036879269,0.8402587041654365,1.066459837221569,raw_timber,today
+raw_timber|end-of-life|waste||disposal grid location,location,land use,-0.04082282546954328,0.013135856186985128,0.011400355146784925,0.014960897131690873,raw_timber,today
+raw_timber|end-of-life|waste||disposal grid location,location,material resources: metals/minerals,0.6809280490722098,0.42438275362084643,0.3733010285503089,0.4820201343903523,raw_timber,today
+raw_timber|end-of-life|waste||disposal grid location,location,ozone depletion,0.17504940410280329,0.2516098810685934,0.21700276534917015,0.28771172152508995,raw_timber,today
+raw_timber|end-of-life|waste||disposal grid location,location,particulate matter formation,0.8149343223365574,0.8221753727083482,0.7397714247758488,0.9051308168819265,raw_timber,today
+raw_timber|end-of-life|waste||disposal grid location,location,photochemical oxidant formation: human health,0.8429505992147327,0.8531920626705378,0.7551832475098704,0.9444681641684282,raw_timber,today
+raw_timber|end-of-life|waste||disposal grid location,location,water use,0.7870942045606714,0.8654063503192557,0.768431675061755,0.9536766268176806,raw_timber,today

@@ -1,0 +1,62 @@
+id,group,stage,item,parameter,low,high,swing,baseline
+raw_biopol|production|Milling||electricity location,location,production,Milling,electricity location,3448.3662316319896,8301.162569662354,4852.7963380303645,5155.783587736719
+raw_biopol|production|Baking||electricity location,location,production,Baking,electricity location,3529.6718200179293,8151.382618142082,4621.7107981241525,5155.783587736719
+raw_biopol|product|product size formula||wall_height,design,product,product size formula,wall_height,3299.701496151501,7424.3283663408765,4124.626870189375,5155.783587736719
+raw_biopol|product|product size formula||thickness_ratio,design,product,product size formula,thickness_ratio,4296.4863231139325,6444.729484670899,2148.2431615569667,5155.783587736719
+raw_biopol|product|product size formula||density,design,product,product size formula,density,4124.626870189376,6186.940305284064,2062.3134350946884,5155.783587736719
+raw_biopol|use|product||number of repair events,circularity,use,product,number of repair events,4379.779854781454,6268.777664368878,1888.997809587424,5155.783587736719
+raw_biopol|repair|3D printing||electricity location,location,repair,3D printing,electricity location,4506.222637044702,6352.395156947558,1846.1725199028551,5155.783587736719
+raw_biopol|production|Baking||process yield,manufacturing,production,Baking,process yield,4442.201177041744,6226.157203779183,1783.956026737439,5155.783587736719
+raw_biopol|use|product||lifetime extension per repair,circularity,use,product,lifetime extension per repair,4494.336314744722,5978.472382317325,1484.1360675726037,5155.783587736719
+raw_biopol|use|product||expected lifetime,circularity,use,product,expected lifetime,4707.938064738509,5670.344529823961,962.4064650854525,5155.783587736719
+raw_biopol|production|Milling||output rate,manufacturing,production,Milling,output rate,4833.2924390416165,5639.520310779372,806.2278717377558,5155.783587736719
+raw_biopol|production|Baking||output rate,manufacturing,production,Baking,output rate,4842.321061070467,5625.977377736096,783.6563166656288,5155.783587736719
+raw_biopol|production|Milling||power,manufacturing,production,Milling,power,4771.755759792584,5539.811415680854,768.0556558882699,5155.783587736719
+raw_biopol|production|3D printing||electricity location,location,production,3D printing,electricity location,4895.605704901714,5635.0794326015775,739.473727699864,5155.783587736719
+raw_biopol|production|Baking||power,manufacturing,production,Baking,power,4790.042799218495,5521.524376254943,731.4815770364476,5155.783587736719
+raw_biopol|production|3D printing||process yield,manufacturing,production,3D printing,process yield,5155.783587736719,5755.963413779807,600.1798260430878,5155.783587736719
+raw_biopol|production|Mixing||process yield,manufacturing,production,Mixing,process yield,5155.783587736719,5656.779647372967,500.996059636248,5155.783587736719
+raw_biopol|production|Milling||process yield,manufacturing,production,Milling,process yield,5155.783587736719,5631.923614715885,476.1400269791666,5155.783587736719
+raw_biopol|repair|repair material||share of product mass per repair,circularity,repair,repair material,share of product mass per repair,4973.244116648864,5338.323058824572,365.0789421757081,5155.783587736719
+raw_biopol|repair|3D printing||output rate,manufacturing,repair,3D printing,output rate,5029.702262664564,5344.905575344951,315.20331268038717,5155.783587736719
+raw_biopol|repair|3D printing||process yield,manufacturing,repair,3D printing,process yield,5081.84600173664,5386.838543986967,304.99254225032746,5155.783587736719
+raw_biopol|repair|3D printing||power,manufacturing,repair,3D printing,power,5009.686044497103,5301.881130976335,292.1950864792325,5155.783587736719
+raw_biopol|production|Mixing||electricity location,location,production,Mixing,electricity location,5070.4127199314835,5313.052536833001,242.6398169015174,5155.783587736719
+raw_biopol|end-of-life|waste||disposal grid location,location,end-of-life,waste,disposal grid location,5047.453677591857,5214.588701470062,167.13502387820517,5155.783587736719
+raw_biopol|production|3D printing||output rate,manufacturing,production,3D printing,output rate,5089.661076798827,5254.967354143558,165.30627734473092,5155.783587736719
+raw_biopol|production|3D printing||power,manufacturing,production,3D printing,power,5097.265061573803,5214.302113899635,117.03705232583161,5155.783587736719
+raw_biopol|production|3D printing||machine source,manufacturing,production,3D printing,machine source,5051.951160177287,5155.783587736719,103.83242755943138,5155.783587736719
+raw_biopol|production|Pea protein binder|virgin|share of input mass,design,production,Pea protein binder,share of input mass,5102.934621558299,5195.652106081843,92.71748452354404,5155.783587736719
+raw_biopol|end-of-life|waste|incinerated|share of waste,circularity,end-of-life,waste,share of waste,5128.027778344773,5184.672287307928,56.644508963155204,5155.783587736719
+raw_biopol|production|Sawdust|co-product|share of input mass,design,production,Sawdust,share of input mass,5128.773709096384,5185.044289597083,56.270580500699,5155.783587736719
+raw_biopol|production|Baking||machine source,manufacturing,production,Baking,machine source,5103.867373957003,5155.783587736719,51.91621377971569,5155.783587736719
+raw_biopol|repair|Mixing||process yield,manufacturing,repair,Mixing,process yield,5152.4289502453585,5197.716556378735,45.28760613337636,5155.783587736719
+raw_biopol|production|3D printing||machine lifetime,manufacturing,production,3D printing,machine lifetime,5138.426515267923,5181.819196439913,43.39268117199026,5155.783587736719
+raw_biopol|production|3D printing||machine weight,manufacturing,production,3D printing,machine weight,5134.955100774164,5176.612074699276,41.65697392511174,5155.783587736719
+raw_biopol|production|Mixing||output rate,manufacturing,production,Mixing,output rate,5139.2128992986645,5180.639620393801,41.4267210951366,5155.783587736719
+raw_biopol|production|Mixing||power,manufacturing,production,Mixing,power,5136.582196339513,5174.984979133927,38.402782794413724,5155.783587736719
+raw_biopol|repair|Mixing||electricity location,location,repair,Mixing,electricity location,5142.527241804229,5180.204232006328,37.67699020209966,5155.783587736719
+raw_biopol|end-of-life|waste|landfilled|share of waste,circularity,end-of-life,waste,share of waste,5137.123835216509,5173.7115852561365,36.58775003962728,5155.783587736719
+raw_biopol|production|Seagrass|wild-harvested|share of input mass,design,production,Seagrass,share of input mass,5138.764139572511,5173.497707254569,34.73356768205758,5155.783587736719
+raw_biopol|repair|3D printing||machine source,manufacturing,repair,3D printing,machine source,5129.8607500138305,5155.783587736719,25.92283772288829,5155.783587736719
+raw_biopol|production|Baking||machine lifetime,manufacturing,production,Baking,machine lifetime,5147.105051502321,5168.801392088316,21.69634058599513,5155.783587736719
+raw_biopol|production|Baking||machine weight,manufacturing,production,Baking,machine weight,5145.36934425544,5166.197831217997,20.82848696255678,5155.783587736719
+raw_biopol|production|Milling||machine source,manufacturing,production,Milling,machine source,5141.019914443113,5155.783587736719,14.763673293606189,5155.783587736719
+raw_biopol|repair|3D printing||machine lifetime,manufacturing,repair,3D printing,machine lifetime,5151.450215364244,5162.283646295431,10.83343093118674,5155.783587736719
+raw_biopol|repair|3D printing||machine weight,manufacturing,repair,3D printing,machine weight,5150.583540889749,5160.983634583688,10.400093693939198,5155.783587736719
+raw_biopol|repair|Seagrass|wild-harvested|share of input mass,design,repair,Seagrass,share of input mass,5151.264789334714,5160.486826889826,9.222037555112365,5155.783587736719
+raw_biopol|end-of-life|waste|composted|share of waste,circularity,end-of-life,waste,share of waste,5151.379734542769,5159.6888915124855,8.309156969716241,5155.783587736719
+raw_biopol|end-of-life|waste|recycled_closed|share of waste,circularity,end-of-life,waste,share of waste,5151.570012293514,5159.520154639184,7.950142345669519,5155.783587736719
+raw_biopol|repair|Mixing||output rate,manufacturing,repair,Mixing,output rate,5153.23604769708,5159.604897796178,6.368850099098381,5155.783587736719
+raw_biopol|production|Milling||machine lifetime,manufacturing,production,Milling,machine lifetime,5153.315628995063,5159.485525849205,6.16989685414228,5155.783587736719
+raw_biopol|repair|Mixing||power,manufacturing,repair,Mixing,power,5152.802005221625,5158.765170251813,5.963165030188065,5155.783587736719
+raw_biopol|production|Milling||machine weight,manufacturing,production,Milling,machine weight,5152.82203724673,5158.745138226707,5.92310097997688,5155.783587736719
+raw_biopol|repair|Pea protein binder|virgin|share of input mass,design,repair,Pea protein binder,share of input mass,5152.3549846675705,5158.266369269551,5.911384601980899,5155.783587736719
+raw_biopol|end-of-life|waste|recycled_open|share of waste,circularity,end-of-life,waste,share of waste,5153.779436496038,5157.633573497347,3.8541370013090273,5155.783587736719
+raw_biopol|repair|Hemp fiber|virgin|share of input mass,design,repair,Hemp fiber,share of input mass,5154.019151214311,5157.478830670014,3.459679455702826,5155.783587736719
+raw_biopol|production|Mixing||machine source,manufacturing,production,Mixing,machine source,5152.376586207426,5155.783587736719,3.4070015292927565,5155.783587736719
+raw_biopol|production|Mixing||machine lifetime,manufacturing,production,Mixing,machine lifetime,5155.214058796338,5156.637881147292,1.4238223509546515,5155.783587736719
+raw_biopol|production|Mixing||machine weight,manufacturing,production,Mixing,machine weight,5155.10015300826,5156.467022465177,1.366869456916902,5155.783587736719
+raw_biopol|repair|Mixing||machine source,manufacturing,repair,Mixing,machine source,5155.40738328904,5155.783587736719,0.3762044476789015,5155.783587736719
+raw_biopol|repair|Mixing||machine lifetime,manufacturing,repair,Mixing,machine lifetime,5155.720699792992,5155.87791965231,0.15721985931850213,5155.783587736719
+raw_biopol|repair|Mixing||machine weight,manufacturing,repair,Mixing,machine weight,5155.708122204246,5155.859053269192,0.15093106494623498,5155.783587736719

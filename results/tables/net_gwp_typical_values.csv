@@ -1,0 +1,31 @@
+raw_case,background,product,category,burdens,benefits,net
+raw_timber,today,RAW reclaimed timber (CNC beam),climate change,11.10115413474329,-101.29047829972684,-90.18932416498356
+raw_timber,today,RAW reclaimed timber (CNC beam) - scaled up,climate change,52.80523969159736,-101.29047829972684,-48.485238608129485
+raw_timber,today,glulam beam,climate change,19.181318322896843,-65.5069575893046,-46.32563926640776
+raw_timber,today,reinforced concrete beam,climate change,356.2118477605172,-4.383580792866773,351.8282669676504
+raw_timber,2050,RAW reclaimed timber (CNC beam),climate change,0.606743986993082,-54.041024505699994,-53.43428051870691
+raw_timber,2050,RAW reclaimed timber (CNC beam) - scaled up,climate change,3.726673321240094,-54.041024505699994,-50.3143511844599
+raw_timber,2050,glulam beam,climate change,12.276439425949192,-31.395333931073107,-19.118894505123915
+raw_timber,2050,reinforced concrete beam,climate change,224.26735085825425,-0.6433000628031686,223.62405079545107
+raw_cfw,today,RAW coreless filament winding (beam),climate change,57.78232807155289,-22.180504777708183,35.6018232938447
+raw_cfw,today,RAW coreless filament winding (beam) - scaled up,climate change,62.249379022347334,-22.180504777708183,40.06887424463915
+raw_cfw,today,glulam beam,climate change,19.181318322896843,-65.5069575893046,-46.32563926640776
+raw_cfw,today,reinforced concrete beam,climate change,356.2118477605172,-4.383580792866773,351.8282669676504
+raw_cfw,2050,RAW coreless filament winding (beam),climate change,25.728849411738384,-11.91646327427483,13.812386137463553
+raw_cfw,2050,RAW coreless filament winding (beam) - scaled up,climate change,25.921534051887757,-11.91646327427483,14.005070777612927
+raw_cfw,2050,glulam beam,climate change,12.276439425949192,-31.395333931073107,-19.118894505123915
+raw_cfw,2050,reinforced concrete beam,climate change,224.26735085825425,-0.6433000628031686,223.62405079545107
+raw_biopol,today,RAW biopol (3D-printed wall),climate change,6119.0597702631,-963.2761825263813,5155.783587736719
+raw_biopol,today,RAW biopol (3D-printed wall) - scaled up,climate change,5816.77668500278,-963.2761825263813,4853.500502476399
+raw_biopol,today,adobe brick for interior wall,climate change,544.5343738431797,0.0,544.5343738431797
+raw_biopol,today,clay brick for interior wall,climate change,560.3576020398618,0.0,560.3576020398618
+raw_biopol,2050,RAW biopol (3D-printed wall),climate change,1423.5011214941396,-830.1513372045888,593.3497842895508
+raw_biopol,2050,RAW biopol (3D-printed wall) - scaled up,climate change,1356.6212364664307,-830.1513372045888,526.4698992618419
+raw_biopol,2050,adobe brick for interior wall,climate change,233.23687164698916,0.0,233.23687164698916
+raw_biopol,2050,clay brick for interior wall,climate change,417.98381575940346,0.0,417.98381575940346
+raw_knit,today,RAW knitted hemp (membrane),climate change,209.09984184111266,-48.000707261697855,161.0991345794148
+raw_knit,today,RAW knitted hemp (membrane) - scaled up,climate change,230.8619108225314,-48.000707261697855,182.86120356083353
+raw_knit,today,synthetic polymer architectural membrane,climate change,537.7398919299604,-69.02939237593414,468.7104995540263
+raw_knit,2050,RAW knitted hemp (membrane),climate change,72.36031614360398,-33.9644111886266,38.39590495497738
+raw_knit,2050,RAW knitted hemp (membrane) - scaled up,climate change,74.92858578075224,-33.9644111886266,40.964174592125644
+raw_knit,2050,synthetic polymer architectural membrane,climate change,279.74849264893913,-10.13021421276508,269.6182784361741

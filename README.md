@@ -40,7 +40,7 @@ Steps individually:
 | 3 | `pipeline/03_results.ipynb` | bar charts today vs. 2050, spec sweeps: `results/figures`, `results/tables` |
 | 4 | `pipeline/04_uncertainty.ipynb` | the same charts with uncertainty intervals, probability tables |
 | 5 | `pipeline/05_sensitivity.ipynb` | Sobol' indices per parameter group and parameter, tornado diagrams |
-| - | `python -m pytest tests` | 15+ tests: formulas, sheet validation, sampling, Sobol' benchmark, regression against the earlier model |
+| - | `python -m pytest tests` | 21 tests: formulas, sheet validation, sampling, Sobol' benchmark, background-data completeness, regression against the earlier model |
 
 Steps 3-5 need only the committed snapshot and background data. The number of Monte Carlo draws, seeds, the spec values,
 the reference service life, the scenarios and the charted categories are all set on the sheet (`study_setup`,

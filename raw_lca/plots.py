@@ -36,11 +36,12 @@ def chart_categories(inp: Inputs) -> List[Tuple[str, str]]:
 
 
 def plot_today_vs_2050(inp: Inputs, title: str, res_a: Dict[str, Result], label_a: str, res_b: Dict[str, Result],
-                       label_b: str, intervals: Optional[dict] = None, unit_in: float = 0.2):
+                       label_b: str, intervals: Optional[dict] = None, unit_in: float = 0.2, clip: float = 300.0):
     """Burdens (solid, right), benefits (light, left) and net impact (dot) per impact category, each category shown for
     background a then background b. 100 % = largest burden or benefit of any case in either background.
     Bars have the same thickness in every chart (unit_in inches per bar); figure height follows the number of bars.
-    intervals: optional {(background label, case label): (net low, net high)} arrays over categories."""
+    intervals: optional {(background label, case label): (net low, net high)} arrays over categories; the axis is clipped
+    at +-clip % and whiskers that continue beyond it end in an arrowhead."""
     cats = chart_categories(inp)
     labels = list(res_a)
     n = len(labels)
@@ -64,6 +65,7 @@ def plot_today_vs_2050(inp: Inputs, title: str, res_a: Dict[str, Result], label_
     fig = plt.figure(figsize=(w, H))
     ax = fig.add_axes([left / w, bottom / H, (w - left - right) / w, axes_h / H])
     yticks, ylabels = [], []
+    ends = [0.0, 100.0]
     for ci, ((cat, clabel), (ya, yb)) in enumerate(zip(cats, starts)):
         if ci % 2 == 0:
             ax.axhspan(ya - gap_between / 2, yb + n + gap_between / 2, color="#F5F5F5", zorder=0, linewidth=0)
@@ -74,22 +76,29 @@ def plot_today_vs_2050(inp: Inputs, title: str, res_a: Dict[str, Result], label_
                 c = color_for(inp, l)
                 ax.barh(yi, bur, height=0.9, color=c, zorder=2)
                 ax.barh(yi, ben, height=0.9, color=c, alpha=0.4, zorder=2)
+                ends += [bur, ben, net]
                 if intervals and (lab, l) in intervals:
                     lo, hi = (v[idx[ci]] / scale[ci] * 100 for v in intervals[(lab, l)])
-                    ax.plot([lo, hi], [yi, yi], color="black", linewidth=1.0, zorder=3)
+                    ends += [lo, hi]
+                    ax.plot([max(lo, -clip), min(hi, clip)], [yi, yi], color="black", linewidth=1.0, zorder=3)
+                    if hi > clip:
+                        ax.plot(clip, yi, marker=">", color="black", markersize=4, zorder=3)
+                    if lo < -clip:
+                        ax.plot(-clip, yi, marker="<", color="black", markersize=4, zorder=3)
                 ax.scatter(net, yi, s=22, color="black", edgecolor="white", linewidth=0.7, zorder=4)
             yticks.append(y_start + n / 2)
             ylabels.append(f"{clabel}\n{lab}")
     ax.axvline(0, color="black", linewidth=0.8, zorder=3)
     ax.set_axisbelow(True); ax.grid(axis="x", color="#E3E3E3", linewidth=0.8)
     ax.set_ylim(ymax, ymin)
+    ax.set_xlim(max(min(ends), -clip) - 5, min(max(ends), clip) + 5)
     ax.set_yticks(yticks); ax.set_yticklabels(ylabels, fontsize=8); ax.tick_params(axis="y", length=0)
     ax.set_xlabel("% of largest burden or benefit in category (both backgrounds)")
     fig.suptitle(title, fontsize=11, y=1 - 0.24 / H)
     handles = [Patch(color=color_for(inp, l), label=l) for l in labels]
     handles += [Patch(color="#777777", alpha=0.4, label="benefits (lighter, left)"),
                 Line2D([0], [0], marker="o", color="none", markerfacecolor="black", markeredgecolor="white",
-                       markersize=7, label="net impact" + (" (line: uncertainty interval)" if intervals else ""))]
+                       markersize=7, label="net impact" + (" (line: uncertainty interval, arrowhead: continues beyond the axis)" if intervals else ""))]
     fig.legend(handles=handles, frameon=False, loc="lower center", ncol=2, fontsize=8)
     return fig
 
@@ -129,11 +138,12 @@ def plot_group_sensitivity(inp: Inputs, title: str, by_scenario: Dict[str, pd.Da
                 ax.plot([v["ST_lo"], v["ST_hi"]], [y, y], color="black", linewidth=0.8)
         ax.set_yticks(range(len(cats))); ax.set_yticklabels([l for _, l in cats])
         ax.set_ylim(len(cats) - 0.5, -0.5)
-        ax.set_xlim(0, 1.05); ax.set_xlabel("total-order Sobol' index"); ax.set_title(scn, fontsize=10)
+        ax.set_xlim(0, max(1.05, float(df["ST_hi"].max()) + 0.05)); ax.set_xlabel("total-order Sobol' index"); ax.set_title(scn, fontsize=10)
         ax.set_axisbelow(True); ax.grid(axis="x", color="#E3E3E3")
-    axes[0][0].legend(frameon=False, fontsize=8, loc="lower right")
     fig.suptitle(title, fontsize=11)
-    fig.tight_layout()
+    fig.legend(handles=[Patch(color=GROUP_COLORS[g], label=g) for g in groups], frameon=False, fontsize=8,
+               loc="lower center", ncol=len(groups))
+    fig.tight_layout(rect=(0, 0.06, 1, 1))
     return fig
 
 

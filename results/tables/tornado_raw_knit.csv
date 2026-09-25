@@ -1,0 +1,53 @@
+id,group,stage,item,parameter,low,high,swing,baseline
+raw_knit|production|CNC knitting||electricity location,location,production,CNC knitting,electricity location,109.47653877881835,256.1975164970454,146.72097771822706,161.0991345794148
+raw_knit|use|product||number of repair events,circularity,use,product,number of repair events,116.14096399372063,262.53153629884787,146.39057230512725,161.0991345794148
+raw_knit|production|Carding & roving||electricity location,location,production,Carding & roving,electricity location,136.31037309053295,206.76462409568404,70.4542510051511,161.0991345794148
+raw_knit|product|product size formula||areal_density,design,product,product size formula,areal_density,128.87930766353185,193.31896149529777,64.43965383176592,161.0991345794148
+raw_knit|use|product||expected lifetime,circularity,use,product,expected lifetime,140.4066485311059,187.4350259136262,47.02837738252029,161.0991345794148
+raw_knit|production|Spinning||electricity location,location,production,Spinning,electricity location,144.63784765320418,191.42387371131235,46.78602605810818,161.0991345794148
+raw_knit|production|CNC knitting||process yield,manufacturing,production,CNC knitting,process yield,157.93127327169208,200.69740092594907,42.76612765425699,161.0991345794148
+raw_knit|use|product||lifetime extension per repair,circularity,use,product,lifetime extension per repair,146.55595359388172,178.1367484154702,31.580794821588484,161.0991345794148
+raw_knit|production|Carding & roving||process yield,manufacturing,production,Carding & roving,process yield,149.35328707535655,180.6755470861786,31.32226001082205,161.0991345794148
+raw_knit|production|Spinning||process yield,manufacturing,production,Spinning,process yield,159.15434468453532,185.4090082654086,26.254663580873284,161.0991345794148
+raw_knit|production|CNC knitting||output rate,manufacturing,production,CNC knitting,output rate,150.90687280572115,176.38752723995526,25.48065443423411,161.0991345794148
+raw_knit|production|CNC knitting||power,manufacturing,production,CNC knitting,power,149.48831589629663,172.70995326253302,23.221637366236394,161.0991345794148
+raw_knit|end-of-life|waste||disposal grid location,location,end-of-life,waste,disposal grid location,149.45929075432582,167.41763275833324,17.95834200400742,161.0991345794148
+raw_knit|repair|CNC knitting||electricity location,location,repair,CNC knitting,electricity location,155.93687499935515,170.6089727711779,14.672097771822735,161.0991345794148
+raw_knit|production|Carding & roving||output rate,manufacturing,production,Carding & roving,output rate,156.28757703106442,168.31647090194042,12.028893870876004,161.0991345794148
+raw_knit|production|Carding & roving||power,manufacturing,production,Carding & roving,power,155.52371144226322,166.67455771656643,11.150846274303206,161.0991345794148
+raw_knit|production|Spinning||output rate,manufacturing,production,Spinning,output rate,157.9434937932615,165.8325957586448,7.889101965383304,161.0991345794148
+raw_knit|production|Spinning||power,manufacturing,production,Spinning,power,157.3967051524001,164.80156400642954,7.404858854029442,161.0991345794148
+raw_knit|repair|Carding & roving||electricity location,location,repair,Carding & roving,electricity location,158.62025843052663,165.66568353104174,7.045425100515104,161.0991345794148
+raw_knit|repair|repair material||share of product mass per repair,circularity,repair,repair material,share of product mass per repair,157.82063320300944,164.3776359558202,6.557002752810774,161.0991345794148
+raw_knit|end-of-life|waste|recycled_closed|share of waste,circularity,end-of-life,waste,share of waste,158.06693064750985,163.2948684611391,5.227937813629239,161.0991345794148
+raw_knit|end-of-life|waste|incinerated|share of waste,circularity,end-of-life,waste,share of waste,158.65004678826082,163.75231301983163,5.102266231570809,161.0991345794148
+raw_knit|repair|CNC knitting||process yield,manufacturing,repair,CNC knitting,process yield,160.7439115663968,165.5394222421403,4.795510675743486,161.0991345794148
+raw_knit|repair|Spinning||electricity location,location,repair,Spinning,electricity location,159.45300588679373,164.13160849260458,4.678602605810852,161.0991345794148
+raw_knit|repair|Carding & roving||process yield,manufacturing,repair,Carding & roving,process yield,159.63627321216578,163.53723685816323,3.90096364599745,161.0991345794148
+raw_knit|repair|Spinning||process yield,manufacturing,repair,Spinning,process yield,160.86621870768113,164.01058297608625,3.144364268405127,161.0991345794148
+raw_knit|production|CNC knitting||machine source,manufacturing,production,CNC knitting,machine source,158.00888375919362,161.0991345794148,3.090250820221172,161.0991345794148
+raw_knit|repair|CNC knitting||output rate,manufacturing,repair,CNC knitting,output rate,160.07990840204548,162.6279738454689,2.548065443423411,161.0991345794148
+raw_knit|repair|CNC knitting||power,manufacturing,repair,CNC knitting,power,159.938052711103,162.26021644772663,2.3221637366236223,161.0991345794148
+raw_knit|production|CNC knitting||machine lifetime,manufacturing,production,CNC knitting,machine lifetime,160.582555041653,161.8740038860575,1.2914488444044991,161.0991345794148
+raw_knit|production|CNC knitting||machine weight,manufacturing,production,CNC knitting,machine weight,160.47923913410062,161.71903002472897,1.239790890628342,161.0991345794148
+raw_knit|repair|Carding & roving||output rate,manufacturing,repair,Carding & roving,output rate,160.61797882457978,161.8208682116674,1.2028893870876232,161.0991345794148
+raw_knit|repair|Carding & roving||power,manufacturing,repair,Carding & roving,power,160.54159226569965,161.65667689313,1.115084627430349,161.0991345794148
+raw_knit|production|Carding & roving||machine source,manufacturing,production,Carding & roving,machine source,160.1098586065549,161.0991345794148,0.9892759728599003,161.0991345794148
+raw_knit|repair|Spinning||output rate,manufacturing,repair,Spinning,output rate,160.7835705007995,161.57248069733782,0.7889101965383247,161.0991345794148
+raw_knit|repair|Spinning||power,manufacturing,repair,Spinning,power,160.72889163671334,161.4693775221163,0.7404858854029612,161.0991345794148
+raw_knit|production|Spinning||machine source,manufacturing,production,Spinning,machine source,160.67869229094936,161.0991345794148,0.42044228846543774,161.0991345794148
+raw_knit|production|Carding & roving||machine lifetime,manufacturing,production,Carding & roving,machine lifetime,160.93376297869077,161.3471919805009,0.41342900181012965,161.0991345794148
+raw_knit|production|Carding & roving||machine weight,manufacturing,production,Carding & roving,machine weight,160.9006886585459,161.2975805002837,0.3968918417377836,161.0991345794148
+raw_knit|repair|CNC knitting||machine source,manufacturing,repair,CNC knitting,machine source,160.79010949739268,161.0991345794148,0.3090250820221172,161.0991345794148
+raw_knit|production|Spinning||machine lifetime,manufacturing,production,Spinning,machine lifetime,161.02885164910708,161.20455897487642,0.17570732576933779,161.0991345794148
+raw_knit|production|Spinning||machine weight,manufacturing,production,Spinning,machine weight,161.01479506304554,161.1834740957841,0.16867903273856655,161.0991345794148
+raw_knit|repair|CNC knitting||machine lifetime,manufacturing,repair,CNC knitting,machine lifetime,161.04747662563864,161.1766215100791,0.12914488444044991,161.0991345794148
+raw_knit|repair|CNC knitting||machine weight,manufacturing,repair,CNC knitting,machine weight,161.0371450348834,161.16112412394625,0.12397908906285693,161.0991345794148
+raw_knit|repair|Carding & roving||machine source,manufacturing,repair,Carding & roving,machine source,161.00020698212882,161.0991345794148,0.09892759728597866,161.0991345794148
+raw_knit|repair|Spinning||machine source,manufacturing,repair,Spinning,machine source,161.05709035056827,161.0991345794148,0.04204422884652104,161.0991345794148
+raw_knit|repair|Carding & roving||machine lifetime,manufacturing,repair,Carding & roving,machine lifetime,161.0825974193424,161.12394031952346,0.041342900181064124,161.0991345794148
+raw_knit|repair|Carding & roving||machine weight,manufacturing,repair,Carding & roving,machine weight,161.0792899873279,161.11897917150173,0.03968918417382383,161.0991345794148
+raw_knit|repair|Spinning||machine lifetime,manufacturing,repair,Spinning,machine lifetime,161.09210628638402,161.109677018961,0.017570732576984938,161.0991345794148
+raw_knit|repair|Spinning||machine weight,manufacturing,repair,Spinning,machine weight,161.0907006277779,161.10756853105175,0.01686790327386234,161.0991345794148
+raw_knit|repair|Hemp fiber|virgin|share of input mass,design,repair,Hemp fiber,share of input mass,161.0991345794148,161.0991345794148,0.0,161.0991345794148
+raw_knit|production|Hemp fiber|virgin|share of input mass,design,production,Hemp fiber,share of input mass,161.0991345794148,161.0991345794148,0.0,161.0991345794148
