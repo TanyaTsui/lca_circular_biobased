@@ -1,0 +1,12 @@
+material_name,carbon_content_kgC_per_kgWet,carbon_content_source,rotation_period_yr,rotation_period_source
+Peas,0.4076971169807151,"ecoinvent (carbon content, non-fossil × dry mass / wet mass)",1.0,Cherubini et al. 2011 (GWPbio methodology)
+Cotton fiber,0.4384249999999998,"ecoinvent (carbon content, non-fossil × dry mass / wet mass)",1.0,Cherubini et al. 2011 (GWPbio methodology)
+Hemp fiber,0.445704,"ecoinvent (carbon content, non-fossil × dry mass / wet mass)",1.0,Cherubini et al. 2011 (GWPbio methodology)
+Bark chips,0.2058333333333334,"ecoinvent (carbon content, non-fossil × dry mass / wet mass)",80.0,average between soft and hard wood
+Sawdust,0.2905882352941176,"ecoinvent (carbon content, non-fossil × dry mass / wet mass)",80.0,average between soft and hard wood
+Hard wood,0.2905882352941177,"ecoinvent (carbon content, non-fossil × dry mass / wet mass)",100.0,"Beech rotation (110–140 yr, or 80–100 yr in some countries): Analysis and evaluation of the impact of stand age on the occurrence and metamorphosis of red heartwood — iForest, 2017 (https://iforest.sisef.org/contents/?id=ifor2116-010)"
+Soft wood,0.2905882352941178,"ecoinvent (carbon content, non-fossil × dry mass / wet mass)",65.0,"Softwood CORRIM figure: Cradle-to-gate LCA of softwood lumber production, NE-NC region (https://corrim.org/wp-content/uploads/2018/06/NENC-Lumber-LCA-final-May-2013.pdf)"
+Cellulose reject fibers,0.4040000000000005,"ecoinvent (carbon content, non-fossil × dry mass / wet mass)",,
+Seagrass,0.336,"The seagrass carbon content of 0.336 of dry weight can be applied in Indonesian seagrasses — Rahmawati, Hernawan & Rustam, AIP Conference Proceedings, 2019 (https://pubs.aip.org/aip/acp/article/2120/1/030012/1024597/The-seagrass-carbon-content-of-0-336-of-dry-weight) [dry-mass basis, NOT converted to wet basis — open gap]",,
+Pea protein binder,0.2651685393258426,"derived from biopol_lca LCI chain (peas → isolate → binder), CARBON_FRACTION_PEA=0.45 (Lal, 2004)",1.0,"Annual crop, same as peas"
+glulam timber,0.4067,"ecoinvent (glued laminated timber, PUR-glue | CH: carbon content non-fossil x dry mass / wet mass)",65.0,"Softwood CORRIM figure, same as Soft wood"

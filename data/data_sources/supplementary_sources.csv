@@ -1,0 +1,7 @@
+activity_name,unit,material_source,ecoinventDataset_name,geographicalCoverage,referenceProduct,alternative_data_source,comments
+waste inert landfilling,kg,n/a,"treatment of inert waste, inert material landfill",CH,"inert waste, for final disposal",n/a,"EoL of brick/mortar/adobe baselines. Supplement to the Google Sheet - move into the sheet when confirmed"
+waste concrete landfilling,kg,n/a,"treatment of waste concrete, inert material landfill",Europe without Switzerland,waste concrete,n/a,"EoL of reinforced concrete beam baseline (supplement to sheet)"
+waste reinforced concrete recycling,kg,n/a,"treatment of waste reinforced concrete, recycling",Europe without Switzerland,waste reinforced concrete,n/a,"EoL of reinforced concrete beam baseline, applied to concrete + steel mass (supplement to sheet)"
+waste brick recycling,kg,n/a,"treatment of waste brick, recycling",CH,waste brick,n/a,"EoL of clay brick baseline (supplement to sheet)"
+waste plastic incineration,kg,n/a,"treatment of waste plastic, mixture, municipal incineration FAE",CH,"waste plastic, mixture",n/a,"EoL of polyester membrane baseline (supplement to sheet)"
+waste plastic landfilling,kg,n/a,"treatment of waste plastic, mixture, sanitary landfill",CH,"waste plastic, mixture",n/a,"EoL of polyester membrane baseline (supplement to sheet)"

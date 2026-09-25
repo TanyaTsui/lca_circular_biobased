@@ -1,0 +1,17 @@
+machining process,parameter,unit,typical value - small scale,typical value - large scale
+3D printing,machine lifetime,hrs,6000,40000
+3D printing,machine weight,kg,15,1200
+3D printing,output efficiency,kg/hr,0.05,15
+3D printing,power,kW,0.1,2
+CNC knitting,machine lifetime,hrs,10000,50000
+CNC knitting,machine weight,kg,210,2000
+CNC knitting,output efficiency,kg/hr,0.15,1.5
+CNC knitting,power,kW,0.4,4
+CNC milling,machine lifetime,hrs,12000,70000
+CNC milling,machine weight,kg,80,5000
+CNC milling,output efficiency,kg/hr,0.3,10
+CNC milling,power,kW,1.2,20
+Coreless filament winding,machine lifetime,hrs,12000,50000
+Coreless filament winding,machine weight,kg,200,5000
+Coreless filament winding,output efficiency,kg/hr,1,10
+Coreless filament winding,power,kW,1,25

@@ -1,0 +1,21 @@
+raw_case,stage,step_order,step_name,machine_weight_kg,power_kW,output_efficiency_kg_per_hr,machine_lifetime_hrs,retained_pct,electricity_location,machine_source
+raw_biopol,production,1,Milling,65,3,1,20000,100,NL,virgin
+raw_biopol,production,2,Mixing,150,1.5,10,20000,100,NL,virgin
+raw_biopol,production,3,3D printing,1000,0.4,0.875,50000,100,NL,virgin
+raw_biopol,production,4,Baking,400,5,1.75,20000,70,NL,virgin
+raw_biopol,repair,1,Mixing,80,1.5,15,15000,98,NL,virgin
+raw_biopol,repair,2,3D printing,250,2.5,0.5,20000,92,NL,virgin
+raw_timber,production,1,Scanning,2000,10,600,40000,100,NL,virgin
+raw_timber,production,2,CNC milling,1200,10,30,40000,90,NL,virgin
+raw_timber,repair,1,Scanning,2000,10,600,40000,100,NL,virgin
+raw_timber,repair,2,CNC milling,1200,10,30,40000,90,NL,virgin
+raw_cfw,production,1,Rope production,800,3,20,50000,95,NL,virgin
+raw_cfw,production,2,Coreless filament winding,3000,6,4,50000,95,NL,virgin
+raw_cfw,repair,1,Rope production,800,3,20,50000,95,NL,virgin
+raw_cfw,repair,2,Coreless filament winding,3000,6,4,50000,95,NL,virgin
+raw_knit,production,1,Carding & roving,3000,12,15,50000,85,NL,virgin
+raw_knit,production,2,Spinning,800,5,8,50000,98,NL,virgin
+raw_knit,production,3,CNC knitting,1500,4,2,50000,98,NL,virgin
+raw_knit,repair,1,Carding & roving,3000,12,15,50000,85,NL,virgin
+raw_knit,repair,2,Spinning,800,5,8,50000,98,NL,virgin
+raw_knit,repair,3,CNC knitting,1500,4,2,50000,98,NL,virgin

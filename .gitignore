@@ -1,4 +1,16 @@
-data/
+# data: commit the processed inputs and the sheet snapshot, not scratch/backups
+data/*
+!data/processed/
+data/processed/*
+!data/processed/*.csv
+data/processed/unit_burdens_dummy.csv
+data/processed/unit_burdens_UNSAFE.csv
+!data/data_sources/
+data/data_sources/*
+!data/data_sources/*.csv
+!data/data_sources/sheet_templates/
+!data/sheet_snapshot/
+
 __pycache__/
 *.pyc
 .ipynb_checkpoints/

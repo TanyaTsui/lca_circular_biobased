@@ -1,0 +1,18 @@
+material_name,unit,allocation_factor,quality_ratio,lower_heating_value_MJperKgDry,LHV_basis,conversionEfficiency_heat,conversionEfficiency_electricity
+Pea protein binder,1 kg ,0.8,0.9,22.5,Bomb-calorimetry data across nine protein samples found heat of combustion for protein varying between 22.0 and 24.6 kJ/g PubMed — directly supports this estimate,0.6,0.25
+Peas,1 kg ,0.8,0.9,16,Phyllis2 dataset - bean plant (#2888),0.6,0.25
+Cotton fiber,1 kg ,0.8,0.9,16,"Phyllis2 dataset - cotton, values between 15 and 17",0.6,0.25
+Hard wood,1 kg ,0.8,0.9,18.5,"Within the confirmed dry-matter wood range of 18.7–21.9 MJ/kg, slightly lower for deciduous species than coniferous due to lower lignin/resin content Woodenergy",0.6,0.25
+Soft wood,1 kg ,0.8,0.9,19.5,Same source — coniferous species run slightly higher than deciduous because of higher lignin and resin content Woodenergy,0.6,0.25
+Hemp fiber,1 kg ,0.8,0.9,17.5,"Phyllis2 dataset - hemp (#398, 399)",0.6,0.25
+Hemp dust,1 kg ,0.8,0.9,17,"Phyllis2 dataset - hemp (#398, 399)",0.6,0.25
+Bark chips,1 kg ,0.8,0.9,19,Placed within the general wood dry-matter range; no bark-specific literature value found,0.6,0.25
+Sawdust,1 kg ,0.8,0.9,19,Placed within the general wood dry-matter range; no bark-specific literature value found,0.6,0.25
+Cellulose reject fibers,1 kg ,0.8,0.9,11,"Paper mill reject/sludge values in the literature range widely — 8.38 MJ/kg for primary recycled-fiber sludge, ResearchGate 6.4 MJ/kg for high-ash (51.6%) de-inking sludge, ScienceDirect up to 14.31 MJ/kg for OCC papermaking sludge with 58.84% ash. ResearchGate Mineral fillers like calcium carbonate, titanium dioxide, and silica increase ash content while not contributing to combustion, lowering total calorific value. ResearchGate I picked a midpoint, but this one is genuinely uncertain without knowing your specific reject stream's filler load",0.6,0.25
+Seagrass,1 kg ,0.8,0.9,10,"Posidonia oceanica (Mediterranean seagrass) studies found heating values around 9–11 MJ/kg with very high ash content (16–36%); ResearchGate leaf debris specifically was around 10 MJ/kg, versus 13.6–15.7 MJ/kg for the more fibrous portion. ScienceDirect",0.6,0.25
+RAW product,1 kg ,0.8,0.9,16.35,conservative average of input ingredients,0.6,0.25
+,,,,,,,
+,,,,,,,
+source for allocation factors: ,https://eplca.jrc.ec.europa.eu/permalink/Annex_C_V2.1_May2020.xlsx,,,,,,
+"note: a high allocation factor (e.g. A = 0.8) means recycling rate is low, suggested less well established recycling infrastructure.",,,,,,,
+"note: the JRC uses three possible allocation factors: 0.2, 0.5, and 0.8.",,,,,,,

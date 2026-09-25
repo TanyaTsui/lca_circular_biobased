@@ -1,0 +1,13 @@
+material_name,allocation_factor,quality_ratio,lower_heating_value_MJperKgDry,LHV_basis
+Pea protein binder,0.8,0.9,22.5,Bomb-calorimetry data across nine protein samples found heat of combustion for protein varying between 22.0 and 24.6 kJ/g PubMed — directly supports this estimate
+Peas,0.8,0.9,16.0,Phyllis2 dataset - bean plant (#2888)
+Cotton fiber,0.8,0.9,16.0,"Phyllis2 dataset - cotton, values between 15 and 17"
+Hard wood,0.8,0.9,18.5,"Within the confirmed dry-matter wood range of 18.7–21.9 MJ/kg, slightly lower for deciduous species than coniferous due to lower lignin/resin content Woodenergy"
+Soft wood,0.8,0.9,19.5,Same source — coniferous species run slightly higher than deciduous because of higher lignin and resin content Woodenergy
+Hemp fiber,0.8,0.9,17.5,"Phyllis2 dataset - hemp (#398, 399)"
+Hemp dust,0.8,0.9,17.0,"Phyllis2 dataset - hemp (#398, 399)"
+Bark chips,0.8,0.9,19.0,Placed within the general wood dry-matter range; no bark-specific literature value found
+Sawdust,0.8,0.9,19.0,Placed within the general wood dry-matter range; no bark-specific literature value found
+Cellulose reject fibers,0.8,0.9,11.0,"Paper mill reject/sludge values in the literature range widely — 8.38 MJ/kg for primary recycled-fiber sludge, ResearchGate 6.4 MJ/kg for high-ash (51.6%) de-inking sludge, ScienceDirect up to 14.31 MJ/kg for OCC papermaking sludge with 58.84% ash. ResearchGate Mineral fillers like calcium carbonate, titanium dioxide, and silica increase ash content while not contributing to combustion, lowering total calorific value. ResearchGate I picked a midpoint, but this one is genuinely uncertain without knowing your specific reject stream's filler load"
+Seagrass,0.8,0.9,10.0,"Posidonia oceanica (Mediterranean seagrass) studies found heating values around 9–11 MJ/kg with very high ash content (16–36%); ResearchGate leaf debris specifically was around 10 MJ/kg, versus 13.6–15.7 MJ/kg for the more fibrous portion. ScienceDirect"
+RAW product,0.8,0.9,16.4,conservative average of input ingredients

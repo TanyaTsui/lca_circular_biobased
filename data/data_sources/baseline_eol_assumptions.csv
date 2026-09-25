@@ -1,0 +1,22 @@
+# ASSUMPTIONS - not from the Google Sheet. One row per baseline activity x EoL route; shares per activity must sum to 100.
+# route: composted / recycled_open / recycled_closed / incinerated / landfilled (same routes as RAW cases)
+# treatment_burden_name: blank = default RAW waste burden for the route; 'none' = no burden (e.g. reuse as earth); otherwise a unit_burdens.csv name
+# kg_per_unit: mass per activity unit (glulam: ecoinvent wet mass 439 kg/m3; kg activities = 1)
+# lhv_MJ_per_kg: wet-basis LHV, only for incinerated rows (energy credit); carbon_material/storage_yr: biogenic carbon storage (first row of the activity)
+activity_name,kg_per_unit,route,share_pct,treatment_burden_name,lhv_MJ_per_kg,carbon_material,storage_yr
+glulam timber,439,incinerated,60,,17.7,glulam timber,50
+glulam timber,439,recycled_open,30,,,,
+glulam timber,439,landfilled,10,,,,
+concrete,1,recycled_open,90,waste reinforced concrete recycling,,,
+concrete,1,landfilled,10,waste concrete landfilling,,,
+steel,1,recycled_open,90,waste reinforced concrete recycling,,,
+steel,1,landfilled,10,waste concrete landfilling,,,
+formwork,1,incinerated,100,,14.2,,
+adobe brick,1,recycled_closed,50,none,,,
+adobe brick,1,landfilled,50,waste inert landfilling,,,
+clay brick,1,recycled_open,50,waste brick recycling,,,
+clay brick,1,landfilled,50,waste inert landfilling,,,
+lime mortar,1,landfilled,100,waste inert landfilling,,,
+polyester fiber,1,incinerated,70,waste plastic incineration,23,,
+polyester fiber,1,landfilled,30,waste plastic landfilling,,,
+weaving,1,recycled_closed,100,none,,,

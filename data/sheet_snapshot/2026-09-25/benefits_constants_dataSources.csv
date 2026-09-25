@@ -1,0 +1,17 @@
+material_name,unit,ecoinventDataset_name,geographicalCoverage,referenceProduct,carbonContent_dryWeight_kg,carbonContent_source,rotationPeriod_yr,rotationPeriod_source,comments
+Peas,1 kg ,market for protein pea,GLO ,protein pea,to extract w/ bw,ecoinvent,1,Cherubini et al. 2011 (GWPbio methodology),
+Cotton fiber,1 kg ,market for seed-cotton,GLO ,seed-cotton,to extract w/ bw,ecoinvent,1,Cherubini et al. 2011 (GWPbio methodology),
+Hemp fiber,1 kg ,"decorticated fibre production, hemp",FR,"decorticated fibre, hemp",to extract w/ bw,ecoinvent,1,Cherubini et al. 2011 (GWPbio methodology),
+Bark chips,1 kg ,"market for bark chips, green, measured as dry mass",Europe without Switzerland,"bark chips, green, measured as dry mass",to extract w/ bw,ecoinvent,80,average between soft and hard wood,
+Sawdust,1 kg ,"market for sawdust, green, collected, measured as dry mass",Europe without Switzerland,"sawdust, green, collected, measured as dry mass",to extract w/ bw,ecoinvent,80,average between soft and hard wood,
+Hard wood,1 kg ,"market for sawnwood, hardwood, raw",GLO,"sawnwood, hardwood, raw",to extract w/ bw,ecoinvent,100,"Beech rotation (110–140 yr, or 80–100 yr in some countries): Analysis and evaluation of the impact of stand age on the occurrence and metamorphosis of red heartwood — iForest, 2017 (https://iforest.sisef.org/contents/?id=ifor2116-010)","There is a large range for hardwood rotation periods. Normally they are 100+ years, but optimized forests can be as quick as 20 years. See Short-rotation hardwood paper (8–20 yr): Fuels of the Future for Renewable Energy Sources review (https://arxiv.org/pdf/2102.00439)"
+Soft wood,1 kg ,"market for sawnwood, softwood, raw",GLO,"sawnwood, softwood, raw",to extract w/ bw,ecoinvent,65,"Softwood CORRIM figure: Cradle-to-gate LCA of softwood lumber production, NE-NC region (https://corrim.org/wp-content/uploads/2018/06/NENC-Lumber-LCA-final-May-2013.pdf)",
+Cellulose reject fibers,1 kg ,"market for waste paper, sorted",GLO,"waste paper, sorted",to extract w/ bw,ecoinvent,,,
+Seagrass,1 kg ,,,,0.336,"The seagrass carbon content of 0.336 of dry weight can be applied in Indonesian seagrasses — Rahmawati, Hernawan & Rustam, AIP Conference Proceedings, 2019 (https://pubs.aip.org/aip/acp/article/2120/1/030012/1024597/The-seagrass-carbon-content-of-0-336-of-dry-weight)",,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+note: ,,,,,,,,,
+"If the material is a (co-) product, then the benefit is carbon sequestration (GWPbio method that includes both storage and rotation period) ",,,,,,,,,
+"If material is a waste / wild-harvested product, then the benefit is delayed carbon emissions (GWPbio method that only includes storage period)",,,,,,,,,
+"on carbon content: beware that it is dry weight, so you need to take into account the water content. this info is available in ecoinvent.",,,,,,,,,

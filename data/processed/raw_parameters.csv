@@ -1,0 +1,45 @@
+raw_case,parameter,value,unit
+raw_biopol,repair_enabled,1,1/0
+raw_biopol,repair_material_pct_of_product,10,%
+raw_biopol,expected_lifetime,20,yrs
+raw_biopol,lifetime_extension_per_repair,10,yrs
+raw_biopol,number_of_repair_events,3,#
+raw_biopol,eol_share_composted,30,%
+raw_biopol,eol_share_recycled_open_loop,20,%
+raw_biopol,eol_share_recycled_closed_loop,30,%
+raw_biopol,eol_share_incinerated,10,%
+raw_biopol,eol_share_landfilled,10,%
+raw_biopol,disposal_electricity_location,NL,country code
+raw_timber,repair_enabled,1,1/0
+raw_timber,repair_material_pct_of_product,10,%
+raw_timber,expected_lifetime,50,yrs
+raw_timber,lifetime_extension_per_repair,10,yrs
+raw_timber,number_of_repair_events,2,#
+raw_timber,eol_share_composted,0,%
+raw_timber,eol_share_recycled_open_loop,0,%
+raw_timber,eol_share_recycled_closed_loop,20,%
+raw_timber,eol_share_incinerated,80,%
+raw_timber,eol_share_landfilled,0,%
+raw_timber,disposal_electricity_location,NL,country code
+raw_cfw,repair_enabled,1,1/0
+raw_cfw,repair_material_pct_of_product,10,%
+raw_cfw,expected_lifetime,50,yrs
+raw_cfw,lifetime_extension_per_repair,10,yrs
+raw_cfw,number_of_repair_events,3,#
+raw_cfw,eol_share_composted,0,%
+raw_cfw,eol_share_recycled_open_loop,0,%
+raw_cfw,eol_share_recycled_closed_loop,20,%
+raw_cfw,eol_share_incinerated,80,%
+raw_cfw,eol_share_landfilled,0,%
+raw_cfw,disposal_electricity_location,NL,country code
+raw_knit,repair_enabled,1,1/0
+raw_knit,repair_material_pct_of_product,10,%
+raw_knit,expected_lifetime,15,yrs
+raw_knit,lifetime_extension_per_repair,10,yrs
+raw_knit,number_of_repair_events,1,#
+raw_knit,eol_share_composted,0,%
+raw_knit,eol_share_recycled_open_loop,0,%
+raw_knit,eol_share_recycled_closed_loop,80,%
+raw_knit,eol_share_incinerated,20,%
+raw_knit,eol_share_landfilled,0,%
+raw_knit,disposal_electricity_location,NL,country code
