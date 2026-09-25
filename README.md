@@ -14,7 +14,8 @@ Google Sheet ──► sheet snapshot ──► background LCI ──► model �
                                            ecoinvent, premise)
 ```
 
-- **All parameters are on the Google Sheet** (see [docs/sheet_guide.md](docs/sheet_guide.md)): the numbers of the RAW cases
+- **All parameters are on the Google Sheet** (layout: [docs/RAW_LCA_inputs_v2.xlsx](docs/RAW_LCA_inputs_v2.xlsx), open it in
+  Google Sheets to create the sheet; guide for partners: [docs/sheet_guide.md](docs/sheet_guide.md)): the numbers of the RAW cases
   (filled in by the case partners), the baseline products, the constants, the scenarios and the analysis settings. There
   are no parameters in the code.
 - A **snapshot** of the sheet (one CSV per tab, `data/sheet_snapshot/<date>/`) is what the results are computed from, so they
@@ -35,7 +36,7 @@ Steps individually:
 
 | step | command / notebook | output |
 |---|---|---|
-| 1 | `python pipeline/01_fetch_sheet.py` (`--check` = validate the newest snapshot only) | `data/sheet_snapshot/<date>/` |
+| 1 | `python pipeline/01_fetch_sheet.py` (`--check` = validate the newest snapshot only; needs `SHEET_ID` in `raw_lca/sheet.py`) | `data/sheet_snapshot/<date>/` |
 | 2 | `pipeline/02_background_lci.ipynb` (needs an ecoinvent licence and a premise key, see `.env.example`; hours) | `data/background/` |
 | 3 | `pipeline/03_results.ipynb` | bar charts today vs. 2050, spec sweeps: `results/figures`, `results/tables` |
 | 4 | `pipeline/04_uncertainty.ipynb` | the same charts with uncertainty intervals, probability tables |
@@ -57,7 +58,7 @@ data/sheet_snapshot/ frozen copies of the sheet
 data/background/     unit burdens, carbon content, Monte Carlo samples
 results/             figures and tables (generated)
 tests/               tests, including the frozen numbers of the earlier notebook model (tests/golden)
-docs/                methods.md, sheet_guide.md
+docs/                methods.md, sheet_guide.md, RAW_LCA_inputs_v2.xlsx (the sheet layout to import into Google Sheets)
 run_all.py           regenerate everything
 ```
 

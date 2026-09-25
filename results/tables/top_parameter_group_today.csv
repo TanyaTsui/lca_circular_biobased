@@ -1,0 +1,9 @@
+,biopol,knit,timber,cfw
+climate change,location,location,location*,location
+ozone depletion,location,location*,design,design
+particulate matter formation,design,circularity,location,design
+acidification,location,circularity,location,design
+freshwater eutrophication,location,location,location,location
+land use,design,circularity,design,design
+water use,design,circularity,location,design
+mineral resources,design,circularity,location*,design

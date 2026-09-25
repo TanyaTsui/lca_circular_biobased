@@ -1,7 +1,7 @@
 """
 Lifecycle model: burdens and benefits of a RAW case or a baseline product, per impact category.
 
-Formulas follow 02_model.ipynb (circular footprint formula for recycled input and end-of-life, backward-solved
+Formulas follow the earlier notebook model 02_model.ipynb (git tag v0.1-product-comparison): circular footprint formula for recycled input and end-of-life, backward-solved
 process chains, GWP_bio and dynamic-CF carbon storage credits). Every number comes from the sheet (via `Inputs`),
 the background data, or a case resolved from the parameter table - none is defined here.
 

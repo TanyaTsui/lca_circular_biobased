@@ -9,12 +9,12 @@ Pea protein binder,kg,virgin,,RER,,biopol_lca_database,
 Hemp dust,kg,co-product,"decorticated fibre production, hemp",FR,hemp residues,,
 Bark chips,kg,co-product,"market for bark chips, green, measured as dry mass",Europe without Switzerland,"bark chips, green, measured as dry mass",,
 Sawdust,kg,co-product,"market for sawdust, green, collected, measured as dry mass",Europe without Switzerland,"sawdust, green, collected, measured as dry mass",,
-Cellulose reject fibers,kg,co-product,,RER,,road transport 50 km,
-Peas,kg,recycled,,RER,,road transport 50 km,
+Cellulose reject fibers,kg,co-product,,RER,,road transport,distance: transport_distance_km on the constants tab
+Peas,kg,recycled,,RER,,road transport,distance: transport_distance_km on the constants tab
 Cotton fiber,kg,recycled,market for waste yarn and waste textile,RoW,waste yarn and waste textile,,
 Hard wood,kg,recycled,"market group for waste wood, untreated",RER,"waste wood, untreated",,
 Soft wood,kg,recycled,"market group for waste wood, untreated",RER,"waste wood, untreated",,
-Seagrass,kg,wild-harvested,,,,road transport 50 km,
+Seagrass,kg,wild-harvested,,,,road transport,distance: transport_distance_km on the constants tab
 Baseline cases,,,,,,,
 glulam timber,m3,,"market for glued laminated timber, PUR-glue",CH,"glued laminated timber, PUR-glue",,
 concrete,kg,,"market for concrete, medium strength",RoW,"concrete, medium strength",,
@@ -37,13 +37,20 @@ Road transport ,ton km,,"market for transport, freight, lorry, unspecified",RER,
 Processes,,,,,,,
 energy use,kwh,,"market for electricity, low voltage",lookup: all european countries,"electricity, low voltage",,
 machine wear,kg,virgin,"market for industrial machine, heavy, unspecified",RER,"industrial machine, heavy, unspecified",,
-machine wear,kg,recycled,,RER,,road transport 50 km,
+machine wear,kg,recycled,,RER,,road transport,distance: transport_distance_km on the constants tab
 waste composting,kg,,"treatment of biowaste, industrial composting",RoW,biowaste,,
 waste recycling,kg,,"treatment of waste wood, post-consumer, sorting and shredding",RoW,"wood chips, from post-consumer wood, dry, measured as dry mass",,
 waste incineration,kg,,"treatment of biowaste, municipal incineration",GLO,biowaste,,
 waste landfilling,kg,,"treatment of biowaste, open dump",RoW,biowaste,,
 Avoided burdens,,,,,,,
 avoided burden - composting,kg,,market for compost,GLO,compost,,
-avoided buden - open loop recycling,kg,,"market for wood chips, dry, measured as dry mass",RER,"wood chips, dry, measured as dry mass",,
+avoided burden - open loop recycling,kg,,"market for wood chips, dry, measured as dry mass",RER,"wood chips, dry, measured as dry mass",,
 "avoided burden - incineration, heat",MJ,,"market group for heat, district or industrial, natural gas",RER,"heat, district or industrial, natural gas",,
 "avoided burden - incineration, electricity",kwh,,"market for electricity, low voltage",lookup: all european countries,"electricity, low voltage",,
+End-of-life datasets for baseline products,,,,,,,
+waste inert landfilling,kg,,"treatment of inert waste, inert material landfill",CH,"inert waste, for final disposal",,EoL of brick/mortar/adobe baselines
+waste concrete landfilling,kg,,"treatment of waste concrete, inert material landfill",Europe without Switzerland,waste concrete,,EoL of reinforced concrete beam baseline
+waste reinforced concrete recycling,kg,,"treatment of waste reinforced concrete, recycling",Europe without Switzerland,waste reinforced concrete,,"EoL of reinforced concrete beam baseline, applied to concrete + steel mass"
+waste brick recycling,kg,,"treatment of waste brick, recycling",CH,waste brick,,EoL of clay brick baseline
+waste plastic incineration,kg,,"treatment of waste plastic, mixture, municipal incineration FAE",CH,"waste plastic, mixture",,EoL of polyester membrane baseline
+waste plastic landfilling,kg,,"treatment of waste plastic, mixture, sanitary landfill",CH,"waste plastic, mixture",,EoL of polyester membrane baseline

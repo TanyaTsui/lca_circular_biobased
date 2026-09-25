@@ -1,5 +1,0 @@
-raw_case,display_name,comments
-raw_biopol,RAW biopol (3D-printed wall),Ported from HTML preset 'biopol' (today line). Wall mass from sheet: length x 3 m x 0.3 m x 350 kg/m3 - check thickness/density with Carl.
-raw_timber,RAW reclaimed timber (CNC beam),Ported from HTML preset 'timber'. Beam mass from sheet: span x (span/20) x (span/60) x 480 kg/m3 - check dimensions and density with Amin and Nadja.
-raw_cfw,RAW coreless filament winding (beam),"Ported from HTML preset 'coreless_winding'. Sheet mass = span x 550 m fibre x 0.006 kg/m = 3.3 kg per m span, flagged in the sheet as 'ridiculously light' - check with Fabian and Otto. Fibre/resin split and machine table (CFW: 5000 kg, 25 kW, 10 kg/hr at large scale) also to be confirmed."
-raw_knit,RAW knitted hemp (membrane),Ported from HTML preset 'knit_hemp'. Membrane mass from sheet: coverage x 0.4 kg/m2 - check with Yulia.

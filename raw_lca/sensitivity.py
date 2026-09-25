@@ -100,3 +100,23 @@ def tornado(model: Model, raw_case_id: str, category: str, spec_value: Optional[
         rows.append(dict(id=i, group=r["group"], stage=r["stage"], item=r["item"], parameter=r["parameter"],
                          low=min(ys), high=max(ys), swing=max(ys) - min(ys), baseline=y0))
     return pd.DataFrame(rows).sort_values("swing", ascending=False).reset_index(drop=True)
+
+
+GROUP_ORDER = ("design", "manufacturing", "circularity", "location")
+
+
+def group_samples(model: Model, raw_case_id: str, n: int, seed: int, spec_value: Optional[float] = None,
+                  scaled_up: bool = False) -> Dict[str, np.ndarray]:
+    """Net impact (n draws x impact categories) of a RAW case when only the parameters of ONE group are varied by Monte
+    Carlo (from their sheet distributions; locations uniformly from `location_choices`) and all others stay at their
+    typical value. {group: array}."""
+    inp = model.inp
+    ids_all = inp.params.varying_ids(raw_case_id, inp.location_choices)
+    groups = inp.params.group_of()
+    rng = np.random.default_rng(seed)
+    out = {}
+    for g in GROUP_ORDER:
+        ids = [i for i in ids_all if groups[i] == g]
+        if ids:
+            out[g] = _output_fn(model, raw_case_id, ids, spec_value, scaled_up)(rng.random((n, len(ids))))
+    return out

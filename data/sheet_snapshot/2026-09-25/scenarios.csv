@@ -1,0 +1,4 @@
+scenario_id,label,premise_model,premise_pathway,premise_year,comments,in_results
+baseline,today,,,,Ecoinvent 3.12 cut-off as is,True
+image_SSP2-M_2050,2050 (SSP2-M),image,SSP2-M,2050,"premise scenario, medium ambition",False
+image_SSP2-L_2050,2050,image,SSP2-L,2050,premise scenario used for the 2050 results,True

@@ -50,3 +50,21 @@ def test_background_samples_add_spread_even_with_fixed_parameters():
     ua = run_uncertainty(inp, {"baseline": Model(inp, bg)}, "raw_knit", 20, 1)["baseline"]
     label = next(iter(ua.net))
     assert ua.net[label][:, bg.gwp_index].std() > 0
+
+
+def test_group_samples_vary_only_their_own_group():
+    """with a group varied, the output changes; with all numeric ranges removed only categorical groups remain"""
+    from raw_lca.sensitivity import GROUP_ORDER, group_samples
+    inp = load_inputs(SNAPSHOT)
+    model = Model(inp, Background(BACKGROUND, "baseline"))
+    s = group_samples(model, "raw_knit", 30, 1)
+    assert set(s) <= set(GROUP_ORDER) and all(a.shape == (30, len(model.bg.categories)) for a in s.values())
+    assert all(a[:, model.gwp].std() > 0 for a in s.values())
+    from raw_lca.params import ParameterSet
+    df = inp.params.df.copy()
+    numeric = df["distribution"] != "choice"
+    df.loc[numeric, "min"] = df.loc[numeric, "typical_value"]
+    df.loc[numeric, "max"] = df.loc[numeric, "typical_value"]
+    inp.params = ParameterSet(df)                     # rebuild: the table is cached per case
+    # only categorical parameters (locations, machine source) can still vary once the numeric ranges are removed
+    assert set(group_samples(model, "raw_knit", 5, 1)) <= {"manufacturing", "location"}

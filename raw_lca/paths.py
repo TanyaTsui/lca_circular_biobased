@@ -8,10 +8,8 @@ RESULTS = ROOT / "results"
 
 
 def newest_snapshot() -> Path:
-    """Newest folder of data/sheet_snapshot/ that has the redesigned sheet tabs."""
+    """Newest folder of data/sheet_snapshot/ (they are named by date)."""
     folders = sorted(p for p in SNAPSHOTS.glob("*") if (p / "products.csv").exists())
-    if folders:
-        return folders[-1]
-    templates = ROOT / "data" / "sheet_templates"       # transition: before the redesigned sheet exists
-    print(f"NOTICE: no sheet snapshot with the redesigned tabs yet - using {templates}")
-    return templates
+    if not folders:
+        raise FileNotFoundError(f"no sheet snapshot in {SNAPSHOTS} - run pipeline/01_fetch_sheet.py")
+    return folders[-1]

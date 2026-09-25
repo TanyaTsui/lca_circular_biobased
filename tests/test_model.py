@@ -1,6 +1,7 @@
 """
 Model tests.
- 1. golden: reproduces the frozen results of 02_model.ipynb (its biopol setup, 1 kg) for three backgrounds.
+ 1. golden: reproduces the frozen results of 02_model.ipynb (its biopol setup, 1 kg) for three backgrounds
+    (tests/golden/02_model_biopol.json; the notebook itself is only in git tag v0.1-product-comparison).
     02_model multiplied the electricity credit of incineration (MJ of fuel energy) by a burden per kWh; the new model
     converts MJ to kWh (constant mj_per_kwh = 3.6 on the sheet). Setting it to 1 reproduces 02_model exactly.
  2. the unit fix changes only the incineration electricity credit, by the factor 1/3.6.

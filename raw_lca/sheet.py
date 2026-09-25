@@ -17,7 +17,9 @@ import pandas as pd
 from .formulas import evaluate_formula, formula_variables
 from .params import DISTRIBUTIONS, GROUPS
 
-SHEET_ID = "1Vx1XDlohZulOEaFFgliiqx3JaZp4rxqQ-LC8B0_qGW4"
+# Id of the Google Sheet (the part of its URL after /d/). The sheet must be viewable by "anyone with the link" for the
+# download to work without login. docs/RAW_LCA_inputs_v2.xlsx is the layout it was created from.
+SHEET_ID = "1aiMhvFkKEoIe5zj3Iw_sEgMJv2QC-z1JwMJHB3PcIwc"
 STATUSES = ("placeholder", "partner estimate", "measured", "literature")
 REQUIRED_TABS = ("baselines", "products", "study_setup", "scenarios", "impact_categories", "constants",
                  "eol_routes", "baseline_eol_setup", "gwpbio_table", "dcf_bern", "EoL_constants",
@@ -30,6 +32,9 @@ CHAIN_PARAMETERS = ("machine weight", "power", "output rate", "machine lifetime"
 
 def fetch_snapshot(out_dir, sheet_id: str = SHEET_ID) -> Path:
     """Download the whole sheet and write one verbatim CSV per tab into out_dir/<today>/."""
+    if not sheet_id:
+        raise ValueError("SHEET_ID is not set in raw_lca/sheet.py: open docs/RAW_LCA_inputs_v2.xlsx in Google Sheets, "
+                         "share it (anyone with the link can view), and put its id there.")
     url = f"https://docs.google.com/spreadsheets/d/{sheet_id}/export?format=xlsx"
     xlsx = urllib.request.urlopen(url).read()
     folder = Path(out_dir) / datetime.date.today().isoformat()

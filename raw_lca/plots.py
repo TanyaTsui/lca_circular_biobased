@@ -176,3 +176,112 @@ def plot_tornado(title: str, df: pd.DataFrame, category_unit: str, top: int = 12
     ax.set_axisbelow(True); ax.grid(axis="x", color="#E3E3E3")
     fig.tight_layout()
     return fig
+
+
+YESNO_STYLE = {"yes": ("#CFEBD8", "#12703A"), "no": ("#F6CFCF", "#A61C1C"), "n/a": ("#E6E6E6", "#777777")}
+
+
+def plot_yes_no_tables(tables: Dict[Tuple[str, str], pd.DataFrame], row_titles: List[str], col_titles: List[str],
+                       title: str = ""):
+    """Grid of yes/no tables: one row of tables per comparison (row_titles), one column per background (col_titles).
+    tables[(row title, column title)] = DataFrame of 'yes' / 'no' / 'n/a' (rows: impact categories, columns: cases)."""
+    first = next(iter(tables.values()))
+    n_rows, n_cols = first.shape
+    cell_w, cell_h = 0.75, 0.32
+    label_w = 2.1
+    fig_w = len(col_titles) * (label_w + n_cols * cell_w) + 0.6
+    fig_h = len(row_titles) * (n_rows * cell_h + 1.15) + 0.6
+    fig, axes = plt.subplots(len(row_titles), len(col_titles), figsize=(fig_w, fig_h), squeeze=False)
+    for ri, rt in enumerate(row_titles):
+        for ci, ct in enumerate(col_titles):
+            ax, df = axes[ri][ci], tables[(rt, ct)]
+            ax.set_xlim(-label_w / cell_w, n_cols); ax.set_ylim(n_rows, -1.1)
+            ax.axis("off")
+            ax.set_title(f"{rt}  -  {ct}", fontsize=10, loc="left", fontweight="bold", pad=4)
+            for j, col in enumerate(df.columns):
+                ax.text(j + 0.5, -0.55, col, ha="center", va="center", fontsize=9, fontweight="bold")
+            for i, (cat, row) in enumerate(df.iterrows()):
+                ax.text(-0.1, i + 0.5, cat, ha="right", va="center", fontsize=8.5)
+                for j, v in enumerate(row):
+                    fill, ink = YESNO_STYLE[v]
+                    ax.add_patch(plt.Rectangle((j + 0.03, i + 0.03), 0.94, 0.94, facecolor=fill, edgecolor="white"))
+                    ax.text(j + 0.5, i + 0.5, v, ha="center", va="center", fontsize=9, color=ink, fontweight="bold")
+    if title:
+        fig.suptitle(title, fontsize=11)
+    fig.tight_layout(rect=(0, 0, 1, 0.97 if title else 1))
+    return fig
+
+
+def plot_top_group_tables(tables: Dict[str, pd.DataFrame], title: str = ""):
+    """Tables of the most important parameter group per impact category (rows) and RAW case (columns), one per
+    background, cells coloured by group (same colours as the sensitivity charts)."""
+    first = next(iter(tables.values()))
+    n_rows, n_cols = first.shape
+    cell_w, cell_h, label_w = 1.25, 0.32, 2.1
+    fig, axes = plt.subplots(1, len(tables), figsize=(len(tables) * (label_w + n_cols * cell_w) + 0.6, n_rows * cell_h + 1.3),
+                             squeeze=False)
+    for ax, (lab, df) in zip(axes[0], tables.items()):
+        ax.set_xlim(-label_w / cell_w, n_cols); ax.set_ylim(n_rows, -1.1); ax.axis("off")
+        ax.set_title(lab, fontsize=10, loc="left", fontweight="bold", pad=4)
+        for j, col in enumerate(df.columns):
+            ax.text(j + 0.5, -0.55, col, ha="center", va="center", fontsize=9, fontweight="bold")
+        for i, (cat, row) in enumerate(df.iterrows()):
+            ax.text(-0.05, i + 0.5, cat, ha="right", va="center", fontsize=8.5)
+            for j, v in enumerate(row):
+                g = str(v).rstrip("*")
+                color = GROUP_COLORS.get(g, "#AAAAAA")
+                ax.add_patch(plt.Rectangle((j + 0.03, i + 0.03), 0.94, 0.94, facecolor=color, alpha=0.85, edgecolor="white"))
+                ax.text(j + 0.5, i + 0.5, v, ha="center", va="center", fontsize=8.5, color="white", fontweight="bold")
+    fig.text(0.01, 0.01, "* close call: the 95 % interval of the top group overlaps that of the runner-up", fontsize=7.5, color="#555")
+    if title:
+        fig.suptitle(title, fontsize=11)
+    fig.tight_layout(rect=(0, 0.03, 1, 0.95 if title else 1))
+    return fig
+
+
+def plot_group_boxplots(inp: Inputs, title: str, samples: Dict[str, np.ndarray], typical: np.ndarray, whis,
+                        category_names: List[str], units: Dict[str, str], unit_in: float = 0.24):
+    """One chart for one background: for each charted impact category four horizontal box plots, one per parameter group.
+    In a box plot only the parameters of that group are varied by Monte Carlo (all others at typical values). Box: 25-75 %,
+    whiskers: `whis` percentiles, line: median; the dotted line marks the net impact at typical values.
+    Axis: % of the largest net impact of the category in this chart (100 % = the largest absolute value among the whisker ends
+    and the typical-value result, over the four groups; the absolute value is given next to the category name).
+    Negative values are net benefits. All boxes have the same thickness (unit_in inches per box)."""
+    cats = chart_categories(inp)
+    groups = [g for g in GROUP_COLORS if g in samples]
+    n = len(groups)
+    gap = 1.0
+    ymax = len(cats) * (n + gap) - gap
+    w, left, right, top, bottom = 9.0, 2.6, 0.3, 0.8, 1.3
+    axes_h = (ymax + gap) * unit_in
+    H = axes_h + top + bottom
+    fig = plt.figure(figsize=(w, H))
+    ax = fig.add_axes([left / w, bottom / H, (w - left - right) / w, axes_h / H])
+    yticks, ylabels = [], []
+    for ci, (cat, clabel) in enumerate(cats):
+        k = category_names.index(cat)
+        y0 = ci * (n + gap)
+        scale = max([abs(np.percentile(samples[g][:, k], q)) for g in groups for q in whis] + [abs(typical[k])]) or 1.0
+        if ci % 2 == 0:
+            ax.axhspan(y0 - gap / 2, y0 + n - 1 + gap / 2 + 0.0, color="#F5F5F5", zorder=0, linewidth=0)
+        bp = ax.boxplot([samples[g][:, k] / scale * 100 for g in groups], vert=False, whis=whis, showfliers=False,
+                        patch_artist=True, widths=0.78, positions=[y0 + j for j in range(n)])
+        for patch, g in zip(bp["boxes"], groups):
+            patch.set(facecolor=GROUP_COLORS[g], edgecolor="#333333", linewidth=0.8, zorder=2)
+        for med in bp["medians"]:
+            med.set(color="black", linewidth=1.3, zorder=3)
+        for wk in bp["whiskers"] + bp["caps"]:
+            wk.set(color="#333333", linewidth=0.8, zorder=2)
+        ax.plot([typical[k] / scale * 100] * 2, [y0 - 0.5, y0 + n - 0.5], color="black", linestyle=":", linewidth=1, zorder=4)
+        yticks.append(y0 + (n - 1) / 2)
+        ylabels.append(f"{clabel}\n100 % = {scale:.3g}\n{units.get(cat, '')}")
+    ax.set_ylim(ymax + gap / 2, -gap / 2 - 0.1)
+    ax.set_yticks(yticks); ax.set_yticklabels(ylabels, fontsize=8); ax.tick_params(axis="y", length=0)
+    ax.axvline(0, color="black", linewidth=0.8, zorder=1)
+    ax.set_axisbelow(True); ax.grid(axis="x", color="#E3E3E3", linewidth=0.8)
+    ax.set_xlabel("% of the largest net impact of the category in this chart", fontsize=9)
+    fig.suptitle(title, fontsize=11, y=1 - 0.2 / H)
+    fig.legend(handles=[Patch(facecolor=GROUP_COLORS[g], edgecolor="#333333", label=g) for g in groups]
+               + [Line2D([0], [0], color="black", linestyle=":", label="net impact at typical values")],
+               frameon=False, loc="lower center", ncol=len(groups) + 1, fontsize=8)
+    return fig

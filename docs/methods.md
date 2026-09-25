@@ -77,7 +77,9 @@ kept at their typical value). BOM and end-of-life shares are re-normalised to 10
 are used in every scenario (paired), and each draw also uses one iteration of the background Monte Carlo
 (`data/background/unit_burden_samples_<scenario>.npz`): the technosphere and biosphere matrices are sampled from
 ecoinvent's uncertainty data once per iteration and all activities are solved on that draw, so processes shared between
-materials are correlated. Characterisation factors, carbon contents and the constants on the sheet are not sampled.
+materials are correlated. When there are more parameter draws than background iterations (2000 vs. 500 by default), draw `i`
+uses background iteration `i mod 500`. Characterisation factors, carbon contents and the constants on the sheet are not sampled;
+background uncertainty is only sampled for the countries in `location_choices` and only for the scenarios flagged `in_results`.
 Reported: median and the percentile interval set on `study_setup`, and the share of draws in which a RAW case has a lower
 net impact than a baseline.
 
