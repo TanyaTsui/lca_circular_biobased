@@ -1,0 +1,26 @@
+category,unit,label,plot_in_bar_charts
+climate change,kg CO2-eq,climate change,True
+ozone depletion,kg CFC-11-eq,ozone depletion,True
+particulate matter formation,disease incidence,particulate matter formation,True
+acidification,mol H+-eq,acidification,True
+eutrophication: freshwater,kg P-eq,freshwater eutrophication,True
+land use,dimensionless (soil quality index),land use,True
+water use,m3 world-eq deprived,water use,True
+material resources: metals/minerals,kg Sb-eq,mineral resources,True
+climate change: biogenic,kg CO2-eq,climate change: biogenic,False
+climate change: fossil,kg CO2-eq,climate change: fossil,False
+climate change: land use and land use change,kg CO2-eq,climate change: land use and land use change,False
+ecotoxicity: freshwater,CTUe,ecotoxicity: freshwater,False
+"ecotoxicity: freshwater, inorganics",CTUe,"ecotoxicity: freshwater, inorganics",False
+"ecotoxicity: freshwater, organics",CTUe,"ecotoxicity: freshwater, organics",False
+energy resources: non-renewable,MJ,energy resources: non-renewable,False
+eutrophication: marine,kg N-eq,eutrophication: marine,False
+eutrophication: terrestrial,mol N-eq,eutrophication: terrestrial,False
+human toxicity: carcinogenic,CTUh,human toxicity: carcinogenic,False
+"human toxicity: carcinogenic, inorganics",CTUh,"human toxicity: carcinogenic, inorganics",False
+"human toxicity: carcinogenic, organics",CTUh,"human toxicity: carcinogenic, organics",False
+human toxicity: non-carcinogenic,CTUh,human toxicity: non-carcinogenic,False
+"human toxicity: non-carcinogenic, inorganics",CTUh,"human toxicity: non-carcinogenic, inorganics",False
+"human toxicity: non-carcinogenic, organics",CTUh,"human toxicity: non-carcinogenic, organics",False
+ionising radiation: human health,kBq U235-eq,ionising radiation: human health,False
+photochemical oxidant formation: human health,dimensionless (tropospheric ozone concentration increase),photochemical oxidant formation: human health,False

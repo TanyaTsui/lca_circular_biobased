@@ -1,0 +1,9 @@
+constant,value,unit,description,source
+time_horizon_yr,100,yrs,Time horizon of the GWP_bio and dynamic characterisation factors,Guest et al. 2012; Levasseur et al. 2010
+transport_distance_km,50,km,"Road-transport distance for collected (co-product, recycled, wild-harvested) materials",assumption
+quality_ratio_primary,1.0,-,Quality of primary (virgin) material in the circular footprint formula (Qp),"assumption, no data"
+co2_c_molar_ratio,3.666667,kg CO2 / kg C,Molar mass ratio CO2 to C (44 / 12),physical constant
+mj_per_kwh,3.6,MJ/kWh,Unit conversion for the incineration electricity credit,physical constant
+machine_wear_activity,machine wear,-,Activity (in unit_burdens_dataSources) that gives the burden of one kg of machine wear,
+electricity_activity,energy use,-,"Activity (in unit_burdens_dataSources) that gives the burden of one kWh of electricity, per country",
+raw_product_eol_row,RAW product,-,"Row of the EoL_constants tab that gives the allocation factor, quality ratio, LHV and conversion efficiencies used for RAW products",

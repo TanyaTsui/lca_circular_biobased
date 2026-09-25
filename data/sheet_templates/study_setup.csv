@@ -1,0 +1,17 @@
+parameter,value,unit,description
+reference_service_life,50,yrs,Every product is compared over this period: results are scaled by reference life / product life
+spec_span,6,m,"Beam span used for the beam cases (raw_timber, raw_cfw and their baselines)"
+spec_length,4,m,Wall length used for the wall case (raw_biopol and its baselines)
+spec_coverage,100,m2,Membrane coverage used for the membrane case (raw_knit and its baseline)
+sweep_span,3:12:10,min:max:steps (m),Range of beam spans for the spec sweep
+sweep_length,2:12:11,min:max:steps (m),Range of wall lengths for the spec sweep
+sweep_coverage,10:500:10,min:max:steps (m2),Range of membrane coverages for the spec sweep
+location_choices,NL;DE;FR;ES;IT;PL;SE,country codes,Countries between which the location parameters vary in the sensitivity/uncertainty analysis (placeholder list)
+mc_iterations,2000,#,Monte Carlo iterations for the parameter uncertainty analysis
+interval_percentiles,5;95,percent,Lower and upper percentile of the uncertainty intervals drawn in the charts
+ecoinvent_version,3.12,-,ecoinvent release used for the background
+ecoinvent_system_model,cutoff,-,ecoinvent system model
+impact_method,EF v3.1,-,LCIA method family (Brightway method names ecoinvent-<version> / <family> / ...)
+mc_seed,42,-,Random seed (makes results reproducible)
+background_mc_iterations,500,#,Brightway Monte Carlo iterations sampled for the background (ecoinvent) uncertainty
+sobol_base_samples,512,#,Base sample size N of the Sobol sensitivity analysis

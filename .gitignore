@@ -1,5 +1,9 @@
-# data: commit the processed inputs and the sheet snapshot, not scratch/backups
+# data: commit the sheet snapshots, the sheet templates and the background data; not scratch/backups
 data/*
+!data/sheet_snapshot/
+!data/sheet_templates/
+!data/background/
+# legacy (removed in the cleanup): processed/data_sources
 !data/processed/
 data/processed/*
 !data/processed/*.csv
@@ -9,10 +13,10 @@ data/processed/unit_burdens_UNSAFE.csv
 data/data_sources/*
 !data/data_sources/*.csv
 !data/data_sources/sheet_templates/
-!data/sheet_snapshot/
 
 __pycache__/
 *.pyc
+.pytest_cache/
 .ipynb_checkpoints/
 .venv/
 venv/
