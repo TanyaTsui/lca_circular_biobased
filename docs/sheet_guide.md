@@ -12,7 +12,7 @@ tabs are maintained by the LCA team.
 |---|---|---|---|
 | 1 Goal and scope | purple | `fu_comparison`, `study_setup`, `impact_categories`, `scenarios` | the four comparative LCAs (functional unit, service life, baselines compared), product sizes, analysis settings, charted categories, background scenarios |
 | 2 Life cycle inventories (LCI) | teal | `lci_raw_biopol`, `lci_raw_timber`, `lci_raw_cfw`, `lci_raw_knit`, `lci_baselines` | the LCI of each RAW prototype (materials, machines, lifetime, repair, end of life, location, scaled-up machine values) and of each baseline (per kg of product) |
-| 3 Product size (parametric LCA) | green | `product_size_formulas`, `product_size_constants` | the formula giving the kg of each product from its size, and the fixed constants in it |
+| 3 Product size (parametric LCA) | green | `product_size_formulas` | the formula giving the kg of each product from its size (its constants are `product size` rows on the LCI tabs) |
 | 4 Data sources and end-of-life constants | blue | `unit_burdens_dataSources`, `benefits_constants_dataSources`, `EoL_constants`, `eol_routes` | link to ecoinvent (and `eol_type` of waste treatments), carbon content, per-material end-of-life constants (allocation factor, quality, heating value), the RAW end-of-life routes |
 | 5 Modelling constants | orange | `constants`, `gwpbio_table`, `dcf_bern` | physical and method constants, carbon storage method tables |
 
@@ -31,19 +31,18 @@ Defines the functional unit of each of the four comparative LCAs and which two c
 | `quantifier_label`, `quantifier_unit` | documentation of the spec that sizes the product (e.g. "beam span", "m"); the formula machinery still uses `spec_variable`/`spec_label`/`spec_unit` on `product_size_formulas` |
 | `baseline_biobased`, `baseline_fossil` | the conventional bio-based and fossil-based baseline this RAW case is compared with (case names on `lci_baselines`); leave one blank if there's no baseline of that kind yet |
 
-## `product_size_constants`: one row per constant
+## Product size rows (on every LCI tab)
 
-The fixed constants used in a case's `product_size_formulas` formula (e.g. `depth_ratio`, `concrete_density`, `wall_height`). These
-are geometry/material constants, not LCI data: they are **never varied** by the uncertainty or sensitivity
-analysis, unlike the numbers on the LCI tabs.
+The constants in a case's `product_size_formulas` formula (e.g. `depth_ratio`, `fibre_length_per_span`,
+`areal_density`, densities) are rows on that case's LCI tab, with `stage = product size`, `item = product` and
+`parameter` = the name used in the formula. Like any other number they have a typical value and a range:
+- on the `lci_raw_*` tabs they are in the **design** group, so design improvements (e.g. a shorter fibre path per
+  metre of span, a lighter knit per m2) show up in the sensitivity analysis and in the uncertainty analysis;
+- on `lci_baselines` they vary in the uncertainty analysis only.
 
-| column | meaning |
-|---|---|
-| `case` | the case this constant belongs to (RAW case or baseline) |
-| `parameter` | the name used in the `formula` column of `product_size_formulas` |
-| `description`, `unit` | what the number is |
-| `value` | the fixed value used by the model |
-| `source`, `comments` | where the number comes from, anything the LCA team should know |
+`wall_height` is part of the functional unit (a 3 m high partition wall): it is `fixed` and must be equal for the
+compared walls. Glulam's `density` is also fixed, because glulam timber is bought in m3 at 1 / density m3 per kg of
+product (its production row).
 
 ## `lci_baselines`: LCI per kg of product
 
@@ -53,6 +52,7 @@ product the functional unit needs.
 
 | rows | `item` | `qualifier` | `parameter` |
 |---|---|---|---|
+| size formula constants (`stage = product size`) | `product` | - | the name used in the formula (see above) |
 | materials and other inputs (`stage = production`) | an activity on `unit_burdens_dataSources` (e.g. `concrete`, `formwork`) | - | `amount per kg product` (unit of that activity per kg, e.g. `kg/kg`, `m3/kg`) |
 | end of life (`stage = end-of-life`) | the waste treatment: an activity on `unit_burdens_dataSources` with an `eol_type` | the material that is treated: a row of `EoL_constants` | `amount per kg product` (kg of that material to that treatment per kg of product) |
 | service life (`stage = use`) | `product` | - | `service life` |
@@ -76,7 +76,7 @@ carbon storage credit for the product's service life, for the mass in its end-of
 |---|---|
 | `case` | the RAW case (do not change) |
 | `group` | which kind of choice this number is (used by the sensitivity analysis, RAW cases only): **design** (what the product is made of), **manufacturing** (machines, loading, yield), **circularity** (lifetime, repair, end of life), **location** (which country's electricity) |
-| `stage` | production, repair, use, end-of-life, or general (the location row) |
+| `stage` | product size, production, repair, use, end-of-life, or general (the location row) |
 | `item` | the material, the process step or "waste" the number belongs to. The order of the process steps is the order of the rows |
 | `parameter`, `description`, `unit` | what the number is |
 | **`typical`** | your best estimate |
@@ -90,8 +90,8 @@ carbon storage credit for the product's service life, for the mass in its end-of
 
 Please fill in `typical`, `min`, `max`, `source` and set `status` for every row. Empty ranges or `placeholder` rows are
 highlighted. You may add rows for extra materials or process steps: copy an existing row of the same kind and change
-`item` (the material must exist on the `unit_burdens_dataSources` tab, the step is any name). Product-size-formula
-constants (density, depth/width ratios, ...) don't live here any more - they're on `product_size_constants`.
+`item` (the material must exist on the `unit_burdens_dataSources` tab, the step is any name). The constants of your
+product's size formula are the `product size` rows at the top of the tab (see above).
 
 ### Things to know
 - **Shares** (bill of materials, end-of-life routes) of one stage should add up to 100 %; the model re-normalises them.

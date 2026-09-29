@@ -1,4 +1,6 @@
 case,group,stage,item,qualifier,parameter,description,unit,typical,min,max,scaled_up,distribution,choices,source,status,comments
+raw_cfw,design,product size,product,,fibre_length_per_span,Metres of fibre wound per metre of beam span,m/m,550,440,660,,triangular,,product_LCIs formula (previous version of the sheet),placeholder,
+raw_cfw,design,product size,product,,fibre_mass_per_length,Mass of one metre of fibre (incl. resin),kg/m,0.006,0.0048,0.0072,,triangular,,product_LCIs formula (previous version of the sheet),placeholder,
 raw_cfw,design,production,Hemp fiber,virgin,share of input mass,Share of the production input mass made of this material (virgin); the shares of one stage add up to 100 %,%,60,48,72,,triangular,,,placeholder,
 raw_cfw,design,production,Fiber glue (epoxy resin),virgin,share of input mass,Share of the production input mass made of this material (virgin); the shares of one stage add up to 100 %,%,40,32,48,,triangular,,,placeholder,
 raw_cfw,design,repair,Hemp fiber,virgin,share of input mass,Share of the repair input mass made of this material (virgin); the shares of one stage add up to 100 %,%,60,48,72,,triangular,,,placeholder,

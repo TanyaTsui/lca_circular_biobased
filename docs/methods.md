@@ -22,8 +22,11 @@ EF v3.1 impact categories (25 categories in the data, the ones plotted are flagg
 
 **Product size.** The mass (kg) of every product follows from the spec through one formula per product on the
 `product_size_formulas` tab (e.g. beam mass = depth x width x span x density with depth = span / `depth_ratio`). The constants in the formulas are
-fixed values on the `product_size_constants` tab, not numbers inside the formula, and are not varied by the
-uncertainty or sensitivity analysis.
+parameters on each case's LCI tab (`stage = product size`), not numbers inside the formula. They vary like other
+parameters: for the RAW cases in the uncertainty analysis and, as the design group, in the sensitivity analysis; for
+the baselines in the uncertainty analysis only. `wall_height` is part of the functional unit and fixed, so the
+compared walls always have the same height; glulam's density is fixed because it also converts kg of product into
+m3 of glulam timber.
 
 ## 2. RAW case life cycle
 

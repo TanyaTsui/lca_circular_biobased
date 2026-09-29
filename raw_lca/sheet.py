@@ -14,7 +14,7 @@ from typing import Dict, List
 
 import pandas as pd
 
-from .cases import EOL_TYPES, PER_KG
+from .cases import EOL_TYPES, PER_KG, SIZE_STAGE
 from .formulas import evaluate_formula, formula_variables
 from .params import DISTRIBUTIONS, GROUPS
 
@@ -25,11 +25,9 @@ STATUSES = ("placeholder", "partner estimate", "measured", "literature")
 RAW_TAB_PREFIX, BASELINE_TAB, FORMULA_TAB = "lci_raw_", "lci_baselines", "product_size_formulas"
 REQUIRED_TABS = (BASELINE_TAB, FORMULA_TAB, "study_setup", "scenarios", "impact_categories", "constants",
                  "eol_routes", "gwpbio_table", "dcf_bern", "EoL_constants",
-                 "benefits_constants_dataSources", "unit_burdens_dataSources", "fu_comparison",
-                 "product_size_constants")
+                 "benefits_constants_dataSources", "unit_burdens_dataSources", "fu_comparison")
 FU_COLUMNS = ("raw_case", "fu_name", "function", "service_life", "service_life_unit", "quantifier_label",
              "quantifier_unit", "baseline_biobased", "baseline_fossil")
-PRODUCT_SIZE_CONSTANT_COLUMNS = ("case", "parameter", "description", "unit", "value", "source", "comments")
 PARAM_COLUMNS = ("case", "group", "stage", "item", "qualifier", "parameter", "description", "unit", "typical",
                  "min", "max", "scaled_up", "distribution", "choices", "source", "status", "comments")
 BASELINE_COLUMNS = tuple(c for c in PARAM_COLUMNS if c != "group")    # baselines are not in the sensitivity analysis
@@ -165,24 +163,12 @@ def validate(tables: Dict[str, pd.DataFrame]) -> List[Issue]:
         if n_location != 1:
             err(t, f"expected exactly one 'location' row (stage 'general', item 'product'), found {n_location}")
 
-    # product size constants tab ------------------------------------------------------------------
+    # product size rows (constants of the product_size_formulas formulas) ----------------------------
     known_cases = set(params["case"])
-    psc = tables["product_size_constants"]
-    missing = [c for c in PRODUCT_SIZE_CONSTANT_COLUMNS if c not in psc.columns]
-    if missing:
-        err("product_size_constants", f"missing columns {missing}")
-        constants_by_case: Dict[str, dict] = {}
-    else:
-        bad = sorted(set(psc["case"]) - known_cases)
-        if bad:
-            err("product_size_constants", f"unknown case(s) {bad} (no parameter rows on {RAW_TAB_PREFIX}* / {BASELINE_TAB})")
-        dup = psc[psc.duplicated(["case", "parameter"], keep=False)]
-        if len(dup):
-            err("product_size_constants", f"duplicate (case, parameter) rows: {sorted(set(zip(dup.case, dup.parameter)))}")
-        constants_by_case = {c: dict(zip(g.parameter, pd.to_numeric(g.value, errors="coerce")))
-                             for c, g in psc.groupby("case")}
+    size = params[params.stage == SIZE_STAGE]
+    constants_by_case = {c: dict(zip(g.parameter, pd.to_numeric(g.typical, errors="coerce"))) for c, g in size.groupby("case")}
 
-    # product_size_formulas tab-------------------------------------------------------------------------
+    # product_size_formulas tab -------------------------------------------------------------------------
     products = tables[FORMULA_TAB]
     for r in products.itertuples():
         if r.case_name not in known_cases:
@@ -193,7 +179,7 @@ def validate(tables: Dict[str, pd.DataFrame]) -> List[Issue]:
         unknown = set(formula_variables(r.formula)) - names
         if unknown:
             err(FORMULA_TAB, f"{r.case_name} / {r.activity_name}: formula uses unknown names {sorted(unknown)} "
-                            f"(not on product_size_constants for this case)")
+                            f"(no '{SIZE_STAGE}' row with that parameter for this case)")
             continue
         vals = dict(consts)
         vals[r.spec_variable] = 1.0

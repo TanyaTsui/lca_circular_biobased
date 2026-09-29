@@ -12,6 +12,7 @@ import pandas as pd
 ROUTES = ("composted", "recycled_open", "recycled_closed", "incinerated", "landfilled")
 EOL_TYPES = ("recycling", "composting", "incineration", "landfill")    # eol_type of a waste treatment activity
 PER_KG = "amount per kg product"                                        # parameter of every baseline LCI row
+SIZE_STAGE = "product size"                                             # constants of the product size formula
 
 
 @dataclass
@@ -90,10 +91,10 @@ def _normalise(shares: Dict[str, float]) -> Dict[str, float]:
     return {k: (100.0 * v / total if total > 0 else 0.0) for k, v in shares.items()}
 
 
-def product_params(product_size_constants, case: str) -> Dict[str, float]:
-    """Named constants of the product size formula for one case (fixed - not sampled)."""
-    rows = product_size_constants[product_size_constants.case == case]
-    return {r.parameter: float(r.value) for r in rows.itertuples()}
+def product_params(ps, case: str, values: dict) -> Dict[str, float]:
+    """Named constants of the case's product size formula (its 'product size' rows), at the given parameter values."""
+    rows = ps.rows(case)
+    return {r.parameter: float(values[r.id]) for r in rows[rows.stage == SIZE_STAGE].itertuples()}
 
 
 def repairs_needed(expected_lifetime_yr: float, extension_per_repair_yr: float, service_life_yr: float) -> int:

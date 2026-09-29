@@ -38,6 +38,19 @@ def test_formulas_reproduce_the_sheet_check_values(inp):
             assert got[r.activity_name] == pytest.approx(float(r.amount_at_spec_1_check), rel=1e-3, abs=1e-5), (case, r.activity_name)
 
 
+def test_size_constants_vary_except_the_functional_unit(inp):
+    """product size constants follow the parameter values; wall_height (part of the FU) is fixed for every wall"""
+    from raw_lca.study import activity_amounts
+    ps = inp.params
+    rows = ps.rows("raw_knit")
+    i = rows.loc[(rows.stage == "product size") & (rows.parameter == "areal_density"), "id"].iloc[0]
+    lighter = {**ps.typical(), i: 0.8 * float(ps.typical()[i])}
+    assert activity_amounts(inp, "raw_knit", 100, lighter)[0][1] == pytest.approx(0.8 * activity_amounts(inp, "raw_knit", 100)[0][1])
+    walls = ps.df[(ps.df.stage == "product size") & (ps.df.parameter == "wall_height")]
+    s = ps.sample(200, np.random.default_rng(2))
+    assert len(walls) == 3 and all((s[w] == 3).all() for w in walls.id)
+
+
 # ── sheet validation ──────────────────────────────────────────────────────────────────
 def test_snapshot_has_no_validation_errors(tables):
     assert [str(i) for i in validate(tables) if i.level == "error"] == []

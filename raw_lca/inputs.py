@@ -22,7 +22,6 @@ class Inputs:
     tables: Dict[str, pd.DataFrame]
     params: ParameterSet
     products: pd.DataFrame
-    product_size_constants: pd.DataFrame
     fu_comparisons: pd.DataFrame
     constants: Dict[str, object]
     setup: Dict[str, object]
@@ -78,7 +77,7 @@ def load_inputs(snapshot_dir, raise_on_error: bool = True) -> Inputs:
     products = tables["product_size_formulas"]
     return Inputs(
         tables=tables, params=ParameterSet.from_tables(tables), products=products,
-        product_size_constants=tables["product_size_constants"], fu_comparisons=tables["fu_comparison"],
+        fu_comparisons=tables["fu_comparison"],
         constants={r.constant: _num(r.value) for r in tables["constants"].itertuples()},
         setup=setup, specs=specs, sweeps=sweeps, location_choices=[c for c in str(setup["location_choices"]).split(";") if c],
         scenarios=tables["scenarios"], categories=tables["impact_categories"], eol_constants=eolc,

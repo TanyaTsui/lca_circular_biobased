@@ -1,4 +1,7 @@
 case,group,stage,item,qualifier,parameter,description,unit,typical,min,max,scaled_up,distribution,choices,source,status,comments
+raw_biopol,design,product size,product,,wall_height,Height of the wall,m,3,3,3,,fixed,,product_LCIs formula (previous version of the sheet),placeholder,part of the functional unit - keep equal across the compared walls
+raw_biopol,design,product size,product,,thickness_ratio,Wall height divided by wall thickness,-,10,8,12,,triangular,,product_LCIs formula (previous version of the sheet),placeholder,
+raw_biopol,design,product size,product,,density,Density of the finished biopolymer wall,kg/m3,350,280,420,,triangular,,product_LCIs formula (previous version of the sheet),placeholder,
 raw_biopol,design,production,Pea protein binder,virgin,share of input mass,Share of the production input mass made of this material (virgin); the shares of one stage add up to 100 %,%,70,56,84,,triangular,,,placeholder,
 raw_biopol,design,production,Sawdust,co-product,share of input mass,Share of the production input mass made of this material (co-product); the shares of one stage add up to 100 %,%,20,16,24,,triangular,,,placeholder,
 raw_biopol,design,production,Seagrass,wild-harvested,share of input mass,Share of the production input mass made of this material (wild-harvested); the shares of one stage add up to 100 %,%,10,8,12,,triangular,,,placeholder,

@@ -1,4 +1,7 @@
 case,group,stage,item,qualifier,parameter,description,unit,typical,min,max,scaled_up,distribution,choices,source,status,comments
+raw_timber,design,product size,product,,depth_ratio,Beam span divided by beam depth,-,20,16,24,,triangular,,product_LCIs formula (previous version of the sheet),placeholder,
+raw_timber,design,product size,product,,width_ratio,Beam depth divided by beam width,-,3,2.4,3.6,,triangular,,product_LCIs formula (previous version of the sheet),placeholder,
+raw_timber,design,product size,product,,density,Density of the finished timber beam,kg/m3,480,384,576,,triangular,,product_LCIs formula (previous version of the sheet),placeholder,
 raw_timber,design,production,Hard wood,recycled,share of input mass,Share of the production input mass made of this material (recycled); the shares of one stage add up to 100 %,%,100,80,100,,triangular,,,placeholder,
 raw_timber,design,repair,Hard wood,recycled,share of input mass,Share of the repair input mass made of this material (recycled); the shares of one stage add up to 100 %,%,100,80,100,,triangular,,,placeholder,
 raw_timber,manufacturing,production,Scanning,,machine weight,Weight of the machine used in this step (used to account for machine wear),kg,2000,1600,2400,,triangular,,HTML tool preset (placeholder),placeholder,

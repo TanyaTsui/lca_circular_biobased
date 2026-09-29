@@ -1,4 +1,5 @@
 case,group,stage,item,qualifier,parameter,description,unit,typical,min,max,scaled_up,distribution,choices,source,status,comments
+raw_knit,design,product size,product,,areal_density,Mass of membrane per m2 of coverage,kg/m2,0.4,0.32,0.48,,triangular,,product_LCIs formula (previous version of the sheet),placeholder,
 raw_knit,design,production,Hemp fiber,virgin,share of input mass,Share of the production input mass made of this material (virgin); the shares of one stage add up to 100 %,%,100,80,100,,triangular,,,placeholder,
 raw_knit,design,repair,Hemp fiber,virgin,share of input mass,Share of the repair input mass made of this material (virgin); the shares of one stage add up to 100 %,%,100,80,100,,triangular,,,placeholder,
 raw_knit,manufacturing,production,Carding & roving,,machine weight,Weight of the machine used in this step (used to account for machine wear),kg,3000,2400,3600,,triangular,,HTML tool preset (placeholder),placeholder,
