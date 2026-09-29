@@ -3,12 +3,15 @@ Resolved products: the numbers the model needs for one RAW case or one baseline 
 sheet's parameter table (`ParameterSet`) for a given set of parameter values (typical values or a sample).
 No numbers live in this file. Scaled-up variants use the `scaled_up` column of the production chain rows.
 """
+import math
 from dataclasses import dataclass, field, replace
-from typing import Dict, List
+from typing import Dict, List, Tuple
 
 import pandas as pd
 
 ROUTES = ("composted", "recycled_open", "recycled_closed", "incinerated", "landfilled")
+EOL_TYPES = ("recycling", "composting", "incineration", "landfill")    # eol_type of a waste treatment activity
+PER_KG = "amount per kg product"                                        # parameter of every baseline LCI row
 
 
 @dataclass
@@ -66,11 +69,19 @@ class RawCase:
 
 
 @dataclass
+class BaselineEol:
+    treatment: str           # waste treatment activity (unit_burdens_dataSources)
+    material: str            # material that is treated (EoL_constants)
+    kg_per_kg: float         # kg of the material going to this treatment, per kg of product
+
+
+@dataclass
 class BaselineCase:
     case_name: str
     service_life_yr: float
-    disposal_location: str
-    eol_shares: Dict[str, Dict[str, float]]   # activity -> route -> share (%, adds up to 100)
+    location: str
+    inputs: List[Tuple[str, float]]    # (activity, amount per kg of product)
+    eol: List[BaselineEol]
 
 
 # ── resolving from the parameter table ────────────────────────────────────────────────
@@ -85,7 +96,15 @@ def product_params(product_size_constants, case: str) -> Dict[str, float]:
     return {r.parameter: float(r.value) for r in rows.itertuples()}
 
 
-def resolve_raw_case(ps, case_id: str, name: str, values: dict) -> RawCase:
+def repairs_needed(expected_lifetime_yr: float, extension_per_repair_yr: float, service_life_yr: float) -> int:
+    """Smallest number of repairs that makes the product last the functional unit's service life."""
+    if expected_lifetime_yr >= service_life_yr or extension_per_repair_yr <= 0:
+        return 0
+    return math.ceil((service_life_yr - expected_lifetime_yr) / extension_per_repair_yr - 1e-9)
+
+
+def resolve_raw_case(ps, case_id: str, name: str, values: dict, service_life_yr: float) -> RawCase:
+    """`service_life_yr`: the service life of the case's functional unit, which sets the number of repairs."""
     lk = ps.lookup(case_id)
     rows = ps.rows(case_id)
     val = lambda stage, item, param, qual="": values[lk[(stage, item, qual, param)]]
@@ -107,10 +126,11 @@ def resolve_raw_case(ps, case_id: str, name: str, values: dict) -> RawCase:
 
     shares = _normalise({route: float(val("end-of-life", "waste", "share of waste", route)) for route in ROUTES})
     eol = EolShares(**shares, disposal_location=location)
+    expected = float(val("use", "product", "expected lifetime"))
+    extension = float(val("use", "product", "lifetime extension per repair"))
     repair = RepairSpec(material_pct_of_product=float(val("repair", "repair material", "share of product mass per repair")),
-                        expected_lifetime_yr=float(val("use", "product", "expected lifetime")),
-                        extension_per_repair_yr=float(val("use", "product", "lifetime extension per repair")),
-                        n_repairs=int(round(float(val("use", "product", "number of repair events")))))
+                        expected_lifetime_yr=expected, extension_per_repair_yr=extension,
+                        n_repairs=repairs_needed(expected, extension, service_life_yr))
     return RawCase(case_id=case_id, name=name, production_bom=bom("production"), production_chain=chain("production"),
                    eol=eol, repair=repair, repair_bom=bom("repair"), repair_chain=chain("repair"))
 
@@ -118,14 +138,16 @@ def resolve_raw_case(ps, case_id: str, name: str, values: dict) -> RawCase:
 def resolve_baseline(ps, case_name: str, values: dict) -> BaselineCase:
     rows = ps.rows(case_name)
     lk = ps.lookup(case_name)
-    eol = rows[(rows.stage == "end-of-life") & (rows.parameter == "share of waste")]
-    shares: Dict[str, Dict[str, float]] = {}
-    for r in eol.itertuples():
-        shares.setdefault(r.item, {})[r.qualifier] = float(values[r.id])
+    prod = rows[(rows.stage == "production") & (rows.parameter == PER_KG)]
+    eol = rows[(rows.stage == "end-of-life") & (rows.parameter == PER_KG)]
+    amounts = [float(values[r.id]) for r in eol.itertuples()]
+    total = sum(amounts)
+    scale = sum(float(t) for t in eol["typical_value"]) / total if total > 0 else 0.0   # keep the typical waste mass
     return BaselineCase(case_name=case_name,
                         service_life_yr=float(values[lk[("use", "product", "", "service life")]]),
-                        disposal_location=str(values[lk[("end-of-life", "waste", "", "disposal grid location")]]),
-                        eol_shares={a: _normalise(s) for a, s in shares.items()})
+                        location=str(values[lk[("general", "product", "", "location")]]),
+                        inputs=[(r.item, float(values[r.id])) for r in prod.itertuples()],
+                        eol=[BaselineEol(r.item, r.qualifier, a * scale) for r, a in zip(eol.itertuples(), amounts)])
 
 
 # ── scaled-up variant (sheet-driven) ────────────────────────────────────────────────────

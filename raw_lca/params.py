@@ -1,5 +1,5 @@
 """
-The parameter table: every number a partner or the LCA team enters on the sheet (tabs `case_*` and `baselines`).
+The parameter table: every number a partner or the LCA team enters on the sheet (tabs `lci_raw_*` and `lci_baselines`).
 One row per parameter: typical value, range (min/max), distribution, group. This one table drives the model,
 the uncertainty analysis (sampling) and the sensitivity analysis (grouping).
 """
@@ -34,7 +34,7 @@ class ParameterSet:
 
     @classmethod
     def from_tables(cls, tables: Dict[str, pd.DataFrame]) -> "ParameterSet":
-        parts = [t for name, t in tables.items() if name.startswith("case_") or name == "baselines"]
+        parts = [t for name, t in tables.items() if name.startswith("lci_raw_") or name == "lci_baselines"]
         return cls(pd.concat(parts, ignore_index=True))
 
     def rows(self, case: str) -> pd.DataFrame:

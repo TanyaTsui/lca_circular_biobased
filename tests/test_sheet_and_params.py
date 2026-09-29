@@ -50,7 +50,7 @@ def _broken(tables, tab, mutate):
 
 
 def test_validation_catches_bad_inputs(tables):
-    case_tab = next(t for t in tables if t.startswith("case_"))
+    case_tab = next(t for t in tables if t.startswith("lci_raw_"))
 
     def min_above_typical(df):
         i = df.index[df["distribution"] == "triangular"][0]
@@ -68,7 +68,7 @@ def test_validation_catches_bad_inputs(tables):
 
     def bad_formula(df):
         df.loc[0, "formula"] = df.loc[0, "formula"] + " * mystery"
-    assert any("unknown names" in m for m in _broken(tables, "products", bad_formula))
+    assert any("unknown names" in m for m in _broken(tables, "product_size_formulas", bad_formula))
 
 
 # ── parameters ──────────────────────────────────────────────────────────────────────────
@@ -98,13 +98,13 @@ def test_from_unit_maps_quantiles_of_the_triangular_distribution(inp):
 def test_shares_are_renormalised_after_sampling(inp):
     ps = inp.params
     vals = ps.sample(1, np.random.default_rng(3), vary_choices=False).iloc[0].to_dict()
-    case = resolve_raw_case(ps, "raw_biopol", "x", vals)
+    case = resolve_raw_case(ps, "raw_biopol", "x", vals, inp.reference_service_life_for("raw_biopol"))
     assert sum(b.percentage for b in case.production_bom) == pytest.approx(100)
     e = case.eol
     assert e.composted + e.recycled_open + e.recycled_closed + e.incinerated + e.landfilled == pytest.approx(100)
     b = resolve_baseline(ps, "glulam beam", vals)
-    for shares in b.eol_shares.values():
-        assert sum(shares.values()) == pytest.approx(100)
+    typical = resolve_baseline(ps, "glulam beam", ps.typical())
+    assert sum(e.kg_per_kg for e in b.eol) == pytest.approx(sum(e.kg_per_kg for e in typical.eol))
 
 
 # ── scaled-up variant ─────────────────────────────────────────────────────────────────────
@@ -113,7 +113,7 @@ def test_scale_up_changes_only_sheet_machines(inp):
     for cid, name in inp.raw_cases().items():
         rows = ps.rows(cid)
         scaled_steps = set(rows[(rows.stage == "production") & rows.scaled_up.notna()]["item"])
-        base = resolve_raw_case(ps, cid, name, ps.typical())
+        base = resolve_raw_case(ps, cid, name, ps.typical(), inp.reference_service_life_for(cid))
         up = scale_up_case(base, ps, cid)
         for a, b in zip(base.production_chain, up.production_chain):
             if a.step_name in scaled_steps:

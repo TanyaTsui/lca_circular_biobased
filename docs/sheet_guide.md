@@ -2,51 +2,81 @@
 
 The sheet is where all numbers of the model live. This guide is the same text as the `README` tab of the sheet.
 
-## Who fills what
+## Tab groups
 
-| tabs | who | what |
-|---|---|---|
-| `fu_comparison` | LCA team | the four comparative LCAs: each RAW case's functional unit (name, function, service life, quantifier) and the two baseline products it's compared with |
-| `case_biopol`, `case_timber`, `case_cfw`, `case_knit` | **case partners** | the LCI numbers of your prototype: materials, machines, lifetime, repair, end of life, locations, scaled-up machine values |
-| `baselines`, `products`, `product_size_constants`, `baseline_eol_setup` | LCA team | conventional products the RAW cases are compared with, the constants that size them, and the formulas that turn a product size into amounts |
-| `materials` tabs (`unit_burdens_dataSources`, `benefits_constants_dataSources`, `EoL_constants`), `constants`, `eol_routes`, `gwpbio_table`, `dcf_bern` | LCA team | data sources: link to ecoinvent, carbon content, recycling/incineration constants, method constants |
-| `study_setup`, `scenarios`, `impact_categories` | LCA team | product sizes compared, scenarios, charted categories, analysis settings |
-| `lcaModel_logic` | - | a worked example of the calculation (explanation only) |
+Tabs are grouped and ordered by their role in the LCA. Each group has its own colour: the tab, its header row
+(darker shade) and its cells (lighter shade). The `lci_raw_*` tabs are filled in by the **case partners**; all other
+tabs are maintained by the LCA team.
+
+| group | colour | tabs | what |
+|---|---|---|---|
+| 1 Goal and scope | purple | `fu_comparison`, `study_setup`, `impact_categories`, `scenarios` | the four comparative LCAs (functional unit, service life, baselines compared), product sizes, analysis settings, charted categories, background scenarios |
+| 2 Life cycle inventories (LCI) | teal | `lci_raw_biopol`, `lci_raw_timber`, `lci_raw_cfw`, `lci_raw_knit`, `lci_baselines` | the LCI of each RAW prototype (materials, machines, lifetime, repair, end of life, location, scaled-up machine values) and of each baseline (per kg of product) |
+| 3 Product size (parametric LCA) | green | `product_size_formulas`, `product_size_constants` | the formula giving the kg of each product from its size, and the fixed constants in it |
+| 4 Data sources and end-of-life constants | blue | `unit_burdens_dataSources`, `benefits_constants_dataSources`, `EoL_constants`, `eol_routes` | link to ecoinvent (and `eol_type` of waste treatments), carbon content, per-material end-of-life constants (allocation factor, quality, heating value), the RAW end-of-life routes |
+| 5 Modelling constants | orange | `constants`, `gwpbio_table`, `dcf_bern` | physical and method constants, carbon storage method tables |
+
+The `README` tab (grey) comes first.
 
 ## `fu_comparison`: one row per RAW case
 
 Defines the functional unit of each of the four comparative LCAs and which two conventional baseline products
-(`baselines` tab) it's compared with.
+(`lci_baselines` tab) it's compared with.
 
 | column | meaning |
 |---|---|
-| `raw_case` | the RAW case (matches `case_name` on `products` and `case` on the `case_*` tabs) |
+| `raw_case` | the RAW case (matches `case_name` on `product_size_formulas` and `case` on the `lci_raw_*` tabs) |
 | `fu_name`, `function` | free text describing the functional unit; `function` doesn't affect the model |
 | `service_life`, `service_life_unit` | the reference period this comparative LCA is scaled over. Every product's burdens and benefits are multiplied by `service_life / L`, where `L` is that product's own service life (see below) |
-| `quantifier_label`, `quantifier_unit` | documentation of the spec that sizes the product (e.g. "beam span", "m"); the formula machinery still uses `spec_variable`/`spec_label`/`spec_unit` on `products` |
-| `baseline_biobased`, `baseline_fossil` | the conventional bio-based and fossil-based baseline this RAW case is compared with (case names on `baselines`); leave one blank if there's no baseline of that kind yet |
+| `quantifier_label`, `quantifier_unit` | documentation of the spec that sizes the product (e.g. "beam span", "m"); the formula machinery still uses `spec_variable`/`spec_label`/`spec_unit` on `product_size_formulas` |
+| `baseline_biobased`, `baseline_fossil` | the conventional bio-based and fossil-based baseline this RAW case is compared with (case names on `lci_baselines`); leave one blank if there's no baseline of that kind yet |
 
 ## `product_size_constants`: one row per constant
 
-The fixed constants used in a case's `products` formula (e.g. `depth_ratio`, `steel_share`, `wall_height`). These
+The fixed constants used in a case's `product_size_formulas` formula (e.g. `depth_ratio`, `concrete_density`, `wall_height`). These
 are geometry/material constants, not LCI data: they are **never varied** by the uncertainty or sensitivity
-analysis, unlike the numbers on `case_*`/`baselines`.
+analysis, unlike the numbers on the LCI tabs.
 
 | column | meaning |
 |---|---|
 | `case` | the case this constant belongs to (RAW case or baseline) |
-| `parameter` | the name used in the `formula` column of `products` |
+| `parameter` | the name used in the `formula` column of `product_size_formulas` |
 | `description`, `unit` | what the number is |
 | `value` | the fixed value used by the model |
 | `source`, `comments` | where the number comes from, anything the LCA team should know |
 
-## A case tab: one row = one number
+## `lci_baselines`: LCI per kg of product
+
+Same columns as a RAW case tab (below), except `group`: the baselines are not in the sensitivity analysis. Every
+input and output of a baseline is one row, per kg of product; the `product_size_formulas` tab gives how many kg of
+product the functional unit needs.
+
+| rows | `item` | `qualifier` | `parameter` |
+|---|---|---|---|
+| materials and other inputs (`stage = production`) | an activity on `unit_burdens_dataSources` (e.g. `concrete`, `formwork`) | - | `amount per kg product` (unit of that activity per kg, e.g. `kg/kg`, `m3/kg`) |
+| end of life (`stage = end-of-life`) | the waste treatment: an activity on `unit_burdens_dataSources` with an `eol_type` | the material that is treated: a row of `EoL_constants` | `amount per kg product` (kg of that material to that treatment per kg of product) |
+| service life (`stage = use`) | `product` | - | `service life` |
+| location (`stage = general`) | `product` | - | `location` (country whose electricity is displaced by energy recovery) |
+
+A material may be split over several treatments (e.g. clay brick: 0.42 kg recycled, 0.42 kg landfilled). Material
+that is reused needs no row. The model applies the circular footprint formula per row, from the treatment's
+`eol_type` and the material's `EoL_constants` row:
+- **recycling / composting**: treatment burden x (1 - A); credit -(1 - A) x Q x burden of the material's
+  `recycling_credit_activity` (only if one is set on `EoL_constants`).
+- **incineration**: full treatment burden; energy credit from the material's heating value and conversion
+  efficiencies (heat and electricity at the case `location`).
+- **landfill**: full treatment burden.
+
+A material with a carbon content on `benefits_constants_dataSources` (e.g. `glulam timber`) gets the biogenic
+carbon storage credit for the product's service life, for the mass in its end-of-life rows.
+
+## A RAW case LCI tab (`lci_raw_*`): one row = one number
 
 | column | meaning |
 |---|---|
 | `case` | the RAW case (do not change) |
-| `group` | which kind of choice this number is: **design** (what the product is made of), **manufacturing** (machines, loading, yield), **circularity** (lifetime, repair, end of life), **location** (which country's electricity) |
-| `stage` | production, repair, use, or end-of-life |
+| `group` | which kind of choice this number is (used by the sensitivity analysis, RAW cases only): **design** (what the product is made of), **manufacturing** (machines, loading, yield), **circularity** (lifetime, repair, end of life), **location** (which country's electricity) |
+| `stage` | production, repair, use, end-of-life, or general (the location row) |
 | `item` | the material, the process step or "waste" the number belongs to. The order of the process steps is the order of the rows |
 | `parameter`, `description`, `unit` | what the number is |
 | **`typical`** | your best estimate |
@@ -67,6 +97,9 @@ constants (density, depth/width ratios, ...) don't live here any more - they're 
 - **Shares** (bill of materials, end-of-life routes) of one stage should add up to 100 %; the model re-normalises them.
 - **Process yield** is the share of the material entering a step that leaves it as good output (the rest becomes waste).
 - **Output rate** is how much material the machine processes per hour (kg/hr); **machine lifetime** is in operating hours.
+- The **number of repair events** is not entered: it is the smallest number of repairs that makes the product last
+  the service life of its functional unit (`fu_comparison`): (service life - expected lifetime) / lifetime extension
+  per repair, rounded up, and 0 if the expected lifetime already reaches it.
 - To be **scaled up**, a production step's `scaled_up` cells must all be filled in (machine weight, power, output
   rate, machine lifetime); steps with `scaled_up` left blank keep their prototype values in the scaled-up variant.
 - Do not rename tabs or columns, and do not delete rows without asking: the model reads them by name.

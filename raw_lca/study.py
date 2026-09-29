@@ -12,7 +12,7 @@ def spec_variable(inp: Inputs, case: str) -> str:
 
 
 def activity_amounts(inp: Inputs, case: str, spec_value: float) -> List[Tuple[str, float, str]]:
-    """[(activity, amount, unit)] of a product case for a spec value (formulas of the `products` tab)."""
+    """[(activity, amount, unit)] of a product case for a spec value (formulas of the `product_size_formulas` tab)."""
     rows = inp.products[inp.products.case_name == case]
     variables = product_params(inp.product_size_constants, case)
     variables[rows.spec_variable.iloc[0]] = spec_value
@@ -29,7 +29,7 @@ def run_products(model: Model, raw_case_id: str, spec_value: Optional[float] = N
     rsl = inp.reference_service_life_for(raw_case_id)
     display = inp.raw_cases()[raw_case_id]
     raw_kg = activity_amounts(inp, raw_case_id, spec_value)[0][1]
-    raw = resolve_raw_case(inp.params, raw_case_id, display, values)
+    raw = resolve_raw_case(inp.params, raw_case_id, display, values, rsl)
     results = {raw.name: model.run_raw(raw, raw_kg, rsl, iteration)}
     if scaled_up:
         up = scale_up_case(raw, inp.params, raw_case_id)
@@ -37,7 +37,8 @@ def run_products(model: Model, raw_case_id: str, spec_value: Optional[float] = N
     for b in inp.baselines_for(raw_case_id):
         bc = resolve_baseline(inp.params, b, values)
         label = inp.products.loc[inp.products.case_name == b, "display_name"].iloc[0]
-        results[label] = model.run_baseline(bc, activity_amounts(inp, b, spec_value), rsl, iteration, label)
+        product_kg = activity_amounts(inp, b, spec_value)[0][1]
+        results[label] = model.run_baseline(bc, product_kg, rsl, iteration, label)
     return results
 
 
@@ -50,7 +51,7 @@ def run_raw_only(model: Model, raw_case_id: str, spec_value: Optional[float] = N
         spec_value = inp.specs[spec_variable(inp, raw_case_id)]
     rsl = inp.reference_service_life_for(raw_case_id)
     raw_kg = activity_amounts(inp, raw_case_id, spec_value)[0][1]
-    raw = resolve_raw_case(inp.params, raw_case_id, inp.raw_cases()[raw_case_id], values)
+    raw = resolve_raw_case(inp.params, raw_case_id, inp.raw_cases()[raw_case_id], values, rsl)
     if scaled_up:
         raw = scale_up_case(raw, inp.params, raw_case_id)
     return model.run_raw(raw, raw_kg, rsl, iteration)

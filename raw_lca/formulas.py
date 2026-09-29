@@ -1,4 +1,4 @@
-"""Safe evaluator for the product formulas on the sheet's `products` tab (spec + named parameters -> amount)."""
+"""Safe evaluator for the product formulas on the sheet's `product_size_formulas` tab (spec + named parameters -> amount)."""
 import ast
 import operator
 import re

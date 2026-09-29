@@ -64,7 +64,6 @@ class Model:
         b = inputs.bern.set_index("term")
         self._bern_a = [float(b.loc[t, "coefficient_a"]) for t in ("a0", "a1", "a2", "a3")]
         self._bern_tau = [None] + [float(b.loc[t, "time_constant_tau_yr"]) for t in ("a1", "a2", "a3")]
-        self._setup = {(r.activity_name, r.route): r for r in inputs.baseline_eol_setup.itertuples()}
         self.zero = np.zeros(self.n)
 
     # ── carbon storage ───────────────────────────────────────────────────────────────────
@@ -133,12 +132,15 @@ class Model:
         cff = (1 - self.A) if r["cff_factor_applies"] in (True, "True", "TRUE") else 1.0
         return np.abs(self.bg.get(name, iteration=it) * kg * share / 100 * cff)
 
-    def _energy_credit(self, kg: float, share: float, lhv: float, location: str, it) -> np.ndarray:
+    def _energy_credit(self, kg: float, share: float, lhv: float, location: str, it,
+                       eff_heat: Optional[float] = None, eff_elec: Optional[float] = None) -> np.ndarray:
         r = self.inp.eol_routes.loc["incinerated"]
         heat = self.bg.get(r["energy_credit_heat_activity"], iteration=it)
         elec = self.bg.get(r["energy_credit_electricity_activity"], location=location, iteration=it)
+        eh = self.eff_heat if eff_heat is None else eff_heat
+        ee = self.eff_elec if eff_elec is None else eff_elec
         # heat is per MJ, electricity per kWh: convert the electricity share of the fuel energy from MJ to kWh
-        return -(share / 100) * lhv * kg * (self.eff_heat * heat + self.eff_elec * elec / float(self.c["mj_per_kwh"]))
+        return -(share / 100) * lhv * kg * (eh * heat + ee * elec / float(self.c["mj_per_kwh"]))
 
     def _material_credit(self, route: str, kg: float, share: float, it) -> np.ndarray:
         name = self.inp.eol_routes.loc[route, "material_credit_activity"]
@@ -182,29 +184,35 @@ class Model:
                       info=dict(product_kg=product_kg, service_life_yr=life, scaling=f, material_input_kg=input_kg))
 
     # ── baseline product ────────────────────────────────────────────────────────────────────
-    def run_baseline(self, case: BaselineCase, activities: List[tuple], rsl: float, iteration=None,
+    def run_baseline(self, case: BaselineCase, product_kg: float, rsl: float, iteration=None,
                      label: Optional[str] = None) -> Result:
-        """activities: [(activity name, amount, unit)] from the products tab. Cradle-to-gate burden of each
-        activity plus end of life from the shares on the sheet (mapping in baseline_eol_setup)."""
+        """Inputs per kg of product (baselines tab) times product_kg, plus end of life: each waste treatment row is
+        handled with the circular footprint formula, using the treated material's row of EoL_constants."""
         it = iteration
         mat, eol_b, circ, seq = self.zero.copy(), self.zero.copy(), self.zero.copy(), self.zero.copy()
-        for name, amount, _unit in activities:
-            mat = mat + self.bg.get(name, iteration=it) * amount
-            shares = case.eol_shares.get(name)
-            if not shares:
-                continue
-            carbon_material = None
-            for route, share in shares.items():
-                st = self._setup[(name, route)]
-                kg = amount * float(st.kg_per_unit)
-                treatment = st.treatment_burden_name if isinstance(st.treatment_burden_name, str) else None
-                eol_b = eol_b + self._route_burden(route, kg, share, treatment, it)
-                if route == "incinerated" and share > 0 and st.lhv_MJ_per_kg == st.lhv_MJ_per_kg:
-                    circ = circ + self._energy_credit(kg, share, float(st.lhv_MJ_per_kg), case.disposal_location, it)
-                if isinstance(st.carbon_material, str):
-                    carbon_material = (st.carbon_material, amount * float(st.kg_per_unit))
-            if carbon_material:                          # biogenic storage: virgin bio-based baseline, stored for its service life
-                seq[self.gwp] += self._storage_credit(carbon_material[0], "virgin", carbon_material[1], case.service_life_yr)
+        for name, per_kg in case.inputs:
+            mat = mat + self.bg.get(name, iteration=it) * per_kg * product_kg
+        stored: Dict[str, float] = {}
+        for e in case.eol:
+            kg = e.kg_per_kg * product_kg
+            m = self.inp.eol_constants.loc[e.material]
+            A, kind = float(m["allocation_factor"]), self.inp.eol_types[e.treatment]
+            burden = np.abs(self.bg.get(e.treatment, iteration=it)) * kg
+            if kind in ("recycling", "composting"):
+                eol_b = eol_b + (1 - A) * burden
+                credit = m["recycling_credit_activity"]
+                if isinstance(credit, str) and credit:
+                    circ = circ - (1 - A) * float(m["quality_ratio"]) * kg * self.bg.get(credit, iteration=it)
+            else:
+                eol_b = eol_b + burden
+                if kind == "incineration":
+                    circ = circ + self._energy_credit(kg, 100, float(m["lower_heating_value_MJperKgDry"]), case.location,
+                                                      it, float(m["conversionEfficiency_heat"]),
+                                                      float(m["conversionEfficiency_electricity"]))
+            if e.material in self.bg.materials.index:
+                stored[e.material] = stored.get(e.material, 0.0) + kg
+        for material, kg in stored.items():            # biogenic carbon stored in the product for its service life
+            seq[self.gwp] += self._storage_credit(material, "virgin", kg, case.service_life_yr)
         f = rsl / case.service_life_yr if case.service_life_yr > 0 else 1.0
         return Result(label or case.case_name, self.bg.categories, mat * f, self.zero, self.zero, eol_b * f, seq * f, circ * f,
                       info=dict(service_life_yr=case.service_life_yr, scaling=f))

@@ -39,7 +39,6 @@ raw_knit,manufacturing,repair,CNC knitting,,process yield,Share of the material 
 raw_knit,manufacturing,repair,CNC knitting,,machine source,Whether the machine is new (virgin) or reused/recycled (recycled),-,virgin,,,,choice,virgin;recycled,,placeholder,
 raw_knit,circularity,use,product,,expected lifetime,Years the product lasts before any repair,yrs,15,12,18,,triangular,,,placeholder,
 raw_knit,circularity,use,product,,lifetime extension per repair,Years added to the product's life by one repair,yrs,10,8,12,,triangular,,,placeholder,
-raw_knit,circularity,use,product,,number of repair events,Number of repairs over the product's life (0 = no repair),#,1,0,2,,triangular,,,placeholder,
 raw_knit,circularity,repair,repair material,,share of product mass per repair,"Mass of material added per repair, as a share of the product mass",%,10,8,12,,triangular,,,placeholder,
 raw_knit,circularity,end-of-life,waste,composted,share of waste,Share of the product's end-of-life mass that goes to this route (the routes add up to 100 %): composted,%,0,0,0,,fixed,,,placeholder,
 raw_knit,circularity,end-of-life,waste,recycled_open,share of waste,Share of the product's end-of-life mass that goes to this route (the routes add up to 100 %): recycled (open loop),%,0,0,0,,fixed,,,placeholder,

@@ -43,7 +43,6 @@ raw_biopol,manufacturing,repair,3D printing,,process yield,Share of the material
 raw_biopol,manufacturing,repair,3D printing,,machine source,Whether the machine is new (virgin) or reused/recycled (recycled),-,virgin,,,,choice,virgin;recycled,,placeholder,
 raw_biopol,circularity,use,product,,expected lifetime,Years the product lasts before any repair,yrs,20,16,24,,triangular,,,placeholder,
 raw_biopol,circularity,use,product,,lifetime extension per repair,Years added to the product's life by one repair,yrs,10,8,12,,triangular,,,placeholder,
-raw_biopol,circularity,use,product,,number of repair events,Number of repairs over the product's life (0 = no repair),#,3,2,4,,triangular,,,placeholder,
 raw_biopol,circularity,repair,repair material,,share of product mass per repair,"Mass of material added per repair, as a share of the product mass",%,10,8,12,,triangular,,,placeholder,
 raw_biopol,circularity,end-of-life,waste,composted,share of waste,Share of the product's end-of-life mass that goes to this route (the routes add up to 100 %): composted,%,30,24,36,,triangular,,,placeholder,
 raw_biopol,circularity,end-of-life,waste,recycled_open,share of waste,Share of the product's end-of-life mass that goes to this route (the routes add up to 100 %): recycled (open loop),%,20,16,24,,triangular,,,placeholder,

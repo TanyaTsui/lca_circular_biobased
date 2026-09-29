@@ -15,11 +15,13 @@ quantifier (the spec that sizes the product).
 All products of one comparative LCA are compared over that RAW case's **reference service life** `RSL`
 (`fu_comparison.service_life`). The burdens and benefits of a product with service life `L` are multiplied by
 `RSL / L` (per-year amortisation, continuous in `L`). `L` of a RAW case is `expected lifetime + n_repairs x
-lifetime extension per repair`; `L` of a baseline is its `service life` on the `baselines` tab. Results are in the
+lifetime extension per repair`, where `n_repairs` is the smallest number of repairs that reaches `RSL`:
+`ceil((RSL - expected lifetime) / lifetime extension per repair)`, and 0 if the expected lifetime already reaches it
+(so `L >= RSL` whenever repair extends the life). `L` of a baseline is its `service life` on the `lci_baselines` tab. Results are in the
 EF v3.1 impact categories (25 categories in the data, the ones plotted are flagged on `impact_categories`).
 
-**Product size.** The mass or amount of every product follows from the spec through formulas on the `products` tab
-(e.g. beam volume = depth x width x span with depth = span / `depth_ratio`). The constants in the formulas are
+**Product size.** The mass (kg) of every product follows from the spec through one formula per product on the
+`product_size_formulas` tab (e.g. beam mass = depth x width x span x density with depth = span / `depth_ratio`). The constants in the formulas are
 fixed values on the `product_size_constants` tab, not numbers inside the formula, and are not varied by the
 uncertainty or sensitivity analysis.
 
@@ -55,17 +57,32 @@ Stages, all per product spec:
    left after the repair event (repair material).
 
 **Scaled-up variant.** Each RAW case is also run with its production machines scaled up: a production step whose
-`scaled_up` cells are filled in (machine weight, power, output rate, machine lifetime, on its own `case_*` tab) uses
+`scaled_up` cells are filled in (machine weight, power, output rate, machine lifetime, on its own `lci_raw_*` tab) uses
 those values instead of the prototype ones. All other steps, the repair chain, BOM, lifetimes and end of life are
 unchanged.
 
 ## 3. Baseline products
 
-Cradle-to-gate burden of each activity of the `products` tab (unit burden x amount) plus end of life: shares per
-activity and route (`baselines` tab), treatment activity, mass per unit, energy-recovery LHV and carbon material per
-activity/route (`baseline_eol_setup` tab). End of life follows the RAW conventions (`(1 - A)` for composting/recycling,
-energy credit for incineration). Bio-based baselines with a `carbon_material` (glulam) get the growth-type storage
-credit for their service life. Transport of materials to site is not added for either RAW or baselines.
+A baseline is an LCI per kg of product (`lci_baselines` tab) times the product mass from the `product_size_formulas` formula.
+Cradle-to-gate burden = sum over the production rows of unit burden x amount per kg x product mass.
+
+End of life: each end-of-life row sends `m` kg of one material to one waste treatment. The circular footprint
+formula is applied per row with the treated material's constants from `EoL_constants` (allocation factor `A`,
+quality ratio `Q`, heating value, conversion efficiencies), depending on the treatment's `eol_type`
+(`unit_burdens_dataSources`):
+- recycling / composting: `(1 - A) x m x E_treatment`, and a credit `-(1 - A) x m x Q x E_substituted`, where
+  `E_substituted` is the material's `recycling_credit_activity` (no credit where none is set);
+- incineration: `m x E_treatment`, and an energy credit as for the RAW cases, from the material's heating value and
+  efficiencies, with electricity of the case's `location`;
+- landfill: `m x E_treatment`.
+
+Materials with a carbon content (`benefits_constants_dataSources`; of the baselines only glulam timber) get the
+growth-type storage credit for the product's service life, for their mass in the end-of-life rows. Transport of
+materials to site is not added for either RAW or baselines.
+
+The reinforced concrete beam's formwork is a fixed amount per kg of beam, exact at the 6 m reference span; formwork
+area grows with span^2 while beam mass grows with span^3, so the spec sweep over-counts formwork at longer spans
+(0.4 % of the beam's net GWP at 12 m).
 
 ## 4. Scenarios (background)
 

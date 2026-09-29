@@ -9,7 +9,7 @@ RESULTS = ROOT / "results"
 
 def newest_snapshot() -> Path:
     """Newest folder of data/sheet_snapshot/ (they are named by date)."""
-    folders = sorted(p for p in SNAPSHOTS.glob("*") if (p / "products.csv").exists())
+    folders = sorted(p for p in SNAPSHOTS.glob("*") if (p / "fu_comparison.csv").exists())
     if not folders:
         raise FileNotFoundError(f"no sheet snapshot in {SNAPSHOTS} - run pipeline/01_fetch_sheet.py")
     return folders[-1]

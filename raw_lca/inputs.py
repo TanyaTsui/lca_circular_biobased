@@ -33,8 +33,8 @@ class Inputs:
     categories: pd.DataFrame
     eol_constants: pd.DataFrame       # indexed by material_name
     eol_routes: pd.DataFrame          # indexed by route
-    baseline_eol_setup: pd.DataFrame
-    gwpbio: pd.DataFrame              # rotation_period_yr x storage columns
+    eol_types: Dict[str, str]         # waste treatment activity -> recycling / composting / incineration / landfill
+    gwpbio: pd.DataFrame             # rotation_period_yr x storage columns
     bern: pd.DataFrame
     snapshot: Path
 
@@ -73,12 +73,14 @@ def load_inputs(snapshot_dir, raise_on_error: bool = True) -> Inputs:
     for c in ("allocation_factor", "quality_ratio", "lower_heating_value_MJperKgDry",
               "conversionEfficiency_heat", "conversionEfficiency_electricity"):
         eolc[c] = pd.to_numeric(eolc[c], errors="coerce")
-    products = tables["products"]
+    ub = tables["unit_burdens_dataSources"].dropna(subset=["activity_name", "eol_type"])
+    eol_types = dict(zip(ub["activity_name"].astype(str).str.strip(), ub["eol_type"]))
+    products = tables["product_size_formulas"]
     return Inputs(
         tables=tables, params=ParameterSet.from_tables(tables), products=products,
         product_size_constants=tables["product_size_constants"], fu_comparisons=tables["fu_comparison"],
         constants={r.constant: _num(r.value) for r in tables["constants"].itertuples()},
         setup=setup, specs=specs, sweeps=sweeps, location_choices=[c for c in str(setup["location_choices"]).split(";") if c],
         scenarios=tables["scenarios"], categories=tables["impact_categories"], eol_constants=eolc,
-        eol_routes=tables["eol_routes"].fillna("").set_index("route"), baseline_eol_setup=tables["baseline_eol_setup"],
+        eol_routes=tables["eol_routes"].fillna("").set_index("route"), eol_types=eol_types,
         gwpbio=tables["gwpbio_table"], bern=tables["dcf_bern"], snapshot=Path(snapshot_dir))

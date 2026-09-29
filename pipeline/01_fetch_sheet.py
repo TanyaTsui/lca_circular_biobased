@@ -18,7 +18,7 @@ SNAPSHOTS = ROOT / "data" / "sheet_snapshot"
 
 
 def newest_snapshot() -> Path:
-    folders = sorted(p for p in SNAPSHOTS.glob("*") if (p / "products.csv").exists())
+    folders = sorted(p for p in SNAPSHOTS.glob("*") if (p / "fu_comparison.csv").exists())
     if not folders:
         raise SystemExit(f"no snapshot with the redesigned tabs found in {SNAPSHOTS}")
     return folders[-1]

@@ -14,6 +14,7 @@ from typing import Dict, List
 
 import pandas as pd
 
+from .cases import EOL_TYPES, PER_KG
 from .formulas import evaluate_formula, formula_variables
 from .params import DISTRIBUTIONS, GROUPS
 
@@ -21,8 +22,9 @@ from .params import DISTRIBUTIONS, GROUPS
 # download to work without login. docs/RAW_LCA_inputs_v2.xlsx is the layout it was created from.
 SHEET_ID = "1aiMhvFkKEoIe5zj3Iw_sEgMJv2QC-z1JwMJHB3PcIwc"
 STATUSES = ("placeholder", "partner estimate", "measured", "literature")
-REQUIRED_TABS = ("baselines", "products", "study_setup", "scenarios", "impact_categories", "constants",
-                 "eol_routes", "baseline_eol_setup", "gwpbio_table", "dcf_bern", "EoL_constants",
+RAW_TAB_PREFIX, BASELINE_TAB, FORMULA_TAB = "lci_raw_", "lci_baselines", "product_size_formulas"
+REQUIRED_TABS = (BASELINE_TAB, FORMULA_TAB, "study_setup", "scenarios", "impact_categories", "constants",
+                 "eol_routes", "gwpbio_table", "dcf_bern", "EoL_constants",
                  "benefits_constants_dataSources", "unit_burdens_dataSources", "fu_comparison",
                  "product_size_constants")
 FU_COLUMNS = ("raw_case", "fu_name", "function", "service_life", "service_life_unit", "quantifier_label",
@@ -30,6 +32,7 @@ FU_COLUMNS = ("raw_case", "fu_name", "function", "service_life", "service_life_u
 PRODUCT_SIZE_CONSTANT_COLUMNS = ("case", "parameter", "description", "unit", "value", "source", "comments")
 PARAM_COLUMNS = ("case", "group", "stage", "item", "qualifier", "parameter", "description", "unit", "typical",
                  "min", "max", "scaled_up", "distribution", "choices", "source", "status", "comments")
+BASELINE_COLUMNS = tuple(c for c in PARAM_COLUMNS if c != "group")    # baselines are not in the sensitivity analysis
 CHAIN_PARAMETERS = ("machine weight", "power", "output rate", "machine lifetime", "process yield",
                     "machine source")
 SCALABLE_PARAMETERS = ("machine weight", "power", "output rate", "machine lifetime")
@@ -78,9 +81,9 @@ def validate(tables: Dict[str, pd.DataFrame]) -> List[Issue]:
     err = lambda tab, msg: issues.append(Issue("error", tab, msg))
     warn = lambda tab, msg: issues.append(Issue("warning", tab, msg))
 
-    case_tabs = [t for t in tables if t.startswith("case_")]
+    case_tabs = [t for t in tables if t.startswith(RAW_TAB_PREFIX)]
     if not case_tabs:
-        err("case_*", "no partner case tabs (case_<name>) found")
+        err(f"{RAW_TAB_PREFIX}*", f"no RAW case tabs ({RAW_TAB_PREFIX}<name>) found")
     for t in REQUIRED_TABS:
         if t not in tables:
             err(t, "tab is missing")
@@ -89,9 +92,10 @@ def validate(tables: Dict[str, pd.DataFrame]) -> List[Issue]:
 
     # parameter tabs ------------------------------------------------------------------------
     param_frames = []
-    for t in case_tabs + ["baselines"]:
+    for t in case_tabs + [BASELINE_TAB]:
         df = tables[t]
-        missing = [c for c in PARAM_COLUMNS if c not in df.columns]
+        columns = BASELINE_COLUMNS if t == BASELINE_TAB else PARAM_COLUMNS
+        missing = [c for c in columns if c not in df.columns]
         if missing:
             err(t, f"missing columns {missing}")
             continue
@@ -99,6 +103,8 @@ def validate(tables: Dict[str, pd.DataFrame]) -> List[Issue]:
         df["qualifier"] = df["qualifier"].fillna("")
         param_frames.append((t, df))
         for col, allowed in (("group", GROUPS), ("distribution", DISTRIBUTIONS), ("status", STATUSES)):
+            if col not in columns:
+                continue
             bad = sorted(set(df[col].dropna()) - set(allowed))
             if bad or df[col].isna().any():
                 err(t, f"column '{col}': values must be one of {list(allowed)}, found {bad or 'empty cells'}")
@@ -114,7 +120,7 @@ def validate(tables: Dict[str, pd.DataFrame]) -> List[Issue]:
             lo, hi = pd.to_numeric(r.min, errors="coerce"), pd.to_numeric(r.max, errors="coerce")
             if r.distribution in ("triangular", "uniform") and (pd.isna(lo) or pd.isna(hi)):
                 err(t, f"{label}: distribution '{r.distribution}' needs min and max")
-            elif pd.notna(lo) and pd.notna(hi) and not (lo <= typ <= hi):
+            elif pd.notna(lo) and pd.notna(hi) and not (lo - 1e-9 * abs(typ) <= typ <= hi + 1e-9 * abs(typ)):
                 err(t, f"{label}: expected min <= typical <= max, got {lo} <= {typ} <= {hi}")
         n_placeholder = int((df["status"] == "placeholder").sum())
         if n_placeholder:
@@ -169,24 +175,24 @@ def validate(tables: Dict[str, pd.DataFrame]) -> List[Issue]:
     else:
         bad = sorted(set(psc["case"]) - known_cases)
         if bad:
-            err("product_size_constants", f"unknown case(s) {bad} (no parameter rows on case_* / baselines)")
+            err("product_size_constants", f"unknown case(s) {bad} (no parameter rows on {RAW_TAB_PREFIX}* / {BASELINE_TAB})")
         dup = psc[psc.duplicated(["case", "parameter"], keep=False)]
         if len(dup):
             err("product_size_constants", f"duplicate (case, parameter) rows: {sorted(set(zip(dup.case, dup.parameter)))}")
         constants_by_case = {c: dict(zip(g.parameter, pd.to_numeric(g.value, errors="coerce")))
                              for c, g in psc.groupby("case")}
 
-    # products tab -------------------------------------------------------------------------------
-    products = tables["products"]
+    # product_size_formulas tab-------------------------------------------------------------------------
+    products = tables[FORMULA_TAB]
     for r in products.itertuples():
         if r.case_name not in known_cases:
-            err("products", f"case '{r.case_name}' has no parameter rows (tabs case_* / baselines)")
+            err(FORMULA_TAB, f"case '{r.case_name}' has no parameter rows (tabs {RAW_TAB_PREFIX}* / {BASELINE_TAB})")
             continue
         consts = constants_by_case.get(r.case_name, {})
         names = set(consts) | {r.spec_variable}
         unknown = set(formula_variables(r.formula)) - names
         if unknown:
-            err("products", f"{r.case_name} / {r.activity_name}: formula uses unknown names {sorted(unknown)} "
+            err(FORMULA_TAB, f"{r.case_name} / {r.activity_name}: formula uses unknown names {sorted(unknown)} "
                             f"(not on product_size_constants for this case)")
             continue
         vals = dict(consts)
@@ -194,7 +200,7 @@ def validate(tables: Dict[str, pd.DataFrame]) -> List[Issue]:
         amount = evaluate_formula(r.formula, vals)
         check = pd.to_numeric(r.amount_at_spec_1_check, errors="coerce")
         if pd.notna(check) and abs(amount - check) > 1e-3 * max(1, abs(check)) + 1e-5:
-            warn("products", f"{r.case_name} / {r.activity_name}: formula gives {amount:.5g} at spec = 1, sheet check value is {check:.5g}")
+            warn(FORMULA_TAB, f"{r.case_name} / {r.activity_name}: formula gives {amount:.5g} at spec = 1, sheet check value is {check:.5g}")
 
     # fu_comparison tab ---------------------------------------------------------------------------
     fu = tables["fu_comparison"]
@@ -203,10 +209,10 @@ def validate(tables: Dict[str, pd.DataFrame]) -> List[Issue]:
         err("fu_comparison", f"missing columns {missing}")
     else:
         raw_case_ids = set(products.loc[products.case_type == "raw", "case_name"])
-        baseline_names = set(tables["baselines"]["case"])
+        baseline_names = set(tables[BASELINE_TAB]["case"])
         bad = sorted(set(fu["raw_case"]) - raw_case_ids)
         if bad:
-            err("fu_comparison", f"raw_case(s) {bad} are not a 'raw' case on the products tab")
+            err("fu_comparison", f"raw_case(s) {bad} are not a 'raw' case on the {FORMULA_TAB} tab")
         for r in fu.itertuples():
             biobased = "" if pd.isna(r.baseline_biobased) else str(r.baseline_biobased).strip()
             fossil = "" if pd.isna(r.baseline_fossil) else str(r.baseline_fossil).strip()
@@ -214,18 +220,50 @@ def validate(tables: Dict[str, pd.DataFrame]) -> List[Issue]:
                 err("fu_comparison", f"{r.raw_case}: needs at least one of baseline_biobased / baseline_fossil")
             for label, name in (("baseline_biobased", biobased), ("baseline_fossil", fossil)):
                 if name and name not in baseline_names:
-                    err("fu_comparison", f"{r.raw_case}: {label} '{name}' is not a case on the baselines tab")
+                    err("fu_comparison", f"{r.raw_case}: {label} '{name}' is not a case on the {BASELINE_TAB} tab")
             life = pd.to_numeric(r.service_life, errors="coerce")
             if pd.isna(life) or life <= 0:
                 err("fu_comparison", f"{r.raw_case}: service_life '{r.service_life}' is not a positive number")
 
-    # baseline end-of-life mapping covers every (activity, route) with a share -------------------
-    setup = tables["baseline_eol_setup"]
-    have = set(zip(setup["activity_name"], setup["route"]))
-    b = tables["baselines"]
-    for r in b[b.parameter == "share of waste"].itertuples():
-        if (r.item, r.qualifier) not in have:
-            err("baseline_eol_setup", f"missing row for activity '{r.item}', route '{r.qualifier}' (used in baselines)")
+    # baselines: LCI per kg of product --------------------------------------------------------
+    ub, eolc = tables["unit_burdens_dataSources"], tables["EoL_constants"]
+    missing = [(tab, col) for tab, df, col in (("unit_burdens_dataSources", ub, "eol_type"),
+                                               ("EoL_constants", eolc, "recycling_credit_activity"))
+               if col not in df.columns]
+    for tab, col in missing:
+        err(tab, f"missing column '{col}'")
+    if missing:
+        return issues
+    names = ub["activity_name"].dropna().astype(str).str.strip()
+    activities = set(names)
+    eol_type = dict(zip(names, ub.loc[names.index, "eol_type"]))
+    eolc = eolc.dropna(subset=["material_name"]).set_index("material_name")
+    for m, credit in eolc["recycling_credit_activity"].dropna().items():
+        if credit not in activities:
+            err("EoL_constants", f"{m}: recycling_credit_activity '{credit}' is not an activity on unit_burdens_dataSources")
+    b = tables[BASELINE_TAB]
+    for r in b.itertuples():
+        label = f"{r.case} / {r.stage} / {r.item}"
+        if r.stage not in ("production", "end-of-life"):
+            continue
+        if r.parameter != PER_KG:
+            err(BASELINE_TAB, f"{label}: parameter must be '{PER_KG}', found '{r.parameter}'")
+        if r.stage == "production" and r.item not in activities:
+            err(BASELINE_TAB, f"{label}: '{r.item}' is not an activity on unit_burdens_dataSources")
+        if r.stage == "end-of-life":
+            if eol_type.get(r.item) not in EOL_TYPES:
+                err(BASELINE_TAB, f"{label}: '{r.item}' must be an activity on unit_burdens_dataSources with an "
+                                 f"eol_type ({', '.join(EOL_TYPES)})")
+            if r.qualifier not in eolc.index:
+                err(BASELINE_TAB, f"{label}: the treated material (qualifier) '{r.qualifier}' is not on EoL_constants")
+            elif eol_type.get(r.item) == "incineration" and pd.isna(eolc.loc[r.qualifier, "lower_heating_value_MJperKgDry"]):
+                err("EoL_constants", f"{r.qualifier}: needs a heating value (it is incinerated in '{r.case}')")
+    for case, g in b.groupby("case"):
+        n_location = int(((g.stage == "general") & (g.item == "product") & (g.parameter == "location")).sum())
+        if n_location != 1:
+            err(BASELINE_TAB, f"{case}: expected exactly one 'location' row (stage 'general', item 'product'), found {n_location}")
+        if not ((g.stage == "production") & (g.parameter == PER_KG)).any():
+            err(BASELINE_TAB, f"{case}: no production rows (materials per kg of product)")
     return issues
 
 
