@@ -7,18 +7,21 @@ or a physical constant on the sheet's `constants` tab. Code: `raw_lca/`.
 ## 1. Scope and functional unit
 
 Each **RAW case** (biopol wall, reclaimed-timber beam, coreless filament winding beam, knitted membrane) is compared
-with its **baseline products** (flagged `comparison_raw_*` on the `products` tab) for the same **product spec**
-(beam span in m, wall length in m, membrane coverage in m2; values on `study_setup`).
+with its **baseline products** (its `baseline_biobased`/`baseline_fossil` on the `fu_comparison` tab) for the same
+**product spec** (beam span in m, wall length in m, membrane coverage in m2; values on `study_setup`). The
+`fu_comparison` tab states each comparative LCA's functional unit: its name, function (documentation only), and
+quantifier (the spec that sizes the product).
 
-All products are compared over one **reference service life** `RSL` (`study_setup`, default 50 years). The burdens and
-benefits of a product with service life `L` are multiplied by `RSL / L` (per-year amortisation, continuous in `L`).
-`L` of a RAW case is `expected lifetime + n_repairs x lifetime extension per repair`; `L` of a baseline is its
-`service life` on the `baselines` tab. Results are in the EF v3.1 impact categories (25 categories in the data,
-the ones plotted are flagged on `impact_categories`).
+All products of one comparative LCA are compared over that RAW case's **reference service life** `RSL`
+(`fu_comparison.service_life`). The burdens and benefits of a product with service life `L` are multiplied by
+`RSL / L` (per-year amortisation, continuous in `L`). `L` of a RAW case is `expected lifetime + n_repairs x
+lifetime extension per repair`; `L` of a baseline is its `service life` on the `baselines` tab. Results are in the
+EF v3.1 impact categories (25 categories in the data, the ones plotted are flagged on `impact_categories`).
 
 **Product size.** The mass or amount of every product follows from the spec through formulas on the `products` tab
-(e.g. beam volume = depth x width x span with depth = span / `depth_ratio`). The constants in the formulas are named
-parameters on the case tabs (design group), not numbers inside the formula.
+(e.g. beam volume = depth x width x span with depth = span / `depth_ratio`). The constants in the formulas are
+fixed values on the `product_size_constants` tab, not numbers inside the formula, and are not varied by the
+uncertainty or sensitivity analysis.
 
 ## 2. RAW case life cycle
 
@@ -51,9 +54,10 @@ Stages, all per product spec:
    over the time horizon on `constants`. Storage time = product service life (production material) or the time
    left after the repair event (repair material).
 
-**Scaled-up variant.** Each RAW case is also run with its production machines scaled up: a production step whose name
-is a `machining process` on `processes_typicalValues` takes that machine's *large-scale* weight, lifetime, output rate and
-power from the sheet. All other steps, the repair chain, BOM, lifetimes and end of life are unchanged.
+**Scaled-up variant.** Each RAW case is also run with its production machines scaled up: a production step whose
+`scaled_up` cells are filled in (machine weight, power, output rate, machine lifetime, on its own `case_*` tab) uses
+those values instead of the prototype ones. All other steps, the repair chain, BOM, lifetimes and end of life are
+unchanged.
 
 ## 3. Baseline products
 

@@ -110,12 +110,13 @@ def test_shares_are_renormalised_after_sampling(inp):
 # ── scaled-up variant ─────────────────────────────────────────────────────────────────────
 def test_scale_up_changes_only_sheet_machines(inp):
     ps = inp.params
-    machines = set(inp.machine_params["machining_process"])
     for cid, name in inp.raw_cases().items():
+        rows = ps.rows(cid)
+        scaled_steps = set(rows[(rows.stage == "production") & rows.scaled_up.notna()]["item"])
         base = resolve_raw_case(ps, cid, name, ps.typical())
-        up = scale_up_case(base, inp.machine_params)
+        up = scale_up_case(base, ps, cid)
         for a, b in zip(base.production_chain, up.production_chain):
-            if a.step_name in machines:
+            if a.step_name in scaled_steps:
                 assert (a.kg_machine, a.power_kW, a.rate_kg_per_hr, a.machine_lifetime_hrs) != \
                        (b.kg_machine, b.power_kW, b.rate_kg_per_hr, b.machine_lifetime_hrs)
             else:

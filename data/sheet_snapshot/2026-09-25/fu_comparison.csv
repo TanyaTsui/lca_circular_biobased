@@ -1,0 +1,5 @@
+raw_case,fu_name,function,service_life,service_life_unit,quantifier_label,quantifier_unit,baseline_biobased,baseline_fossil
+raw_timber,Structural beam (reclaimed timber CNC beam vs. baselines),Structural beam spanning between two supports,50,yrs,beam span,m,glulam beam,reinforced concrete beam
+raw_cfw,Structural beam (coreless filament winding vs. baselines),Structural beam spanning between two supports,50,yrs,beam span,m,glulam beam,reinforced concrete beam
+raw_biopol,Interior wall (3D-printed biopolymer vs. baselines),Interior partition wall,50,yrs,wall length,m,adobe brick for interior wall,clay brick for interior wall
+raw_knit,Architectural membrane (knitted hemp vs. baseline),Architectural membrane covering a surface,50,yrs,membrane coverage,m2,,synthetic polymer architectural membrane

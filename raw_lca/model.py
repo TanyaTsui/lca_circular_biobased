@@ -54,7 +54,6 @@ class Model:
         self.c = c
         self.n = len(background.categories)
         self.gwp = background.gwp_index
-        self.rsl = inputs.reference_service_life
         row = inputs.eol_constants.loc[c["raw_product_eol_row"]]
         self.A, self.q, self.lhv = float(row["allocation_factor"]), float(row["quality_ratio"]), float(row["lower_heating_value_MJperKgDry"])
         self.eff_heat, self.eff_elec = float(row["conversionEfficiency_heat"]), float(row["conversionEfficiency_electricity"])
@@ -148,7 +147,7 @@ class Model:
         return -(1 - self.A) * share / 100 * self.bg.get(name, iteration=it) * self.q * kg
 
     # ── RAW case ───────────────────────────────────────────────────────────────────────────
-    def run_raw(self, case: RawCase, product_kg: float, iteration=None, label: Optional[str] = None) -> Result:
+    def run_raw(self, case: RawCase, product_kg: float, rsl: float, iteration=None, label: Optional[str] = None) -> Result:
         it = iteration
         rp = case.repair
         n_rep = rp.n_repairs
@@ -178,12 +177,12 @@ class Model:
             circ = circ + self._material_credit(route, kg_waste, s, it)
         circ = circ + self._energy_credit(kg_waste, e.incinerated, self.lhv, e.disposal_location, it)
 
-        f = self.rsl / life if life > 0 else 1.0
+        f = rsl / life if life > 0 else 1.0
         return Result(label or case.name, self.bg.categories, mat * f, proc * f, rep * f, eol_b * f, seq * f, circ * f,
                       info=dict(product_kg=product_kg, service_life_yr=life, scaling=f, material_input_kg=input_kg))
 
     # ── baseline product ────────────────────────────────────────────────────────────────────
-    def run_baseline(self, case: BaselineCase, activities: List[tuple], iteration=None,
+    def run_baseline(self, case: BaselineCase, activities: List[tuple], rsl: float, iteration=None,
                      label: Optional[str] = None) -> Result:
         """activities: [(activity name, amount, unit)] from the products tab. Cradle-to-gate burden of each
         activity plus end of life from the shares on the sheet (mapping in baseline_eol_setup)."""
@@ -206,6 +205,6 @@ class Model:
                     carbon_material = (st.carbon_material, amount * float(st.kg_per_unit))
             if carbon_material:                          # biogenic storage: virgin bio-based baseline, stored for its service life
                 seq[self.gwp] += self._storage_credit(carbon_material[0], "virgin", carbon_material[1], case.service_life_yr)
-        f = self.rsl / case.service_life_yr if case.service_life_yr > 0 else 1.0
+        f = rsl / case.service_life_yr if case.service_life_yr > 0 else 1.0
         return Result(label or case.case_name, self.bg.categories, mat * f, self.zero, self.zero, eol_b * f, seq * f, circ * f,
                       info=dict(service_life_yr=case.service_life_yr, scaling=f))

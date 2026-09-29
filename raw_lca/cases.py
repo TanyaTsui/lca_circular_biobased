@@ -1,7 +1,7 @@
 """
 Resolved products: the numbers the model needs for one RAW case or one baseline product, built from the
 sheet's parameter table (`ParameterSet`) for a given set of parameter values (typical values or a sample).
-No numbers live in this file. Scaled-up variants are derived from the sheet tab `processes_typicalValues`.
+No numbers live in this file. Scaled-up variants use the `scaled_up` column of the production chain rows.
 """
 from dataclasses import dataclass, field, replace
 from typing import Dict, List
@@ -79,16 +79,17 @@ def _normalise(shares: Dict[str, float]) -> Dict[str, float]:
     return {k: (100.0 * v / total if total > 0 else 0.0) for k, v in shares.items()}
 
 
-def product_params(ps, case: str, values: dict) -> Dict[str, float]:
-    """Named parameters of the product size formula (stage 'product') for one case."""
-    rows = ps.rows(case)
-    return {r.parameter: float(values[r.id]) for r in rows[rows.stage == "product"].itertuples()}
+def product_params(product_size_constants, case: str) -> Dict[str, float]:
+    """Named constants of the product size formula for one case (fixed - not sampled)."""
+    rows = product_size_constants[product_size_constants.case == case]
+    return {r.parameter: float(r.value) for r in rows.itertuples()}
 
 
 def resolve_raw_case(ps, case_id: str, name: str, values: dict) -> RawCase:
     lk = ps.lookup(case_id)
     rows = ps.rows(case_id)
     val = lambda stage, item, param, qual="": values[lk[(stage, item, qual, param)]]
+    location = str(val("general", "product", "location"))     # one location for every step and disposal
 
     def bom(stage):
         r = rows[(rows.stage == stage) & (rows.parameter == "share of input mass")]
@@ -101,11 +102,11 @@ def resolve_raw_case(ps, case_id: str, name: str, values: dict) -> RawCase:
         steps = list(dict.fromkeys(r.item))                      # order of the rows on the sheet
         return [ProcessStep(s, float(val(stage, s, "machine weight")), float(val(stage, s, "power")),
                             float(val(stage, s, "output rate")), float(val(stage, s, "machine lifetime")),
-                            str(val(stage, s, "electricity location")), float(val(stage, s, "process yield")),
+                            location, float(val(stage, s, "process yield")),
                             str(val(stage, s, "machine source"))) for s in steps]
 
     shares = _normalise({route: float(val("end-of-life", "waste", "share of waste", route)) for route in ROUTES})
-    eol = EolShares(**shares, disposal_location=str(val("end-of-life", "waste", "disposal grid location")))
+    eol = EolShares(**shares, disposal_location=location)
     repair = RepairSpec(material_pct_of_product=float(val("repair", "repair material", "share of product mass per repair")),
                         expected_lifetime_yr=float(val("use", "product", "expected lifetime")),
                         extension_per_repair_yr=float(val("use", "product", "lifetime extension per repair")),
@@ -128,21 +129,24 @@ def resolve_baseline(ps, case_name: str, values: dict) -> BaselineCase:
 
 
 # ── scaled-up variant (sheet-driven) ────────────────────────────────────────────────────
-SHEET_MACHINE_PARAMS = {          # `parameter` label on processes_typicalValues -> ProcessStep field
+CHAIN_FIELD_BY_PARAM = {           # sheet `parameter` label -> ProcessStep field
     "machine weight": "kg_machine",
     "machine lifetime": "machine_lifetime_hrs",
-    "output efficiency": "rate_kg_per_hr",
+    "output rate": "rate_kg_per_hr",
     "power": "power_kW",
 }
 
 
-def scale_up_case(case: RawCase, machine_params: pd.DataFrame) -> RawCase:
-    """Copy of `case` whose PRODUCTION steps named like a machine on the sheet tab `processes_typicalValues`
-    use that machine's LARGE-scale weight, lifetime, output rate and power. Everything else is unchanged."""
-    large = machine_params.pivot(index="machining_process", columns="parameter", values="large_scale")
-    missing = set(SHEET_MACHINE_PARAMS) - set(large.columns)
-    if missing:
-        raise ValueError(f"processes_typicalValues is missing parameters {sorted(missing)}")
-    chain = [replace(st, **{f: float(large.loc[st.step_name, lab]) for lab, f in SHEET_MACHINE_PARAMS.items()})
-             if st.step_name in large.index else st for st in case.production_chain]
+def scale_up_case(case: RawCase, ps, case_id: str) -> RawCase:
+    """Copy of `case` whose PRODUCTION steps that carry a `scaled_up` value (on every one of their machine
+    weight / power / output rate / machine lifetime rows) use those values instead of the prototype ones.
+    A step with no `scaled_up` values is left unchanged. Everything but the production chain is unchanged."""
+    rows = ps.rows(case_id)
+    prod = rows[(rows.stage == "production") & (rows.parameter.isin(CHAIN_FIELD_BY_PARAM))]
+    overrides: Dict[str, Dict[str, float]] = {}
+    for r in prod.itertuples():
+        if pd.notna(r.scaled_up):
+            overrides.setdefault(r.item, {})[CHAIN_FIELD_BY_PARAM[r.parameter]] = float(r.scaled_up)
+    chain = [replace(st, **overrides[st.step_name]) if st.step_name in overrides else st
+             for st in case.production_chain]
     return replace(case, name=f"{case.name} - scaled up", production_chain=chain)

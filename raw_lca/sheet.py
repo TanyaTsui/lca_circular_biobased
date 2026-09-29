@@ -23,11 +23,16 @@ SHEET_ID = "1aiMhvFkKEoIe5zj3Iw_sEgMJv2QC-z1JwMJHB3PcIwc"
 STATUSES = ("placeholder", "partner estimate", "measured", "literature")
 REQUIRED_TABS = ("baselines", "products", "study_setup", "scenarios", "impact_categories", "constants",
                  "eol_routes", "baseline_eol_setup", "gwpbio_table", "dcf_bern", "EoL_constants",
-                 "benefits_constants_dataSources", "unit_burdens_dataSources", "processes_typicalValues")
+                 "benefits_constants_dataSources", "unit_burdens_dataSources", "fu_comparison",
+                 "product_size_constants")
+FU_COLUMNS = ("raw_case", "fu_name", "function", "service_life", "service_life_unit", "quantifier_label",
+             "quantifier_unit", "baseline_biobased", "baseline_fossil")
+PRODUCT_SIZE_CONSTANT_COLUMNS = ("case", "parameter", "description", "unit", "value", "source", "comments")
 PARAM_COLUMNS = ("case", "group", "stage", "item", "qualifier", "parameter", "description", "unit", "typical",
-                 "min", "max", "distribution", "choices", "source", "status", "comments")
+                 "min", "max", "scaled_up", "distribution", "choices", "source", "status", "comments")
 CHAIN_PARAMETERS = ("machine weight", "power", "output rate", "machine lifetime", "process yield",
-                    "machine source", "electricity location")
+                    "machine source")
+SCALABLE_PARAMETERS = ("machine weight", "power", "output rate", "machine lifetime")
 
 
 def fetch_snapshot(out_dir, sheet_id: str = SHEET_ID) -> Path:
@@ -137,30 +142,82 @@ def validate(tables: Dict[str, pd.DataFrame]) -> List[Issue]:
             if stage == "production" and not steps:
                 err(t, "no production process steps (rows with parameter 'machine weight')")
             for s in steps:
-                have = set(df.loc[(df.stage == stage) & (df.item == s), "parameter"])
+                rows_s = df[(df.stage == stage) & (df.item == s)]
+                have = set(rows_s["parameter"])
                 if set(CHAIN_PARAMETERS) - have:
                     err(t, f"step '{s}' ({stage}) misses parameters {sorted(set(CHAIN_PARAMETERS) - have)}")
+                if stage == "production":
+                    filled = rows_s[rows_s.parameter.isin(SCALABLE_PARAMETERS) & rows_s.scaled_up.notna()]
+                    n = len(filled)
+                    if 0 < n < len(SCALABLE_PARAMETERS):
+                        missing = set(SCALABLE_PARAMETERS) - set(filled["parameter"])
+                        err(t, f"step '{s}' (production) has 'scaled_up' for some but not all scale parameters, "
+                               f"missing {sorted(missing)}")
         if not ((df.stage == "production") & (df.parameter == "share of input mass")).any():
             err(t, "no production bill of materials (rows with parameter 'share of input mass')")
+        n_location = int(((df.stage == "general") & (df.item == "product") & (df.parameter == "location")).sum())
+        if n_location != 1:
+            err(t, f"expected exactly one 'location' row (stage 'general', item 'product'), found {n_location}")
+
+    # product size constants tab ------------------------------------------------------------------
+    known_cases = set(params["case"])
+    psc = tables["product_size_constants"]
+    missing = [c for c in PRODUCT_SIZE_CONSTANT_COLUMNS if c not in psc.columns]
+    if missing:
+        err("product_size_constants", f"missing columns {missing}")
+        constants_by_case: Dict[str, dict] = {}
+    else:
+        bad = sorted(set(psc["case"]) - known_cases)
+        if bad:
+            err("product_size_constants", f"unknown case(s) {bad} (no parameter rows on case_* / baselines)")
+        dup = psc[psc.duplicated(["case", "parameter"], keep=False)]
+        if len(dup):
+            err("product_size_constants", f"duplicate (case, parameter) rows: {sorted(set(zip(dup.case, dup.parameter)))}")
+        constants_by_case = {c: dict(zip(g.parameter, pd.to_numeric(g.value, errors="coerce")))
+                             for c, g in psc.groupby("case")}
 
     # products tab -------------------------------------------------------------------------------
     products = tables["products"]
-    known_cases = set(params["case"])
     for r in products.itertuples():
         if r.case_name not in known_cases:
             err("products", f"case '{r.case_name}' has no parameter rows (tabs case_* / baselines)")
             continue
-        names = set(params.loc[(params.case == r.case_name) & (params.stage == "product"), "parameter"]) | {r.spec_variable}
+        consts = constants_by_case.get(r.case_name, {})
+        names = set(consts) | {r.spec_variable}
         unknown = set(formula_variables(r.formula)) - names
         if unknown:
-            err("products", f"{r.case_name} / {r.activity_name}: formula uses unknown names {sorted(unknown)}")
+            err("products", f"{r.case_name} / {r.activity_name}: formula uses unknown names {sorted(unknown)} "
+                            f"(not on product_size_constants for this case)")
             continue
-        vals = {p.parameter: float(p.typical) for p in params[(params.case == r.case_name) & (params.stage == "product")].itertuples()}
+        vals = dict(consts)
         vals[r.spec_variable] = 1.0
         amount = evaluate_formula(r.formula, vals)
         check = pd.to_numeric(r.amount_at_spec_1_check, errors="coerce")
         if pd.notna(check) and abs(amount - check) > 1e-3 * max(1, abs(check)) + 1e-5:
             warn("products", f"{r.case_name} / {r.activity_name}: formula gives {amount:.5g} at spec = 1, sheet check value is {check:.5g}")
+
+    # fu_comparison tab ---------------------------------------------------------------------------
+    fu = tables["fu_comparison"]
+    missing = [c for c in FU_COLUMNS if c not in fu.columns]
+    if missing:
+        err("fu_comparison", f"missing columns {missing}")
+    else:
+        raw_case_ids = set(products.loc[products.case_type == "raw", "case_name"])
+        baseline_names = set(tables["baselines"]["case"])
+        bad = sorted(set(fu["raw_case"]) - raw_case_ids)
+        if bad:
+            err("fu_comparison", f"raw_case(s) {bad} are not a 'raw' case on the products tab")
+        for r in fu.itertuples():
+            biobased = "" if pd.isna(r.baseline_biobased) else str(r.baseline_biobased).strip()
+            fossil = "" if pd.isna(r.baseline_fossil) else str(r.baseline_fossil).strip()
+            if not biobased and not fossil:
+                err("fu_comparison", f"{r.raw_case}: needs at least one of baseline_biobased / baseline_fossil")
+            for label, name in (("baseline_biobased", biobased), ("baseline_fossil", fossil)):
+                if name and name not in baseline_names:
+                    err("fu_comparison", f"{r.raw_case}: {label} '{name}' is not a case on the baselines tab")
+            life = pd.to_numeric(r.service_life, errors="coerce")
+            if pd.isna(life) or life <= 0:
+                err("fu_comparison", f"{r.raw_case}: service_life '{r.service_life}' is not a positive number")
 
     # baseline end-of-life mapping covers every (activity, route) with a share -------------------
     setup = tables["baseline_eol_setup"]

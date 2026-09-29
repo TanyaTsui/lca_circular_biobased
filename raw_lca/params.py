@@ -24,7 +24,7 @@ class ParameterSet:
         df["id"] = [pid(r.case, r.stage, r.item, r.qualifier, r.parameter) for r in df.itertuples()]
         is_choice = df["distribution"] == "choice"
         df["typical_value"] = [str(t) if ch else float(t) for t, ch in zip(df["typical"], is_choice)]
-        for c in ("min", "max"):
+        for c in ("min", "max", "scaled_up"):
             df[c] = pd.to_numeric(df[c], errors="coerce")
         if df["id"].duplicated().any():
             raise ValueError(f"duplicate parameters: {df.loc[df['id'].duplicated(), 'id'].tolist()[:5]}")

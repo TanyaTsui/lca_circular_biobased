@@ -22,6 +22,8 @@ class Inputs:
     tables: Dict[str, pd.DataFrame]
     params: ParameterSet
     products: pd.DataFrame
+    product_size_constants: pd.DataFrame
+    fu_comparisons: pd.DataFrame
     constants: Dict[str, object]
     setup: Dict[str, object]
     specs: Dict[str, float]           # spec variable -> value (span, length, coverage)
@@ -34,12 +36,12 @@ class Inputs:
     baseline_eol_setup: pd.DataFrame
     gwpbio: pd.DataFrame              # rotation_period_yr x storage columns
     bern: pd.DataFrame
-    machine_params: pd.DataFrame
     snapshot: Path
 
-    @property
-    def reference_service_life(self) -> float:
-        return float(self.setup["reference_service_life"])
+    def reference_service_life_for(self, raw_case_id: str) -> float:
+        """The reference period the RAW case and its baselines are compared over (fu_comparison tab)."""
+        row = self.fu_comparisons.loc[self.fu_comparisons.raw_case == raw_case_id].iloc[0]
+        return float(row["service_life"])
 
     def raw_cases(self) -> Dict[str, str]:
         """{raw case id: display name}"""
@@ -47,13 +49,10 @@ class Inputs:
         return dict(zip(raw.case_name, raw.display_name))
 
     def baselines_for(self, raw_case_id: str) -> List[str]:
-        """Baseline cases flagged for a RAW case (comparison_<case> = TRUE), bio-based before fossil-based."""
-        col = f"comparison_{raw_case_id}"
-        flagged = self.products[self.products[col].astype(str).str.upper() == "TRUE"]
-        names = list(dict.fromkeys(flagged.case_name))
-        rank = {"conventional bio-based": 0, "conventional fossil-based": 1}
-        ctype = self.products.drop_duplicates("case_name").set_index("case_name")["case_type"]
-        return sorted(names, key=lambda n: rank.get(ctype[n], 2))
+        """Baseline cases of a RAW case (fu_comparison tab), bio-based before fossil-based."""
+        row = self.fu_comparisons.loc[self.fu_comparisons.raw_case == raw_case_id].iloc[0]
+        names = [row["baseline_biobased"], row["baseline_fossil"]]
+        return [str(n).strip() for n in names if not pd.isna(n) and str(n).strip()]
 
 
 def load_inputs(snapshot_dir, raise_on_error: bool = True) -> Inputs:
@@ -74,15 +73,12 @@ def load_inputs(snapshot_dir, raise_on_error: bool = True) -> Inputs:
     for c in ("allocation_factor", "quality_ratio", "lower_heating_value_MJperKgDry",
               "conversionEfficiency_heat", "conversionEfficiency_electricity"):
         eolc[c] = pd.to_numeric(eolc[c], errors="coerce")
-    mp = tables["processes_typicalValues"].copy()
-    mp.columns = ["machining_process", "parameter", "unit", "small_scale", "large_scale"]
-    products = tables["products"].copy()
-    for c in [c for c in products.columns if c.startswith("comparison_")]:
-        products[c] = products[c].astype(str)
+    products = tables["products"]
     return Inputs(
         tables=tables, params=ParameterSet.from_tables(tables), products=products,
+        product_size_constants=tables["product_size_constants"], fu_comparisons=tables["fu_comparison"],
         constants={r.constant: _num(r.value) for r in tables["constants"].itertuples()},
         setup=setup, specs=specs, sweeps=sweeps, location_choices=[c for c in str(setup["location_choices"]).split(";") if c],
         scenarios=tables["scenarios"], categories=tables["impact_categories"], eol_constants=eolc,
         eol_routes=tables["eol_routes"].fillna("").set_index("route"), baseline_eol_setup=tables["baseline_eol_setup"],
-        gwpbio=tables["gwpbio_table"], bern=tables["dcf_bern"], machine_params=mp, snapshot=Path(snapshot_dir))
+        gwpbio=tables["gwpbio_table"], bern=tables["dcf_bern"], snapshot=Path(snapshot_dir))

@@ -1,5 +1,4 @@
 parameter,value,unit,description
-reference_service_life,50,yrs,Every product is compared over this period: results are scaled by reference life / product life
 spec_span,6,m,"Beam span used for the beam cases (raw_timber, raw_cfw and their baselines)"
 spec_length,4,m,Wall length used for the wall case (raw_biopol and its baselines)
 spec_coverage,100,m2,Membrane coverage used for the membrane case (raw_knit and its baseline)

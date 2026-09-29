@@ -34,7 +34,7 @@ FIXTURE = RawCase(
 @pytest.fixture(scope="module")
 def inp():
     inp = load_inputs(SNAPSHOT)
-    assert inp.reference_service_life == 50, "fixture life is 50 yr; scaling factor must be 1"
+    assert inp.reference_service_life_for("raw_biopol") == 50, "fixture life is 50 yr; scaling factor must be 1"
     return inp
 
 
@@ -43,7 +43,7 @@ def test_golden_02_model(inp, scenario):
     bg = Background(BACKGROUND, scenario)
     m = Model(inp, bg, constant_overrides={"mj_per_kwh": 1.0})
     m.lhv = 16.4      # 02_model used LHV = 16.4 MJ/kg for 'RAW product'; the sheet has since been updated to 16.35
-    res = m.run_raw(FIXTURE, 1.0)
+    res = m.run_raw(FIXTURE, 1.0, rsl=50)
     gold = json.load(open(GOLDEN))["scenarios"][scenario]
     got = dict(materials=res.materials, production=res.production, repair=res.repair, eol_burden=res.eol_burden,
                sequestration=res.sequestration, circularity=res.circularity)
@@ -54,8 +54,8 @@ def test_golden_02_model(inp, scenario):
 
 def test_unit_fix_only_changes_electricity_credit(inp):
     bg = Background(BACKGROUND, "baseline")
-    old = Model(inp, bg, constant_overrides={"mj_per_kwh": 1.0}).run_raw(FIXTURE, 1.0)   # sheet LHV, old units
-    new = Model(inp, bg).run_raw(FIXTURE, 1.0)
+    old = Model(inp, bg, constant_overrides={"mj_per_kwh": 1.0}).run_raw(FIXTURE, 1.0, rsl=50)   # sheet LHV, old units
+    new = Model(inp, bg).run_raw(FIXTURE, 1.0, rsl=50)
     for comp in ("materials", "production", "repair", "eol_burden", "sequestration"):
         assert np.allclose(getattr(old, comp), getattr(new, comp))
     m = Model(inp, bg)
