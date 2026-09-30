@@ -82,7 +82,7 @@ carbon storage credit for the product's service life, for the mass in its end-of
 | **`typical`** | your best estimate |
 | **`min`, `max`** | how low / high it could realistically be. Leave both equal to `typical` if it is fixed |
 | `scaled_up` | for production steps only: the machine weight / power / output rate / machine lifetime to use once this step runs at large scale. Leave blank to keep the step at prototype scale; if filled in, all four of these parameters must be filled in for that step |
-| `distribution` | how values between min and max are treated: `triangular` (typical is the most likely value), `uniform`, `fixed`, or `choice` (for text values such as a country code) |
+| `distribution` | how values between min and max are treated: `triangular` (typical is the most likely value), `uniform`, `fixed`, `choice` (for text values such as a country code), or `combination` (the fillers of a recipe, see below) |
 | `choices` | for `choice` rows: the options, separated by `;` (empty for locations = the list on `study_setup`) |
 | **`source`** | where the number comes from (measurement, a colleague, a paper, a datasheet) |
 | **`status`** | `placeholder` (a first guess by the LCA team), `partner estimate`, `measured`, `literature` |
@@ -95,6 +95,7 @@ product's size formula are the `product size` rows at the top of the tab (see ab
 
 ### Things to know
 - **Shares** (bill of materials, end-of-life routes) of one stage should add up to 100 %; the model re-normalises them.
+  Exception: a recipe with variable fillers (below).
 - **Process yield** is the share of the material entering a step that leaves it as good output (the rest becomes waste).
 - **Output rate** is how much material the machine processes per hour (kg/hr); **machine lifetime** is in operating hours.
 - The **number of repair events** is not entered: it is the smallest number of repairs that makes the product last
@@ -103,6 +104,22 @@ product's size formula are the `product size` rows at the top of the tab (see ab
 - To be **scaled up**, a production step's `scaled_up` cells must all be filled in (machine weight, power, output
   rate, machine lifetime); steps with `scaled_up` left blank keep their prototype values in the scaled-up variant.
 - Do not rename tabs or columns, and do not delete rows without asking: the model reads them by name.
+
+### Recipes with variable fillers (`lci_raw_biopol`)
+
+The biopolymer recipe of the production and of the repair stage is not a fixed list of materials: the uncertainty and
+sensitivity analyses also vary which fillers are used and how many. Each of the two stages has three rows (group
+`design`) that state the recipe rules:
+
+| `item` | `parameter` | what it means |
+|---|---|---|
+| `Pea protein binder` | `share of input mass` | % of the input mass that is binder. Its `min` (70) is the rule "at least 70 % binder"; the rest of the mass is filler |
+| `fillers` | `filler combination` | `distribution = combination`. `choices` = the fillers that may be used, written `material (source)` (each must be on `unit_burdens_dataSources`). `min` / `max` = the smallest / largest number of fillers (1 / 2). `typical` = the current recipe, e.g. `Sawdust + Seagrass` (the first one is the main filler) |
+| `fillers` | `share of first filler` | % of the filler mass that is the first filler of the combination; the second filler gets the rest. Not used for a single filler |
+
+At typical values this gives the current recipe (production 70 % binder, 20 % sawdust, 10 % seagrass). In the
+analyses every allowed combination is equally likely (for 7 fillers: 7 single fillers and 42 ordered pairs). To allow
+another filler, add it to `choices`; a new filler also needs a carbon content on `benefits_constants_dataSources`.
 
 ## What happens to your numbers
 

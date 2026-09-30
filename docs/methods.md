@@ -37,6 +37,12 @@ Stages, all per product spec:
    Burden of one kg: direct unit burden for virgin, co-product and wild-harvested material; for **recycled** material
    the circular footprint formula (CFF): `A x E_recycled + (1 - A) x E_virgin x (Q_s / Q_p)` with `A` (allocation factor)
    and `Q_s` (quality ratio) from `EoL_constants`, `Q_p` from `constants`.
+   A stage may instead have a **recipe with variable fillers** (RAW biopol production and repair): a binder share
+   (at least 70 %, its `min`), a `filler combination` of 1 to 2 different fillers from a list, and the `share of first
+   filler` in the filler mass (100 % - binder). The typical values give the current recipe; in the uncertainty and
+   sensitivity analyses the combination is drawn uniformly from all ordered combinations of distinct fillers (7 single
+   fillers and 42 ordered pairs for 7 fillers), so the type and the number of fillers vary along with the shares. The
+   tornado evaluates every combination.
 2. **Production.** The process chain is solved backward from the product mass: the required input of a step is its
    output divided by its `process yield`. Per step: process time = input / `output rate`; machine wear (kg) =
    `machine weight` x time / `machine lifetime`; electricity (kWh) = `power` x time. Impact = machine wear x burden of

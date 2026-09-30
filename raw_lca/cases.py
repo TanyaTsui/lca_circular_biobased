@@ -13,6 +13,8 @@ ROUTES = ("composted", "recycled_open", "recycled_closed", "incinerated", "landf
 EOL_TYPES = ("recycling", "composting", "incineration", "landfill")    # eol_type of a waste treatment activity
 PER_KG = "amount per kg product"                                        # parameter of every baseline LCI row
 SIZE_STAGE = "product size"                                             # constants of the product size formula
+SHARE = "share of input mass"                                           # bill of materials rows
+FILLERS, FILLER_SPLIT = "filler combination", "share of first filler"   # recipe with variable fillers
 
 
 @dataclass
@@ -91,6 +93,25 @@ def _normalise(shares: Dict[str, float]) -> Dict[str, float]:
     return {k: (100.0 * v / total if total > 0 else 0.0) for k, v in shares.items()}
 
 
+def parse_material(option: str) -> Tuple[str, str]:
+    """'Sawdust (co-product)' -> ('Sawdust', 'co-product')."""
+    name, _, source = option.strip().partition(" (")
+    return name.strip(), source.rstrip(")").strip()
+
+
+def recipe_bom(binder: Dict[Tuple[str, str], float], combination: str, first_share: float) -> List[BOMItem]:
+    """Bill of materials of a recipe with variable fillers. `binder`: {(material, source): % of input mass} (one
+    row); the rest of the mass is filler. `combination`: 'A (src) + B (src)'. With several fillers, the first one
+    gets `first_share` % of the filler mass and the others share the rest equally; a single filler gets all of it."""
+    (b_item, b_source), b_pct = next(iter(binder.items()))
+    b_pct = min(max(b_pct, 0.0), 100.0)
+    parts = [parse_material(p) for p in combination.split("+")]
+    k = len(parts)
+    splits = [100.0] if k == 1 else [first_share] + [(100.0 - first_share) / (k - 1)] * (k - 1)
+    filler_pct = 100.0 - b_pct
+    return [BOMItem(b_item, b_pct, b_source)] + [BOMItem(m, filler_pct * s / 100, src) for (m, src), s in zip(parts, splits)]
+
+
 def product_params(ps, case: str, values: dict) -> Dict[str, float]:
     """Named constants of the case's product size formula (its 'product size' rows), at the given parameter values."""
     rows = ps.rows(case)
@@ -112,8 +133,11 @@ def resolve_raw_case(ps, case_id: str, name: str, values: dict, service_life_yr:
     location = str(val("general", "product", "location"))     # one location for every step and disposal
 
     def bom(stage):
-        r = rows[(rows.stage == stage) & (rows.parameter == "share of input mass")]
+        r = rows[(rows.stage == stage) & (rows.parameter == SHARE)]
         shares = {(x.item, x.qualifier): float(values[x.id]) for x in r.itertuples()}
+        fillers = rows[(rows.stage == stage) & (rows.parameter == FILLERS)]
+        if len(fillers):                                         # recipe = binder (the share row) + 1..n fillers
+            return recipe_bom(shares, str(values[fillers.id.iloc[0]]), float(val(stage, "fillers", FILLER_SPLIT)))
         shares = _normalise(shares)
         return [BOMItem(i, s, q) for (i, q), s in shares.items()]
 

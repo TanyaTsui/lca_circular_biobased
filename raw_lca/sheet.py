@@ -14,9 +14,9 @@ from typing import Dict, List
 
 import pandas as pd
 
-from .cases import EOL_TYPES, PER_KG, SIZE_STAGE
+from .cases import EOL_TYPES, FILLER_SPLIT, FILLERS, PER_KG, SHARE, SIZE_STAGE, parse_material
 from .formulas import evaluate_formula, formula_variables
-from .params import DISTRIBUTIONS, GROUPS
+from .params import COMBINATION_SEP, DISTRIBUTIONS, GROUPS, combinations, normalise_combination
 
 # Id of the Google Sheet (the part of its URL after /d/). The sheet must be viewable by "anyone with the link" for the
 # download to work without login. docs/RAW_LCA_inputs_v2.xlsx is the layout it was created from.
@@ -108,7 +108,7 @@ def validate(tables: Dict[str, pd.DataFrame]) -> List[Issue]:
                 err(t, f"column '{col}': values must be one of {list(allowed)}, found {bad or 'empty cells'}")
         for r in df.itertuples():
             label = f"{r.case} / {r.stage} / {r.item} / {r.parameter}"
-            if r.distribution == "choice":
+            if r.distribution in ("choice", "combination"):
                 continue
             try:
                 typ = float(r.typical)
@@ -124,14 +124,18 @@ def validate(tables: Dict[str, pd.DataFrame]) -> List[Issue]:
         if n_placeholder:
             warn(t, f"{n_placeholder} of {len(df)} parameters still have status 'placeholder'")
 
-        # shares add up to 100 (at typical values)
+        # shares add up to 100 (at typical values); a recipe with variable fillers is checked separately
+        recipe_stages = set(df.loc[df.parameter == FILLERS, "stage"])
+
         def check_sum(mask, what):
             for keys, g in df[mask].groupby(["case", "stage"] if what == "BOM" else ["case", "item"]):
                 total = pd.to_numeric(g["typical"]).sum()
                 if abs(total - 100) > 0.5:
                     err(t, f"{what} shares of {keys} add up to {total:g}, not 100")
-        check_sum(df["parameter"] == "share of input mass", "BOM")
+        check_sum((df["parameter"] == SHARE) & ~df["stage"].isin(recipe_stages), "BOM")
         check_sum(df["parameter"] == "share of waste", "end-of-life")
+        for stage in recipe_stages:
+            check_recipe(t, df[df.stage == stage], stage, tables.get("unit_burdens_dataSources"), err)
 
     params = pd.concat([d for _, d in param_frames], ignore_index=True) if param_frames else pd.DataFrame()
     if params.empty:
@@ -251,6 +255,43 @@ def validate(tables: Dict[str, pd.DataFrame]) -> List[Issue]:
         if not ((g.stage == "production") & (g.parameter == PER_KG)).any():
             err(BASELINE_TAB, f"{case}: no production rows (materials per kg of product)")
     return issues
+
+
+def check_recipe(tab: str, rows: pd.DataFrame, stage: str, unit_burdens, err) -> None:
+    """A recipe with variable fillers: one binder row ('share of input mass'), one 'filler combination' row
+    (distribution 'combination', min/max = number of fillers, choices = 'material (source)' on
+    unit_burdens_dataSources) and one 'share of first filler' row."""
+    share, comb = rows[rows.parameter == SHARE], rows[rows.parameter == FILLERS]
+    split = rows[(rows.item == "fillers") & (rows.parameter == FILLER_SPLIT)]
+    where = f"{stage} recipe"
+    if len(share) != 1:
+        err(tab, f"{where}: needs exactly one '{SHARE}' row (the binder) next to the '{FILLERS}' row, found {len(share)}")
+    if len(comb) != 1 or len(split) != 1:
+        err(tab, f"{where}: needs one '{FILLERS}' row and one '{FILLER_SPLIT}' row (item 'fillers')")
+        return
+    c = comb.iloc[0]
+    if c.distribution != "combination":
+        err(tab, f"{where}: '{FILLERS}' must have distribution 'combination', found '{c.distribution}'")
+    opts = [o.strip() for o in str(c.choices if pd.notna(c.choices) else "").split(";") if o.strip()]
+    lo, hi = pd.to_numeric(c["min"], errors="coerce"), pd.to_numeric(c["max"], errors="coerce")
+    if pd.isna(lo) or pd.isna(hi) or not (1 <= lo <= hi <= len(opts)) or lo != int(lo) or hi != int(hi):
+        err(tab, f"{where}: min/max of '{FILLERS}' are the number of fillers: whole numbers with 1 <= min <= max <= "
+                 f"{len(opts)} (the number of choices), found {c['min']} / {c['max']}")
+        return
+    if unit_burdens is not None:
+        known = set(zip(unit_burdens["activity_name"].astype(str).str.strip(),
+                        unit_burdens["material_source"].fillna("").astype(str).str.strip()))
+        for o in opts:
+            if parse_material(o) not in known:
+                err(tab, f"{where}: filler '{o}' must be written 'material (source)' and be on unit_burdens_dataSources")
+    typical = normalise_combination(c.typical, ";".join(opts))
+    if typical not in combinations(";".join(opts), lo, hi):
+        err(tab, f"{where}: typical '{c.typical}' is not {int(lo)} to {int(hi)} different fillers from the choices, "
+                 f"separated by '{COMBINATION_SEP.strip()}'")
+    sp = split.iloc[0]
+    vals = pd.to_numeric(pd.Series([sp.typical, sp["min"], sp["max"]]), errors="coerce")
+    if vals.isna().any() or (vals < 0).any() or (vals > 100).any():
+        err(tab, f"{where}: '{FILLER_SPLIT}' needs typical, min and max between 0 and 100")
 
 
 def report(issues: List[Issue]) -> None:

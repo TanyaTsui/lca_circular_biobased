@@ -3,7 +3,7 @@ Sensitivity analysis of a RAW case's net impact to its sheet parameters, grouped
 design / manufacturing / circularity / location choices.
 
  - tornado: one-at-a-time swing of the output between each parameter's min and max (all others typical);
-   categorical parameters are switched between their choices.
+   categorical parameters are switched between their choices (combination parameters: between all combinations).
  - sobol: variance-based first-order (S1) and total-order (ST) indices (Saltelli 2010 / Jansen 1999 estimators),
    per parameter or per group, with bootstrap confidence intervals.
 Background (ecoinvent) uncertainty is not part of the sensitivity analysis.
@@ -14,6 +14,7 @@ import numpy as np
 import pandas as pd
 
 from .model import Model
+from .params import combinations
 from .study import run_raw_only
 
 
@@ -82,7 +83,8 @@ def sobol(model: Model, raw_case_id: str, N: int, seed: int, by: str = "group", 
 
 def tornado(model: Model, raw_case_id: str, category: str, spec_value: Optional[float] = None,
             scaled_up: bool = False) -> pd.DataFrame:
-    """Output at each parameter's min and max (others typical); categorical parameters: at each choice."""
+    """Output at each parameter's min and max (others typical); categorical parameters: at each choice
+    (combination parameters: at each combination)."""
     inp = model.inp
     ps = inp.params
     ci = model.bg.categories.index(category)
@@ -92,8 +94,9 @@ def tornado(model: Model, raw_case_id: str, category: str, spec_value: Optional[
     rows = []
     for i in ps.varying_ids(raw_case_id, inp.location_choices):
         r = by_id.loc[i]
-        if r["distribution"] == "choice":
-            opts = [c for c in r["choices"].split(";") if c] or list(inp.location_choices)
+        if r["distribution"] in ("choice", "combination"):
+            opts = (combinations(r["choices"], r["min"], r["max"]) if r["distribution"] == "combination" else
+                    [c for c in r["choices"].split(";") if c] or list(inp.location_choices))
             ys = [run_raw_only(model, raw_case_id, spec_value, {**base, i: o}, scaled_up).net[ci] for o in opts]
         else:
             ys = [run_raw_only(model, raw_case_id, spec_value, {**base, i: v}, scaled_up).net[ci] for v in (r["min"], r["max"])]
