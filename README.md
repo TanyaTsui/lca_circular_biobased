@@ -14,10 +14,12 @@ Google Sheet ──► sheet snapshot ──► background LCI ──► model �
                                            ecoinvent, premise)
 ```
 
-- **All parameters are on the Google Sheet** (layout: [docs/RAW_LCA_inputs_v2.xlsx](docs/RAW_LCA_inputs_v2.xlsx), open it in
-  Google Sheets to create the sheet; guide for partners: [docs/sheet_guide.md](docs/sheet_guide.md)): the numbers of the RAW cases
-  (filled in by the case partners), the baseline products, the constants, the scenarios and the analysis settings. There
-  are no parameters in the code.
+- **All parameters are on the [Google Sheet](https://docs.google.com/spreadsheets/d/1KILEKpBrlLxxTO4JqrI2iSCQrWy_sZlyZKEPXlxrM44)**
+  (id in `raw_lca/sheet.py`; it must be shared as "Anyone with the link: Viewer" for the download to work. Copy of the
+  layout: [docs/RAW_LCA_inputs_v18.xlsx](docs/RAW_LCA_inputs_v18.xlsx); guide for partners: [docs/sheet_guide.md](docs/sheet_guide.md)):
+  the numbers of the RAW cases (one `lci_raw_<name>` tab each, filled in by the case partners), the baseline products
+  (one `lci_baseline_<name>` tab each, per kg of product or process-based like a RAW case), the constants, the scenarios
+  and the analysis settings. There are no parameters in the code.
 - A **snapshot** of the sheet (one CSV per tab, `data/sheet_snapshot/<date>/`) is what the results are computed from, so they
   are reproducible without network access.
 - The **background data** (unit burdens per material and process from ecoinvent 3.12 and premise scenarios, plus Monte Carlo
@@ -36,12 +38,12 @@ Steps individually:
 
 | step | command / notebook | output |
 |---|---|---|
-| 1 | `python pipeline/01_fetch_sheet.py` (`--check` = validate the newest snapshot only; needs `SHEET_ID` in `raw_lca/sheet.py`) | `data/sheet_snapshot/<date>/` |
+| 1 | `python pipeline/01_fetch_sheet.py` (`--check` = validate the newest snapshot only; `--xlsx FILE` = build the snapshot from a downloaded copy of the sheet) | `data/sheet_snapshot/<date>/` |
 | 2 | `pipeline/02_background_lci.ipynb` (needs an ecoinvent licence and a premise key, see `.env.example`; hours) | `data/background/` |
 | 3 | `pipeline/03_results.ipynb` | bar charts today vs. 2050, spec sweeps: `results/figures`, `results/tables` |
 | 4 | `pipeline/04_uncertainty.ipynb` | the same charts with uncertainty intervals, probability tables |
 | 5 | `pipeline/05_sensitivity.ipynb` | Sobol' indices per parameter group and parameter, tornado diagrams |
-| - | `python -m pytest tests` | 21 tests: formulas, sheet validation, sampling, Sobol' benchmark, background-data completeness, regression against the earlier model |
+| - | `python -m pytest tests` | 28 tests: formulas, sheet validation, baseline kinds, sampling, Sobol' benchmark, background-data completeness, regression against the earlier model |
 
 Steps 3-5 need only the committed snapshot and background data. The number of Monte Carlo draws, seeds, the spec values,
 the reference service life, the scenarios and the charted categories are all set on the sheet (`study_setup`,
@@ -58,7 +60,7 @@ data/sheet_snapshot/ frozen copies of the sheet
 data/background/     unit burdens, carbon content, Monte Carlo samples
 results/             figures and tables (generated)
 tests/               tests, including the frozen numbers of the earlier notebook model (tests/golden)
-docs/                methods.md, sheet_guide.md, RAW_LCA_inputs_v2.xlsx (the sheet layout to import into Google Sheets)
+docs/                methods.md, sheet_guide.md, RAW_LCA_inputs_v18.xlsx (copy of the sheet layout)
 run_all.py           regenerate everything
 ```
 

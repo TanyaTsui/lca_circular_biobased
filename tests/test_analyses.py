@@ -21,7 +21,8 @@ def test_sobol_matches_the_analytic_ishigami_function():
 def test_uncertainty_collapses_to_the_typical_result_without_ranges():
     inp = load_inputs(SNAPSHOT)
     df = inp.params.df
-    df["min"], df["max"] = df["typical_value"].where(df["distribution"] != "choice"), df["typical_value"].where(df["distribution"] != "choice")
+    numeric = ~df["distribution"].isin(["choice", "combination"])     # a combination's min/max are numbers of options
+    df.loc[numeric, "min"] = df.loc[numeric, "max"] = df.loc[numeric, "typical_value"]
     bg = Background(BACKGROUND, "baseline")
     bg.samples = None                                   # parameter uncertainty only
     model = Model(inp, bg)
@@ -43,7 +44,8 @@ def test_paired_draws_and_reproducibility():
 def test_background_samples_add_spread_even_with_fixed_parameters():
     inp = load_inputs(SNAPSHOT)
     df = inp.params.df
-    df["min"], df["max"] = df["typical_value"].where(df["distribution"] != "choice"), df["typical_value"].where(df["distribution"] != "choice")
+    numeric = ~df["distribution"].isin(["choice", "combination"])     # a combination's min/max are numbers of options
+    df.loc[numeric, "min"] = df.loc[numeric, "max"] = df.loc[numeric, "typical_value"]
     bg = Background(BACKGROUND, "baseline")
     if bg.samples is None:
         pytest.skip("no background samples committed")

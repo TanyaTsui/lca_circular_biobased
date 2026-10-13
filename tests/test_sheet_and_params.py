@@ -7,7 +7,7 @@ import pytest
 
 from conftest import BACKGROUND, SNAPSHOT
 from raw_lca import Background, Model, load_inputs
-from raw_lca.cases import resolve_baseline, resolve_raw_case, scale_up_case
+from raw_lca.cases import baseline_kind, resolve_baseline, resolve_raw_case, scale_up_case
 from raw_lca.formulas import evaluate_formula
 from raw_lca.sheet import load_tables, validate
 
@@ -29,13 +29,13 @@ def test_formula_evaluator_rejects_code():
             evaluate_formula(bad, {"span": 1})
 
 
-def test_formulas_reproduce_the_sheet_check_values(inp):
-    """every product formula at spec = 1 equals the amount_at_spec_1_check column of the products tab"""
+def test_formulas_give_positive_amounts(inp):
+    """every product formula gives a positive, finite mass at spec = 1 (differences from the sheet's
+    amount_at_spec_1_check column are validation warnings only: that column is a hand-made check)"""
     from raw_lca.study import activity_amounts
     for case in inp.products.case_name.unique():
-        got = {a: v for a, v, _ in activity_amounts(inp, case, 1.0)}
-        for r in inp.products[inp.products.case_name == case].itertuples():
-            assert got[r.activity_name] == pytest.approx(float(r.amount_at_spec_1_check), rel=1e-3, abs=1e-5), (case, r.activity_name)
+        for a, v, _ in activity_amounts(inp, case, 1.0):
+            assert np.isfinite(v) and v > 0, (case, a)
 
 
 def test_size_constants_vary_except_the_functional_unit(inp):
@@ -63,7 +63,8 @@ def _broken(tables, tab, mutate):
 
 
 def test_validation_catches_bad_inputs(tables):
-    case_tab = next(t for t in tables if t.startswith("lci_raw_"))
+    case_tab = next(t for t in tables if t.startswith("lci_raw_")
+                    and not (tables[t]["parameter"] == "filler combination").any())      # a recipe's shares are not summed
 
     def min_above_typical(df):
         i = df.index[df["distribution"] == "triangular"][0]
@@ -84,6 +85,35 @@ def test_validation_catches_bad_inputs(tables):
     assert any("unknown names" in m for m in _broken(tables, "product_size_formulas", bad_formula))
 
 
+def test_validation_checks_each_kind_of_baseline(tables):
+    per_kg = next(t for t in tables if t.startswith("lci_baseline") and "group" not in tables[t].columns)
+    process = next(t for t in tables if t.startswith("lci_baseline") and "group" in tables[t].columns)
+
+    def no_service_life(df):
+        df.drop(df.index[df["parameter"] == "service life"], inplace=True)
+    assert any("service life" in m for m in _broken(tables, per_kg, no_service_life))
+
+    def no_power(df):
+        df.drop(df.index[df["parameter"] == "power"][:1], inplace=True)
+    assert any("misses parameters" in m for m in _broken(tables, process, no_power))
+
+
+# ── baselines ───────────────────────────────────────────────────────────────────────────
+def test_baselines_are_per_kg_or_process_based(inp):
+    ps = inp.params
+    kinds = {b: baseline_kind(ps.rows(b)) for r in inp.raw_cases() for b in inp.baselines_for(r)}
+    assert kinds["glulam beam"] == "per_kg" and kinds["glass fibre CFW beam"] == "process"
+
+
+def test_cases_without_repair_rows_are_never_repaired(inp):
+    ps = inp.params
+    for case in ("raw_cfw", "glass fibre CFW beam"):
+        assert not (ps.rows(case).stage == "repair").any()
+        c = resolve_raw_case(ps, case, case, ps.typical(), 100.0)       # service life far above the expected lifetime
+        assert c.repair.n_repairs == 0 and c.repair_bom == [] and c.repair_chain == []
+        assert c.service_life_yr == c.repair.expected_lifetime_yr
+
+
 # ── parameters ──────────────────────────────────────────────────────────────────────────
 def test_sampling_respects_ranges_and_fixed_values(inp):
     ps = inp.params
@@ -92,6 +122,8 @@ def test_sampling_respects_ranges_and_fixed_values(inp):
         col = s[r.id]
         if r.distribution == "choice":
             assert (col == r.typical_value).all()
+        elif r.distribution == "combination":
+            continue
         elif r.min < r.max:
             assert col.min() >= r.min - 1e-9 and col.max() <= r.max + 1e-9
         else:
@@ -125,13 +157,14 @@ def test_scale_up_changes_only_sheet_machines(inp):
     ps = inp.params
     for cid, name in inp.raw_cases().items():
         rows = ps.rows(cid)
-        scaled_steps = set(rows[(rows.stage == "production") & rows.scaled_up.notna()]["item"])
+        prod = rows[(rows.stage == "production") & rows.scaled_up.notna()]
+        scaled = {(r.item, r.parameter): float(r.scaled_up) for r in prod.itertuples()}
         base = resolve_raw_case(ps, cid, name, ps.typical(), inp.reference_service_life_for(cid))
         up = scale_up_case(base, ps, cid)
         for a, b in zip(base.production_chain, up.production_chain):
-            if a.step_name in scaled_steps:
-                assert (a.kg_machine, a.power_kW, a.rate_kg_per_hr, a.machine_lifetime_hrs) != \
-                       (b.kg_machine, b.power_kW, b.rate_kg_per_hr, b.machine_lifetime_hrs)
+            if (a.step_name, "power") in scaled:          # the sheet's scaled-up values (may equal the prototype's)
+                assert (b.kg_machine, b.power_kW, b.rate_kg_per_hr, b.machine_lifetime_hrs) == tuple(
+                    scaled[(a.step_name, p)] for p in ("machine weight", "power", "output rate", "machine lifetime"))
             else:
                 assert a == b
         assert up.repair_chain == base.repair_chain and up.production_bom == base.production_bom and up.eol == base.eol

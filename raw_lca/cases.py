@@ -11,7 +11,7 @@ import pandas as pd
 
 ROUTES = ("composted", "recycled_open", "recycled_closed", "incinerated", "landfilled")
 EOL_TYPES = ("recycling", "composting", "incineration", "landfill")    # eol_type of a waste treatment activity
-PER_KG = "amount per kg product"                                        # parameter of every baseline LCI row
+PER_KG = "amount per kg product"                                        # parameter of every per-kg baseline LCI row
 SIZE_STAGE = "product size"                                             # constants of the product size formula
 SHARE = "share of input mass"                                           # bill of materials rows
 FILLERS, FILLER_SPLIT = "filler combination", "share of first filler"   # recipe with variable fillers
@@ -118,6 +118,12 @@ def product_params(ps, case: str, values: dict) -> Dict[str, float]:
     return {r.parameter: float(values[r.id]) for r in rows[rows.stage == SIZE_STAGE].itertuples()}
 
 
+def baseline_kind(rows: pd.DataFrame) -> str:
+    """'process' if a baseline's rows describe it like a RAW case (bill of materials, machines), 'per_kg' if they are an
+    LCI per kg of product."""
+    return "process" if rows["parameter"].isin([SHARE, "machine weight"]).any() else "per_kg"
+
+
 def repairs_needed(expected_lifetime_yr: float, extension_per_repair_yr: float, service_life_yr: float) -> int:
     """Smallest number of repairs that makes the product last the functional unit's service life."""
     if expected_lifetime_yr >= service_life_yr or extension_per_repair_yr <= 0:
@@ -152,8 +158,9 @@ def resolve_raw_case(ps, case_id: str, name: str, values: dict, service_life_yr:
     shares = _normalise({route: float(val("end-of-life", "waste", "share of waste", route)) for route in ROUTES})
     eol = EolShares(**shares, disposal_location=location)
     expected = float(val("use", "product", "expected lifetime"))
-    extension = float(val("use", "product", "lifetime extension per repair"))
-    repair = RepairSpec(material_pct_of_product=float(val("repair", "repair material", "share of product mass per repair")),
+    optional = lambda stage, item, param: float(values[lk[(stage, item, "", param)]]) if (stage, item, "", param) in lk else 0.0
+    extension = optional("use", "product", "lifetime extension per repair")       # no repair rows = never repaired
+    repair = RepairSpec(material_pct_of_product=optional("repair", "repair material", "share of product mass per repair"),
                         expected_lifetime_yr=expected, extension_per_repair_yr=extension,
                         n_repairs=repairs_needed(expected, extension, service_life_yr))
     return RawCase(case_id=case_id, name=name, production_bom=bom("production"), production_chain=chain("production"),

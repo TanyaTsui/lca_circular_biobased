@@ -1,0 +1,5 @@
+term,coefficient_a,time_constant_tau_yr,source
+a0,0.217,,"Bern carbon cycle model, Forster et al. 2007 via Levasseur et al. 2010 eq. 3"
+a1,0.259,172.9,"Bern carbon cycle model, Forster et al. 2007 via Levasseur et al. 2010 eq. 3"
+a2,0.338,18.51,"Bern carbon cycle model, Forster et al. 2007 via Levasseur et al. 2010 eq. 3"
+a3,0.186,1.186,"Bern carbon cycle model, Forster et al. 2007 via Levasseur et al. 2010 eq. 3"

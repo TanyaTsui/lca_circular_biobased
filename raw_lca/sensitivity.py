@@ -20,7 +20,7 @@ from .study import run_raw_only
 
 def sobol_from_evaluations(f_A: np.ndarray, f_B: np.ndarray, f_AB: List[np.ndarray], n_boot: int = 200,
                            seed: int = 0) -> Dict[str, np.ndarray]:
-    """S1, ST and bootstrap 95 % CI of ST. f_* have shape (N, n_outputs); f_AB[k] = A with block k taken from B."""
+    """S1, ST and their bootstrap 95 % CIs. f_* have shape (N, n_outputs); f_AB[k] = A with block k taken from B."""
     rng = np.random.default_rng(seed)
 
     def indices(idx):
@@ -32,8 +32,10 @@ def sobol_from_evaluations(f_A: np.ndarray, f_B: np.ndarray, f_AB: List[np.ndarr
         return s1, st
 
     s1, st = indices(np.arange(len(f_A)))
-    boots = np.array([indices(rng.integers(0, len(f_A), len(f_A)))[1] for _ in range(n_boot)])
-    return {"S1": s1, "ST": st, "ST_lo": np.nanpercentile(boots, 2.5, axis=0), "ST_hi": np.nanpercentile(boots, 97.5, axis=0)}
+    boots = [indices(rng.integers(0, len(f_A), len(f_A))) for _ in range(n_boot)]
+    b1, bt = np.array([b[0] for b in boots]), np.array([b[1] for b in boots])
+    return {"S1": s1, "ST": st, "S1_lo": np.nanpercentile(b1, 2.5, axis=0), "S1_hi": np.nanpercentile(b1, 97.5, axis=0),
+            "ST_lo": np.nanpercentile(bt, 2.5, axis=0), "ST_hi": np.nanpercentile(bt, 97.5, axis=0)}
 
 
 def sobol_function(f: Callable[[np.ndarray], np.ndarray], blocks: List[List[int]], n_dims: int, N: int, seed: int,
@@ -77,6 +79,7 @@ def sobol(model: Model, raw_case_id: str, N: int, seed: int, by: str = "group", 
     for k, name in enumerate(names):
         for c, cat in enumerate(model.bg.categories):
             rows.append(dict(name=name, group=group_of[name], category=cat, S1=res["S1"][k, c], ST=res["ST"][k, c],
+                             S1_lo=res["S1_lo"][k, c], S1_hi=res["S1_hi"][k, c],
                              ST_lo=res["ST_lo"][k, c], ST_hi=res["ST_hi"][k, c]))
     return pd.DataFrame(rows)
 

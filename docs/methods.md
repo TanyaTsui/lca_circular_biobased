@@ -17,7 +17,7 @@ All products of one comparative LCA are compared over that RAW case's **referenc
 `RSL / L` (per-year amortisation, continuous in `L`). `L` of a RAW case is `expected lifetime + n_repairs x
 lifetime extension per repair`, where `n_repairs` is the smallest number of repairs that reaches `RSL`:
 `ceil((RSL - expected lifetime) / lifetime extension per repair)`, and 0 if the expected lifetime already reaches it
-(so `L >= RSL` whenever repair extends the life). `L` of a baseline is its `service life` on the `lci_baselines` tab. Results are in the
+(so `L >= RSL` whenever repair extends the life). `L` of a per-kg baseline is its `service life` on its `lci_baseline_*` tab; a process-based baseline has `L` like a RAW case. A case without repair rows is never repaired (`L` = expected lifetime). Results are in the
 EF v3.1 impact categories (25 categories in the data, the ones plotted are flagged on `impact_categories`).
 
 **Product size.** The mass (kg) of every product follows from the spec through one formula per product on the
@@ -72,7 +72,14 @@ unchanged.
 
 ## 3. Baseline products
 
-A baseline is an LCI per kg of product (`lci_baselines` tab) times the product mass from the `product_size_formulas` formula.
+Each baseline has its own `lci_baseline_<name>` tab, in one of two forms.
+
+**Process-based baselines** (tab with a bill of materials and a machine chain, e.g. the flax and glass fibre CFW beams and the
+CNC knitted hemp membrane) are modelled exactly like a RAW case (section 2): materials, backward-solved process chain,
+optional repair, end of life with the RAW end-of-life routes and constants (`raw_product_eol_row`), and carbon storage. They
+have no scaled-up variant.
+
+**Per-kg baselines** are an LCI per kg of product times the product mass from the `product_size_formulas` formula.
 Cradle-to-gate burden = sum over the production rows of unit burden x amount per kg x product mass.
 
 End of life: each end-of-life row sends `m` kg of one material to one waste treatment. The circular footprint

@@ -28,8 +28,11 @@ def test_yes_no_matches_direct_comparison_and_marks_missing_baselines():
                 else:
                     i = scaled.categories.index(cat)
                     assert table.loc[label, col] == ("yes" if scaled.net[i] < other.net[i] else "no")
-    # the membrane has no bio-based conventional baseline
-    assert (better_table(inp, results, "conventional bio-based", ORDER)["knit"] == "n/a").all()
+    # a column is 'n/a' exactly when fu_comparison names no baseline of that type
+    for case in ORDER:
+        has_bio = any(type_of(inp, l) == "conventional bio-based" for l in results[case])
+        col = better_table(inp, results, "conventional bio-based", ORDER)[case.replace("raw_", "")]
+        assert (col == "n/a").all() != has_bio
 
 
 def test_top_group_table_picks_the_largest_total_order_index():

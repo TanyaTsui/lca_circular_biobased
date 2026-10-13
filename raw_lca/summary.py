@@ -35,21 +35,22 @@ def better_table(inp: Inputs, results: Dict[str, Dict[str, Result]], other_type:
     return table
 
 
-def top_group_table(inp: Inputs, group_sobol: Dict[str, pd.DataFrame], case_order: List[str]) -> pd.DataFrame:
-    """Most important parameter group per impact category and RAW case: the group with the largest total-order Sobol'
-    index. A trailing * marks a close call (the 95 % interval of the top group overlaps that of the runner-up).
+def top_group_table(inp: Inputs, group_sobol: Dict[str, pd.DataFrame], case_order: List[str], index: str = "ST") -> pd.DataFrame:
+    """Most important parameter group per impact category and RAW case: the group with the largest Sobol' index
+    (`index`: 'ST' total-order, 'S1' first-order). A trailing * marks a close call (the 95 % interval of the top group
+    overlaps that of the runner-up).
     group_sobol: {raw case id: output of raw_lca.sensitivity.sobol(..., by='group')} for one background."""
     cats = chart_categories(inp)
     table = pd.DataFrame(index=[label for _, label in cats], columns=[c.replace("raw_", "") for c in case_order], dtype=object)
     for case_id in case_order:
         df = group_sobol[case_id]
         for cat, label in cats:
-            sub = df[df["category"] == cat].dropna(subset=["ST"]).sort_values("ST", ascending=False)
+            sub = df[df["category"] == cat].dropna(subset=[index]).sort_values(index, ascending=False)
             col = case_id.replace("raw_", "")
             if sub.empty:
                 table.loc[label, col] = "n/a"
                 continue
             top = sub.iloc[0]
-            close = len(sub) > 1 and top["ST_lo"] <= sub.iloc[1]["ST_hi"]
+            close = len(sub) > 1 and top[f"{index}_lo"] <= sub.iloc[1][f"{index}_hi"]
             table.loc[label, col] = top["name"] + ("*" if close else "")
     return table

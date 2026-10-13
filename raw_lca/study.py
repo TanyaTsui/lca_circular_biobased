@@ -1,7 +1,7 @@
 """Runs a RAW case, its scaled-up variant and its baselines for one product spec and one set of parameter values."""
 from typing import Dict, List, Optional, Tuple
 
-from .cases import resolve_baseline, resolve_raw_case, product_params, scale_up_case
+from .cases import baseline_kind, resolve_baseline, resolve_raw_case, product_params, scale_up_case
 from .formulas import evaluate_formula
 from .inputs import Inputs
 from .model import Model, Result
@@ -36,10 +36,12 @@ def run_products(model: Model, raw_case_id: str, spec_value: Optional[float] = N
         up = scale_up_case(raw, inp.params, raw_case_id)
         results[up.name] = model.run_raw(up, raw_kg, rsl, iteration)
     for b in inp.baselines_for(raw_case_id):
-        bc = resolve_baseline(inp.params, b, values)
         label = inp.products.loc[inp.products.case_name == b, "display_name"].iloc[0]
         product_kg = activity_amounts(inp, b, spec_value, values)[0][1]
-        results[label] = model.run_baseline(bc, product_kg, rsl, iteration, label)
+        if baseline_kind(inp.params.rows(b)) == "process":        # modelled like a RAW case (no scaled-up variant)
+            results[label] = model.run_raw(resolve_raw_case(inp.params, b, label, values, rsl), product_kg, rsl, iteration, label)
+        else:
+            results[label] = model.run_baseline(resolve_baseline(inp.params, b, values), product_kg, rsl, iteration, label)
     return results
 
 
