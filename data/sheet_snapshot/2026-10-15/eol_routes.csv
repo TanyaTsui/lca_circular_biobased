@@ -1,0 +1,6 @@
+route,treatment_activity,cff_factor_applies,material_credit_activity,energy_credit_heat_activity,energy_credit_electricity_activity
+composted,waste composting,True,avoided burden - composting,,
+recycled_open,waste recycling,True,avoided burden - open loop recycling,,
+recycled_closed,waste recycling,True,,,
+incinerated,waste incineration,False,,"avoided burden - incineration, heat","avoided burden - incineration, electricity"
+landfilled,waste landfilling,False,,,
