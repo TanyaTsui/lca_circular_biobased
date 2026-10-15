@@ -1,172 +1,175 @@
 # RAW Impact Explorer
 
-A browser tool for RAW project fabrication partners to see the environmental
-impact of their process today, sketch an optimised version, and explore which
-individual changes matter most — before committing to them on the shop floor.
+A browser tool for the RAW partner workshop. Partners check the life cycle inventory (LCI) of their case: they correct
+each number, its min–max range and the scaled-up value, and add comments. They see straight away what this does to the
+impact, compared with the conventional bio-based and fossil-based products, and then submit their numbers.
 
-It's a direct port of `02_model.ipynb`: every function in `calc.js` mirrors a
-function in the notebook by name, and the reference case (the 3D-printed
-biopolymer example) is validated to reproduce the notebook's printed output
-exactly (Material 1.4554 / Production 8.9899 / Repair 0.7869 kg CO2-eq, etc.,
-with the background slider below at 0%/baseline).
-If you update the LCA model, update `calc.js` to match and re-check against
-the notebook before trusting the tool again.
+The tool computes with the same model as the paper. `calc.js` is a port of `raw_lca/model.py` (`Model.run_raw`), with
+the same function names, and `check_calc.js` checks it against the Python results.
 
 ## Files
 
-- `index.html` — page structure & styling
-- `presets.js` — the four "Load a case" worked examples (`RAW_PRESETS`)
-- `data.js` — `unit_burdens*.csv`, `eol_constants.csv`, `benefits_constants.csv`
-  baked into one JS object (`RAW_DATA`), so the tool works offline / from a
-  double-clicked file, not just when served
-- `build_data.py` — regenerates `data.js` from the three processed CSVs
-- `calc.js` — the calculation engine (pure functions, no DOM)
-- `app.js` — UI state, form rendering, the compare/diff/slider engine, export
-  and recording
-
-To refresh the underlying LCA data (new ecoinvent version, more materials,
-updated CFF constants, a new premise scenario run, ...), run
-`python build_data.py` from this directory. It reads the three CSVs from
-`data/processed/` and rewrites `data.js` — nothing else in the tool needs to
-change, since everything reads from `RAW_DATA`.
-
-**Scenario data**: `01b_dataPrep_prospective.ipynb` has been run for real, so
-`build_data.py`'s `SOURCE_UNIT_BURDENS` points at the real `unit_burdens.csv`
-(baseline / `image_SSP2-M_2050` / `image_SSP2-L_2050`, from real premise
-databases) — the synthetic `unit_burdens_dummy.csv` used during development is
-no longer referenced. Re-run `python build_data.py` any time `01b` produces a
-new scenario run.
-
-## Starting a model
-
-The tool **opens blank**. The Today tab shows a *Start a model* banner with four
-worked examples (also reachable any time via **Load a case** in the top bar):
-
-| Case | What it is |
+| file | what |
 |---|---|
-| Biopolymer 3D printing | pea-protein/sawdust/seagrass, printed + baked; ships with an optimised future line |
-| Reclaimed hardwood CNC | 100% recycled hardwood, scanned + CNC-milled (net-negative) |
-| Knitted hemp fibre | virgin hemp carded/spun/knitted, closed-loop recycled |
-| Coreless filament winding | hemp roving wet-wound with epoxy, incineration-heavy EoL |
+| `index.html` | page and styling |
+| `app.js` | the form, results panel, comparison chart, export / import / submission |
+| `calc.js` | the model (no DOM): `runRaw`, `plainInputs`, scale-up and background blending, Monte Carlo |
+| `data.js` | **generated**: `RAW_DATA`, i.e. unit burdens today and 2050, carbon content, EoL constants and routes, constants, GWP_bio and Bern tables |
+| `presets.js` | **generated**: `RAW_CASES` (the four cases as editable inputs), `RAW_BASELINES`, `RAW_REFERENCE` |
+| `build_data.py` | writes `data.js` and `presets.js` from the newest sheet snapshot and `data/background/` |
+| `check_calc.js` | compares `calc.js` with `RAW_REFERENCE` (every case, prototype / scaled-up × today / 2050, every category) |
 
-Presets live in `presets.js` (same shape as an exported inputs file). *Blank
-canvas* in the Load-a-case dialog clears everything. Every field stays editable
-after loading.
+## Updating the numbers
 
-## Inputs & results panel
-
-- **Product basis** holds the lifetime assumptions and the repair on/off toggle.
-  *Expected lifetime without repair* is always shown (it sets the carbon-storage
-  duration); *lifetime extension per repair* and *number of repair events* only
-  appear when repair is toggled on. Repair-only inputs (repair material %, repair
-  BOM, repair chain) stay in the Repair section; the repair BOM and chain each
-  have a *Copy from production* button.
-- **Production process chain** steps can be reordered with the ↑/↓ buttons on
-  each step card (the chain is still solved backward from the target output
-  mass, so order changes the result).
-- Material-source labels are display-only relabels: `co-product` shows as
-  `by-product`, `Soft wood`/`Hard wood` as `wood, soft`/`wood, hard`. The
-  canonical value is what `calc.js` and the CSVs use and what exports contain.
-- The **Burden** bar in the results panel is segmented by component (material /
-  production / repair / end-of-life). Each row in the itemised breakdown below
-  expands on click to a per-item drill-down (per process, per material, per EoL
-  route, growth vs. delayed-emissions for sequestration).
-- With materials but **no process steps**, results are still shown — the input
-  mass is taken to equal the target output mass (no processing losses).
-
-## Compare tab
-
-- A **master slider** ("Slide everything: Today → Future") at the top moves
-  every lever to the same position at once; releasing it re-syncs the toggle
-  buttons.
-- Each **bill of materials** contributes a single mix slider (Today mix → Future
-  mix) rather than one slider per material.
-- Diff ids are now derived from group + label (stable across re-renders), so
-  slider positions and toggles survive editing another lever.
-
-## Import / export
-
-- **Export inputs (.json)** downloads both scenarios' inputs (+ background).
-- **Import inputs (.json)** reloads a previously exported file — Today, Future
-  and background are all restored; missing keys are backfilled from the default
-  scenario so older exports still load.
-
-## Recording target (pre-configured)
-
-`state.sheetUrl` in `app.js` is pre-set to the deployed Apps Script Web App for
-the shared RAW project sheet
-(`docs.google.com/spreadsheets/d/1V-yfoLJ4mOpQNL9FhD3dTIvIVj3SZCwywt3PAdA_jyw`),
-so **Record to research log** works with no setup. Override it in Recording
-settings if you need a different target.
-
-## Background scenario slider
-
-Alongside the existing Today/Future compare tab (which blends the *foreground*
-recipe — BOM, process chain, EoL split), the results panel has a second,
-independent slider: **Background: Today → Future**, plus a dropdown choosing
-which IAM pathway "Future" means. It linearly interpolates *background* unit
-burdens (electricity, cement, steel — the sectors `premise` actually updates)
-between the `baseline` data and the selected scenario. This is a sensitivity/
-exploration device, not a modelled emissions trajectory — most materials in
-the BOM aren't premise-sensitive at all and won't move as you drag it.
-
-## Deploying (GitHub Pages)
-
-Same as your other tools: put these files (`index.html`, `data.js`,
-`presets.js`, `calc.js`, `app.js`) in a folder in your
-`tanyatsui.github.io` repo (or any static host) and it just works — no build
-step, no server. Test locally first by opening `index.html` directly in a
-browser (works fine without a server since data is inlined, not fetched).
-
-## Setting up centralised recording (optional)
-
-Local JSON export always works, no setup needed (top-right "Export inputs").
-To collect every partner's submissions into one Google Sheet:
-
-1. Create a new Google Sheet.
-2. Extensions → Apps Script. Delete the placeholder code and paste in the
-   snippet shown in the tool's "Recording settings" modal (also below).
-3. Deploy → New deployment → type "Web app" → execute as yourself, who has
-   access "Anyone". Deploy, then copy the generated URL
-   (`https://script.google.com/macros/s/.../exec`).
-4. Paste that URL into the tool's "Recording settings" modal.
-
-```js
-function doPost(e) {
-  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
-  var data = JSON.parse(e.postData.contents);
-  sheet.appendRow([
-    new Date(), data.recorder.name, data.recorder.organisation, data.recorder.processLabel,
-    data.today.results.net["climate change"],
-    data.future ? data.future.results.net["climate change"] : "",
-    JSON.stringify(data.today.inputs),
-    data.future ? JSON.stringify(data.future.inputs) : ""
-  ]);
-  return ContentService.createTextOutput("OK");
-}
+```bash
+python pipeline/01_fetch_sheet.py                                  # new snapshot of the Google Sheet (repo root)
+cd results/html_tools/raw_impact_explorer
+python build_data.py                                               # brightway_env
+/System/Library/Frameworks/JavaScriptCore.framework/Versions/A/Helpers/jsc data.js presets.js calc.js check_calc.js
 ```
 
-Notes:
-- The Sheet URL isn't saved between page reloads (the tool avoids browser
-  storage so it behaves predictably everywhere it's opened). If you want it
-  to persist for a specific deployment, hardcode it as the initial value of
-  `state.sheetUrl` in `app.js`.
-- Requests are sent with `mode: "no-cors"`, which is required for Apps Script
-  but means the browser can't confirm the response — check the Sheet
-  directly to confirm rows are landing.
-- Every submission stores the full JSON of both scenarios' inputs, so nothing
-  is lost even though the visible columns only show net climate-change
-  impact — you can widen the recording later without losing history.
+`build_data.py` always reads the newest folder of `data/sheet_snapshot/`. The page shows which snapshot it was built
+from. Never edit `data.js` or `presets.js` by hand. If you change the model in `raw_lca/model.py`, change `calc.js` too
+and rerun `check_calc.js` (`node` works as well as `jsc`).
 
-## What's not built yet (v2 ideas)
+## What the cases contain
 
-- Per-category ranked drivers currently only rank against the category
-  selected in the results panel — fine for exploration, but if you want a
-  fixed "always rank by climate change regardless of what's displayed"
-  mode, that's a small change in `renderCompare()`.
-- BOM percentage sliders in Compare don't enforce the 100% constraint while
-  dragging (by design — it's meant for single-lever sensitivity, not a valid
-  intermediate mix). If partners find this confusing, a "renormalise" toggle
-  could be added.
-- No undo/history within a session — Export often, especially before big
-  edits.
+Every number is an object `{v, min, max, dist, up?, comment, sheet}`, where `sheet` is the sheet row it comes from
+(stage, item, qualifier, parameter, unit, source, comments, and `values`, the sheet's own numbers). Hovering the **i**
+shows that row's source and comments. The sheet's `status` column is not used by the tool.
+
+**Tidied defaults.** `build_data.py` starts every RAW case from the sheet with the obvious issues fixed, so that the
+form opens without warnings:
+- % values (shares, yields) are capped to 0–100 (e.g. yield max 120 → 100);
+- negative values are set to 0;
+- min ≤ typical ≤ max;
+- values are rounded to at most 1 decimal, or 3 significant figures below 1. The biopolymer filler split is not shown
+  and stays exact.
+
+The tooltip names each tidied value, and the export's `sheet_*` columns hold the untidied sheet values, so the
+LCA team sees these fixes as changes. The Python reference (`RAW_REFERENCE`) is computed at the tidied values. The
+only typical value this changes is the CFW material density (3.135 → 3.1 kg/m, net GWP −1.1 %). The baselines are
+only capped, not rounded.
+
+Most inputs are one sheet row. A few are derived by the tool:
+
+- **Material density** (kg per m span / m wall length / m² coverage) = the `product_size_formulas` formula at the study
+  spec (`study_setup`) ÷ spec. Its min/max are the formula at the min/max of the `product size` rows.
+- **Material savings from RAW optimisation** reduces the product mass: mass = spec × density × (1 − savings). Typical
+  is 0 %, so the typical results equal the sheet's. A `product size` row whose range lies only below its typical value
+  gives the maximum (CFW: fibre length 412.5–550 m/m → up to 25 %). That row is then kept at typical in the density
+  range, so the saving isn't counted twice.
+- **Number of repair events** is editable. It is pre-filled with the model's value (the smallest number that reaches
+  the functional unit's service life, `raw_lca.cases.repairs_needed`). Its min/max are taken at the ends of the
+  lifetime and extension ranges.
+- **Biopolymer fillers**: the recipe (binder + filler combination + split) is shown as resolved shares (Sawdust,
+  Seagrass), with min/max derived from the binder and split ranges. The sheet's variation of *which* fillers are used
+  isn't represented.
+- **Scaled-up** values exist for every input of the product, bill of materials, fabrication steps and circularity
+  sections (`up`; `null` = same as typical, shown greyed). They're pre-filled from the sheet's `scaled_up` column
+  where it has one (production machine weight / power / output rate / lifetime, as in `raw_lca.cases.scale_up_case`)
+  and follow the typical value otherwise, so the default scaled-up results equal Python's. Repair and end of life
+  have no scaled-up values. The sheet's `scaled_up` values for end-of-life shares are not used by the model, so the
+  tool doesn't show them.
+- **Building component performance**: typical / min / max / scaled-up plus a free-text unit. It's recorded for the
+  LCA team and not used in the calculation.
+
+## The form
+
+The sections, in order:
+
+1. **Product specifications**: material density, performance (with unit), material savings.
+2. **Bill of materials**: one row per material (material, source, share).
+3. **Fabrication steps**: one electricity location, then per step: machine weight, power, output rate, lifetime,
+   process yield, machine source.
+4. **Circularity specifications**: repair on/off, repair material, expected lifetime, extension, number of repairs.
+5. **Repair**: materials and fabrication steps (no scaled-up column).
+6. **End of life** (no scaled-up column).
+
+**Different processes at scale.** Each production step has a *Used in* choice: prototype & scaled-up (default),
+prototype only, or scaled-up only. Repair has a matching *Repair in* choice. Something that exists in one version
+only has one set of values and no scaled-up column, and counts as absent in the other version: a step without
+machine wear, electricity or losses (yield 100 %), or no repairs. The Prototype → Scaled-up slider fades it in or
+out, so both ends are exact. Materials need no extra choice: a scaled-up share of 0 drops a material, and a
+prototype share of 0 adds one at scale only.
+
+These choices are not on the sheet and not in `raw_lca` yet. They are exported as extra rows (`used in` per
+production step, `repair in`). To carry them into the paper results, the `lci_raw_*` tabs need a column for them and
+`scale_up_case` / `resolve_raw_case` need to use it. At the defaults (every step in both versions, repair as on the
+sheet) the tool matches the Python results exactly.
+
+Sections 1–4 have the columns prototype / min / max / scaled-up / comment. A scaled-up cell is grey while it follows
+the prototype and highlighted when it differs. Clearing it makes it follow the prototype again.
+
+Each row is marked as changed (compared with the sheet), commented, or to check. A row needs checking when min is
+above typical, max is below it, a % is outside 0–100, a value is negative, or a rate, lifetime or yield is 0. The
+results panel lists every row to check, with a link to it.
+
+## Results
+
+- **Impact result**: impact category, slider *Prototype → Scaled-up* (moves every input with a scaled-up value from
+  its prototype value to it), slider *Today → 2050* (linear blend of the background unit burdens between
+  ecoinvent today and premise `image_SSP2-L_2050`), net impact with its 5–95 % range, the burden / benefit bars.
+  The per-item breakdown, the list of rows to check and the method notes are collapsed below the chart, so the panel
+  fits on one screen.
+- **Comparison**: today (fossil-based baseline, bio-based baseline, RAW prototype, RAW scaled-up), then 2050
+  (fossil-based baseline, bio-based baseline, RAW scaled-up), under a header per period. Each row has a darker burden bar and a lighter benefit bar (both from zero), a dot for the net
+  impact, and whiskers for its 5–95 % range. Hovering shows the numbers. Bars and dots are typical values. Whiskers
+  show 5–95 % of a parameter Monte Carlo over the min–max ranges
+  (triangular / uniform / fixed as on the sheet, background at its mean): 500 draws in the browser for the RAW case,
+  recomputed after every edit (about 0.1 s; it runs in each user's own browser, so several groups at once don't slow
+  each other down),
+  and 500 draws in `build_data.py` for the baselines (fixed: partners don't edit them). These whiskers don't include the
+  ecoinvent background uncertainty of `pipeline/04_uncertainty.ipynb`.
+
+- **What matters most**: a quick global sensitivity analysis on the same Monte Carlo draws. For every number with a
+  range, the Spearman rank correlation ρ between its sampled values and the net result. The panel shows ρ² as a share
+  of the total, i.e. roughly each number's share of the result's spread; this is exact for a monotonic, additive
+  model and a screening measure otherwise. It lists the top 8 for the prototype or the scaled-up result (today, the
+  selected category), with ↑ / ↓ for the direction and a link to the row. Rows with |ρ| below 2 / √500 are faded
+  (indistinguishable from noise). Numbers that are `fixed` on the sheet or have no range don't take part: most
+  timber rows, for example. The full analysis is the Sobol' one in `pipeline/05_sensitivity.ipynb`.
+
+## Export, import, submission
+
+- **Export rows (.csv)**: one row per input, in sheet terms: `case, stage, item, qualifier, parameter, unit, typical,
+  min, max, scaled_up, comments, changed, sheet_typical, sheet_min, sheet_max, sheet_scaled_up, sheet_source`.
+  `scaled_up` is always the value used (the typical value if not set). `changed` names what differs from the sheet,
+  including values the tool tidied, or says `new row`.
+- **Export / Import (.json)**: the full state of one case (inputs, ranges, comments), to continue later.
+- **Submit to RAW sheet** sends the same rows plus the comparison-chart values (all impact categories) to a Google Apps Script Web App.
+  Until a URL is set, it downloads the CSV instead.
+
+### Submitting to a Google Sheet (to set up)
+
+1. Create the workshop Google Sheet with the account that should own the responses.
+2. In Extensions → Apps Script, paste the script shown in the tool's *Submission settings* (generated from
+   `ROW_COLUMNS` in `app.js`, so it always matches the columns) and save.
+3. Deploy → New deployment → Web app, execute as *Me*, access *Anyone*. Approve the permissions (Google warns the
+   app is unverified: Advanced → Go to …). Copy the `.../exec` URL. Opening it in a browser should show
+   `{"ok":true,"message":"RAW workshop submissions endpoint is running"}`.
+4. Put the URL in `SUBMIT_URL` at the top of `app.js` (or paste it in *Submission settings* for one session).
+5. Submit a test case. The tool should say *Saved ✓*. Check the two tabs the script creates:
+   - `submissions`: one row per input: `submission_id, submitted_at, name, organisation, snapshot` + the export
+     columns;
+   - `submission_results`: the seven comparison-chart products (baselines today and 2050, prototype, scaled-up,
+     scaled-up 2050) in every impact category: burden, benefit, net, 5 % and 95 %.
+
+After editing the script: Deploy → Manage deployments → Edit → Version: *New version*. Otherwise the URL keeps
+running the old code.
+
+How saving works:
+- every submission gets an id (`<case>-<time>-<random>`), shown to the partner and written on every row;
+- the script writes under a lock, so simultaneous submissions can't overwrite each other, and it skips an id that is
+  already in the sheet;
+- it replies `{ok, id, rows}` (or `{ok: false, error}`), which the tool reads and shows as *Saved ✓* or *Not saved*;
+- if the reply can't be read (offline, or the browser blocks it), the submission may still have arrived: the tool
+  doesn't send it again, but downloads a CSV backup and says so. A *Not saved* also downloads the CSV.
+
+The URL is visible in `app.js`, so anyone who has it can post to the sheet: share the tool only with the partners.
+The sheet stores partners' names and organisations: tell them before they submit.
+
+## Deploying
+
+Static files, no build step and no server: open `index.html` directly, or copy the folder to any static host (e.g.
+GitHub Pages).
