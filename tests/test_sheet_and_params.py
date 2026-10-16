@@ -107,10 +107,11 @@ def test_baselines_are_per_kg_or_process_based(inp):
 
 def test_cases_without_repair_rows_are_never_repaired(inp):
     ps = inp.params
-    for case in ("raw_cfw", "glass fibre CFW beam"):
-        assert not (ps.rows(case).stage == "repair").any()
-        c = resolve_raw_case(ps, case, case, ps.typical(), 100.0)       # service life far above the expected lifetime
-        assert c.repair.n_repairs == 0 and c.repair_bom == [] and c.repair_chain == []
+    no_repair = [c for c in ps.cases() if baseline_kind(ps.rows(c)) == "process" and not (ps.rows(c).stage == "repair").any()]
+    assert no_repair, "expected at least one process-based case without repair rows (e.g. the glass fibre CFW beam)"
+    for case in no_repair:
+        c = resolve_raw_case(ps, case, case, ps.typical(), 100.0, scaled_up=True)  # service life far above the lifetime
+        assert c.repair.n_repairs == 0
         assert c.service_life_yr == c.repair.expected_lifetime_yr
 
 
@@ -153,18 +154,39 @@ def test_shares_are_renormalised_after_sampling(inp):
 
 
 # ── scaled-up variant ─────────────────────────────────────────────────────────────────────
-def test_scale_up_changes_only_sheet_machines(inp):
+def test_scale_up_uses_the_scaled_up_column(inp):
+    """the scaled-up version takes every scaled_up value of the sheet, nothing else changes"""
     ps = inp.params
     for cid, name in inp.raw_cases().items():
         rows = ps.rows(cid)
-        prod = rows[(rows.stage == "production") & rows.scaled_up.notna()]
-        scaled = {(r.item, r.parameter): float(r.scaled_up) for r in prod.itertuples()}
-        base = resolve_raw_case(ps, cid, name, ps.typical(), inp.reference_service_life_for(cid))
-        up = scale_up_case(base, ps, cid)
-        for a, b in zip(base.production_chain, up.production_chain):
-            if (a.step_name, "power") in scaled:          # the sheet's scaled-up values (may equal the prototype's)
-                assert (b.kg_machine, b.power_kW, b.rate_kg_per_hr, b.machine_lifetime_hrs) == tuple(
-                    scaled[(a.step_name, p)] for p in ("machine weight", "power", "output rate", "machine lifetime"))
-            else:
-                assert a == b
-        assert up.repair_chain == base.repair_chain and up.production_bom == base.production_bom and up.eol == base.eol
+        rsl = inp.reference_service_life_for(cid)
+        up_rows = rows[rows.scaled_up.notna()]
+        vals = dict(ps.typical(), **{r.id: float(r.scaled_up) for r in up_rows.itertuples()})
+        up = scale_up_case(ps, cid, name, ps.typical(), rsl)
+        want = resolve_raw_case(ps, cid, f"{name} - scaled up", vals, rsl, scaled_up=True)
+        assert up == want
+
+
+def test_only_the_scaled_up_product_is_repaired_with_the_production_bom_and_steps(inp):
+    ps = inp.params
+    for cid, name in inp.raw_cases().items():
+        rsl = inp.reference_service_life_for(cid)
+        proto = resolve_raw_case(ps, cid, name, ps.typical(), 500.0)
+        assert proto.repair.n_repairs == 0 and proto.service_life_yr == proto.repair.expected_lifetime_yr
+        up = scale_up_case(ps, cid, name, ps.typical(), rsl)
+        assert up.repair_bom == up.production_bom and up.repair_chain == up.production_chain
+
+
+def test_material_savings_reduce_the_product_mass(inp):
+    from raw_lca.cases import SAVINGS
+    from raw_lca.study import activity_amounts, product_kg
+    ps = inp.params
+    for cid in inp.raw_cases():
+        lk = ps.lookup(cid)
+        key = ("product size", "product", "", SAVINGS)
+        formula_kg = activity_amounts(inp, cid, 1.0)[0][1]
+        if key not in lk:
+            assert product_kg(inp, cid, 1.0) == pytest.approx(formula_kg)
+            continue
+        vals = dict(ps.typical(), **{lk[key]: 30.0})
+        assert product_kg(inp, cid, 1.0, vals) == pytest.approx(0.7 * activity_amounts(inp, cid, 1.0, vals)[0][1])

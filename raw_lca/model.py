@@ -2,7 +2,7 @@
 Lifecycle model: burdens and benefits of a RAW case or a baseline product, per impact category.
 
 Formulas follow the earlier notebook model 02_model.ipynb (git tag v0.1-product-comparison): circular footprint formula for recycled input and end-of-life, backward-solved
-process chains, GWP_bio and dynamic-CF carbon storage credits). Every number comes from the sheet (via `Inputs`),
+process chains, GWP_bio and dynamic-CF carbon storage credits on the product mass). Every number comes from the sheet (via `Inputs`),
 the background data, or a case resolved from the parameter table - none is defined here.
 
 Results are per product spec and scaled to the reference service life: each product's burdens and benefits are
@@ -159,13 +159,15 @@ class Model:
         proc, input_kg = self._chain(case.production_chain, product_kg, it)
         mat = self._materials(case.production_bom, input_kg, it)
         rep = self.zero.copy()
-        seq_kg = [(x, input_kg * x.percentage / 100, life) for x in case.production_bom]
+        # carbon is stored in the product, not in the process losses: storage is credited on the product mass (and
+        # the repair material that stays in the product), split by the bill of materials shares
+        seq_kg = [(x, product_kg * x.percentage / 100, life) for x in case.production_bom]
         if n_rep > 0:
             rp_proc, rep_input = self._chain(case.repair_chain, repair_kg, it)
             rep = (rp_proc + self._materials(case.repair_bom, rep_input, it)) * n_rep
             for i in range(1, n_rep + 1):                # event i is stored (n - i + 1) x extension years
                 storage = (n_rep - i + 1) * rp.extension_per_repair_yr
-                seq_kg += [(x, rep_input * x.percentage / 100, storage) for x in case.repair_bom]
+                seq_kg += [(x, repair_kg * x.percentage / 100, storage) for x in case.repair_bom]
         seq = self.zero.copy()
         seq[self.gwp] = sum(self._storage_credit(x.material_name, x.material_source, kg, st) for x, kg, st in seq_kg)
 

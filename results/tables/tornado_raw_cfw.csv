@@ -1,42 +1,34 @@
 id,group,stage,item,parameter,low,high,swing,baseline
-raw_cfw|production|Coreless filament winding||electricity location,location,production,Coreless filament winding,electricity location,29.423668386886806,46.9831288205493,17.55946043366249,35.6018232938447
-raw_cfw|product|product size formula||fibre_mass_per_length,design,product,product size formula,fibre_mass_per_length,28.48145863507576,42.722187952613645,14.240729317537884,35.6018232938447
-raw_cfw|product|product size formula||fibre_length_per_span,design,product,product size formula,fibre_length_per_span,28.481458635075768,42.722187952613645,14.240729317537877,35.6018232938447
-raw_cfw|end-of-life|waste||disposal grid location,location,end-of-life,waste,disposal grid location,27.090187496748378,40.222225087178806,13.132037590430429,35.6018232938447
-raw_cfw|use|product||expected lifetime,circularity,use,product,expected lifetime,30.09239765814918,42.37805169518039,12.285654037031208,35.6018232938447
-raw_cfw|production|Coreless filament winding||process yield,manufacturing,production,Coreless filament winding,process yield,33.87775013342903,44.22218909592312,10.344438962494088,35.6018232938447
-raw_cfw|production|Rope production||process yield,manufacturing,production,Rope production,process yield,34.249873273881946,42.36157339365857,8.111700119776621,35.6018232938447
-raw_cfw|use|product||lifetime extension per repair,circularity,use,product,lifetime extension per repair,32.01484344409704,39.584423061980864,7.569579617883825,35.6018232938447
-raw_cfw|production|Hemp fiber|virgin|share of input mass,design,production,Hemp fiber,share of input mass,32.2787587919492,39.831178114439,7.552419322489797,35.6018232938447
-raw_cfw|production|Fiber glue (epoxy resin)|virgin|share of input mass,design,production,Fiber glue (epoxy resin),share of input mass,31.556353465450172,39.0479642587734,7.491610793323225,35.6018232938447
-raw_cfw|use|product||number of repair events,circularity,use,product,number of repair events,32.83836319026569,38.7092311024078,5.87086791214211,35.6018232938447
-raw_cfw|repair|Coreless filament winding||electricity location,location,repair,Coreless filament winding,electricity location,33.74837682175733,39.016214951856085,5.2678381300987525,35.6018232938447
-raw_cfw|repair|repair material||share of product mass per repair,circularity,repair,repair material,share of product mass per repair,33.6111555252818,37.59249106240761,3.9813355371258083,35.6018232938447
-raw_cfw|repair|Coreless filament winding||process yield,manufacturing,repair,Coreless filament winding,process yield,34.971661670344716,38.75263141134461,3.7809697409998932,35.6018232938447
-raw_cfw|repair|Rope production||process yield,manufacturing,repair,Rope production,process yield,35.083298612480604,38.19444670066524,3.1111480881846347,35.6018232938447
-raw_cfw|production|Coreless filament winding||output rate,manufacturing,production,Coreless filament winding,output rate,34.36141282566835,37.462438996109256,3.1010261704409032,35.6018232938447
-raw_cfw|production|Coreless filament winding||power,manufacturing,production,Coreless filament winding,power,34.21224891641528,36.99139767127414,2.7791487548588663,35.6018232938447
-raw_cfw|repair|Hemp fiber|virgin|share of input mass,design,repair,Hemp fiber,share of input mass,34.7662463366693,36.66528487570431,1.8990385390350113,35.6018232938447
-raw_cfw|repair|Fiber glue (epoxy resin)|virgin|share of input mass,design,repair,Fiber glue (epoxy resin),share of input mass,34.58459917206596,36.46834754573031,1.8837483736643534,35.6018232938447
-raw_cfw|production|Rope production||electricity location,location,production,Rope production,electricity location,34.95149119837545,36.79985545455045,1.848364256175003,35.6018232938447
-raw_cfw|end-of-life|waste|incinerated|share of waste,circularity,end-of-life,waste,share of waste,35.200415693591985,36.15614807514608,0.9557323815540926,35.6018232938447
-raw_cfw|end-of-life|waste|recycled_closed|share of waste,circularity,end-of-life,waste,share of waste,35.116789110206,36.04954715566504,0.932758045459039,35.6018232938447
-raw_cfw|repair|Coreless filament winding||output rate,manufacturing,repair,Coreless filament winding,output rate,35.22970015339179,36.16000800452407,0.9303078511322838,35.6018232938447
-raw_cfw|repair|Coreless filament winding||power,manufacturing,repair,Coreless filament winding,power,35.18495098061587,36.01869560707354,0.8337446264576727,35.6018232938447
-raw_cfw|repair|Rope production||electricity location,location,repair,Rope production,electricity location,35.40672366520393,35.96123294205643,0.5545092768524995,35.6018232938447
-raw_cfw|production|Coreless filament winding||machine source,manufacturing,production,Coreless filament winding,machine source,35.108704651446914,35.6018232938447,0.49311864239778913,35.6018232938447
-raw_cfw|production|Rope production||output rate,manufacturing,production,Rope production,output rate,35.475303053280385,35.79160365469119,0.3163006014108021,35.6018232938447
-raw_cfw|production|Rope production||power,manufacturing,production,Rope production,power,35.45555230674688,35.74809428094254,0.2925419741956574,35.6018232938447
-raw_cfw|production|Coreless filament winding||machine lifetime,manufacturing,production,Coreless filament winding,machine lifetime,35.51939147352621,35.72547102432246,0.20607955079624674,35.6018232938447
-raw_cfw|production|Coreless filament winding||machine weight,manufacturing,production,Coreless filament winding,machine weight,35.5029051094625,35.70074147822692,0.19783636876441335,35.6018232938447
-raw_cfw|repair|Coreless filament winding||machine source,manufacturing,repair,Coreless filament winding,machine source,35.45388770112537,35.6018232938447,0.14793559271933532,35.6018232938447
-raw_cfw|repair|Rope production||output rate,manufacturing,repair,Rope production,output rate,35.56386722167541,35.658757402098644,0.09489018042323494,35.6018232938447
-raw_cfw|repair|Rope production||power,manufacturing,repair,Rope production,power,35.557941997715346,35.64570458997406,0.08776259225871286,35.6018232938447
-raw_cfw|repair|Coreless filament winding||machine lifetime,manufacturing,repair,Coreless filament winding,machine lifetime,35.577093747749146,35.638917612988024,0.061823865238878284,35.6018232938447
-raw_cfw|repair|Coreless filament winding||machine weight,manufacturing,repair,Coreless filament winding,machine weight,35.57214783853004,35.63149874915936,0.05935091062931974,35.6018232938447
-raw_cfw|production|Rope production||machine source,manufacturing,production,Rope production,machine source,35.57413944023641,35.6018232938447,0.02768385360829484,35.6018232938447
-raw_cfw|production|Rope production||machine lifetime,manufacturing,production,Rope production,machine lifetime,35.59719554252858,35.6087649208189,0.0115693782903179,35.6018232938447
-raw_cfw|production|Rope production||machine weight,manufacturing,production,Rope production,machine weight,35.59626999226536,35.60737659542406,0.011106603158694384,35.6018232938447
-raw_cfw|repair|Rope production||machine source,manufacturing,repair,Rope production,machine source,35.59351813776222,35.6018232938447,0.00830515608248561,35.6018232938447
-raw_cfw|repair|Rope production||machine lifetime,manufacturing,repair,Rope production,machine lifetime,35.60043496844986,35.60390578193696,0.003470813487098212,35.6018232938447
-raw_cfw|repair|Rope production||machine weight,manufacturing,repair,Rope production,machine weight,35.60015730337089,35.60348928431851,0.003331980947621105,35.6018232938447
+raw_cfw|use|product||expected lifetime,circularity,use,product,expected lifetime,41.07050859207939,63.757190394703386,22.686681802623994,50.24080031342162
+raw_cfw|product size|product||fibre_length_per_span,design,product size,product,fibre_length_per_span,40.1926402507373,60.28896037610595,20.09632012536865,50.24080031342162
+raw_cfw|product size|product||fibre_mass_per_length,design,product size,product,fibre_mass_per_length,40.1926402507373,60.28896037610595,20.09632012536865,50.24080031342162
+raw_cfw|production|Fiber glue (epoxy resin)|virgin|share of input mass,design,production,Fiber glue (epoxy resin),share of input mass,46.35830781041399,53.29133013721332,6.933022326799332,50.24080031342162
+raw_cfw|production|Flax fiber|virgin|share of input mass,design,production,Flax fiber,share of input mass,47.07728790356356,53.95448879455934,6.8772008909957805,50.24080031342162
+raw_cfw|product size|product||material_savings,design,product size,product,material_savings,46.89141362586017,53.59018700098305,6.698773375122883,50.24080031342162
+raw_cfw|production|Coreless filament winding||process yield,manufacturing,production,Coreless filament winding,process yield,47.26129514844999,53.551361607834515,6.290066459384526,50.24080031342162
+raw_cfw|general|product||location,location,general,product,location,47.08544364641299,51.95363389211267,4.8681902456996795,50.24080031342162
+raw_cfw|production|Curing||machine source,manufacturing,production,Curing,machine source,47.563870540405006,50.24080031342162,2.6769297730166173,50.24080031342162
+raw_cfw|production|Curing||output rate,manufacturing,production,Curing,output rate,49.40985693087338,51.48721538724396,2.0773584563705754,50.24080031342162
+raw_cfw|production|Curing||machine lifetime,manufacturing,production,Curing,machine lifetime,49.793313288835456,50.91203085030086,1.1187175614654024,50.24080031342162
+raw_cfw|production|Curing||machine weight,manufacturing,production,Curing,machine weight,49.70381588391823,50.777784742925,1.0739688590067686,50.24080031342162
+raw_cfw|production|Curing||power,manufacturing,production,Curing,power,49.780652683867125,50.70094794297611,0.9202952591089826,50.24080031342162
+raw_cfw|end-of-life|waste|incinerated|share of waste,circularity,end-of-life,waste,share of waste,49.87875060776066,50.730632268139416,0.8518816603787585,50.24080031342162
+raw_cfw|end-of-life|waste|landfilled|share of waste,circularity,end-of-life,waste,share of waste,49.86637641468213,50.60054092201449,0.734164507332359,50.24080031342162
+raw_cfw|production|Coreless filament winding||output rate,manufacturing,production,Coreless filament winding,output rate,50.04836150517594,50.529458525790126,0.481097020614186,50.24080031342162
+raw_cfw|production|Coreless filament winding||power,manufacturing,production,Coreless filament winding,power,50.06839015918501,50.41321046765824,0.3448203084732313,50.24080031342162
+raw_cfw|production|Coreless filament winding||machine source,manufacturing,production,Coreless filament winding,machine source,49.949089182373534,50.24080031342162,0.2917111310480891,50.24080031342162
+raw_cfw|end-of-life|waste|recycled_open|share of waste,circularity,end-of-life,waste,share of waste,50.134804324586526,50.34469737178475,0.20989304719822144,50.24080031342162
+raw_cfw|production|Coreless filament winding||machine lifetime,manufacturing,production,Coreless filament winding,machine lifetime,50.19203663370646,50.31394583299436,0.12190919928789867,50.24080031342162
+raw_cfw|production|Coreless filament winding||machine weight,manufacturing,production,Coreless filament winding,machine weight,50.18228389776342,50.29931672907981,0.11703283131639353,50.24080031342162
+raw_cfw|production|Offline impregnation||machine source,manufacturing,production,Offline impregnation,machine source,50.16190133063797,50.24080031342162,0.07889898278365592,50.24080031342162
+raw_cfw|production|Offline impregnation||output rate,manufacturing,production,Offline impregnation,output rate,50.22750005622046,50.260750699223344,0.03325064300288716,50.24080031342162
+raw_cfw|production|Offline impregnation||machine lifetime,manufacturing,production,Offline impregnation,machine lifetime,50.22761122217066,50.26058395029806,0.032972728127404594,50.24080031342162
+raw_cfw|production|Offline impregnation||machine weight,manufacturing,production,Offline impregnation,machine weight,50.224973403920465,50.256627222922766,0.03165381900230102,50.24080031342162
+raw_cfw|production|In-line sensing||output rate,manufacturing,production,In-line sensing,output rate,50.23957545945078,50.24263759437786,0.003062134927077409,50.24080031342162
+raw_cfw|production|In-line sensing||power,manufacturing,production,In-line sensing,power,50.239513670479546,50.242086956363686,0.002573285884139409,50.24080031342162
+raw_cfw|production|In-line sensing||machine source,manufacturing,production,In-line sensing,machine source,50.23988713075051,50.24080031342162,0.0009131826711126223,50.24080031342162
+raw_cfw|production|In-line sensing||machine lifetime,manufacturing,production,In-line sensing,machine lifetime,50.24064766190251,50.241029290700276,0.00038162879776848513,50.24080031342162
+raw_cfw|production|In-line sensing||machine weight,manufacturing,production,In-line sensing,machine weight,50.24061713159869,50.24098349524454,0.0003663636458526298,50.24080031342162
+raw_cfw|production|Offline impregnation||power,manufacturing,production,Offline impregnation,power,50.240666914281384,50.24093371256185,0.00026679828046383136,50.24080031342162
+raw_cfw|use|product||lifetime extension per repair,circularity,use,product,lifetime extension per repair,50.24080031342162,50.24080031342162,0.0,50.24080031342162
+raw_cfw|repair|repair material||share of product mass per repair,circularity,repair,repair material,share of product mass per repair,50.24080031342162,50.24080031342162,0.0,50.24080031342162

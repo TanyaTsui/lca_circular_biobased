@@ -36,7 +36,31 @@ const DISPLAY_LABELS = { "Soft wood": "wood, soft", "Hard wood": "wood, hard", "
 function disp(v) { return DISPLAY_LABELS[v] !== undefined ? DISPLAY_LABELS[v] : v; }
 const ROUTE_LABELS = { composted: "Composted", recycled_open: "Recycled (open loop)", recycled_closed: "Recycled (closed loop)",
   incinerated: "Incinerated", landfilled: "Landfilled" };
-// which product version a production step (usedIn) or repair (circularity.repairIn) belongs to
+// what the LCA team asks the partners of each case to double-check (shown under the comparison chart)
+const PARTNER_CHECKS = {
+  raw_timber: [
+    "RAW timber has very little burden because it uses reclaimed wood, has no kiln drying and no adhesive. Is that really the case, especially drying: does reclaimed timber need re-drying before planing and doweling?",
+    "The beam is credited for delaying the emissions of reclaimed wood (carbon storage). Check the carbon content and the share of each piece that ends up in the beam.",
+  ],
+  raw_cfw: [
+    "The glass fibre beam does better because it is assumed to need half the fibre length (glass is stiffer) and has about half the epoxy share (31 % vs 60 %), so about a fifth of the epoxy of the RAW beam (0.30 vs 1.5 kg per m of span). Please double-check both numbers with the fibre group.",
+    "Epoxy dominates the impact of every CFW beam: the epoxy share and the material savings from in-line sensing are the numbers that matter most.",
+  ],
+  raw_biopol: [
+    "The impact of biopol is high because baking loses 50 % of the weight, so twice the printed mass of pea protein binder is needed. Please double-check with the biopol team.",
+    "Is there water in the recipe that is missing on the sheet? If most of the baking loss is water, the loss should not be charged to the binder.",
+  ],
+  raw_knit: [
+    "RAW knit does much better than the synthetic membrane mainly because polyester is about 7 times more carbon-intensive per kg than hemp, and because the knit has no resin or coating. Please double-check that the knit really needs no resin or coating.",
+    "The synthetic membrane is replaced every 17.5 years; the scaled-up knit is repaired instead. Check whether repair is realistic for a knitted membrane.",
+  ],
+};
+function partnerChecksHtml() {
+  const items = PARTNER_CHECKS[state.caseId];
+  if (!items || !items.length) return "";
+  return `<div class="partner-checks"><h4>To double-check with partners</h4><ol>${items.map(t => `<li>${esc(t)}</li>`).join("")}</ol></div>`;
+}
+// which product version a production step (usedIn) belongs to
 const VERSIONS = [["both", "prototype & scaled-up"], ["prototype", "prototype only"], ["scaledUp", "scaled-up only"]];
 const versionOf = c => (c && c.v) || "both";
 const STEP_FIELDS = [   // [field, label, unit, sheet parameter]
@@ -46,9 +70,27 @@ const STEP_FIELDS = [   // [field, label, unit, sheet parameter]
   ["lifetimeHrs", "Machine lifetime", "hrs", "machine lifetime"],
   ["yieldPct", "Process yield", "%", "process yield"],
 ];
-function repairsNeeded(expected, extension, serviceLife) {     // raw_lca.cases.repairs_needed
-  if (expected >= serviceLife || extension <= 0) return 0;
-  return Math.ceil((serviceLife - expected) / extension - 1e-9);
+// Circularity numbers: the user enters the value only; min / max follow at -/+ AUTO_RANGE_PCT, and the number of
+// repairs follows from the lifetime and the extension (repairsNeeded in calc.js), with its min / max at the range ends.
+const AUTO_RANGE_PCT = 20;
+const AUTO_RANGE_PATHS = ["circularity.expectedLifetime", "circularity.materialPct", "circularity.extension"];
+const round6 = x => Number(x.toPrecision(6));
+function autoRange(p) {
+  const v = Number(p.v);
+  if (!isFinite(v)) return;
+  p.min = round6(v * (1 - AUTO_RANGE_PCT / 100));
+  p.max = round6(v * (1 + AUTO_RANGE_PCT / 100));
+}
+function repairsHint() {
+  const n = Number(state.inputs.circularity.numRepairs.v);
+  return `To reach ${fmt(state.meta.rsl)} yr the model needs ${n} repair${n === 1 ? "" : "s"}.`;
+}
+function syncRepairs(c, rsl) {
+  const e = c.expectedLifetime, x = c.extension, n = c.numRepairs;
+  n.v = repairsNeeded(Number(e.v), Number(x.v), rsl);
+  n.min = repairsNeeded(Number(e.max), Number(x.max), rsl);
+  n.max = repairsNeeded(Number(e.min), Number(x.min), rsl);
+  n.dist = "fixed";                 // derived, not sampled: the Monte Carlo varies the lifetime and the extension
 }
 
 // ---------- state --------------------------------------------------------------
@@ -59,6 +101,7 @@ const state = {
   original: {},        // sheet key -> the preset's {v, min, max, up} (for "changed" markers)
   category: "climate change",
   scaleT: 0,           // prototype (0) -> scaled-up (100)
+  perKg: false,        // net impact, bars and breakdown per kg of product (the comparison chart stays per functional unit)
   bgT: 0,              // today (0) -> 2050 (100)
   mc: null, mcStale: true,
   expanded: {},
@@ -85,15 +128,10 @@ function inputList(inp) {
   });
   steps(inp.productionChain, "productionChain", "production");
   const c = inp.circularity;
-  if (c.enabled && c.repairIn) out.push({ path: "circularity.repairIn", label: "Repair in", p: c.repairIn, kind: "choice" });
   out.push({ path: "circularity.materialPct", label: "Repair material", p: c.materialPct, kind: "num" });
   out.push({ path: "circularity.expectedLifetime", label: "Expected lifetime without repair", p: c.expectedLifetime, kind: "num" });
   out.push({ path: "circularity.extension", label: "Lifetime extension per repair event", p: c.extension, kind: "num" });
-  out.push({ path: "circularity.numRepairs", label: "Number of repair events", p: c.numRepairs, kind: "num" });
-  if (c.enabled) {
-    inp.repairBom.forEach((x, i) => out.push({ path: `repairBom.${i}.share`, label: `Repair: ${disp(x.material)} (${disp(x.source)})`, p: x.share, kind: "num" }));
-    steps(inp.repairChain, "repairChain", "repair");
-  }
+  out.push({ path: "circularity.numRepairs", label: "Number of repair events (calculated)", p: c.numRepairs, kind: "num" });
   ROUTES.forEach(r => out.push({ path: `eol.${r}`, label: `End of life: ${ROUTE_LABELS[r].toLowerCase()}`, p: inp.eol[r], kind: "num" }));
   for (const e of out) e.sheet = e.p.sheet || e.sheet;
   return out;
@@ -169,8 +207,8 @@ function rangeRow(e, opts = {}) {
   return `<div class="rrow${opts.withUp ? " with-up" : ""}${opts.cls ? " " + opts.cls : ""} ${rowClasses(e)}" data-row="${e.path}">
     <div class="rlabel"><span class="mark"></span>${label}${infoIcon(p.sheet)}${opts.hint ? `<div class="rhint">${opts.hint}</div>` : ""}</div>
     <input type="text" inputmode="decimal" data-num="1" value="${numOrBlank(p.v)}" data-path="${e.path}" data-field="v" ${dis}>
-    <input type="text" inputmode="decimal" data-num="1" value="${numOrBlank(p.min)}" data-path="${e.path}" data-field="min" ${dis}>
-    <input type="text" inputmode="decimal" data-num="1" value="${numOrBlank(p.max)}" data-path="${e.path}" data-field="max" ${dis}>
+    <input type="text" inputmode="decimal" data-num="1" value="${numOrBlank(p.min)}" data-path="${e.path}" data-field="min" ${opts.autoRange ? 'readonly tabindex="-1" class="auto" title="set automatically"' : dis}>
+    <input type="text" inputmode="decimal" data-num="1" value="${numOrBlank(p.max)}" data-path="${e.path}" data-field="max" ${opts.autoRange ? 'readonly tabindex="-1" class="auto" title="set automatically"' : dis}>
     ${upCell}
     <input type="text" class="comment" value="${esc(p.comment)}" data-path="${e.path}" data-field="comment" placeholder="comment" ${dis}>
     <div class="rwarn">${warnings(e).map(esc).join(" · ")}</div>
@@ -267,48 +305,34 @@ function renderFabrication() {
     <div class="section-head"><h3>3 · Fabrication steps</h3><span class="hint">solved backward from the product mass</span></div>
     <p class="section-note">Machine weight, power, output rate and lifetime give the machine wear and electricity per step; process yield is the share of the input that leaves the step as good output. <b>Scaled-up</b>: the value at large scale; grey = same as the prototype, highlighted = different.</p>
     <div class="rtable">${wideRow(loc, select("location", loc.p.v, RAW_DATA.locations))}</div>
-    <p class="section-note" style="margin-top:6px;">The location is used for the electricity of every step (and repair step) and for the electricity displaced by energy recovery at end of life.</p>
+    <p class="section-note" style="margin-top:6px;">The location is used for the electricity of every step (also when repairing) and for the electricity displaced by energy recovery at end of life.</p>
     ${chainEditor("productionChain", true)}
   </div>`;
 }
 function renderCircularity() {
   const c = state.inputs.circularity, m = state.meta;
-  const need = repairsNeeded(Number(c.expectedLifetime.v), Number(c.extension.v), m.rsl);
   const off = !c.enabled;
-  const rIn = versionOf(c.repairIn), oneV = c.enabled && rIn !== "both";
-  const oneNote = !oneV ? "" : `; ${rIn === "scaledUp" ? "scaled-up" : "prototype"} only, one set of values`;
+  const auto = { autoRange: true };
   return `<div class="section">
     <div class="section-head"><h3>4 · Circularity specifications</h3>
       <label class="toggle-row"><span class="switch"><input type="checkbox" ${c.enabled ? "checked" : ""} data-action="toggle-repair"><span class="slider"></span></span>
       <span class="hint">${c.enabled ? "repair included" : "no repair"}</span></label></div>
-    <p class="section-note">Service life = expected lifetime + number of repairs × extension. Results are scaled to the ${fmt(m.rsl)}-yr functional unit (× ${fmt(m.rsl)} / service life).</p>
-    <div class="rtable${off ? " is-off" : ""}">${tableHead(true)}
-      ${c.enabled && c.repairIn ? wideRow(entry("circularity.repairIn"), versionSelect("circularity.repairIn", rIn), { withUp: true, label: "Repair in" }) : ""}
-      ${rangeRow(entry("circularity.materialPct", "Repair material"), { withUp: true, noUp: oneV, disabled: off, hint: "per repair event, % of product mass" + oneNote })}
-      ${rangeRow(entry("circularity.expectedLifetime", "Expected lifetime without repair"), { withUp: true })}
-      ${rangeRow(entry("circularity.extension", "Lifetime extension per repair event"), { withUp: true, noUp: oneV, disabled: off, hint: oneNote.replace(/^; /, "") })}
-      ${rangeRow(entry("circularity.numRepairs", "Number of repair events"), { withUp: true, noUp: oneV, disabled: off, hint: `<span id="repairs-hint">To reach ${fmt(m.rsl)} yr the model needs ${need} repair${need === 1 ? "" : "s"}.</span>` })}
+    <p class="section-note"><b>Repair only happens in the scaled-up product.</b> The prototype is not repaired: its service life is its expected lifetime. The scaled-up product is repaired with the same materials and fabrication steps as the product itself (sections 2 and 3, at their scaled-up values), so the repair numbers below are for the scaled-up product only. Service life = expected lifetime + number of repairs × extension. Results are scaled to the ${fmt(m.rsl)}-yr functional unit (× ${fmt(m.rsl)} / service life).</p>
+    <p class="section-note"><b>Fill in the values only.</b> Min and max are set automatically to −${AUTO_RANGE_PCT} % / +${AUTO_RANGE_PCT} % of the value. The number of repair events is calculated by the model: the fewest repairs that make the product last ${fmt(m.rsl)} yr.</p>
+    <div class="rtable">${tableHead(false, { typical: "Value" })}
+      ${rangeRow(entry("circularity.expectedLifetime", "Expected lifetime without repair"), { ...auto, hint: "prototype and scaled-up product" })}
+      <div class="rgroup${off ? " is-off" : ""}">
+      ${rangeRow(entry("circularity.materialPct", "Repair material"), { ...auto, disabled: off, hint: "per repair event, % of product mass" })}
+      ${rangeRow(entry("circularity.extension", "Lifetime extension per repair event"), { ...auto, disabled: off, hint: `<span id="repairs-hint">${repairsHint()}</span>` })}
+      </div>
     </div>
-  </div>`;
-}
-function renderRepair() {
-  if (!state.inputs.circularity.enabled) {
-    return `<div class="section"><div class="section-head"><h3>5 · Repair: materials and fabrication</h3><span class="hint">switch repair on in section 4</span></div></div>`;
-  }
-  return `<div class="section">
-    <div class="section-head"><h3>5 · Repair: materials and fabrication</h3>${versionOf(state.inputs.circularity.repairIn) !== "both" ? `<span class="hint">${versionOf(state.inputs.circularity.repairIn) === "scaledUp" ? "scaled-up product only" : "prototype only"}</span>` : ""}</div>
-    <button class="add-row-btn" data-action="copy-prod-bom" style="margin-bottom:10px;">⧉ Copy bill of materials from production</button>
-    ${bomEditor("repairBom", "Repair bill of materials")}
-    <div class="sub-head" style="margin-top:16px;"><h4>Repair fabrication steps</h4></div>
-    <button class="add-row-btn" data-action="copy-prod-chain" style="margin-bottom:10px;">⧉ Copy fabrication steps from production</button>
-    ${chainEditor("repairChain", false)}
   </div>`;
 }
 function renderEol() {
   return `<div class="section">
-    <div class="section-head"><h3>6 · End of life</h3>${totalBadge("badge-eol", ROUTES.map(r => state.inputs.eol[r].v))}</div>
+    <div class="section-head"><h3>5 · End of life</h3>${totalBadge("badge-eol", ROUTES.map(r => state.inputs.eol[r].v))}</div>
     <p class="section-note">What happens to the product (and the repair material) at end of life, as % of the waste. Shares are re-normalised to 100 %.</p>
-    <div class="rtable">${tableHead(false)}${ROUTES.map(r => rangeRow(entry(`eol.${r}`, ROUTE_LABELS[r]))).join("")}</div>
+    <div class="rtable">${tableHead(true)}${ROUTES.map(r => rangeRow(entry(`eol.${r}`, ROUTE_LABELS[r]), { withUp: true })).join("")}</div>
   </div>`;
 }
 function renderLeft() {
@@ -326,7 +350,6 @@ function renderLeft() {
     </div>
     ${renderFabrication()}
     ${renderCircularity()}
-    ${renderRepair()}
     ${renderEol()}
   </div>`;
 }
@@ -344,19 +367,16 @@ function refreshRow(path) {
     if (up && document.activeElement !== up) up.outerHTML = upCellHtml(e, e.p);
     else if (up) up.className = hasUp(e.p) ? (same(e.p.up, e.p.v) ? "" : "up-diff") : "up-follow";
   }
-  for (const key of ["productionBom", "repairBom"]) {
+  for (const key of ["productionBom"]) {
     const b = document.getElementById(`badge-${key}`);
     if (b) b.outerHTML = totalBadge(`badge-${key}`, state.inputs[key].map(x => x.share.v));
   }
   const be = document.getElementById("badge-eol");
   if (be) be.outerHTML = totalBadge("badge-eol", ROUTES.map(r => state.inputs.eol[r].v));
-  const m = state.meta, inp = state.inputs;
+  const inp = state.inputs;
   const kg = document.getElementById("product-kg");
   if (kg) kg.textContent = fmt(productKg(inp));
-  const c = inp.circularity, need = repairsNeeded(Number(c.expectedLifetime.v), Number(c.extension.v), m.rsl);
-  const rh = document.getElementById("repairs-hint");
-  if (rh) rh.textContent = `To reach ${fmt(m.rsl)} yr the model needs ${need} repair${need === 1 ? "" : "s"}.`;
-  const pm = path.match(/^(productionChain|repairChain)\.(\d+)\.yieldPct$/);
+  const pm = path.match(/^(productionChain)\.(\d+)\.yieldPct$/);
   if (pm) { const pill = document.getElementById(`pill-${pm[1]}-${pm[2]}`); if (pill) pill.textContent = `${fmt(Number(getPath(inp, path).v))}% carries to next step`; }
   const list = inputList(inp);
   const cc = document.getElementById("change-count");
@@ -397,12 +417,25 @@ function retagStep(s, stage, name) {   // keep sheet refs in step with the step 
 function upgradeInputs(inp) {
   for (const s of inp.productionChain || []) if (!s.usedIn) s.usedIn = newUsedIn(s.name);
   const c = inp.circularity;
-  if (c && !c.repairIn) c.repairIn = { v: "both", comment: "", sheet: { stage: "use", item: "product", qualifier: "", parameter: "repair in", unit: "-",
-    description: "Not on the sheet yet: whether the prototype, the scaled-up product or both are repaired.", source: "", comments: "" } };
+  if (c) delete c.repairIn;                 // repair is always scaled-up only, with the product's BOM and steps
+  delete inp.repairBom;
+  delete inp.repairChain;
   return inp;
 }
 
 // ---------- form events ----------------------------------------------------------
+// write the automatic circularity numbers (min / max, number of repairs) into their read-only cells
+function showAutoCells() {
+  for (const path of [...AUTO_RANGE_PATHS, "circularity.numRepairs"]) {
+    const p = getPath(state.inputs, path);
+    for (const f of ["v", "min", "max"]) {
+      const el = document.querySelector(`#left-col input.auto[data-path="${path}"][data-field="${f}"]`);
+      if (el) el.value = numOrBlank(p[f]);
+    }
+  }
+  const rh = document.getElementById("repairs-hint");
+  if (rh) rh.textContent = repairsHint();
+}
 function wireLeft() {
   const left = document.getElementById("left-col");
   left.oninput = (ev) => {
@@ -419,6 +452,11 @@ function wireLeft() {
     if (field === "comment") p.comment = t.value;
     else if (t.dataset.num) p[field] = t.value.trim() === "" ? (field === "up" ? null : NaN) : parseNum(t.value);
     else p[field] = t.value;
+    if (field === "v" && AUTO_RANGE_PATHS.includes(path)) {
+      autoRange(p);
+      syncRepairs(state.inputs.circularity, state.meta.rsl);
+      showAutoCells();
+    }
     refreshRow(path);
     if (field !== "comment") scheduleResults();
   };
@@ -452,21 +490,10 @@ function wireLeft() {
       const j = i + Number(b.dataset.dir);
       if (j >= 0 && j < inp[key].length) [inp[key][i], inp[key][j]] = [inp[key][j], inp[key][i]];
     }
-    if (a === "copy-prod-bom") {
-      inp.repairBom = deepClone(inp.productionBom);
-      inp.repairBom.forEach(x => { x.share.sheet.stage = "repair"; delete x.share.up; });
-    }
-    if (a === "copy-prod-chain") {
-      inp.repairChain = deepClone(inp.productionChain);
-      inp.repairChain.forEach(s => { retagStep(s, "repair", s.name); delete s.usedIn; for (const [f] of STEP_FIELDS) delete s[f].up; });
-    }
     if (a === "toggle-repair") {
       inp.circularity.enabled = b.checked;
       const c = inp.circularity;
-      if (b.checked && Number(c.numRepairs.v) === 0) {
-        const n = repairsNeeded(Number(c.expectedLifetime.v), Number(c.extension.v), state.meta.rsl);
-        c.numRepairs.v = n; c.numRepairs.min = Math.min(c.numRepairs.min, n); c.numRepairs.max = Math.max(c.numRepairs.max, n);
-      }
+      syncRepairs(c, state.meta.rsl);
     }
     rerender();
   };
@@ -521,6 +548,10 @@ function renderResultsControls() {
       <select class="cat-select" id="category-select"><optgroup label="Main categories">${charted.map(opt).join("")}</optgroup>
         <optgroup label="Other categories">${others.map(opt).join("")}</optgroup></select>
     </div>
+    <div class="basis-toggle" role="group" aria-label="Result basis">
+      <button type="button" data-basis="fu" class="${state.perKg ? "" : "on"}">Per functional unit</button>
+      <button type="button" data-basis="kg" class="${state.perKg ? "on" : ""}">Per kg of product</button>
+    </div>
     <div class="slider-card">
       <div class="slider-col">
         <div class="slider-top"><span class="name">Prototype &rarr; Scaled-up</span><span class="mono" id="scale-label">${state.scaleT}%</span></div>
@@ -532,6 +563,10 @@ function renderResultsControls() {
       </div>
     </div>`;
   document.getElementById("category-select").onchange = (e) => { state.category = e.target.value; renderResultsBody(); };
+  document.querySelectorAll(".basis-toggle button").forEach(b => b.onclick = () => {
+    state.perKg = b.dataset.basis === "kg";
+    renderResultsControls(); renderResultsBody();
+  });
   document.getElementById("scale-slider").oninput = (e) => {
     state.scaleT = Number(e.target.value); document.getElementById("scale-label").textContent = state.scaleT + "%"; scheduleResults(true);
   };
@@ -542,16 +577,31 @@ function renderResultsControls() {
 
 function rangeText(r, ci) {
   if (!r) return "";
-  return `5–95 %: ${fmt(r.lo[ci])} to ${fmt(r.hi[ci])}`;
+  const lo = state.perKg ? r.loKg : r.lo, hi = state.perKg ? r.hiKg : r.hi;
+  return `5–95 %: ${fmt(lo[ci])} to ${fmt(hi[ci])}`;
+}
+// a result divided by its product mass (impact vectors and storage credits; masses, hours etc. unchanged)
+function perKgResult(r) {
+  const k = r.info.productKg;
+  const sc = o => Array.isArray(o) ? (o.length === N_CAT && typeof o[0] === "number" ? o.map(x => x / k) : o.map(sc))
+    : (o && typeof o === "object" ? Object.fromEntries(Object.entries(o).map(([a, b]) => [a, a === "info" ? b : sc(b)])) : o);
+  const out = sc(r);
+  out.detail.growth = r.detail.growth / k;
+  out.detail.delayed = r.detail.delayed / k;
+  return out;
 }
 function renderResultsBody() {
-  const ci = catIndex(), u = unit();
+  const ci = catIndex(), uFu = unit();
   let result;
   try { result = runCase(state.inputs, caseMeta(), state.scaleT / 100, state.bgT / 100); }
   catch (err) {
     document.getElementById("results-body").innerHTML = `<div class="error-box">Can't compute: ${esc(err.message)}</div>`;
     return;
   }
+  // the toggle changes the net impact, the bars and the breakdown; the comparison chart and "What matters most"
+  // stay per functional unit
+  if (state.perKg) result = perKgResult(result);
+  const u = state.perKg ? `${uFu} per kg` : uFu;
   const val = k => result[k][ci];
   const net = val("net"), burden = val("burdens"), seq = val("sequestration"), circ = val("circularity");
   const repairOn = result.info.nRepairs > 0;
@@ -597,7 +647,7 @@ function renderResultsBody() {
   document.getElementById("results-body").innerHTML = `
     <div class="net-row">
       <div class="net-number ${net <= 0 ? "negative" : "positive"}">${fmt(net)}<span class="net-unit"> ${esc(u)}</span></div>
-      <div class="net-caption">net impact, ${esc(where)}<br><span class="${mcCur ? "" : "stale"}">${mcCur ? rangeText(mcCur, ci) : "computing range…"}</span><br>
+      <div class="net-caption">net impact${state.perKg ? " per kg of product" : ""}, ${esc(where)}<br><span class="${mcCur ? "" : "stale"}">${mcCur ? rangeText(mcCur, ci) : "computing range…"}</span><br>
         ${fmt(result.info.productKg)} kg · ${fmt(result.info.serviceLife)} yr service life${result.info.nRepairs ? ` (${result.info.nRepairs} repairs)` : ""} · × ${fmt(result.info.scaling)} to ${fmt(state.meta.rsl)} yr</div>
     </div>
     <div class="bars">
@@ -607,9 +657,10 @@ function renderResultsBody() {
     <div class="legend">${[["Material", "--rust-deep"], ["Production", "--rust"], ...(repairOn ? [["Repair", "--tan"]] : []), ["End of life", "--purple"], ["Carbon storage", "--teal"], ["Circularity", "--blue"]]
       .map(([l, c]) => `<div class="legend-item"><span class="legend-swatch" style="background:var(${c});"></span>${l}</div>`).join("")}${ci !== GWP ? `<div class="legend-item">(carbon storage: climate change only)</div>` : ""}</div>
     <div class="compare-box">
-      <div class="compare-head"><h4>Comparison</h4><span class="hint">${esc(u)} per functional unit</span></div>
-      ${comparisonChart(ci, u)}
+      <div class="compare-head"><h4>Comparison</h4><span class="hint">${esc(uFu)} per functional unit${state.perKg ? " (not per kg: products of different mass do the same job)" : ""}</span></div>
+      ${comparisonChart(ci, uFu)}
     </div>
+    ${partnerChecksHtml()}
     ${renderSensitivity(ci)}
     <details class="fold" id="fold-breakdown" ${state.openBreakdown ? "open" : ""}><summary>Breakdown by item</summary><div class="breakdown-list">${breakdown}</div></details>
     ${renderWarnings()}
@@ -753,8 +804,7 @@ function wireChartTooltip() {
 function renderWarnings() {
   const list = inputList(state.inputs).map(e => [e, warnings(e)]).filter(([, w]) => w.length);
   const sums = [];
-  for (const [key, lbl] of [["productionBom", "Bill of materials"], ["repairBom", "Repair bill of materials"]]) {
-    if (key === "repairBom" && !state.inputs.circularity.enabled) continue;
+  for (const [key, lbl] of [["productionBom", "Bill of materials"]]) {
     const t = state.inputs[key].reduce((s, x) => s + (Number(x.share.v) || 0), 0);
     if (state.inputs[key].length && Math.abs(t - 100) > 0.01) sums.push(`${lbl} adds up to ${fmt(t)} % (re-normalised to 100 %)`);
   }
@@ -783,6 +833,7 @@ function loadCase(id, inputs) {
   state.meta = c;
   state.original = buildOriginal(c.inputs);
   state.inputs = upgradeInputs(deepClone(inputs || c.inputs));
+  syncRepairs(state.inputs.circularity, c.rsl);
   state.expanded = {};
   state.mc = null;
   document.getElementById("case-select").value = id;
@@ -821,6 +872,14 @@ function exportChanged(e, o, isNew) {
   if ("unit" in p && !same(p.unit, o.unit)) out.push("unit");
   return out.join(";");
 }
+// the optional general comment travels as one extra row, so the receiving sheet needs no new column
+function generalComment() { return document.getElementById("rec-comment").value.trim(); }
+function generalCommentRow() {
+  const text = generalComment();
+  if (!text) return [];
+  const row = Object.fromEntries(ROW_COLUMNS.map(c => [c, ""]));
+  return [Object.assign(row, { case: state.caseId, stage: "general", item: "submission", parameter: "general comment", comments: text })];
+}
 function inputRows() {
   return inputList(state.inputs).filter(e => !(e.path.startsWith("circularity.") && e.path !== "circularity.expectedLifetime" && !state.inputs.circularity.enabled))
     .map(e => {
@@ -832,7 +891,7 @@ function inputRows() {
         changed: exportChanged(e, o, !def),
         sheet_typical: e.kind === "num" ? numOrBlank(o.v) : (o.v || ""), sheet_min: numOrBlank(o.min), sheet_max: numOrBlank(o.max), sheet_scaled_up: numOrBlank(o.up),
         sheet_source: s.source || "" };
-    });
+    }).concat(generalCommentRow());
 }
 function csvCell(v) { const s = String(v === undefined || v === null ? "" : v); return /[",\n;]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s; }
 function download(name, text, type) {
@@ -850,7 +909,7 @@ function rowsCsv() {
 document.getElementById("btn-export-csv").addEventListener("click", () => download(`${fileStem()}.csv`, rowsCsv(), "text/csv"));
 document.getElementById("btn-export").addEventListener("click", () => {
   download(`${fileStem()}.json`, JSON.stringify({ tool: "RAW Impact Explorer", snapshot: RAW_DATA.snapshot, caseId: state.caseId,
-    exportedAt: new Date().toISOString(), submitter: submitter(), inputs: state.inputs }, null, 1), "application/json");
+    exportedAt: new Date().toISOString(), submitter: submitter(), generalComment: generalComment(), inputs: state.inputs }, null, 1), "application/json");
 });
 document.getElementById("btn-import").addEventListener("click", () => document.getElementById("file-import").click());
 document.getElementById("file-import").addEventListener("change", (e) => {
@@ -862,6 +921,7 @@ document.getElementById("file-import").addEventListener("change", (e) => {
       const data = JSON.parse(reader.result);
       if (!data.caseId || !data.inputs || !loadCase(data.caseId, data.inputs)) throw new Error("no case");
       if (data.submitter) { document.getElementById("rec-name").value = data.submitter.name || ""; document.getElementById("rec-org").value = data.submitter.organisation || ""; }
+      document.getElementById("rec-comment").value = data.generalComment || "";
       setStatus(`Imported ${file.name}` + (data.snapshot !== RAW_DATA.snapshot ? ` (made with sheet snapshot ${data.snapshot}; "changed" markers compare with ${RAW_DATA.snapshot})` : ""), "ok");
     } catch (err) {
       setStatus("That file isn't an export of this tool (Export inputs .json).", "err");
@@ -884,7 +944,7 @@ function buildSubmission() {
   const results = CATEGORIES.flatMap((cat, ci) => chartRows(ci).map(r => ({ category: cat, unit: RAW_DATA.units[cat] || "",
     product: productName(r), burden: num(r.burden), benefit: num(r.benefit), net: num(r.v), p5: num(r.lo), p95: num(r.hi) })));
   return { tool: "RAW Impact Explorer", snapshot: RAW_DATA.snapshot, submissionId: newSubmissionId(), submittedAt: new Date().toISOString(),
-    submitter: submitter(), case: { id: state.caseId, name: state.meta.name },
+    submitter: submitter(), generalComment: generalComment(), case: { id: state.caseId, name: state.meta.name },
     columns: ROW_COLUMNS, rows: inputRows(),
     results };
 }

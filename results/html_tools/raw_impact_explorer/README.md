@@ -59,9 +59,8 @@ Most inputs are one sheet row. A few are derived by the tool:
   is 0 %, so the typical results equal the sheet's. A `product size` row whose range lies only below its typical value
   gives the maximum (CFW: fibre length 412.5–550 m/m → up to 25 %). That row is then kept at typical in the density
   range, so the saving isn't counted twice.
-- **Number of repair events** is editable. It is pre-filled with the model's value (the smallest number that reaches
-  the functional unit's service life, `raw_lca.cases.repairs_needed`). Its min/max are taken at the ends of the
-  lifetime and extension ranges.
+- **Number of repair events** is not entered: it is the smallest number that reaches the functional unit's service
+  life, computed from the expected lifetime and the extension (also in the Monte Carlo, as in Python).
 - **Biopolymer fillers**: the recipe (binder + filler combination + split) is shown as resolved shares (Sawdust,
   Seagrass), with min/max derived from the binder and split ranges. The sheet's variation of *which* fillers are used
   isn't represented.
@@ -82,21 +81,23 @@ The sections, in order:
 2. **Bill of materials**: one row per material (material, source, share).
 3. **Fabrication steps**: one electricity location, then per step: machine weight, power, output rate, lifetime,
    process yield, machine source.
-4. **Circularity specifications**: repair on/off, repair material, expected lifetime, extension, number of repairs.
-5. **Repair**: materials and fabrication steps (no scaled-up column).
-6. **End of life** (no scaled-up column).
+4. **Circularity specifications**: repair on/off, expected lifetime, repair material and extension. The user enters
+   the value only: min / max are set to -20 % / +20 % of it, and the number of repairs is calculated (as in Python,
+   `raw_lca.cases.repairs_needed`) and shown under the extension. Only the scaled-up product is repaired, with the
+   product's own materials and fabrication steps, so the repair numbers are for the scaled-up product.
+5. **End of life**.
 
 **Different processes at scale.** Each production step has a *Used in* choice: prototype & scaled-up (default),
-prototype only, or scaled-up only. Repair has a matching *Repair in* choice. Something that exists in one version
+prototype only, or scaled-up only. Something that exists in one version
 only has one set of values and no scaled-up column, and counts as absent in the other version: a step without
 machine wear, electricity or losses (yield 100 %), or no repairs. The Prototype → Scaled-up slider fades it in or
 out, so both ends are exact. Materials need no extra choice: a scaled-up share of 0 drops a material, and a
 prototype share of 0 adds one at scale only.
 
 These choices are not on the sheet and not in `raw_lca` yet. They are exported as extra rows (`used in` per
-production step, `repair in`). To carry them into the paper results, the `lci_raw_*` tabs need a column for them and
-`scale_up_case` / `resolve_raw_case` need to use it. At the defaults (every step in both versions, repair as on the
-sheet) the tool matches the Python results exactly.
+production step). To carry them into the paper results, the `lci_raw_*` tabs need a column for them and
+`scale_up_case` / `resolve_raw_case` need to use it. At the defaults (every step in both versions) the tool matches
+the Python results exactly.
 
 Sections 1–4 have the columns prototype / min / max / scaled-up / comment. A scaled-up cell is grey while it follows
 the prototype and highlighted when it differs. Clearing it makes it follow the prototype again.
@@ -137,6 +138,8 @@ results panel lists every row to check, with a link to it.
   `scaled_up` is always the value used (the typical value if not set). `changed` names what differs from the sheet,
   including values the tool tidied, or says `new row`.
 - **Export / Import (.json)**: the full state of one case (inputs, ranges, comments), to continue later.
+- **General comments** (optional, above the submit button): sent and exported as one extra row (`stage` general,
+  `item` submission, `parameter` general comment, the text in `comments`), so the receiving sheet needs no new column.
 - **Submit to RAW sheet** sends the same rows plus the comparison-chart values (all impact categories) to a Google Apps Script Web App.
   Until a URL is set, it downloads the CSV instead.
 

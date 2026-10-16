@@ -1,9 +1,9 @@
 ,biopol,knit,timber,cfw
-climate change,yes,no,no,no
-ozone depletion,yes,no,no,no
-particulate matter formation,yes,no,no,no
-acidification,yes,no,no,no
-freshwater eutrophication,yes,no,no,no
-land use,yes,no,no,no
-water use,yes,no,no,no
-mineral resources,yes,no,no,no
+climate change,yes,yes,no,no
+ozone depletion,yes,yes,no,no
+particulate matter formation,yes,yes,no,no
+acidification,yes,yes,no,no
+freshwater eutrophication,yes,yes,no,no
+land use,yes,yes,no,yes
+water use,yes,yes,no,no
+mineral resources,yes,yes,no,no

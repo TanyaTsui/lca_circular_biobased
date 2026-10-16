@@ -242,6 +242,13 @@ input, select{ font-family: var(--font-mono); }
 /* range tables: typical | min | max | (scaled-up) | comment */
 .rtable{ display:flex; flex-direction:column; }
 .rtable.is-off .rrow:not(.rhead){ opacity:.55; }
+.rgroup{ display:flex; flex-direction:column; }
+.basis-toggle{ display:inline-flex; margin:0 0 10px; border:1px solid var(--line, #cfc8b4); border-radius:4px; overflow:hidden; }
+.basis-toggle button{ border:0; background:transparent; padding:5px 10px; font-size:11.5px; color:var(--ink-soft); cursor:pointer; font-family:inherit; }
+.basis-toggle button + button{ border-left:1px solid var(--line, #cfc8b4); }
+.basis-toggle button.on{ background:var(--ink); color:var(--paper); }
+.rrow input.auto{ background:transparent; border-color:transparent; color:var(--ink-soft); cursor:default; }
+.rgroup.is-off .rrow{ opacity:.55; }
 .rrow{
   display:grid; grid-template-columns: minmax(150px,1.5fr) 78px 70px 70px minmax(110px,1.4fr);
   gap:6px; align-items:center; padding:5px 0 5px 8px; border-bottom:1px dotted var(--line-soft); position:relative;
@@ -352,6 +359,10 @@ button.info:hover, button.info:focus-visible{ color:#fff; background:var(--rust)
 .fold.warn-box summary{ color:var(--rust-deep); }
 .warn-box ul{ margin:6px 0 0; padding-left:18px; font-size:11.5px; color:var(--ink); max-height:180px; overflow-y:auto; }
 .warn-box a{ color:var(--rust-deep); }
+.partner-checks{ margin:14px 0 4px; padding:10px 14px; border-left:3px solid var(--rust-deep); background:var(--paper-dim); border-radius:4px; }
+.partner-checks h4{ margin:0 0 6px; font-size:13px; color:var(--rust-deep); }
+.partner-checks ol{ margin:0; padding-left:18px; font-size:12px; line-height:1.5; color:var(--ink); }
+.partner-checks li + li{ margin-top:4px; }
 .error-box{ color:var(--rust-deep); font-size:12.5px; padding:12px 0; }
 
 /* footer / record bar */
@@ -364,6 +375,12 @@ button.info:hover, button.info:focus-visible{ color:#fff; background:var(--rust)
 .record-bar input{
   background:#0e1416; border:1px solid var(--line-dark-strong); color:var(--paper-text-on-dark);
   padding:7px 9px; border-radius:2px; font-size:12px; width:170px;
+}
+.record-bar .general-comment{ flex:1 1 100%; display:flex; flex-direction:column; gap:6px; font-size:12px; color:var(--paper-text-on-dark); }
+.record-bar .general-comment .optional{ color:#8f988f; }
+.record-bar textarea{
+  background:#0e1416; border:1px solid var(--line-dark-strong); color:var(--paper-text-on-dark);
+  padding:8px 9px; border-radius:2px; font-size:12px; font-family:inherit; line-height:1.45; resize:vertical; width:100%; box-sizing:border-box;
 }
 .record-status{ font-size:11.5px; color:#8f988f; font-family:var(--font-mono); }
 .record-status.ok{ color: var(--teal); }
@@ -426,6 +443,10 @@ button.info:hover, button.info:focus-visible{ color:#fff; background:var(--rust)
   </div>
 
   <div class="record-bar">
+    <label class="general-comment">
+      <span>General comments <span class="optional">(optional)</span></span>
+      <textarea id="rec-comment" rows="3" placeholder="Anything about this case that doesn't fit a single number: assumptions, missing steps, data you could send later…"></textarea>
+    </label>
     <div class="who">
       <input type="text" id="rec-name" placeholder="Your name">
       <input type="text" id="rec-org" placeholder="Organisation">

@@ -2,4 +2,4 @@
 from .background import Background
 from .inputs import Inputs, load_inputs
 from .model import GWP, Model, Result
-from .study import activity_amounts, run_products, spec_variable
+from .study import activity_amounts, product_kg, run_products, spec_variable

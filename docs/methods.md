@@ -17,11 +17,15 @@ All products of one comparative LCA are compared over that RAW case's **referenc
 `RSL / L` (per-year amortisation, continuous in `L`). `L` of a RAW case is `expected lifetime + n_repairs x
 lifetime extension per repair`, where `n_repairs` is the smallest number of repairs that reaches `RSL`:
 `ceil((RSL - expected lifetime) / lifetime extension per repair)`, and 0 if the expected lifetime already reaches it
-(so `L >= RSL` whenever repair extends the life). `L` of a per-kg baseline is its `service life` on its `lci_baseline_*` tab; a process-based baseline has `L` like a RAW case. A case without repair rows is never repaired (`L` = expected lifetime). Results are in the
+(so `L >= RSL` whenever repair extends the life). Only the scaled-up version of a RAW case is repaired; prototypes
+and baselines have `n_repairs = 0`. All cases use the same rule (10 % of the product mass per repair, extension = 50 % of the expected lifetime). `L` of a per-kg baseline is its `service life` on its `lci_baseline_*` tab; a process-based baseline has `L` like a RAW case. A case without repair rows is never repaired (`L` = expected lifetime). Results are in the
 EF v3.1 impact categories (25 categories in the data, the ones plotted are flagged on `impact_categories`).
 
 **Product size.** The mass (kg) of every product follows from the spec through one formula per product on the
-`product_size_formulas` tab (e.g. beam mass = depth x width x span x density with depth = span / `depth_ratio`). The constants in the formulas are
+`product_size_formulas` tab (e.g. beam mass = depth x width x span x density with depth = span / `depth_ratio`). A RAW
+case's mass is then reduced by its `material_savings` row (`product size` stage, %): product mass = formula x (1 -
+material_savings / 100). For RAW CFW and RAW knit the rest of the LCI equals their bio-based baseline (the same product
+without the RAW optimisation; CFW also keeps its in-line sensing step), so the savings are the RAW difference. The constants in the formulas are
 parameters on each case's LCI tab (`stage = product size`), not numbers inside the formula. They vary like other
 parameters: for the RAW cases in the uncertainty analysis and, as the design group, in the sensitivity analysis; for
 the baselines in the uncertainty analysis only. `wall_height` is part of the functional unit and fixed, so the
@@ -47,8 +51,8 @@ Stages, all per product spec:
    output divided by its `process yield`. Per step: process time = input / `output rate`; machine wear (kg) =
    `machine weight` x time / `machine lifetime`; electricity (kWh) = `power` x time. Impact = machine wear x burden of
    `machine wear` (virgin or recycled machine) + electricity x burden of `energy use` in the step's country.
-3. **Repair.** Each of `n_repairs` events adds `share of product mass per repair` of new material, produced with the
-   repair chain in the same way. Repair events are sequential: event `i` (of `n`) stores its carbon for
+3. **Repair** (scaled-up version only). Each of `n_repairs` events adds `share of product mass per repair` of new
+   material, made with the product's own bill of materials and production chain (at their scaled-up values). Repair events are sequential: event `i` (of `n`) stores its carbon for
    `(n - i + 1) x lifetime extension` years.
 4. **End of life.** The product mass plus all repair mass is split into five routes (composted, recycled open loop,
    recycled closed loop, incinerated, landfilled). Treatment burden = share x mass x burden of the route's treatment
@@ -63,12 +67,13 @@ Stages, all per product spec:
    wild-harvested* material (carbon that would otherwise be released): `C x kg x 44/12 x (DCF(storage) - 1)` with the
    dynamic characterisation factor of Levasseur et al. (2010) built from the Bern-model coefficients (tab `dcf_bern`)
    over the time horizon on `constants`. Storage time = product service life (production material) or the time
-   left after the repair event (repair material).
+   left after the repair event (repair material). The stored mass is the product mass (and the repair mass) split by
+   the BOM shares, not the input mass: material lost in production is not stored in the product.
 
-**Scaled-up variant.** Each RAW case is also run with its production machines scaled up: a production step whose
-`scaled_up` cells are filled in (machine weight, power, output rate, machine lifetime, on its own `lci_raw_*` tab) uses
-those values instead of the prototype ones. All other steps, the repair chain, BOM, lifetimes and end of life are
-unchanged.
+**Scaled-up variant.** Each RAW case is also run at large scale: every row of its `lci_raw_*` tab with a `scaled_up`
+value uses that value instead of the prototype one (production machines, with all four of machine weight, power,
+output rate and machine lifetime per step; BOM shares, lifetimes, repair and end-of-life shares). Rows without a
+`scaled_up` value keep their prototype value. The scaled-up version is the only one that is repaired.
 
 ## 3. Baseline products
 

@@ -162,18 +162,24 @@ function normalise(values) {
   return values.map(x => total > 0 ? 100 * x / total : 0);
 }
 // `scaleT` in [0, 1]: every input with a scaled-up value (`up`; null/blank = same as typical) moves from its
-// typical (prototype) value to it. Production machine values are the sheet's `scaled_up` column — at 1 this is
-// raw_lca.cases.scale_up_case; the other scaled-up values (product, materials, yields, circularity) are the tool's.
+// typical (prototype) value to it. The sheet's `scaled_up` column (machines, materials, lifetime, repair, end of life)
+// gives these values — at 1 this is raw_lca.cases.scale_up_case.
 //
-// A production step can be part of both versions or of one only (`usedIn`: both / prototype / scaledUp), and so can
-// repair (`circularity.repairIn`). Something that exists in one version only has one set of values (its typical
-// ones) and is absent in the other: a step without machine wear, electricity or losses (yield 100 %), no repairs.
+// A production step can be part of both versions or of one only (`usedIn`: both / prototype / scaledUp); repair is
+// part of the scaled-up product only, and uses the product's bill of materials and fabrication steps. Something
+// that exists in one version only has one set of values (its typical ones) and is absent in the other: a step
+// without machine wear, electricity or losses (yield 100 %), no repairs.
 // In between, it is faded in with weight t (scaled-up only) or out with 1 - t (prototype only), so both ends of
 // the slider are exact.
+// raw_lca.cases.repairs_needed: the smallest number of repairs that makes the product last `serviceLife` years
+function repairsNeeded(expected, extension, serviceLife) {
+  if (expected >= serviceLife || extension <= 0) return 0;
+  return Math.ceil((serviceLife - expected) / extension - 1e-9);
+}
 function presence(usedIn, scaleT) {
   return usedIn === "prototype" ? 1 - scaleT : usedIn === "scaledUp" ? scaleT : 1;
 }
-function plainInputs(inp, specValue, scaleT = 0) {
+function plainInputs(inp, specValue, scaleT = 0, rsl = Infinity) {
   const val = p => Number(p.v);
   const scaled = p => (p.up === null || p.up === undefined || p.up === "" || !isFinite(p.up)) ? val(p) : lerp(val(p), Number(p.up), scaleT);
   const bom = list => {
@@ -192,9 +198,11 @@ function plainInputs(inp, specValue, scaleT = 0) {
       lifetimeHrs: val(s.lifetimeHrs), yieldPct: lerp(100, val(s.yieldPct), f), machineSource: s.machineSource.v };
   }).filter(Boolean);
   const c = inp.circularity;
-  const repairIn = (c.repairIn && c.repairIn.v) || "both";
+  const repairIn = "scaledUp";      // only the scaled-up product is repaired (as the sheet's 'repair in' row)
   const rep = p => repairIn === "both" ? scaled(p) : val(p);           // one-version repair: one set of values
-  const nRepairs = !c.enabled ? 0 : Math.max(0, Math.round(rep(c.numRepairs) * presence(repairIn, scaleT)));
+  // number of repairs: computed from the lifetime and the extension (as in Python), not entered
+  const nRepairs = !c.enabled ? 0
+    : Math.round(repairsNeeded(scaled(c.expectedLifetime), rep(c.extension), rsl) * presence(repairIn, scaleT));
   const eolShares = normalise(ROUTES.map(r => scaled(inp.eol[r])));
   const p = inp.product;
   return {
@@ -210,8 +218,8 @@ function plainInputs(inp, specValue, scaleT = 0) {
       extension: rep(c.extension),
       nRepairs,
     },
-    repairBom: bom(inp.repairBom),
-    repairChain: steps(inp.repairChain),
+    repairBom: bom(inp.productionBom),        // repair uses the product's materials and fabrication steps
+    repairChain: steps(inp.productionChain),
     eol: Object.fromEntries(ROUTES.map((r, i) => [r, eolShares[i]])),
   };
 }
@@ -230,14 +238,15 @@ function runRaw(m, rsl, bgT = 0) {
   const inputKg = proc.inputKg;
   const mat = materials(m.productionBom, inputKg, bgT);
   let rep = zero(), repChain = null, repMat = null;
-  const seqKg = m.productionBom.map(x => [x, inputKg * x.pct / 100, life]);
+  // carbon is stored in the product, not in the process losses: credited on the product (and repair material) mass
+  const seqKg = m.productionBom.map(x => [x, productKg * x.pct / 100, life]);
   if (n > 0) {
     repChain = chain(m.repairChain, repairKg, m.location, bgT);
     repMat = materials(m.repairBom, repChain.inputKg, bgT);
     rep = scale(add(repChain.total, repMat.total), n);
     for (let i = 1; i <= n; i++) {   // event i is stored (n - i + 1) x extension years
       const storage = (n - i + 1) * rp.extension;
-      for (const x of m.repairBom) seqKg.push([x, repChain.inputKg * x.pct / 100, storage]);
+      for (const x of m.repairBom) seqKg.push([x, repairKg * x.pct / 100, storage]);
     }
   }
   let growth = 0, delayed = 0;
@@ -286,7 +295,7 @@ function runRaw(m, rsl, bgT = 0) {
 // Convenience: the editable case inputs -> result at a scale-up and background position.
 // `meta` = { specValue, rsl } (functional unit of the case: spec value and reference service life).
 function runCase(inputs, meta, scaleT = 0, bgT = 0) {
-  return runRaw(plainInputs(inputs, meta.specValue, scaleT), meta.rsl, bgT);
+  return runRaw(plainInputs(inputs, meta.specValue, scaleT, meta.rsl), meta.rsl, bgT);
 }
 
 // ============================================================================
@@ -350,20 +359,30 @@ function percentile(sorted, q) {
 function runMonteCarlo(inputs, meta, variants, n = 500, seed = RAW_DATA.mcSeed) {
   const rng = mulberry32(seed);
   const nets = Object.fromEntries(variants.map(v => [v.key, []]));
+  const kgs = Object.fromEntries(variants.map(v => [v.key, []]));     // product mass of each draw (per-kg results)
   const x = {};                                   // path -> sampled values, one per draw
   for (let d = 0; d < n; d++) {
     const s = sampleInputs(inputs, rng, (path, v) => { (x[path] = x[path] || []).push(v); });
-    for (const v of variants) nets[v.key].push(runCase(s, meta, v.scaleT, v.bgT).net);
+    for (const v of variants) {
+      const r = runCase(s, meta, v.scaleT, v.bgT);
+      nets[v.key].push(r.net);
+      kgs[v.key].push(r.info.productKg);
+    }
   }
   const out = {};
-  for (const v of variants) {
+  // 5 / 50 / 95 % of the net impact per functional unit, and per kg of product (each draw / its own mass)
+  const pct = rows => {
     const lo = zero(), mid = zero(), hi = zero();
     for (let i = 0; i < N_CAT; i++) {
-      const col = nets[v.key].map(r => r[i]).filter(isFinite).sort((a, b) => a - b);
+      const col = rows.map(r => r[i]).filter(isFinite).sort((a, b) => a - b);
       if (!col.length) { lo[i] = mid[i] = hi[i] = NaN; continue; }
       lo[i] = percentile(col, 5); mid[i] = percentile(col, 50); hi[i] = percentile(col, 95);
     }
-    out[v.key] = { lo, mid, hi };
+    return { lo, mid, hi };
+  };
+  for (const v of variants) {
+    const fu = pct(nets[v.key]), kg = pct(nets[v.key].map((r, d) => r.map(x => x / kgs[v.key][d])));
+    out[v.key] = { ...fu, loKg: kg.lo, midKg: kg.mid, hiKg: kg.hi };
   }
   out.draws = { x, nets };
   return out;

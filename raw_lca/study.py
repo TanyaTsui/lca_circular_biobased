@@ -1,7 +1,7 @@
 """Runs a RAW case, its scaled-up variant and its baselines for one product spec and one set of parameter values."""
 from typing import Dict, List, Optional, Tuple
 
-from .cases import baseline_kind, resolve_baseline, resolve_raw_case, product_params, scale_up_case
+from .cases import SAVINGS, SIZE_STAGE, baseline_kind, resolve_baseline, resolve_raw_case, product_params, scale_up_case
 from .formulas import evaluate_formula
 from .inputs import Inputs
 from .model import Model, Result
@@ -20,6 +20,16 @@ def activity_amounts(inp: Inputs, case: str, spec_value: float, values: Optional
     return [(r.activity_name, evaluate_formula(r.formula, variables), r.activity_unit) for r in rows.itertuples()]
 
 
+def product_kg(inp: Inputs, case: str, spec_value: float, values: Optional[dict] = None) -> float:
+    """kg of product for a spec value: the product size formula, reduced by the case's material savings
+    ('product size' row `material_savings`, % of the formula's mass; 0 for a case without one)."""
+    values = values or inp.params.typical()
+    kg = activity_amounts(inp, case, spec_value, values)[0][1]
+    key = (SIZE_STAGE, "product", "", SAVINGS)
+    lk = inp.params.lookup(case)
+    return kg * (1 - float(values[lk[key]]) / 100) if key in lk else kg
+
+
 def run_products(model: Model, raw_case_id: str, spec_value: Optional[float] = None, values: Optional[dict] = None,
                  iteration: Optional[int] = None, scaled_up: bool = True) -> Dict[str, Result]:
     """{label: Result} for the RAW case, its scaled-up variant and the baselines flagged for it on the sheet."""
@@ -29,19 +39,19 @@ def run_products(model: Model, raw_case_id: str, spec_value: Optional[float] = N
         spec_value = inp.specs[spec_variable(inp, raw_case_id)]
     rsl = inp.reference_service_life_for(raw_case_id)
     display = inp.raw_cases()[raw_case_id]
-    raw_kg = activity_amounts(inp, raw_case_id, spec_value, values)[0][1]
+    raw_kg = product_kg(inp, raw_case_id, spec_value, values)
     raw = resolve_raw_case(inp.params, raw_case_id, display, values, rsl)
     results = {raw.name: model.run_raw(raw, raw_kg, rsl, iteration)}
     if scaled_up:
-        up = scale_up_case(raw, inp.params, raw_case_id)
+        up = scale_up_case(inp.params, raw_case_id, display, values, rsl)
         results[up.name] = model.run_raw(up, raw_kg, rsl, iteration)
     for b in inp.baselines_for(raw_case_id):
         label = inp.products.loc[inp.products.case_name == b, "display_name"].iloc[0]
-        product_kg = activity_amounts(inp, b, spec_value, values)[0][1]
+        kg = product_kg(inp, b, spec_value, values)
         if baseline_kind(inp.params.rows(b)) == "process":        # modelled like a RAW case (no scaled-up variant)
-            results[label] = model.run_raw(resolve_raw_case(inp.params, b, label, values, rsl), product_kg, rsl, iteration, label)
+            results[label] = model.run_raw(resolve_raw_case(inp.params, b, label, values, rsl), kg, rsl, iteration, label)
         else:
-            results[label] = model.run_baseline(resolve_baseline(inp.params, b, values), product_kg, rsl, iteration, label)
+            results[label] = model.run_baseline(resolve_baseline(inp.params, b, values), kg, rsl, iteration, label)
     return results
 
 
@@ -53,8 +63,8 @@ def run_raw_only(model: Model, raw_case_id: str, spec_value: Optional[float] = N
     if spec_value is None:
         spec_value = inp.specs[spec_variable(inp, raw_case_id)]
     rsl = inp.reference_service_life_for(raw_case_id)
-    raw_kg = activity_amounts(inp, raw_case_id, spec_value, values)[0][1]
-    raw = resolve_raw_case(inp.params, raw_case_id, inp.raw_cases()[raw_case_id], values, rsl)
-    if scaled_up:
-        raw = scale_up_case(raw, inp.params, raw_case_id)
+    raw_kg = product_kg(inp, raw_case_id, spec_value, values)
+    name = inp.raw_cases()[raw_case_id]
+    raw = (scale_up_case(inp.params, raw_case_id, name, values, rsl) if scaled_up
+           else resolve_raw_case(inp.params, raw_case_id, name, values, rsl))
     return model.run_raw(raw, raw_kg, rsl, iteration)

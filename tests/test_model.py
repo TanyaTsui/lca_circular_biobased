@@ -5,6 +5,8 @@ Model tests.
     02_model multiplied the electricity credit of incineration (MJ of fuel energy) by a burden per kWh; the new model
     converts MJ to kWh (constant mj_per_kwh = 3.6 on the sheet). Setting it to 1 reproduces 02_model exactly.
  2. the unit fix changes only the incineration electricity credit, by the factor 1/3.6.
+ 3. carbon storage is credited on the product mass, not on the input mass (02_model credited the input mass,
+    including the process losses, so the golden test leaves storage out).
 """
 import json
 
@@ -46,8 +48,10 @@ def test_golden_02_model(inp, scenario):
     res = m.run_raw(FIXTURE, 1.0, rsl=50)
     gold = json.load(open(GOLDEN))["scenarios"][scenario]
     got = dict(materials=res.materials, production=res.production, repair=res.repair, eol_burden=res.eol_burden,
-               sequestration=res.sequestration, circularity=res.circularity)
+               circularity=res.circularity)
     for comp, series in gold.items():
+        if comp == "sequestration":                   # 02_model credited storage on the input mass, see test 3
+            continue
         want = np.array([series[c] for c in bg.categories])
         assert np.allclose(got[comp], want, rtol=1e-6, atol=1e-9), f"{scenario}: {comp} differs from 02_model.ipynb"
 
@@ -63,3 +67,19 @@ def test_unit_fix_only_changes_electricity_credit(inp):
     elec = bg.get("avoided burden - incineration, electricity", location="NL")
     removed = 0.10 * m.lhv * kg * m.eff_elec * elec * (1 - 1 / 3.6)     # 10 % incinerated
     assert np.allclose(new.circularity - old.circularity, removed)
+
+
+def test_storage_is_credited_on_product_mass(inp):
+    """yields below 100 % raise the material input, but not the carbon stored in the product"""
+    from dataclasses import replace
+    m = Model(inp, Background(BACKGROUND, "baseline"))
+    lossless = replace(FIXTURE, production_chain=[replace(s, retained_pct=100) for s in FIXTURE.production_chain],
+                       repair_chain=[replace(s, retained_pct=100) for s in FIXTURE.repair_chain])
+    a, b = m.run_raw(FIXTURE, 1.0, rsl=50), m.run_raw(lossless, 1.0, rsl=50)
+    assert a.info["material_input_kg"] > 3 * b.info["material_input_kg"]
+    assert np.allclose(a.sequestration, b.sequestration)
+    life = FIXTURE.service_life_yr
+    want = sum(m._storage_credit(x.material_name, x.material_source, x.percentage / 100, life) for x in FIXTURE.production_bom)
+    want += sum(m._storage_credit(x.material_name, x.material_source, 0.1 * x.percentage / 100, (3 - i + 1) * 10)
+                for i in (1, 2, 3) for x in FIXTURE.repair_bom)
+    assert a.sequestration[m.gwp] == pytest.approx(want)

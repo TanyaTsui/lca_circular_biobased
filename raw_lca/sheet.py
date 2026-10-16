@@ -13,14 +13,16 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict, List
 
+import numpy as np
 import pandas as pd
 
-from .cases import EOL_TYPES, FILLER_SPLIT, FILLERS, PER_KG, ROUTES, SHARE, SIZE_STAGE, baseline_kind, parse_material
+from .cases import (EOL_TYPES, FILLER_SPLIT, FILLERS, PER_KG, REPAIR_IN, ROUTES, SAVINGS, SHARE, SIZE_STAGE,
+                    baseline_kind, parse_material)
 from .formulas import evaluate_formula, formula_variables
 from .params import COMBINATION_SEP, DISTRIBUTIONS, GROUPS, combinations, normalise_combination
 
 # Id of the Google Sheet (the part of its URL after /d/). The sheet must be viewable by "anyone with the link" for the
-# download to work without login. docs/RAW_LCA_inputs_v18.xlsx is a copy of its layout.
+# download to work without login. docs/RAW_LCA_inputs_v19.xlsx is a copy of its layout.
 SHEET_ID = "1KILEKpBrlLxxTO4JqrI2iSCQrWy_sZlyZKEPXlxrM44"
 STATUSES = ("placeholder", "partner estimate", "measured", "literature")
 # one tab per RAW case (lci_raw_<name>) and per baseline (lci_baseline_<name>; the older single tab lci_baselines also matches)
@@ -41,7 +43,7 @@ SCALABLE_PARAMETERS = ("machine weight", "power", "output rate", "machine lifeti
 def fetch_snapshot(out_dir, sheet_id: str = SHEET_ID) -> Path:
     """Download the whole sheet and write one verbatim CSV per tab into out_dir/<today>/."""
     if not sheet_id:
-        raise ValueError("SHEET_ID is not set in raw_lca/sheet.py: open docs/RAW_LCA_inputs_v18.xlsx in Google Sheets, "
+        raise ValueError("SHEET_ID is not set in raw_lca/sheet.py: open docs/RAW_LCA_inputs_v19.xlsx in Google Sheets, "
                          "share it (anyone with the link can view), and put its id there.")
     url = f"https://docs.google.com/spreadsheets/d/{sheet_id}/export?format=xlsx"
     not_shared = (f"could not download the Google Sheet {sheet_id}: share it as 'Anyone with the link: Viewer' "
@@ -141,6 +143,14 @@ def validate(tables: Dict[str, pd.DataFrame]) -> List[Issue]:
                 err(t, f"{label}: distribution '{r.distribution}' needs min and max")
             elif pd.notna(lo) and pd.notna(hi) and not (lo - 1e-9 * abs(typ) <= typ <= hi + 1e-9 * abs(typ)):
                 err(t, f"{label}: expected min <= typical <= max, got {lo} <= {typ} <= {hi}")
+            if str(r.unit).startswith("%"):
+                vals = [v for v in (typ, lo, hi, pd.to_numeric(r.scaled_up, errors="coerce") if "scaled_up" in df.columns
+                                    else np.nan) if pd.notna(v)]
+                if any(v < 0 or v > 100 for v in vals):
+                    err(t, f"{label}: a percentage must lie within 0-100, got {vals}")
+            if (r.distribution == "triangular" and pd.notna(lo) and pd.notna(hi) and hi > lo
+                    and abs(typ - (lo + hi) / 2) > 0.01 * (hi - lo)):
+                warn(t, f"{label}: typical {typ:g} is not in the middle of {lo:g}-{hi:g} (skews the uncertainty)")
         n_placeholder = int((df["status"] == "placeholder").sum())
         if n_placeholder:
             warn(t, f"{n_placeholder} of {len(df)} parameters still have status 'placeholder'")
@@ -170,10 +180,10 @@ def validate(tables: Dict[str, pd.DataFrame]) -> List[Issue]:
                 baselines[case] = (t, g, baseline_kind(g))
     for t, df in param_frames:
         if t in case_tabs:
-            check_process_case(t, df, err, raw=True)
+            check_process_case(t, df, err, raw=True, warn=warn)
     for case, (t, g, kind) in baselines.items():
         if kind == "process":
-            check_process_case(t, g, err, raw=False)
+            check_process_case(t, g, err, raw=False, warn=warn)
 
     # product size rows (constants of the product_size_formulas formulas) ----------------------------
     known_cases = set(params["case"])
@@ -267,7 +277,7 @@ def validate(tables: Dict[str, pd.DataFrame]) -> List[Issue]:
     return issues
 
 
-def check_process_case(tab: str, df: pd.DataFrame, err, raw: bool) -> None:
+def check_process_case(tab: str, df: pd.DataFrame, err, raw: bool, warn=None) -> None:
     """A case described by its bill of materials, machine chain, lifetime and end-of-life shares: a RAW case, or a
     process-based baseline (raw=False: 'scaled_up' values are not used). Repair rows are optional."""
     case = df["case"].iloc[0]
@@ -280,12 +290,12 @@ def check_process_case(tab: str, df: pd.DataFrame, err, raw: bool) -> None:
             have = set(rows_s["parameter"])
             if set(CHAIN_PARAMETERS) - have:
                 err(tab, f"{case}: step '{s}' ({stage}) misses parameters {sorted(set(CHAIN_PARAMETERS) - have)}")
-            if raw and stage == "production":
+            if raw:
                 filled = rows_s[rows_s.parameter.isin(SCALABLE_PARAMETERS) & rows_s.scaled_up.notna()]
                 n = len(filled)
                 if 0 < n < len(SCALABLE_PARAMETERS):
                     missing = set(SCALABLE_PARAMETERS) - set(filled["parameter"])
-                    err(tab, f"{case}: step '{s}' (production) has 'scaled_up' for some but not all scale parameters, "
+                    err(tab, f"{case}: step '{s}' ({stage}) has 'scaled_up' for some but not all scale parameters, "
                              f"missing {sorted(missing)}")
     if not ((df.stage == "production") & (df.parameter == SHARE)).any():
         err(tab, f"{case}: no production bill of materials (rows with parameter '{SHARE}')")
@@ -301,6 +311,14 @@ def check_process_case(tab: str, df: pd.DataFrame, err, raw: bool) -> None:
     n_location = int(((df.stage == "general") & (df.item == "product") & (df.parameter == "location")).sum())
     if n_location != 1:
         err(tab, f"{case}: expected exactly one 'location' row (stage 'general', item 'product'), found {n_location}")
+    unused = df[((df.stage == "repair") & df.parameter.isin([SHARE, FILLERS, FILLER_SPLIT, *CHAIN_PARAMETERS]))
+                | ((df.stage == "use") & (df.parameter == REPAIR_IN))]
+    if len(unused):
+        warn(tab, f"{case}: {len(unused)} rows are not used (repair uses the production bill of materials and fabrication "
+                  f"steps, and only the scaled-up product is repaired): {sorted(set(unused.item + ' / ' + unused.parameter))}")
+    for r in df[(df.stage == SIZE_STAGE) & (df.parameter == SAVINGS)].itertuples():
+        if str(r.unit).strip() != "%":
+            err(tab, f"{case}: '{SAVINGS}' is a percentage of the product mass (unit '%'), found unit '{r.unit}'")
 
 
 def check_recipe(tab: str, rows: pd.DataFrame, stage: str, unit_burdens, err) -> None:

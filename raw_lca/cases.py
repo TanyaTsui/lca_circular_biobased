@@ -1,10 +1,10 @@
 """
 Resolved products: the numbers the model needs for one RAW case or one baseline product, built from the
 sheet's parameter table (`ParameterSet`) for a given set of parameter values (typical values or a sample).
-No numbers live in this file. Scaled-up variants use the `scaled_up` column of the production chain rows.
+No numbers live in this file. Scaled-up variants use the `scaled_up` column of the sheet (see `scale_up_case`).
 """
 import math
-from dataclasses import dataclass, field, replace
+from dataclasses import dataclass, field
 from typing import Dict, List, Tuple
 
 import pandas as pd
@@ -15,6 +15,8 @@ PER_KG = "amount per kg product"                                        # parame
 SIZE_STAGE = "product size"                                             # constants of the product size formula
 SHARE = "share of input mass"                                           # bill of materials rows
 FILLERS, FILLER_SPLIT = "filler combination", "share of first filler"   # recipe with variable fillers
+SAVINGS = "material_savings"            # 'product size' row: % of product mass saved by the RAW optimisation
+REPAIR_IN = "repair in"                 # old 'use' row (choice); ignored: only the scaled-up product is repaired
 
 
 @dataclass
@@ -131,8 +133,11 @@ def repairs_needed(expected_lifetime_yr: float, extension_per_repair_yr: float, 
     return math.ceil((service_life_yr - expected_lifetime_yr) / extension_per_repair_yr - 1e-9)
 
 
-def resolve_raw_case(ps, case_id: str, name: str, values: dict, service_life_yr: float) -> RawCase:
-    """`service_life_yr`: the service life of the case's functional unit, which sets the number of repairs."""
+def resolve_raw_case(ps, case_id: str, name: str, values: dict, service_life_yr: float, scaled_up: bool = False) -> RawCase:
+    """`service_life_yr`: the service life of the case's functional unit, which sets the number of repairs.
+    `scaled_up`: resolve the scaled-up version (its values come from `scale_up_case`). Only the scaled-up version is
+    repaired, with the product's own bill of materials and fabrication steps (the sheet's repair-stage BOM and
+    machine rows are not used); a prototype or a baseline is never repaired."""
     lk = ps.lookup(case_id)
     rows = ps.rows(case_id)
     val = lambda stage, item, param, qual="": values[lk[(stage, item, qual, param)]]
@@ -160,11 +165,14 @@ def resolve_raw_case(ps, case_id: str, name: str, values: dict, service_life_yr:
     expected = float(val("use", "product", "expected lifetime"))
     optional = lambda stage, item, param: float(values[lk[(stage, item, "", param)]]) if (stage, item, "", param) in lk else 0.0
     extension = optional("use", "product", "lifetime extension per repair")       # no repair rows = never repaired
+    if not scaled_up:
+        extension = 0.0
     repair = RepairSpec(material_pct_of_product=optional("repair", "repair material", "share of product mass per repair"),
                         expected_lifetime_yr=expected, extension_per_repair_yr=extension,
                         n_repairs=repairs_needed(expected, extension, service_life_yr))
-    return RawCase(case_id=case_id, name=name, production_bom=bom("production"), production_chain=chain("production"),
-                   eol=eol, repair=repair, repair_bom=bom("repair"), repair_chain=chain("repair"))
+    production_bom, production_chain = bom("production"), chain("production")
+    return RawCase(case_id=case_id, name=name, production_bom=production_bom, production_chain=production_chain,
+                   eol=eol, repair=repair, repair_bom=production_bom, repair_chain=production_chain)
 
 
 def resolve_baseline(ps, case_name: str, values: dict) -> BaselineCase:
@@ -183,24 +191,16 @@ def resolve_baseline(ps, case_name: str, values: dict) -> BaselineCase:
 
 
 # ── scaled-up variant (sheet-driven) ────────────────────────────────────────────────────
-CHAIN_FIELD_BY_PARAM = {           # sheet `parameter` label -> ProcessStep field
-    "machine weight": "kg_machine",
-    "machine lifetime": "machine_lifetime_hrs",
-    "output rate": "rate_kg_per_hr",
-    "power": "power_kW",
-}
-
-
-def scale_up_case(case: RawCase, ps, case_id: str) -> RawCase:
-    """Copy of `case` whose PRODUCTION steps that carry a `scaled_up` value (on every one of their machine
-    weight / power / output rate / machine lifetime rows) use those values instead of the prototype ones.
-    A step with no `scaled_up` values is left unchanged. Everything but the production chain is unchanged."""
+def scaled_up_values(ps, case_id: str, values: dict) -> dict:
+    """`values` with the sheet's `scaled_up` value in place of every row of the case that has one (production and
+    repair machines, materials, lifetime, repair and end-of-life rows)."""
     rows = ps.rows(case_id)
-    prod = rows[(rows.stage == "production") & (rows.parameter.isin(CHAIN_FIELD_BY_PARAM))]
-    overrides: Dict[str, Dict[str, float]] = {}
-    for r in prod.itertuples():
-        if pd.notna(r.scaled_up):
-            overrides.setdefault(r.item, {})[CHAIN_FIELD_BY_PARAM[r.parameter]] = float(r.scaled_up)
-    chain = [replace(st, **overrides[st.step_name]) if st.step_name in overrides else st
-             for st in case.production_chain]
-    return replace(case, name=f"{case.name} - scaled up", production_chain=chain)
+    up = rows[rows.scaled_up.notna()]
+    return {**values, **{r.id: float(r.scaled_up) for r in up.itertuples()}}
+
+
+def scale_up_case(ps, case_id: str, name: str, values: dict, service_life_yr: float) -> RawCase:
+    """The scaled-up version of a RAW case: every row with a `scaled_up` value uses it (`scaled_up_values`), and it
+    is repaired when it needs to (repair rows present). A row without a `scaled_up` value keeps its prototype value."""
+    return resolve_raw_case(ps, case_id, f"{name} - scaled up", scaled_up_values(ps, case_id, values), service_life_yr,
+                            scaled_up=True)

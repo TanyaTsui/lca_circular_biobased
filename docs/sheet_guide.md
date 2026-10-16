@@ -49,8 +49,8 @@ product (its production row).
 A baseline is described in one of two ways; the model tells them apart by the rows on the tab:
 - **process-based** (e.g. the flax and glass fibre CFW beams, the CNC knitted hemp membrane): the tab has the same
   rows as a RAW case tab (below): bill of materials (`share of input mass`), machine chain, `expected lifetime`,
-  optional repair, end-of-life `share of waste` and location. It is modelled exactly like a RAW case, but has no
-  scaled-up variant (its `scaled_up` column is ignored).
+  optional repair, end-of-life `share of waste` and location. It is modelled exactly like a RAW prototype (so it is
+  not repaired), but has no scaled-up variant (its `scaled_up` column is ignored).
 - **per kg of product** (e.g. glulam, reinforced concrete, brick walls, polymer membrane): described below.
 
 Both kinds have `product size` rows for the constants of their `product_size_formulas` formula; the formula gives how
@@ -91,8 +91,8 @@ carbon storage credit for the product's service life, for the mass in its end-of
 | `item` | the material, the process step or "waste" the number belongs to. The order of the process steps is the order of the rows |
 | `parameter`, `description`, `unit` | what the number is |
 | **`typical`** | your best estimate |
-| **`min`, `max`** | how low / high it could realistically be. Leave both equal to `typical` if it is fixed |
-| `scaled_up` | for production steps only: the machine weight / power / output rate / machine lifetime to use once this step runs at large scale. Leave blank to keep the step at prototype scale; if filled in, all four of these parameters must be filled in for that step |
+| **`min`, `max`** | how low / high it could realistically be, with `typical` in the middle (by default typical -20 % / +20 %; percentages stay within 0-100). Leave both equal to `typical` if it is fixed |
+| `scaled_up` | the value to use once the product is made at large scale (machines, materials, lifetime, repair, end-of-life shares). Leave blank to keep the prototype value; for a machine step, fill in all four of machine weight, power, output rate and machine lifetime |
 | `distribution` | how values between min and max are treated: `triangular` (typical is the most likely value), `uniform`, `fixed`, `choice` (for text values such as a country code), or `combination` (the fillers of a recipe, see below) |
 | `choices` | for `choice` rows: the options, separated by `;` (empty for locations = the list on `study_setup`) |
 | **`source`** | where the number comes from (measurement, a colleague, a paper, a datasheet) |
@@ -111,12 +111,18 @@ product's size formula are the `product size` rows at the top of the tab (see ab
 - **Output rate** is how much material the machine processes per hour (kg/hr); **machine lifetime** is in operating hours.
 - **Repair is optional**: a case without repair rows (no `lifetime extension per repair`, no `repair` stage) is never
   repaired, and its service life is its expected lifetime. With repair, both the `use` row `lifetime extension per
-  repair` and the `repair` / `repair material` row `share of product mass per repair` are needed.
+  repair` and the `repair` / `repair material` row `share of product mass per repair` are needed. Only the
+  scaled-up product is repaired, with the same materials and fabrication steps as the product itself (other
+  `repair`-stage rows and a `repair in` row are not used), and all cases use the same rule: 10 % of the product mass
+  per repair, extension = 50 % of the expected lifetime.
+- **Material savings**: the `product size` row `material_savings` (%) is the share of the product mass saved by the RAW
+  optimisation, compared with the non-optimised product of the size formula: product mass = formula x (1 -
+  material_savings / 100). For RAW CFW and RAW knit the rest of the LCI equals the bio-based baseline.
 - The **number of repair events** is not entered: it is the smallest number of repairs that makes the product last
   the service life of its functional unit (`fu_comparison`): (service life - expected lifetime) / lifetime extension
   per repair, rounded up, and 0 if the expected lifetime already reaches it.
-- To be **scaled up**, a production step's `scaled_up` cells must all be filled in (machine weight, power, output
-  rate, machine lifetime); steps with `scaled_up` left blank keep their prototype values in the scaled-up variant.
+- In the **scaled-up** version every row with a `scaled_up` value uses it; a machine step needs all four of machine
+  weight, power, output rate and machine lifetime filled in. Rows with `scaled_up` left blank keep their prototype value.
 - Do not rename tabs or columns, and do not delete rows without asking: the model reads them by name.
 
 ### Recipes with variable fillers (`lci_raw_biopol`)

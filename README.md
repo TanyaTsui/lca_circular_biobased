@@ -16,7 +16,7 @@ Google Sheet ──► sheet snapshot ──► background LCI ──► model �
 
 - **All parameters are on the [Google Sheet](https://docs.google.com/spreadsheets/d/1KILEKpBrlLxxTO4JqrI2iSCQrWy_sZlyZKEPXlxrM44)**
   (id in `raw_lca/sheet.py`; it must be shared as "Anyone with the link: Viewer" for the download to work. Copy of the
-  layout: [docs/RAW_LCA_inputs_v18.xlsx](docs/RAW_LCA_inputs_v18.xlsx); guide for partners: [docs/sheet_guide.md](docs/sheet_guide.md)):
+  layout: [docs/RAW_LCA_inputs_v19.xlsx](docs/RAW_LCA_inputs_v19.xlsx); guide for partners: [docs/sheet_guide.md](docs/sheet_guide.md)):
   the numbers of the RAW cases (one `lci_raw_<name>` tab each, filled in by the case partners), the baseline products
   (one `lci_baseline_<name>` tab each, per kg of product or process-based like a RAW case), the constants, the scenarios
   and the analysis settings. There are no parameters in the code.
@@ -60,7 +60,7 @@ data/sheet_snapshot/ frozen copies of the sheet
 data/background/     unit burdens, carbon content, Monte Carlo samples
 results/             figures and tables (generated)
 tests/               tests, including the frozen numbers of the earlier notebook model (tests/golden)
-docs/                methods.md, sheet_guide.md, RAW_LCA_inputs_v18.xlsx (copy of the sheet layout)
+docs/                methods.md, sheet_guide.md, RAW_LCA_inputs_v19.xlsx (copy of the sheet layout)
 run_all.py           regenerate everything
 ```
 

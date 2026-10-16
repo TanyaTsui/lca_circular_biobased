@@ -11,6 +11,7 @@ import pandas as pd
 
 GROUPS = ("design", "manufacturing", "circularity", "location")
 DISTRIBUTIONS = ("fixed", "triangular", "uniform", "choice", "combination")
+NOT_SAMPLED = ("repair in",)       # choice rows that are modelling decisions, not uncertainties: never varied
 TEXT_DISTRIBUTIONS = ("choice", "combination")      # parameters whose values are text
 COMBINATION_SEP = " + "
 
@@ -85,7 +86,7 @@ class ParameterSet:
             if r.distribution == "combination":
                 cols[r.id] = rng.choice(np.array(combinations(r.choices, r.min, r.max), dtype=object), n)
             elif r.distribution == "choice":
-                if vary_choices:
+                if vary_choices and r.parameter not in NOT_SAMPLED:
                     options = [c for c in r.choices.split(";") if c] or ((location_choices or [t]) if "location" in r.parameter else [t])
                     cols[r.id] = rng.choice(options, n)
                 else:
@@ -107,7 +108,7 @@ class ParameterSet:
             if r.distribution == "combination":
                 if len(combinations(r.choices, r.min, r.max)) > 1:
                     out.append(r.id)
-            elif r.distribution == "choice":
+            elif r.distribution == "choice" and r.parameter not in NOT_SAMPLED:
                 opts = [c for c in r.choices.split(";") if c] or ((location_choices or []) if "location" in r.parameter else [])
                 if len(set(opts)) > 1:
                     out.append(r.id)

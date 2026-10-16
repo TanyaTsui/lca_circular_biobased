@@ -26,14 +26,15 @@ ROOT = HERE.parents[2]
 sys.path.insert(0, str(ROOT))
 
 from raw_lca.background import Background  # noqa: E402
-from raw_lca.cases import (FILLER_SPLIT, FILLERS, ROUTES, SHARE, SIZE_STAGE, baseline_kind, parse_material,  # noqa: E402
-                           repairs_needed, resolve_baseline, resolve_raw_case, scale_up_case)
+from raw_lca.cases import (FILLER_SPLIT, FILLERS, ROUTES, SAVINGS, SHARE, SIZE_STAGE,  # noqa: E402
+                           baseline_kind, parse_material, repairs_needed, resolve_baseline, resolve_raw_case,
+                           scale_up_case)
 from raw_lca.formulas import evaluate_formula  # noqa: E402
 from raw_lca.inputs import load_inputs  # noqa: E402
 from raw_lca.model import Model  # noqa: E402
 from raw_lca.params import ParameterSet  # noqa: E402
 from raw_lca.paths import BACKGROUND, newest_snapshot  # noqa: E402
-from raw_lca.study import activity_amounts, spec_variable  # noqa: E402
+from raw_lca.study import activity_amounts, product_kg, spec_variable  # noqa: E402
 
 TODAY, FUTURE = "baseline", "image_SSP2-L_2050"        # the two backgrounds of the results (scenarios tab, in_results)
 N_BASELINE_MC = 500                                     # parameter-only Monte Carlo draws for the baseline whiskers
@@ -145,14 +146,13 @@ def tool_choice(v, stage, item, parameter, note):
 
 # ── RAW case inputs ────────────────────────────────────────────────────────────────────
 def density_param(inp, case, spec_value):
-    """kg of product per unit of spec at the study spec, with the extremes of the size formula over the min/max of
-    its 'product size' rows."""
+    """kg of product per unit of spec at the study spec, before material savings, with the extremes of the size
+    formula over the min/max of its 'product size' rows."""
     rows = inp.params.rows(case)
-    size = rows[rows.stage == SIZE_STAGE]
+    size = rows[(rows.stage == SIZE_STAGE) & (rows.parameter != SAVINGS)]
     prod = inp.products[inp.products.case_name == case].iloc[0]
     base = {r.parameter: float(r.typical_value) for r in size.itertuples()}
-    # rows whose whole range lies below typical are the optimisation savings (savings_param), not density
-    varying = [r for r in size.itertuples() if r.distribution != "fixed" and r.min < r.max and not is_saving(r)]
+    varying = [r for r in size.itertuples() if r.distribution != "fixed" and r.min < r.max]
     values = []
     for corner in itertools.product(*[(r.min, r.max) for r in varying]):
         v = dict(base, **{r.parameter: c for r, c in zip(varying, corner)})
@@ -160,30 +160,21 @@ def density_param(inp, case, spec_value):
         values.append(evaluate_formula(prod.formula, v) / spec_value)
     typical = activity_amounts(inp, case, spec_value)[0][1] / spec_value
     parts = ", ".join(f"{r.parameter} = {r.typical_value:g}" for r in size.itertuples())
-    note = (f"kg per {prod.spec_unit} of {prod.spec_label} at {spec_value:g} {prod.spec_unit}, from the "
-            f"product_size_formulas formula ({prod.formula}) with {parts}; min/max = formula at the min/max of those rows"
-            + "".join(f" ({r.parameter} kept at typical: its range is the material savings below)"
-                      for r in size.itertuples() if is_saving(r)))
+    note = (f"kg per {prod.spec_unit} of {prod.spec_label} at {spec_value:g} {prod.spec_unit}, before material savings, "
+            f"from the product_size_formulas formula ({prod.formula}) with {parts}; min/max = formula at the min/max of "
+            f"those rows")
     return derived(typical, min(values + [typical]), max(values + [typical]), "triangular",
                    "material density", SPEC_UNIT.get(prod.spec_variable, f"kg/{prod.spec_unit}"), note)
 
 
-def is_saving(r):
-    """A design 'product size' row whose range only goes below typical (e.g. CFW fibre length 412.5-550 m/m)."""
-    return r.distribution != "fixed" and r.typical_value > 0 and r.min < r.typical_value and r.max <= r.typical_value
-
-
 def savings_param(inp, case):
-    """Typical 0 % (= the sheet's typical mass). The upper bound is the largest reduction of a design 'product size'
-    row below its typical value (e.g. CFW fibre length 550 -> 412.5 m/m = 25 %)."""
+    """The sheet's 'material_savings' row (% of the product mass saved by the RAW optimisation); 0 % if it has none."""
     rows = inp.params.rows(case)
-    size = rows[(rows.stage == SIZE_STAGE) & (rows.distribution != "fixed")]
-    cuts = [100 * (1 - r.min / r.typical_value) for r in size.itertuples() if is_saving(r)]
-    hi = round(max(cuts), 6) if cuts else 0.0
-    note = ("Material saved by the RAW optimisation, relative to the material density above (product mass = density x "
-            "spec x (1 - savings)). Typical 0 % reproduces the sheet's typical product mass."
-            + (f" Max {hi:g} % = the sheet's min of the product size rows." if hi else ""))
-    return derived(0.0, 0.0, hi, "triangular", "material savings from RAW optimisation", "%", note)
+    r = rows[(rows.stage == SIZE_STAGE) & (rows.parameter == SAVINGS)]
+    if len(r):
+        return param(next(r.itertuples()), scalable=True)
+    return derived(0.0, 0.0, 0.0, "fixed", "material savings from RAW optimisation", "%",
+                   "No material savings row on the sheet for this case.")
 
 
 def bom_params(inp, case, stage):
@@ -191,14 +182,14 @@ def bom_params(inp, case, stage):
     share = rows[(rows.stage == stage) & (rows.parameter == SHARE)]
     fillers = rows[(rows.stage == stage) & (rows.parameter == FILLERS)]
     if not len(fillers):
-        return [{"material": r.item, "source": r.qualifier, "share": param(r, stage == "production")} for r in share.itertuples()]
+        return [{"material": r.item, "source": r.qualifier, "share": param(r, True)} for r in share.itertuples()]
     # recipe with variable fillers: binder row + the typical filler combination, resolved to shares
     b = share.iloc[0]
     split = rows[(rows.stage == stage) & (rows.item == "fillers") & (rows.parameter == FILLER_SPLIT)].iloc[0]
     parts = [parse_material(p) for p in str(fillers.typical_value.iloc[0]).split("+")]
     bv, blo, bhi = float(b.typical_value), float(b["min"]), float(b["max"])
     fv, flo, fhi = float(split.typical_value), float(split["min"]), float(split["max"])
-    out = [{"material": b["item"], "source": b["qualifier"], "share": param(next(share.itertuples()), stage == "production")}]
+    out = [{"material": b["item"], "source": b["qualifier"], "share": param(next(share.itertuples()), True)}]
     k = len(parts)
     for j, (m, src) in enumerate(parts):
         if k == 1:
@@ -214,7 +205,7 @@ def bom_params(inp, case, stage):
                 f"combination.")
         out.append({"material": m, "source": src,
                     "share": derived(v, lo, hi, "triangular", SHARE, "%", note, stage=stage, item=m,
-                                     scalable=(stage == "production"))})
+                                     scalable=True)})
     return out
 
 
@@ -227,7 +218,7 @@ def chain_params(inp, case, stage):
         step = {"name": name}
         for x in s.itertuples():
             if x.parameter in CHAIN_PARAMS:
-                step[CHAIN_PARAMS[x.parameter]] = param(x, scalable=(stage == "production"))
+                step[CHAIN_PARAMS[x.parameter]] = param(x, scalable=True)
             elif x.parameter == "machine source":
                 step["machineSource"] = choice(x)
         if stage == "production":     # which product version the step is part of (not on the sheet yet)
@@ -250,10 +241,8 @@ def raw_case_inputs(inp, case):
     expected, extension = get("use", "product", "expected lifetime"), get("use", "product", "lifetime extension per repair")
     rep_mat = get("repair", "repair material", "share of product mass per repair")
     enabled = extension is not None and rep_mat is not None
-    circ = {"enabled": enabled, "expectedLifetime": param(expected, True),
-            "repairIn": tool_choice("both", "use", "product", "repair in",
-                                    "Not on the sheet yet: whether the prototype, the scaled-up product or both are "
-                                    "repaired.")}
+    # repair is part of the scaled-up product only and uses the product's BOM and fabrication steps (raw_lca.cases)
+    circ = {"enabled": enabled, "expectedLifetime": param(expected, True)}
     if enabled:
         e, x = param(expected, True), param(extension, True)
         n = repairs_needed(e["v"], x["v"], rsl)
@@ -262,7 +251,7 @@ def raw_case_inputs(inp, case):
                 f"{rsl:g}-yr functional unit, ceil(({rsl:g} - expected lifetime) / extension). min/max = at the "
                 f"range ends of those two rows.")
         circ.update(materialPct=param(rep_mat, True), extension=x,
-                    numRepairs=derived(float(n), float(min(n_lo, n)), float(max(n_hi, n)), "triangular",
+                    numRepairs=derived(float(n), float(min(n_lo, n)), float(max(n_hi, n)), "fixed",
                                        "number of repair events", "#", note, stage="use"))
     else:   # placeholders shown greyed out until a partner switches repair on
         circ.update(materialPct=derived(10.0, 10.0, 10.0, "fixed", "share of product mass per repair", "%",
@@ -271,7 +260,7 @@ def raw_case_inputs(inp, case):
                                       "No repair on the sheet for this case.", stage="use"),
                     numRepairs=derived(0.0, 0.0, 0.0, "fixed", "number of repair events", "#",
                                        "No repair on the sheet for this case.", stage="use"))
-    eol = {route: param(get("end-of-life", "waste", "share of waste", route)) for route in ROUTES}
+    eol = {route: param(get("end-of-life", "waste", "share of waste", route), True) for route in ROUTES}
     return {
         "id": case,
         "name": inp.raw_cases()[case],
@@ -296,8 +285,6 @@ def raw_case_inputs(inp, case):
             "productionBom": bom_params(inp, case, "production"),
             "productionChain": chain_params(inp, case, "production"),
             "circularity": circ,
-            "repairBom": bom_params(inp, case, "repair") if enabled else [],
-            "repairChain": chain_params(inp, case, "repair") if enabled else [],
             "eol": eol,
         },
     }
@@ -313,7 +300,7 @@ def vectors(r, categories):
 
 
 def baseline_result(model, inp, b, values, spec_value, rsl, label):
-    kg = activity_amounts(inp, b, spec_value, values)[0][1]
+    kg = product_kg(inp, b, spec_value, values)
     if baseline_kind(inp.params.rows(b)) == "process":
         return model.run_raw(resolve_raw_case(inp.params, b, label, values, rsl), kg, rsl, None, label)
     return model.run_baseline(resolve_baseline(inp.params, b, values), kg, rsl, None, label)
@@ -401,10 +388,12 @@ def main():
         cases.append(c)
         spec_value, rsl = c["spec"]["value"], c["rsl"]
         ref, bl = {}, {}
-        # Python results at the tool's default values: cleaned parameters, product mass = spec x material density
-        kg = spec_value * c["inputs"]["product"]["density"]["v"]
+        # Python results at the tool's default values: cleaned parameters, product mass = spec x material density x
+        # (1 - savings)
+        pr = c["inputs"]["product"]
+        kg = spec_value * pr["density"]["v"] * (1 - pr["savings"]["v"] / 100)
         raw = resolve_raw_case(inp.params, case, c["name"], typical, rsl)
-        raw_up = scale_up_case(raw, inp.params, case)
+        raw_up = scale_up_case(inp.params, case, c["name"], typical, rsl)
         for key, scn in (("today", TODAY), ("future", FUTURE)):
             proto, up = models[scn].run_raw(raw, kg, rsl), models[scn].run_raw(raw_up, kg, rsl)
             ref[key] = {"prototype": vectors(proto, cat_order), "scaledUp": vectors(up, cat_order),
